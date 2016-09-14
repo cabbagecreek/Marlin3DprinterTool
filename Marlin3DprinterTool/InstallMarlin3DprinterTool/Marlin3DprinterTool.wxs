@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+
+  <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="1.0.0.0" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
+    <Icon Id='Marlin3DprinterTool.ico' SourceFile="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.ico" />
+
+    <Property Id='ARPPRODUCTICON' Value='Marlin3DprinterTool' />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Marlin3DprinterTool is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+   
+
+    <Feature Id="ProductFeature" Title="Marlin3DprinterTool" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
+
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <UIRef Id="WixUI_Minimal" />
+
+    
+
+  </Product>
+
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Marlin3DprinterTool" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="Marlin3DprinterTool" />
+        <Directory Id="DesktopFolder" Name="Desktop"></Directory>
+      
+    </Directory>
+    </Directory>
+
+
+    
+  </Fragment>
+  
+  <Fragment>
+   <DirectoryRef Id="ApplicationProgramsFolder">
+     <Component Id="ApplicationShortcut" Guid="{04BCF613-9A80-4979-AEF3-F4E8576CCFBD}">
+       <Shortcut Id="ApplicationStartMenuShortcut" 
+                 Name="Marlin3DprinterTool" 
+                 Description="Tool to configure a Marlin-based 3D printer" 
+                 Target="[INSTALLFOLDER]Marlin3DprinterTool.exe" 
+                 WorkingDirectory="INSTALLFOLDER"
+                 Icon ="Marlin3DprinterTool.ico"  />
+       <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+       <RegistryValue Root="HKCU" Key="Software\Marlin3DprinterTool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+     </Component>
+   </DirectoryRef>
+   <DirectoryRef Id="DesktopFolder">
+     <Component Id="ApplicationShortcutDesktop" Guid="{1C8952E2-61FF-425A-9E4D-C16B73FEA935}">
+       <Shortcut Id="ApplicationDesktopShortcut" 
+                 Name="Marlin3DprinterTool" 
+                 Description="Tool to configure a Marlin-based 3D printer" 
+                 Target="[INSTALLFOLDER]Marlin3DprinterTool.exe" 
+                 WorkingDirectory="INSTALLFOLDER"
+                 Icon ="Marlin3DprinterTool.ico"  />
+       <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
+       <RegistryValue Root="HKCU" Key="Software\Marlin3DprinterTool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+     </Component>
+   </DirectoryRef>
+ </Fragment>
+
+  
+ 
+
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+      <Component Id="marlin3dprintertool.exe" Guid="{A2AF9ACC-1E11-4A1C-8DC4-FA022907E0BB}">
+        <File Id="Marlin3DprinterTool.exe" Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe"
+              KeyPath="yes" Checksum="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
+
+      <!-- Marlin3DprinterTool.exe -->
+      <Component Id="Marlin3DprinterTool.exe" Guid="{8F12C463-FAEE-4AAA-93EB-9D8F1439A19A}">
+        <File Source="$(var.Marlin3DprinterTool.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+
+      
+      
+
+      <!-- Marlin3DprinterTool.exe.config -->
+      <Component Id="Marlin3DprinterTool.exe.config" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe.config" />
+      </Component>
+
+      
+
+      <!-- ArduinoSyntax.xml -->
+      <Component Id="ArduinoSyntax.xml" Guid="{22AAD8D6-7878-4C4F-9783-B66610187456}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\ArduinoSyntax.xml" />
+      </Component>
+      
+      <!-- MarlinCommunication.xml -->
+      <Component Id="MarlinCommunication.xml" Guid="{537C797A-F051-4265-A08B-11A2AC7D74FA}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinCommunication.xml" />
+      </Component>
+      
+      <!-- Marlin3DprinterToolConfiguration.xml -->
+      <Component Id="Marlin3DprinterToolConfiguration.xml" Guid="{33AE66A1-8306-460E-91D7-9BDE1096A59D}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.xml" />
+      </Component>
+
+
+      <!-- MarlinComunicationHelper.dll -->
+      <Component Id="MarlinComunicationHelper.dll" Guid="{755DDFEC-39F6-4C3A-991F-56FDA1BDC1AA}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinComunicationHelper.dll" />
+      </Component>
+
+      <!-- ZylSerialPort.dll -->
+      <Component Id="ZylSerialPort.dll" Guid="{72BDBCEC-F730-4D80-8061-02AB5871536C}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\ZylSerialPort.dll" />
+      </Component>
+
+      <!-- FastColoredTextBox.dll -->
+      <Component Id="FastColoredTextBox.dll" Guid="{6FE69710-2790-4F03-B8BE-7DF4DB6C49FE}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\FastColoredTextBox.dll" />
+      </Component>
+      
+
+      <!-- Marlin3DprinterTool.ico -->
+      <Component Id="Marlin3DprinterTool.ico" Guid="{A4F635B3-9EB0-41C5-A7D9-BCB84B66782E}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.ico" />
+      </Component>
+
+
+      <!-- Nevron.Chart.dll -->
+      <Component Id="Nevron.Chart.dll" Guid="{09DB1B2F-7B23-4D43-BBEB-C2F014CBF63C}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.dll" />
+      </Component>
+
+      <!--Nevron.Chart.WinForm.dll -->
+      <Component Id="Nevron.Chart.WinForm.dll" Guid="{055A136B-CB0D-4BB3-97B3-D132B0B9A5AB}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.WinForm.dll" />
+      </Component>
+
+      <!--Nevron.GraphicsGL.dll -->
+      <Component Id="Nevron.GraphicsGL.dll" Guid="{CBBFBFC1-F9AC-414B-970D-967C68D9B301}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.GraphicsGL.dll" />
+      </Component>
+
+      <!--Nevron.Presentation.dll -->
+      <Component Id="Nevron.Presentation.dll" Guid="{C6E377FB-40C9-49F9-95B3-F7F152EC481B}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Presentation.dll" />
+      </Component>
+
+      <!--Nevron.System.dll -->
+      <Component Id="Nevron.System.dll" Guid="{64A57590-8CF7-4085-94D0-17F658FEB5BB}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.System.dll" />
+      </Component>
+
+
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+
+
+    </ComponentGroup>
+  </Fragment>
+</Wix>

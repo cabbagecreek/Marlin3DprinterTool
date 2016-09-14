@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<doc>
+
+  
+  <!-- #define -->
+  <style name="Define" color="Crimson" fontStyle="Bold" />
+  <rule style="Define" options="Singleline">^\s*\#define</rule>
+
+  <!-- Inactivated #define -->
+  <style name="CommentedDefine" color="Crimson" fontStyle="Strikeout" />
+  <rule style="CommentedDefine" >\/\/\s*#define.*</rule>
+
+
+  <!-- Feature name (word after #define) -->
+  <style name="Feature" color="Maroon" fontStyle="Bold,Italic" />
+  <rule style="Feature">(?&lt;=\s*\#define\s*)(\w+)</rule>
+
+
+  <!-- Block Comment using Slash Star ..... Star Slash -->
+  <style name="BlockComment" color="Green" fontStyle="Bold,Italic" />
+  <rule style="BlockComment" options="Singleline">(/\*.*?\*/)|(/\*.*)</rule>
+  <rule style="BlockComment" options="Singleline,RightToLeft">(/\*.*?\*/)|(.*\*/)</rule>
+
+
+  <!-- (In) Line Comments using Slash Slash -->
+  <style name="LineComment" color="SeaGreen" />
+  <rule style="LineComment">(?&lt;!http[s]*:)//.*</rule>'
+
+
+  <!-- WebbAdress that are found in comments -->
+  <style name="WebAdress" color="DarkBlue" />
+  <rule style="WebAdress">(?:http[s]*:)//[a-z,A-Z,0-9,_,-,\+,$,./,%,:,\-]*</rule>
+
+
+  <!-- #if preprocessor directives and folding -->
+  <style name="If" color="Blue" />
+  <rule style="If">\#if</rule>
+  <rule style="If">\#ifdef</rule>
+  <rule style="If">\#ifndef</rule>
+  <rule style="If">\#endif</rule>
+  <folding start="\#ifdef" finish="\#endif" options="IgnoreCase" />
+  <folding start="\#ifndef" finish="\#endif" options="IgnoreCase" />
+  <folding start="\#if" finish="\#endif" options="IgnoreCase" />
+
+
+  <!-- Folding comment starting with slash star and ending with star slash -->
+  <folding start="\/\*" finish="\*\/" options="IgnoreCase" />
+
+
+</doc>
