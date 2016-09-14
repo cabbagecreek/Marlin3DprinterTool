@@ -44,13 +44,37 @@ namespace MarlinEditor
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.lbWordUnderMouse = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btZoom = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain = new System.Windows.Forms.ToolStrip();
+            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.btInvisibleChars = new System.Windows.Forms.ToolStripButton();
+            this.btHighlightCurrentLine = new System.Windows.Forms.ToolStripButton();
+            this.btShowFoldingLines = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.undoStripButton = new System.Windows.Forms.ToolStripButton();
+            this.redoStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.backStripButton = new System.Windows.Forms.ToolStripButton();
+            this.forwardStripButton = new System.Windows.Forms.ToolStripButton();
             this.tbFind = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.bookmarkPlusButton = new System.Windows.Forms.ToolStripButton();
+            this.bookmarkMinusButton = new System.Windows.Forms.ToolStripButton();
+            this.gotoButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.sfdMain = new System.Windows.Forms.SaveFileDialog();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.cmMain = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -77,30 +101,6 @@ namespace MarlinEditor
             this.clName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tsFiles = new FarsiLibrary.Win.FATabStrip();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.printToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.cutToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.copyToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.btInvisibleChars = new System.Windows.Forms.ToolStripButton();
-            this.btHighlightCurrentLine = new System.Windows.Forms.ToolStripButton();
-            this.btShowFoldingLines = new System.Windows.Forms.ToolStripButton();
-            this.undoStripButton = new System.Windows.Forms.ToolStripButton();
-            this.redoStripButton = new System.Windows.Forms.ToolStripButton();
-            this.backStripButton = new System.Windows.Forms.ToolStripButton();
-            this.forwardStripButton = new System.Windows.Forms.ToolStripButton();
-            this.bookmarkPlusButton = new System.Windows.Forms.ToolStripButton();
-            this.bookmarkMinusButton = new System.Windows.Forms.ToolStripButton();
-            this.gotoButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btZoom = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.tsMain.SuspendLayout();
@@ -187,6 +187,64 @@ namespace MarlinEditor
             this.lbWordUnderMouse.Spring = true;
             this.lbWordUnderMouse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btZoom
+            // 
+            this.btZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem11,
+            this.toolStripMenuItem10,
+            this.toolStripMenuItem9,
+            this.toolStripMenuItem8,
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem6});
+            this.btZoom.Image = ((System.Drawing.Image)(resources.GetObject("btZoom.Image")));
+            this.btZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btZoom.Name = "btZoom";
+            this.btZoom.Size = new System.Drawing.Size(55, 20);
+            this.btZoom.Text = "Zoom";
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem11.Tag = "300";
+            this.toolStripMenuItem11.Text = "300%";
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem10.Tag = "200";
+            this.toolStripMenuItem10.Text = "200%";
+            // 
+            // toolStripMenuItem9
+            // 
+            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem9.Tag = "150";
+            this.toolStripMenuItem9.Text = "150%";
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem8.Tag = "100";
+            this.toolStripMenuItem8.Text = "100%";
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem7.Tag = "50";
+            this.toolStripMenuItem7.Text = "50%";
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(102, 22);
+            this.toolStripMenuItem6.Tag = "25";
+            this.toolStripMenuItem6.Text = "25%";
+            // 
             // tsMain
             // 
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -219,20 +277,167 @@ namespace MarlinEditor
             this.tsMain.TabIndex = 4;
             this.tsMain.Text = "toolStrip1";
             // 
+            // newToolStripButton
+            // 
+            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
+            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripButton.Name = "newToolStripButton";
+            this.newToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.newToolStripButton.Text = "&New";
+            this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
+            // 
+            // openToolStripButton
+            // 
+            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
+            // 
+            // saveToolStripButton
+            // 
+            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolStripButton.Text = "&Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
+            // printToolStripButton
+            // 
+            this.printToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
+            this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.printToolStripButton.Name = "printToolStripButton";
+            this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.printToolStripButton.Text = "&Print";
+            this.printToolStripButton.Click += new System.EventHandler(this.printToolStripButton_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // cutToolStripButton
+            // 
+            this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
+            this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cutToolStripButton.Name = "cutToolStripButton";
+            this.cutToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.cutToolStripButton.Text = "C&ut";
+            this.cutToolStripButton.Click += new System.EventHandler(this.cutToolStripButton_Click);
+            // 
+            // copyToolStripButton
+            // 
+            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
+            this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copyToolStripButton.Name = "copyToolStripButton";
+            this.copyToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.copyToolStripButton.Text = "&Copy";
+            this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripButton_Click);
+            // 
+            // pasteToolStripButton
+            // 
+            this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
+            this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pasteToolStripButton.Name = "pasteToolStripButton";
+            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.pasteToolStripButton.Text = "&Paste";
+            this.pasteToolStripButton.Click += new System.EventHandler(this.pasteToolStripButton_Click);
+            // 
+            // btInvisibleChars
+            // 
+            this.btInvisibleChars.CheckOnClick = true;
+            this.btInvisibleChars.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btInvisibleChars.Image = ((System.Drawing.Image)(resources.GetObject("btInvisibleChars.Image")));
+            this.btInvisibleChars.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btInvisibleChars.Name = "btInvisibleChars";
+            this.btInvisibleChars.Size = new System.Drawing.Size(23, 22);
+            this.btInvisibleChars.Text = "¶";
+            this.btInvisibleChars.ToolTipText = "Show invisible chars";
+            this.btInvisibleChars.Click += new System.EventHandler(this.btInvisibleChars_Click);
+            // 
+            // btHighlightCurrentLine
+            // 
+            this.btHighlightCurrentLine.CheckOnClick = true;
+            this.btHighlightCurrentLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btHighlightCurrentLine.Image = global::MarlinEditor.Properties.Resources.edit_padding_top;
+            this.btHighlightCurrentLine.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btHighlightCurrentLine.Name = "btHighlightCurrentLine";
+            this.btHighlightCurrentLine.Size = new System.Drawing.Size(23, 22);
+            this.btHighlightCurrentLine.Text = "Highlight current line";
+            this.btHighlightCurrentLine.ToolTipText = "Highlight current line";
+            this.btHighlightCurrentLine.Click += new System.EventHandler(this.btHighlightCurrentLine_Click);
+            // 
+            // btShowFoldingLines
+            // 
+            this.btShowFoldingLines.Checked = true;
+            this.btShowFoldingLines.CheckOnClick = true;
+            this.btShowFoldingLines.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.btShowFoldingLines.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btShowFoldingLines.Image = ((System.Drawing.Image)(resources.GetObject("btShowFoldingLines.Image")));
+            this.btShowFoldingLines.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btShowFoldingLines.Name = "btShowFoldingLines";
+            this.btShowFoldingLines.Size = new System.Drawing.Size(23, 22);
+            this.btShowFoldingLines.Text = "Show folding lines";
+            this.btShowFoldingLines.Click += new System.EventHandler(this.btShowFoldingLines_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
+            // undoStripButton
+            // 
+            this.undoStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.undoStripButton.Image = global::MarlinEditor.Properties.Resources.undo_16x16;
+            this.undoStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.undoStripButton.Name = "undoStripButton";
+            this.undoStripButton.Size = new System.Drawing.Size(23, 22);
+            this.undoStripButton.Text = "Undo (Ctrl+Z)";
+            this.undoStripButton.Click += new System.EventHandler(this.undoStripButton_Click);
+            // 
+            // redoStripButton
+            // 
+            this.redoStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.redoStripButton.Image = global::MarlinEditor.Properties.Resources.redo_16x16;
+            this.redoStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redoStripButton.Name = "redoStripButton";
+            this.redoStripButton.Size = new System.Drawing.Size(23, 22);
+            this.redoStripButton.Text = "Redo (Ctrl+R)";
+            this.redoStripButton.Click += new System.EventHandler(this.redoStripButton_Click);
+            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // backStripButton
+            // 
+            this.backStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.backStripButton.Image = global::MarlinEditor.Properties.Resources.backward0_16x16;
+            this.backStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.backStripButton.Name = "backStripButton";
+            this.backStripButton.Size = new System.Drawing.Size(23, 22);
+            this.backStripButton.Text = "Navigate Backward (Ctrl+ -)";
+            this.backStripButton.Click += new System.EventHandler(this.backStripButton_Click);
+            // 
+            // forwardStripButton
+            // 
+            this.forwardStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.forwardStripButton.Image = global::MarlinEditor.Properties.Resources.forward_16x16;
+            this.forwardStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.forwardStripButton.Name = "forwardStripButton";
+            this.forwardStripButton.Size = new System.Drawing.Size(23, 22);
+            this.forwardStripButton.Text = "Navigate Forward (Ctrl+Shift+ -)";
+            this.forwardStripButton.Click += new System.EventHandler(this.forwardStripButton_Click_1);
             // 
             // tbFind
             // 
@@ -253,6 +458,37 @@ namespace MarlinEditor
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
+            // bookmarkPlusButton
+            // 
+            this.bookmarkPlusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bookmarkPlusButton.Image = global::MarlinEditor.Properties.Resources.layer__plus;
+            this.bookmarkPlusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bookmarkPlusButton.Name = "bookmarkPlusButton";
+            this.bookmarkPlusButton.Size = new System.Drawing.Size(23, 22);
+            this.bookmarkPlusButton.Text = "Add bookmark (Ctrl-B)";
+            this.bookmarkPlusButton.Click += new System.EventHandler(this.bookmarkPlusButton_Click);
+            // 
+            // bookmarkMinusButton
+            // 
+            this.bookmarkMinusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bookmarkMinusButton.Image = global::MarlinEditor.Properties.Resources.layer__minus;
+            this.bookmarkMinusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bookmarkMinusButton.Name = "bookmarkMinusButton";
+            this.bookmarkMinusButton.Size = new System.Drawing.Size(23, 22);
+            this.bookmarkMinusButton.Text = "Remove bookmark (Ctrl-Shift-B)";
+            this.bookmarkMinusButton.Click += new System.EventHandler(this.bookmarkMinusButton_Click);
+            // 
+            // gotoButton
+            // 
+            this.gotoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.gotoButton.Image = ((System.Drawing.Image)(resources.GetObject("gotoButton.Image")));
+            this.gotoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.gotoButton.Name = "gotoButton";
+            this.gotoButton.Size = new System.Drawing.Size(55, 22);
+            this.gotoButton.Text = "Goto...";
+            this.gotoButton.DropDownOpening += new System.EventHandler(this.gotoButton_DropDownOpening);
+            this.gotoButton.Click += new System.EventHandler(this.gotoButton_Click);
+            // 
             // sfdMain
             // 
             this.sfdMain.DefaultExt = "cs";
@@ -261,7 +497,7 @@ namespace MarlinEditor
             // ofdMain
             // 
             this.ofdMain.DefaultExt = "cs";
-            this.ofdMain.Filter = "Marlin Configuration(configuration.h)|configuration.h";
+            this.ofdMain.Filter = "Configuration|configuration.h|Configuration_adv|configuration_adv.h";
             this.ofdMain.Title = "Marlin Configuration.h";
             this.ofdMain.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdMain_FileOk);
             // 
@@ -449,6 +685,7 @@ namespace MarlinEditor
             this.tsFiles.Size = new System.Drawing.Size(1012, 426);
             this.tsFiles.TabIndex = 8;
             this.tsFiles.Text = "faTabStrip1";
+            this.tsFiles.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.tsFiles_TabStripItemSelectionChanged);
             // 
             // splitter1
             // 
@@ -457,242 +694,6 @@ namespace MarlinEditor
             this.splitter1.Size = new System.Drawing.Size(5, 426);
             this.splitter1.TabIndex = 9;
             this.splitter1.TabStop = false;
-            // 
-            // newToolStripButton
-            // 
-            this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
-            this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.newToolStripButton.Text = "&New";
-            this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
-            // 
-            // openToolStripButton
-            // 
-            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.openToolStripButton.Text = "&Open";
-            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
-            // 
-            // saveToolStripButton
-            // 
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
-            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolStripButton.Text = "&Save";
-            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
-            // 
-            // printToolStripButton
-            // 
-            this.printToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
-            this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printToolStripButton.Name = "printToolStripButton";
-            this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.printToolStripButton.Text = "&Print";
-            this.printToolStripButton.Click += new System.EventHandler(this.printToolStripButton_Click);
-            // 
-            // cutToolStripButton
-            // 
-            this.cutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
-            this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.cutToolStripButton.Text = "C&ut";
-            this.cutToolStripButton.Click += new System.EventHandler(this.cutToolStripButton_Click);
-            // 
-            // copyToolStripButton
-            // 
-            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
-            this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.copyToolStripButton.Text = "&Copy";
-            this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripButton_Click);
-            // 
-            // pasteToolStripButton
-            // 
-            this.pasteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
-            this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteToolStripButton.Name = "pasteToolStripButton";
-            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.pasteToolStripButton.Text = "&Paste";
-            this.pasteToolStripButton.Click += new System.EventHandler(this.pasteToolStripButton_Click);
-            // 
-            // btInvisibleChars
-            // 
-            this.btInvisibleChars.CheckOnClick = true;
-            this.btInvisibleChars.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btInvisibleChars.Image = ((System.Drawing.Image)(resources.GetObject("btInvisibleChars.Image")));
-            this.btInvisibleChars.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btInvisibleChars.Name = "btInvisibleChars";
-            this.btInvisibleChars.Size = new System.Drawing.Size(23, 22);
-            this.btInvisibleChars.Text = "¶";
-            this.btInvisibleChars.ToolTipText = "Show invisible chars";
-            this.btInvisibleChars.Click += new System.EventHandler(this.btInvisibleChars_Click);
-            // 
-            // btHighlightCurrentLine
-            // 
-            this.btHighlightCurrentLine.CheckOnClick = true;
-            this.btHighlightCurrentLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btHighlightCurrentLine.Image = global::MarlinEditor.Properties.Resources.edit_padding_top;
-            this.btHighlightCurrentLine.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btHighlightCurrentLine.Name = "btHighlightCurrentLine";
-            this.btHighlightCurrentLine.Size = new System.Drawing.Size(23, 22);
-            this.btHighlightCurrentLine.Text = "Highlight current line";
-            this.btHighlightCurrentLine.ToolTipText = "Highlight current line";
-            this.btHighlightCurrentLine.Click += new System.EventHandler(this.btHighlightCurrentLine_Click);
-            // 
-            // btShowFoldingLines
-            // 
-            this.btShowFoldingLines.Checked = true;
-            this.btShowFoldingLines.CheckOnClick = true;
-            this.btShowFoldingLines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.btShowFoldingLines.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btShowFoldingLines.Image = ((System.Drawing.Image)(resources.GetObject("btShowFoldingLines.Image")));
-            this.btShowFoldingLines.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btShowFoldingLines.Name = "btShowFoldingLines";
-            this.btShowFoldingLines.Size = new System.Drawing.Size(23, 22);
-            this.btShowFoldingLines.Text = "Show folding lines";
-            this.btShowFoldingLines.Click += new System.EventHandler(this.btShowFoldingLines_Click);
-            // 
-            // undoStripButton
-            // 
-            this.undoStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.undoStripButton.Image = global::MarlinEditor.Properties.Resources.undo_16x16;
-            this.undoStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.undoStripButton.Name = "undoStripButton";
-            this.undoStripButton.Size = new System.Drawing.Size(23, 22);
-            this.undoStripButton.Text = "Undo (Ctrl+Z)";
-            this.undoStripButton.Click += new System.EventHandler(this.undoStripButton_Click);
-            // 
-            // redoStripButton
-            // 
-            this.redoStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.redoStripButton.Image = global::MarlinEditor.Properties.Resources.redo_16x16;
-            this.redoStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.redoStripButton.Name = "redoStripButton";
-            this.redoStripButton.Size = new System.Drawing.Size(23, 22);
-            this.redoStripButton.Text = "Redo (Ctrl+R)";
-            this.redoStripButton.Click += new System.EventHandler(this.redoStripButton_Click);
-            // 
-            // backStripButton
-            // 
-            this.backStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.backStripButton.Image = global::MarlinEditor.Properties.Resources.backward0_16x16;
-            this.backStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.backStripButton.Name = "backStripButton";
-            this.backStripButton.Size = new System.Drawing.Size(23, 22);
-            this.backStripButton.Text = "Navigate Backward (Ctrl+ -)";
-            this.backStripButton.Click += new System.EventHandler(this.backStripButton_Click);
-            // 
-            // forwardStripButton
-            // 
-            this.forwardStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.forwardStripButton.Image = global::MarlinEditor.Properties.Resources.forward_16x16;
-            this.forwardStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.forwardStripButton.Name = "forwardStripButton";
-            this.forwardStripButton.Size = new System.Drawing.Size(23, 22);
-            this.forwardStripButton.Text = "Navigate Forward (Ctrl+Shift+ -)";
-            this.forwardStripButton.Click += new System.EventHandler(this.forwardStripButton_Click_1);
-            // 
-            // bookmarkPlusButton
-            // 
-            this.bookmarkPlusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bookmarkPlusButton.Image = global::MarlinEditor.Properties.Resources.layer__plus;
-            this.bookmarkPlusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bookmarkPlusButton.Name = "bookmarkPlusButton";
-            this.bookmarkPlusButton.Size = new System.Drawing.Size(23, 22);
-            this.bookmarkPlusButton.Text = "Add bookmark (Ctrl-B)";
-            this.bookmarkPlusButton.Click += new System.EventHandler(this.bookmarkPlusButton_Click);
-            // 
-            // bookmarkMinusButton
-            // 
-            this.bookmarkMinusButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bookmarkMinusButton.Image = global::MarlinEditor.Properties.Resources.layer__minus;
-            this.bookmarkMinusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bookmarkMinusButton.Name = "bookmarkMinusButton";
-            this.bookmarkMinusButton.Size = new System.Drawing.Size(23, 22);
-            this.bookmarkMinusButton.Text = "Remove bookmark (Ctrl-Shift-B)";
-            this.bookmarkMinusButton.Click += new System.EventHandler(this.bookmarkMinusButton_Click);
-            // 
-            // gotoButton
-            // 
-            this.gotoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.gotoButton.Image = ((System.Drawing.Image)(resources.GetObject("gotoButton.Image")));
-            this.gotoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.gotoButton.Name = "gotoButton";
-            this.gotoButton.Size = new System.Drawing.Size(55, 22);
-            this.gotoButton.Text = "Goto...";
-            this.gotoButton.DropDownOpening += new System.EventHandler(this.gotoButton_DropDownOpening);
-            this.gotoButton.Click += new System.EventHandler(this.gotoButton_Click);
-            // 
-            // btZoom
-            // 
-            this.btZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem11,
-            this.toolStripMenuItem10,
-            this.toolStripMenuItem9,
-            this.toolStripMenuItem8,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem6});
-            this.btZoom.Image = ((System.Drawing.Image)(resources.GetObject("btZoom.Image")));
-            this.btZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btZoom.Name = "btZoom";
-            this.btZoom.Size = new System.Drawing.Size(55, 19);
-            this.btZoom.Text = "Zoom";
-            // 
-            // toolStripMenuItem11
-            // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(102, 22);
-            this.toolStripMenuItem11.Tag = "300";
-            this.toolStripMenuItem11.Text = "300%";
-            // 
-            // toolStripMenuItem10
-            // 
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(102, 22);
-            this.toolStripMenuItem10.Tag = "200";
-            this.toolStripMenuItem10.Text = "200%";
-            // 
-            // toolStripMenuItem9
-            // 
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(102, 22);
-            this.toolStripMenuItem9.Tag = "150";
-            this.toolStripMenuItem9.Text = "150%";
-            // 
-            // toolStripMenuItem8
-            // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(102, 22);
-            this.toolStripMenuItem8.Tag = "100";
-            this.toolStripMenuItem8.Text = "100%";
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(102, 22);
-            this.toolStripMenuItem7.Tag = "50";
-            this.toolStripMenuItem7.Text = "50%";
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(102, 22);
-            this.toolStripMenuItem6.Tag = "25";
-            this.toolStripMenuItem6.Text = "25%";
             // 
             // FrmMarlinEditor
             // 

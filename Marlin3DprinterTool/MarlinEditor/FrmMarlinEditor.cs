@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using FarsiLibrary.Win;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Drawing.Drawing2D;
 using FastColoredTextBoxNS;
 using MarlinEditor.Properties;
 
@@ -49,7 +46,24 @@ namespace MarlinEditor
             }
         }
 
+        public string Directory
+        {
+            get { return ofdMain.InitialDirectory; }
+            set
+            {
+                ofdMain.InitialDirectory = value; 
+                
+            }
+        }
 
+        public string Filename {
+            get { return ofdMain.FileName; }
+            set
+            {
+                ofdMain.FileName = value;
+                CreateTab(ofdMain.FileName);
+            }
+        }
 
 
         public FrmMarlinEditor()
@@ -172,10 +186,6 @@ namespace MarlinEditor
         }
 
 
-        private void forwardStripButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         void tb_KeyDown(object sender, KeyEventArgs e)
         {
@@ -637,6 +647,11 @@ namespace MarlinEditor
             }
             if (CurrentTB != null)
                 CurrentTB.Invalidate();
+        }
+
+        private void tsFiles_TabStripItemSelectionChanged(TabStripItemChangedEventArgs e)
+        {
+            MessageBox.Show("hit");
         }
     }
 
