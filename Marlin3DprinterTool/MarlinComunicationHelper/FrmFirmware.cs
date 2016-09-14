@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using FastColoredTextBoxNS;
+using MarlinEditor;
 
 namespace MarlinComunicationHelper
 {
@@ -325,14 +326,20 @@ namespace MarlinComunicationHelper
 
         private void btnEditCurrentFirmware_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                @"Not implemented (yet). This will be a full implementation of a Marlin configuration Editor");
+            FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
+            marlinEditor.Directory = txtBxCurrentFirmwareLocation.Text;
+            marlinEditor.Filename = Path.Combine(txtBxCurrentFirmwareLocation.Text, "configuration.h");
+            marlinEditor.Show();
+
         }
 
         private void btnEditNewFirmware_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-                @"Not implemented (yet). This will be a full implementation of a Marlin configuration Editor");
+        {   FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
+            marlinEditor.Directory = txtBxNewFirmwareLocation.Text;
+            marlinEditor.Filename =  Path.Combine( txtBxNewFirmwareLocation.Text , "configuration.h");
+            marlinEditor.Show();
+
+
         }
 
         private void fastColoredTextBoxOldFirmware_AutoIndentNeeded(object sender, AutoIndentEventArgs e)

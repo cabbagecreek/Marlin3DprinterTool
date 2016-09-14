@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Marlin3DprinterTool</name>
+    </assembly>
+    <members>
+        <member name="T:Marlin3DprinterTool.DeligateAndInvoke">
+            <summary>
+                All delegates And Invokes thats needed because the cross-threding created by Asyncon Serial communication
+            </summary>
+        </member>
+        <member name="F:Marlin3DprinterTool.DeligateAndInvoke._frm3DprinterTool">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.#ctor(Marlin3DprinterTool.Frm3DprinterTool)">
+            <summary>
+            </summary>
+            <param name="frm3DprinterTool"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateVisible(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="visible"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateKompassControll(MarlinComunicationHelper.KompassControll,MarlinComunicationHelper.MarlinCommunication)">
+            <summary>
+            </summary>
+            <param name="kompass"></param>
+            <param name="marlin"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateVerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
+            <summary>
+            </summary>
+            <param name="verticalJogControl"></param>
+            <param name="marlin"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateEnabled(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="enabled"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateBackgroundImage(System.Windows.Forms.Control,System.Drawing.Image)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="image"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DisableTabs(System.Windows.Forms.TabControl,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="tabControl"></param>
+            <param name="enable"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(System.Windows.Forms.TabControl)">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.TextBoxAdd(System.Windows.Forms.TextBox,System.String)">
+            <summary>
+            </summary>
+            <param name="textbox"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateText(System.Windows.Forms.Control,System.String)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.MultiTextLines(System.Windows.Forms.TextBox,System.Collections.Generic.List{System.String})">
+            <summary>
+            </summary>
+            <param name="textBox"></param>
+            <param name="responce"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.FastColoredTextBox(FastColoredTextBoxNS.FastColoredTextBox,System.Collections.Generic.List{System.String})">
+            <summary>
+            </summary>
+            <param name="fastColoredTextBox"></param>
+            <param name="responces"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.SetExtruderTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            </summary>
+            <param name="chart"></param>
+            <param name="time"></param>
+            <param name="extruderTemp"></param>
+            <param name="setExtruderTemp"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.SetBedTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            </summary>
+            <param name="chart"></param>
+            <param name="time"></param>
+            <param name="bedTemp"></param>
+            <param name="setBedTemp"></param>
+        </member>
+        <member name="T:Marlin3DprinterTool.Frm3DprinterTool">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Marlin3DprinterTool.Frm3DprinterTool.#ctor">
+            
+        </member>
+        <member name="P:Marlin3DprinterTool.Frm3DprinterTool.DeligateAndInvoke">
+            <summary>
+                All deligates, Callback and Invoke is in separate class
+            </summary>
+        </member>
+        <member name="F:Marlin3DprinterTool.Frm3DprinterTool.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Marlin3DprinterTool.Frm3DprinterTool.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Marlin3DprinterTool.Frm3DprinterTool.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Marlin3DprinterTool.Program.Main">
+            <summary>
+                The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Marlin3DprinterTool.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.adjuster">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.clockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.counterclockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.Donate">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.emargency_disabled">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.emargency_enabled">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+    </members>
+</doc>
