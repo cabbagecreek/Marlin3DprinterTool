@@ -496,9 +496,9 @@ namespace MarlinEditor
             // 
             // ofdMain
             // 
-            this.ofdMain.DefaultExt = "cs";
+            this.ofdMain.DefaultExt = "h";
             this.ofdMain.Filter = "Configuration|configuration.h|Configuration_adv|configuration_adv.h";
-            this.ofdMain.Title = "Marlin Configuration.h";
+            this.ofdMain.Title = "Marlin Configurations";
             this.ofdMain.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdMain_FileOk);
             // 
             // cmMain

@@ -651,7 +651,7 @@ namespace MarlinEditor
 
         private void tsFiles_TabStripItemSelectionChanged(TabStripItemChangedEventArgs e)
         {
-            MessageBox.Show("hit");
+            //TODO: Show the filename in the Frame title
         }
     }
 
