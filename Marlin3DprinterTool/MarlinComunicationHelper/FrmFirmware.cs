@@ -320,6 +320,64 @@ namespace MarlinComunicationHelper
             InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = zProbeOffset;
         }
 
+        public void UpdateExtruderKp(string kp)
+        {
+            //#define DEFAULT_Kp 22.2
+            // update the current firmware.
+            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
+            InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_Kp";
+            InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = kp;
+        }
+
+        public void UpdateExtruderKi(string ki)
+        {
+            //#define DEFAULT_Ki 1.08
+            // update the current firmware.
+            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
+            InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_Ki";
+            InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = ki;
+        }
+
+        public void UpdateExtruderKd(string kd)
+        {
+            //#define DEFAULT_Ki 1.08
+            // update the current firmware.
+            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
+            InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_Kd";
+            InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = kd;
+        }
+
+
+
+        public void UpdateBedKp(string kp)
+        {
+            //#define DEFAULT_bedKp 10.00
+            // update the current firmware.
+            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
+            InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_bedKp";
+            InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = kp;
+        }
+
+        public void UpdateBedKi(string ki)
+        {
+            //#define DEFAULT_bedKi .023
+            // update the current firmware.
+            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
+            InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_bedKi";
+            InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = ki;
+        }
+
+        public void UpdateBedKd(string kd)
+        {
+            //#define DEFAULT_bedKd 305.4
+            // update the current firmware.
+            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
+            InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_bedKd";
+            InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = kd;
+        }
+
+
+
         private void fastColoredTextBoxOldFirmware_Load(object sender, EventArgs e)
         {
         }
@@ -372,5 +430,7 @@ namespace MarlinComunicationHelper
         {
             
         }
+
+       
     }
 }
