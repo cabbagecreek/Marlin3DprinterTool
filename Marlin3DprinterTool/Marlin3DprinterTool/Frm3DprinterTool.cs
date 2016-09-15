@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
@@ -408,16 +409,17 @@ namespace Marlin3DprinterTool
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
+            string language = CultureInfo.CurrentCulture.Name;
             var url = "https://www.paypal.com/cgi-bin/webscr" +
                       @"?cmd=" + "_donations" +
                       @"&business=" + "cabbagecreek@gmail.com" +
-                      @"&lc=" + "SE" +
-                      @"&item_name=" + "Donation" +
-                      @"&amount=1" +
+                      @"&lc=" + "US" +
+                      @"&item_name=" + "Marlin 3D printer Tool Donation" +
+                      @"&amount=5" +
                       @"&currency_code=" + "USD" +
                       @"&bn=" + "PP%2dDonationsBF";
 
-            Process.Start(url);
+            Process.Start("IEXPLORE", url);
         }
 
 
@@ -769,6 +771,8 @@ namespace Marlin3DprinterTool
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
             txtBxPIDresponce.Text = "";
+            grpBxHeatbedPID.Enabled = false;
+            grpBxExtruderPID.Enabled = true;
             _com.ClearReceived();
             _com.SendCommand($"M303 E0 S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
         }
@@ -854,6 +858,8 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateBedPid_Click(object sender, EventArgs e)
         {
+            grpBxHeatbedPID.Enabled = true;
+            grpBxExtruderPID.Enabled = false;
             txtBxPIDresponce.Text = "";
             _com.SendCommand($"M303 E-1 S{numUpDownPidBedTemp.Value} C{numUpDownPidBedCykles.Value}");
         }
@@ -920,8 +926,12 @@ namespace Marlin3DprinterTool
                     _com.Temperatures += _com_Temperatures;
                     _com.M114GetCurrentPosition += _com_M114GetCurrentPosition;
                     _com.M119EndStopStatus += _com_EndStopStatus;
+                    _com.M301Responce += _com_M301Responce;
                     _com.M303Responce += _com_M303Responce;
+                    _com.M304Responce += _com_M304Responce;
+                    _com.M500Responce += _com_M500Responce;
                     _com.ReadyForNextCommand += _com_ReadyForNextCommand;
+                    
                     _com.DisConnected += _com_DisConnected;
 
 
@@ -951,6 +961,7 @@ namespace Marlin3DprinterTool
             }
         }
 
+
         private void _com_Temperatures(object sender, Temperatures temperatures)
         {
             DeligateAndInvoke.SetExtruderTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
@@ -958,6 +969,16 @@ namespace Marlin3DprinterTool
 
             DeligateAndInvoke.SetBedTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
                 (int) temperatures.Heatbed, (int) temperatures.SetHeatbed);
+        }
+
+
+
+        
+        private void _com_M301Responce(object sender, ResponceData responce)
+        {
+            MessageBox.Show(responce.Data, @"Extruder Pid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            grpBxHeatbedPID.Enabled = true;
+            grpBxExtruderPID.Enabled = true;
         }
 
         private void _com_M303Responce(object sender, ResponceData responceData)
@@ -991,7 +1012,41 @@ namespace Marlin3DprinterTool
                 pidResponce += line + Environment.NewLine;
             }
 
+            if (grpBxHeatbedPID.Enabled)
+            {
+                // TODO: Hämta data
+                txtBxKpExtruder.Text = "123.0";
+                txtBxKiExtruder.Text = "45.0";
+                txtBxKdExtruder.Text = "6.0";
+
+
+            }
+            else
+            {
+                // TODO: Hämta data
+                txtBxKpBed.Text = "123.0";
+                txtBxKiBed.Text = "45.0";
+                txtBxKdBed.Text = "6.0";
+            }
+
+
+
             DeligateAndInvoke.DelegateText(txtBxPIDresponce, pidResponce);
+        }
+
+        private void _com_M304Responce(object sender, ResponceData responce)
+        {
+            grpBxHeatbedPID.Enabled = true;
+            grpBxExtruderPID.Enabled = true;
+            MessageBox.Show(responce.Data, @"Bed Pid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        private void _com_M500Responce(object sender, ResponceData responce)
+        {
+            grpBxHeatbedPID.Enabled = true;
+            grpBxExtruderPID.Enabled = true;
+            MessageBox.Show(responce.Data, @"Saved EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
@@ -1025,8 +1080,6 @@ namespace Marlin3DprinterTool
             DeligateAndInvoke.DelegateVisible(grpBxNavigation, true);
 
             //// Assign Marlincommunication
-            //verticalJogControlZprobeHeight.MarlinCommunication = _com;
-            //DelegateMarlinCommunication(Control Control, MarlinCommunication marlin)
             DeligateAndInvoke.DelegateKompassControll(kompassControllConfigBed, _com);
             DeligateAndInvoke.DelegateVerticalJogControl(verticalJogControlZprobeHeight, _com);
 
@@ -1046,14 +1099,7 @@ namespace Marlin3DprinterTool
             if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
-        //private int TabControl3DprinterToolSelectedIndex()
-        //{
-        //    if (DeligateAndInvoke.TabControl3DprinterTool.InvokeRequired)
-        //        return (int) DeligateAndInvoke.TabControl3DprinterTool.Invoke(new Func<int>(TabControl3DprinterToolSelectedIndex));
-        //    else
-        //        return DeligateAndInvoke.TabControl3DprinterTool.SelectedIndex;
-        //}
-
+       
 
         private void _com_ReadyForNextCommand(object sender, EventArgs e)
         {
@@ -1478,6 +1524,42 @@ namespace Marlin3DprinterTool
             // Save to EEPROM M50x
 
 
+        }
+
+        private void btnUpdateExtruderPid_Click(object sender, EventArgs e)
+        {
+            List<string> commands   = new List<string>();
+            // M301 P19.56 I0.71 D134.26
+            commands.Add($"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}");
+            commands.Add("M500");
+            _com.SendCommand(commands);
+
+        }
+
+        private void btnUpdateBedPid_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            // M301 P19.56 I0.71 D134.26
+            commands.Add($"M304 P{txtBxKpBed.Text} I{txtBxKiBed.Text} D{txtBxKdBed.Text}");
+            commands.Add("M500");
+            _com.SendCommand(commands);
+        }
+
+        private void btnTransferExtruderPid_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware.UpdateExtruderKp(txtBxKpExtruder.Text);
+            _com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
+            _com.Firmware.UpdateExtruderKd(txtBxKdExtruder.Text);
+
+        }
+
+        private void btnTransferBedPid_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware.UpdateBedKp(txtBxKpExtruder.Text);
+            _com.Firmware.UpdateBedKi(txtBxKiExtruder.Text);
+            _com.Firmware.UpdateBedKd(txtBxKdExtruder.Text);
         }
     }
 }

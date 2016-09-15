@@ -708,6 +708,7 @@ namespace MarlinEditor
             this.Controls.Add(this.msMain);
             this.Name = "FrmMarlinEditor";
             this.Text = "Marlin Editor";
+            this.Load += new System.EventHandler(this.FrmMarlinEditor_Load);
             this.msMain.ResumeLayout(false);
             this.msMain.PerformLayout();
             this.ssMain.ResumeLayout(false);

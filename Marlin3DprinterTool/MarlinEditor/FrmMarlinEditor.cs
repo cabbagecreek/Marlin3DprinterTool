@@ -653,6 +653,11 @@ namespace MarlinEditor
         {
             //TODO: Show the filename in the Frame title
         }
+
+        private void FrmMarlinEditor_Load(object sender, EventArgs e)
+        {
+            string documentation =  MarlinDocumentationHarvestClass.GetMarlinConfigurationDocumentation(@"http://www.marlinfw.org/docs/development/configuration.html");
+        }
     }
 
 
