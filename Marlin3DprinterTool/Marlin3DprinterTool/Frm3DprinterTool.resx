@@ -156,6 +156,9 @@ On some printers the bedcorners and the adjusters are the same.</value>
         ZXZyb24uQ2hhcnQuV2luRm9ybS5OU3RhdGUBAAAAB21fQnl0ZXMHAgIAAAAKCw==
 </value>
   </data>
+  <metadata name="toolTip3DprinterTool.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>167, 17</value>
+  </metadata>
   <metadata name="timerTemperature.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

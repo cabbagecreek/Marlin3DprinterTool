@@ -1542,5 +1542,22 @@ namespace Marlin3DprinterTool
             commands.Add("M500");
             _com.SendCommand(commands);
         }
+
+        private void btnTransferExtruderPid_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware.UpdateExtruderKp(txtBxKpExtruder.Text);
+            _com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
+            _com.Firmware.UpdateExtruderKd(txtBxKdExtruder.Text);
+
+        }
+
+        private void btnTransferBedPid_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware.UpdateBedKp(txtBxKpExtruder.Text);
+            _com.Firmware.UpdateBedKi(txtBxKiExtruder.Text);
+            _com.Firmware.UpdateBedKd(txtBxKdExtruder.Text);
+        }
     }
 }
