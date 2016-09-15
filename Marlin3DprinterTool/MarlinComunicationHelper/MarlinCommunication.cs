@@ -167,9 +167,10 @@ namespace MarlinComunicationHelper
         private void ParseInit()
         {
 
-            IsPortOpen = true;
+            
 
-            _serialPort.SendASCIIString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
+            if (IsPortOpen == false) _serialPort.SendASCIIString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
+            IsPortOpen = true;
 
             // Return if The _dataReceived not contains ok\n
             if (WaitForOkAndNewLineToBeReceived() == false) return;

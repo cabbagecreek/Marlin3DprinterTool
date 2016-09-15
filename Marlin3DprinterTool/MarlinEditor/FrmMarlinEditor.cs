@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using FarsiLibrary.Win;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows.Forms;
+using FarsiLibrary.Win;
 using FastColoredTextBoxNS;
 using MarlinEditor.Properties;
 
@@ -16,27 +16,25 @@ namespace MarlinEditor
     public partial class FrmMarlinEditor : Form
     {
 
-        string[] keywords = { "#define","abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
-        string[] methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
-        string[] snippets = { "if(^)\n{\n;\n}", "if(^)\n{\n;\n}\nelse\n{\n;\n}", "for(^;;)\n{\n;\n}", "while(^)\n{\n;\n}", "do\n{\n^;\n}while();", "switch(^)\n{\ncase : break;\n}" };
-        string[] declarationSnippets = {
+        private readonly string[] _keywords = { "#define","abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
+        private readonly string[] _methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
+        private readonly string[] _snippets = { "if(^)\n{\n;\n}", "if(^)\n{\n;\n}\nelse\n{\n;\n}", "for(^;;)\n{\n;\n}", "while(^)\n{\n;\n}", "do\n{\n^;\n}while();", "switch(^)\n{\ncase : break;\n}" };
+        private readonly string[] _declarationSnippets = {
                "public class ^\n{\n}", "private class ^\n{\n}", "internal class ^\n{\n}",
                "public struct ^\n{\n;\n}", "private struct ^\n{\n;\n}", "internal struct ^\n{\n;\n}",
                "public void ^()\n{\n;\n}", "private void ^()\n{\n;\n}", "internal void ^()\n{\n;\n}", "protected void ^()\n{\n;\n}",
                "public ^{ get; set; }", "private ^{ get; set; }", "internal ^{ get; set; }", "protected ^{ get; set; }"
                };
-        Style invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
-        Color currentLineColor = Color.FromArgb(100, 210, 210, 255);
-        Color changedLineColor = Color.FromArgb(255, 230, 230, 255);
+        private readonly Style _invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
+        private readonly Color _currentLineColor = Color.FromArgb(100, 210, 210, 255);
+        private readonly Color _changedLineColor = Color.FromArgb(255, 230, 230, 255);
 
         
-        FastColoredTextBox CurrentTB
+        FastColoredTextBox CurrentFastColoredTextBox
         {
             get
             {
-                if (tsFiles.SelectedItem == null)
-                    return null;
-                return (tsFiles.SelectedItem.Controls[0] as FastColoredTextBox);
+                return tsFiles.SelectedItem?.Controls[0] as FastColoredTextBox;
             }
 
             set
@@ -48,7 +46,6 @@ namespace MarlinEditor
 
         public string Directory
         {
-            get { return ofdMain.InitialDirectory; }
             set
             {
                 ofdMain.InitialDirectory = value; 
@@ -57,7 +54,6 @@ namespace MarlinEditor
         }
 
         public string Filename {
-            get { return ofdMain.FileName; }
             set
             {
                 ofdMain.FileName = value;
@@ -76,7 +72,7 @@ namespace MarlinEditor
             pasteToolStripMenuItem.Image = ((Image)(resources.GetObject("pasteToolStripButton.Image")));
         }
 
-        private void newToolStripButton_Click(object sender, System.EventArgs e)
+        private void newToolStripButton_Click(object sender, EventArgs e)
         {
             CreateTab(null);
         }
@@ -111,25 +107,25 @@ namespace MarlinEditor
                 tb.Focus();
                 tb.DelayedTextChangedInterval = 1000;
                 tb.DelayedEventsInterval = 500;
-                tb.TextChangedDelayed += new EventHandler<TextChangedEventArgs>(tb_TextChangedDelayed);
-                tb.SelectionChangedDelayed += new EventHandler(tb_SelectionChangedDelayed);
-                tb.KeyDown += new KeyEventHandler(tb_KeyDown);
-                tb.MouseMove += new MouseEventHandler(tb_MouseMove);
-                tb.ChangedLineColor = changedLineColor;
+                tb.TextChangedDelayed += tb_TextChangedDelayed;
+                tb.SelectionChangedDelayed += tb_SelectionChangedDelayed;
+                tb.KeyDown += tb_KeyDown;
+                tb.MouseMove += tb_MouseMove;
+                tb.ChangedLineColor = _changedLineColor;
                 if (btHighlightCurrentLine.Checked)
-                    tb.CurrentLineColor = currentLineColor;
+                    tb.CurrentLineColor = _currentLineColor;
                 tb.ShowFoldingLines = btShowFoldingLines.Checked;
                 tb.HighlightingRangeType = HighlightingRangeType.VisibleRange;
                 //create autocomplete popup menu
                 AutocompleteMenu popupMenu = new AutocompleteMenu(tb);
                 popupMenu.Items.ImageList = ilAutocomplete;
-                popupMenu.Opening += new EventHandler<CancelEventArgs>(popupMenu_Opening);
+                popupMenu.Opening += popupMenu_Opening;
                 BuildAutocompleteMenu(popupMenu);
                 (tb.Tag as TbInfo).popupMenu = popupMenu;
             }
             catch (Exception ex)
             {
-                if (MessageBox.Show(ex.Message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Retry)
+                if (MessageBox.Show(ex.Message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                     CreateTab(fileName);
             }
         }
@@ -149,12 +145,12 @@ namespace MarlinEditor
         {
             //---block autocomplete menu for comments
             //get index of green style (used for comments)
-            var iGreenStyle = CurrentTB.GetStyleIndex(CurrentTB.SyntaxHighlighter.GreenStyle);
+            var iGreenStyle = CurrentFastColoredTextBox.GetStyleIndex(CurrentFastColoredTextBox.SyntaxHighlighter.GreenStyle);
             if (iGreenStyle >= 0)
-                if (CurrentTB.Selection.Start.iChar > 0)
+                if (CurrentFastColoredTextBox.Selection.Start.iChar > 0)
                 {
                     //current char (before caret)
-                    var c = CurrentTB[CurrentTB.Selection.Start.iLine][CurrentTB.Selection.Start.iChar - 1];
+                    var c = CurrentFastColoredTextBox[CurrentFastColoredTextBox.Selection.Start.iLine][CurrentFastColoredTextBox.Selection.Start.iChar - 1];
                     //green Style
                     var greenStyleIndex = Range.ToStyleIndex(iGreenStyle);
                     //if char contains green style then block popup menu
@@ -167,13 +163,13 @@ namespace MarlinEditor
         {
             List<AutocompleteItem> items = new List<AutocompleteItem>();
 
-            foreach (var item in snippets)
+            foreach (var item in _snippets)
                 items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
-            foreach (var item in declarationSnippets)
+            foreach (var item in _declarationSnippets)
                 items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
-            foreach (var item in methods)
+            foreach (var item in _methods)
                 items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2 });
-            foreach (var item in keywords)
+            foreach (var item in _keywords)
                 items.Add(new AutocompleteItem(item));
 
             items.Add(new InsertSpaceSnippet());
@@ -204,7 +200,7 @@ namespace MarlinEditor
             if (e.KeyData == (Keys.K | Keys.Control))
             {
                 //forced show (MinFragmentLength will be ignored)
-                (CurrentTB.Tag as TbInfo).popupMenu.Show(true);
+                (CurrentFastColoredTextBox.Tag as TbInfo).popupMenu.Show(true);
                 e.Handled = true;
             }
         }
@@ -235,8 +231,7 @@ namespace MarlinEditor
                 tb.Invalidate();
                 return true;
             }
-            else
-                return false;
+            return false;
         }
 
         private bool NavigateBackward()
@@ -265,8 +260,7 @@ namespace MarlinEditor
                 tb.Invalidate();
                 return true;
             }
-            else
-                return false;
+            return false;
         }
 
 
@@ -276,7 +270,7 @@ namespace MarlinEditor
             //rebuild object explorer
             string text = (sender as FastColoredTextBox).Text;
             ThreadPool.QueueUserWorkItem(
-                (o) => ReBuildObjectExplorer(text)
+                o => ReBuildObjectExplorer(text)
             );
 
             //show invisible chars
@@ -317,9 +311,9 @@ namespace MarlinEditor
 
         private void HighlightInvisibleChars(Range range)
         {
-            range.ClearStyle(invisibleCharsStyle);
+            range.ClearStyle(_invisibleCharsStyle);
             if (btInvisibleChars.Checked)
-                range.SetStyle(invisibleCharsStyle, @".$|.\r\n|\s");
+                range.SetStyle(_invisibleCharsStyle, @".$|.\r\n|\s");
         }
 
         List<ExplorerItem> explorerList = new List<ExplorerItem>();
@@ -335,7 +329,7 @@ namespace MarlinEditor
                 foreach (Match r in regex.Matches(text))
                     try
                     {
-                       var item = new ExplorerItem() { title = r.Value.Trim(), position = r.Index };
+                       var item = new ExplorerItem { title = r.Value.Trim(), position = r.Index };
 
                         if (item.title.Contains("#define"))
                         {
@@ -435,8 +429,8 @@ namespace MarlinEditor
         {
             foreach (FATabStripItem tab in tsFiles.Items)
                 (tab.Controls[0] as FastColoredTextBox).ShowFoldingLines = btShowFoldingLines.Checked;
-            if (CurrentTB != null)
-                CurrentTB.Invalidate();
+            if (CurrentFastColoredTextBox != null)
+                CurrentFastColoredTextBox.Invalidate();
         }
 
        
@@ -453,7 +447,7 @@ namespace MarlinEditor
             var tb = (tab.Controls[0] as FastColoredTextBox);
             if (tab.Tag == null)
             {
-                if (sfdMain.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                if (sfdMain.ShowDialog() != DialogResult.OK)
                     return false;
                 tab.Title = Path.GetFileName(sfdMain.FileName);
                 tab.Tag = sfdMain.FileName;
@@ -468,8 +462,7 @@ namespace MarlinEditor
             {
                 if (MessageBox.Show(ex.Message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                     return Save(tab);
-                else
-                    return false;
+                return false;
             }
 
             tb.Invalidate();
@@ -479,56 +472,56 @@ namespace MarlinEditor
 
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
-            if (ofdMain.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (ofdMain.ShowDialog() == DialogResult.OK)
                 CreateTab(ofdMain.FileName);
 
         }
 
         private void printToolStripButton_Click(object sender, EventArgs e)
         {
-            if (CurrentTB != null)
+            if (CurrentFastColoredTextBox != null)
             {
                 var settings = new PrintDialogSettings();
                 settings.Title = tsFiles.SelectedItem.Title;
                 settings.Header = "&b&w&b";
                 settings.Footer = "&b&p";
-                CurrentTB.Print(settings);
+                CurrentFastColoredTextBox.Print(settings);
             }
         }
 
         private void cutToolStripButton_Click(object sender, EventArgs e)
         {
-            CurrentTB.Cut();
+            CurrentFastColoredTextBox.Cut();
         }
 
         private void copyToolStripButton_Click(object sender, EventArgs e)
         {
-            CurrentTB.Copy();
+            CurrentFastColoredTextBox.Copy();
         }
 
         private void btInvisibleChars_Click(object sender, EventArgs e)
         {
             foreach (FATabStripItem tab in tsFiles.Items)
                 HighlightInvisibleChars((tab.Controls[0] as FastColoredTextBox).Range);
-            if (CurrentTB != null)
-                CurrentTB.Invalidate();
+            if (CurrentFastColoredTextBox != null)
+                CurrentFastColoredTextBox.Invalidate();
         }
 
         private void pasteToolStripButton_Click(object sender, EventArgs e)
         {
-            CurrentTB.Paste();
+            CurrentFastColoredTextBox.Paste();
         }
 
         private void undoStripButton_Click(object sender, EventArgs e)
         {
-            if (CurrentTB.UndoEnabled)
-                CurrentTB.Undo();
+            if (CurrentFastColoredTextBox.UndoEnabled)
+                CurrentFastColoredTextBox.Undo();
         }
 
         private void redoStripButton_Click(object sender, EventArgs e)
         {
-            if (CurrentTB.RedoEnabled)
-                CurrentTB.Redo();
+            if (CurrentFastColoredTextBox.RedoEnabled)
+                CurrentFastColoredTextBox.Redo();
 
         }
 
@@ -544,16 +537,16 @@ namespace MarlinEditor
 
         private void bookmarkPlusButton_Click(object sender, EventArgs e)
         {
-            if (CurrentTB == null)
+            if (CurrentFastColoredTextBox == null)
                 return;
-            CurrentTB.BookmarkLine(CurrentTB.Selection.Start.iLine);
+            CurrentFastColoredTextBox.BookmarkLine(CurrentFastColoredTextBox.Selection.Start.iLine);
         }
 
         private void bookmarkMinusButton_Click(object sender, EventArgs e)
         {
-            if (CurrentTB == null)
+            if (CurrentFastColoredTextBox == null)
                 return;
-            CurrentTB.UnbookmarkLine(CurrentTB.Selection.Start.iLine);
+            CurrentFastColoredTextBox.UnbookmarkLine(CurrentFastColoredTextBox.Selection.Start.iLine);
         }
 
         private void gotoButton_Click(object sender, EventArgs e)
@@ -575,7 +568,7 @@ namespace MarlinEditor
                         var b = (Bookmark)(o as ToolStripItem).Tag;
                         try
                         {
-                            CurrentTB = b.TB;
+                            CurrentFastColoredTextBox = b.TB;
                         }
                         catch (Exception ex)
                         {
@@ -595,13 +588,13 @@ namespace MarlinEditor
 
         private void dgvObjectExplorer_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (CurrentTB != null)
+            if (CurrentFastColoredTextBox != null)
             {
                 var item = explorerList[e.RowIndex];
-                CurrentTB.GoEnd();
-                CurrentTB.SelectionStart = item.position;
-                CurrentTB.DoSelectionVisible();
-                CurrentTB.Focus();
+                CurrentFastColoredTextBox.GoEnd();
+                CurrentFastColoredTextBox.SelectionStart = item.position;
+                CurrentFastColoredTextBox.DoSelectionVisible();
+                CurrentFastColoredTextBox.Focus();
             }
         }
 
@@ -641,12 +634,12 @@ namespace MarlinEditor
             foreach (FATabStripItem tab in tsFiles.Items)
             {
                 if (btHighlightCurrentLine.Checked)
-                    (tab.Controls[0] as FastColoredTextBox).CurrentLineColor = currentLineColor;
+                    (tab.Controls[0] as FastColoredTextBox).CurrentLineColor = _currentLineColor;
                 else
                     (tab.Controls[0] as FastColoredTextBox).CurrentLineColor = Color.Transparent;
             }
-            if (CurrentTB != null)
-                CurrentTB.Invalidate();
+            if (CurrentFastColoredTextBox != null)
+                CurrentFastColoredTextBox.Invalidate();
         }
 
         private void tsFiles_TabStripItemSelectionChanged(TabStripItemChangedEventArgs e)
@@ -657,6 +650,12 @@ namespace MarlinEditor
         private void FrmMarlinEditor_Load(object sender, EventArgs e)
         {
             string documentation =  MarlinDocumentationHarvestClass.GetMarlinConfigurationDocumentation(@"http://www.marlinfw.org/docs/development/configuration.html");
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            if (CurrentFastColoredTextBox != null)
+                CurrentFastColoredTextBox.Zoom = int.Parse((sender as ToolStripItem).Tag.ToString());
         }
     }
 
