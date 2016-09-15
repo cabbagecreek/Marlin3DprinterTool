@@ -59,6 +59,7 @@
     <Compile Include="FrmMarlinEditor.Designer.cs">
       <DependentUpon>FrmMarlinEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="MarlinDocumentationHarvestClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmMarlinEditor.resx">

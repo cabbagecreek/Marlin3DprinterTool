@@ -141,8 +141,21 @@ namespace MarlinComunicationHelper
                     ParseM48();
                     break;
 
+                case "M301":
+                    ParseM301();
+                    break;
+
+
                 case "M303":
                     ParseM303();
+                    break;
+
+                case "M304":
+                    ParseM304();
+                    break;
+
+                case "M500":
+                    ParseM500();
                     break;
 
                 default:
@@ -342,6 +355,17 @@ namespace MarlinComunicationHelper
             OnReadyForNextCommand(EventArgs.Empty);
         }
 
+        private void ParseM301()
+        {
+            // Return if The _dataReceived not contains ok\n
+            if (WaitForOkAndNewLineToBeReceived() == false) return;
+
+            var responceData = new ResponceData(_dataReceived);
+            OnM301Responce(responceData);
+
+            OnReadyForNextCommand(EventArgs.Empty);
+        }
+
         private void ParseM303()
         {
             ParseTemperatures();
@@ -352,6 +376,32 @@ namespace MarlinComunicationHelper
 
             // Return if The _dataReceived not contains ok\n
             if (WaitForOkAndNewLineToBeReceived() == false) return;
+
+            OnReadyForNextCommand(EventArgs.Empty);
+        }
+
+        private void ParseM304()
+        {
+            // Return if The _dataReceived not contains ok\n
+            if (WaitForOkAndNewLineToBeReceived() == false) return;
+
+            var responceData = new ResponceData(_dataReceived);
+            OnM304Responce(responceData);
+
+            OnReadyForNextCommand(EventArgs.Empty);
+        }
+
+        private void ParseM500()
+        {
+            ParseTemperatures();
+
+            // Return if The _dataReceived not contains ok\n
+            if (WaitForOkAndNewLineToBeReceived() == false) return;
+
+            var responceData = new ResponceData(_dataReceived);
+            OnM500Responce(responceData);
+
+            
 
             OnReadyForNextCommand(EventArgs.Empty);
         }
@@ -725,6 +775,21 @@ namespace MarlinComunicationHelper
 
         #endregion
 
+        #region M301Responce
+
+        /// <summary>
+        ///     Eventhandler for M119 EndstopStatus
+        /// </summary>
+        public event EventHandler<ResponceData> M301Responce;
+
+        private void OnM301Responce(ResponceData responce)
+        {
+            var handler = M301Responce;
+            handler?.Invoke(this, responce);
+        }
+
+        #endregion
+
         #region M303Responce
 
         /// <summary>
@@ -735,6 +800,36 @@ namespace MarlinComunicationHelper
         private void OnM303Responce(ResponceData responce)
         {
             var handler = M303Responce;
+            handler?.Invoke(this, responce);
+        }
+
+        #endregion
+
+        #region M304Responce
+
+        /// <summary>
+        ///     Eventhandler for M119 EndstopStatus
+        /// </summary>
+        public event EventHandler<ResponceData> M304Responce;
+
+        private void OnM304Responce(ResponceData responce)
+        {
+            var handler = M304Responce;
+            handler?.Invoke(this, responce);
+        }
+
+        #endregion
+
+        #region M500Responce
+
+        /// <summary>
+        ///     Eventhandler for M119 EndstopStatus
+        /// </summary>
+        public event EventHandler<ResponceData> M500Responce;
+
+        private void OnM500Responce(ResponceData responce)
+        {
+            var handler = M500Responce;
             handler?.Invoke(this, responce);
         }
 
