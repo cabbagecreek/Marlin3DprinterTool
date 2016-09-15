@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
@@ -408,16 +409,17 @@ namespace Marlin3DprinterTool
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
+            string language = CultureInfo.CurrentCulture.Name;
             var url = "https://www.paypal.com/cgi-bin/webscr" +
                       @"?cmd=" + "_donations" +
                       @"&business=" + "cabbagecreek@gmail.com" +
-                      @"&lc=" + "SE" +
-                      @"&item_name=" + "Donation" +
-                      @"&amount=1" +
+                      @"&lc=" + "US" +
+                      @"&item_name=" + "Marlin 3D printer Tool Donation" +
+                      @"&amount=5" +
                       @"&currency_code=" + "USD" +
                       @"&bn=" + "PP%2dDonationsBF";
 
-            Process.Start(url);
+            Process.Start("IEXPLORE", url);
         }
 
 
