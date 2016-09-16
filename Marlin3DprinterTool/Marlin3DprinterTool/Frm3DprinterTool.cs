@@ -1012,22 +1012,30 @@ namespace Marlin3DprinterTool
                 pidResponce += line + Environment.NewLine;
             }
 
-            if (grpBxHeatbedPID.Enabled)
+            // get the Kp , Ki and Kd from the responce
+            foreach (string line in linesList)
             {
-                // TODO: Hämta data
-                txtBxKpExtruder.Text = "123.0";
-                txtBxKiExtruder.Text = "45.0";
-                txtBxKdExtruder.Text = "6.0";
+                Match matchKp = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Kp\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                Match matchKi = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Ki\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                Match matchKd = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Kd\s)[0-9|.]*", RegexOptions.IgnoreCase);
+
+                if (matchKp.Success)
+                {
+                    DeligateAndInvoke.DelegateText(txtBxKpExtruder, matchKp.Value);
+                }
+                if (matchKi.Success)
+                {
+                    DeligateAndInvoke.DelegateText(txtBxKiExtruder, matchKi.Value);
+                }
+                if (matchKd.Success)
+                {
+                    DeligateAndInvoke.DelegateText(txtBxKdExtruder, matchKd.Value);
+                }
 
 
-            }
-            else
-            {
-                // TODO: Hämta data
-                txtBxKpBed.Text = "123.0";
-                txtBxKiBed.Text = "45.0";
-                txtBxKdBed.Text = "6.0";
-            }
+            } 
+
+            
 
 
 
