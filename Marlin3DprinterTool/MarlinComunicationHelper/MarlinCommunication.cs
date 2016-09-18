@@ -23,7 +23,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         ///     The Gcode without argument
         /// </summary>
-        private string Gcode { get; set; }
+        public string Gcode { get; set; }
 
         /// <summary>
         ///     Baudrate
@@ -108,6 +108,9 @@ namespace MarlinComunicationHelper
             }
         }
 
+
+
+
         private void _serialPort_Received(object sender, DataEventArgs e)
         {
             // Read all bytes in the buffer
@@ -158,6 +161,10 @@ namespace MarlinComunicationHelper
                     ParseM500();
                     break;
 
+                case "M501":
+                    ParseM501();
+                    break;
+
                 default:
                     ParseDefault();
                     break;
@@ -179,6 +186,11 @@ namespace MarlinComunicationHelper
 
             // Create INIT responce Event
             var responce = new ResponceData(_dataReceived);
+
+            ParseM851();
+
+
+
             OnInit(responce);
 
             //Delete the responce from the received bytes
@@ -187,6 +199,13 @@ namespace MarlinComunicationHelper
 
             // ReadyForNextCommand          
             OnReadyForNextCommand(EventArgs.Empty);
+        }
+
+        private void ParseM851()
+        {
+            string M851pattern = @"(?<=M851\sZ)[-|.|0-9]*";
+            Match M851match = Regex.Match(_dataReceived, M851pattern);
+            if (M851match.Success) ZprobeOffset = Convert.ToDecimal(M851match.Value.Replace('.', ','));
         }
 
 
@@ -407,6 +426,24 @@ namespace MarlinComunicationHelper
             OnReadyForNextCommand(EventArgs.Empty);
         }
 
+        private void ParseM501()
+        {
+            ParseTemperatures();
+
+            // Return if The _dataReceived not contains ok\n
+            if (WaitForOkAndNewLineToBeReceived() == false) return;
+
+            var responceData = new ResponceData(_dataReceived);
+
+            ParseM851();
+           
+            OnM501Responce(responceData);
+            
+            OnReadyForNextCommand(EventArgs.Empty);
+        }
+
+        public decimal ZprobeOffset { get; set; }
+
         private void ParseTemperatures()
         {
             var pattern =
@@ -601,6 +638,16 @@ namespace MarlinComunicationHelper
             return SerialPort.GetExistingCommPortNames();
         }
 
+        public void ClearCommunication()
+        {
+            if (IsPortOpen)
+            {
+                _serialPort.ClearInputBuffer();
+                _serialPort.ClearOutputBuffer();
+               
+            }
+
+        }
         public void SendCommand(string command)
         {
             if (IsPortOpen)
@@ -831,6 +878,21 @@ namespace MarlinComunicationHelper
         private void OnM500Responce(ResponceData responce)
         {
             var handler = M500Responce;
+            handler?.Invoke(this, responce);
+        }
+
+        #endregion
+
+        #region M501Responce
+
+        /// <summary>
+        ///     Eventhandler for M119 EndstopStatus
+        /// </summary>
+        public event EventHandler<ResponceData> M501Responce;
+
+        private void OnM501Responce(ResponceData responce)
+        {
+            var handler = M501Responce;
             handler?.Invoke(this, responce);
         }
 
