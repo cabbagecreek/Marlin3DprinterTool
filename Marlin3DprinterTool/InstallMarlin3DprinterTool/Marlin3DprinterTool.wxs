@@ -101,7 +101,7 @@
       
 
       <!-- Marlin3DprinterTool.exe.config -->
-      <Component Id="Marlin3DprinterTool.exe.config" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
+      <Component Id="Marlin3DprinterTool.exe.config" NeverOverwrite="yes" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe.config" />
       </Component>
 
