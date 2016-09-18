@@ -101,10 +101,11 @@
       
 
       <!-- Marlin3DprinterTool.exe.config -->
-      <Component Id="Marlin3DprinterTool.exe.config" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
+      <Component Id="Marlin3DprinterTool.exe.config" NeverOverwrite="yes" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe.config" />
       </Component>
 
+      
       
 
       <!-- ArduinoSyntax.xml -->
@@ -118,7 +119,7 @@
       </Component>
       
       <!-- Marlin3DprinterToolConfiguration.xml -->
-      <Component Id="Marlin3DprinterToolConfiguration.xml" NeverOverwrite="yes" Permanent="" Guid="{33AE66A1-8306-460E-91D7-9BDE1096A59D}">
+      <Component Id="Marlin3DprinterToolConfiguration.xml" NeverOverwrite="yes" Permanent="yes" Guid="{33AE66A1-8306-460E-91D7-9BDE1096A59D}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.xml" />
       </Component>
 

@@ -24,7 +24,7 @@
     <Row order="1">G1 Z2</Row>
   </GcodeAssistZprobeRelease>
   <ZmaxTravel zmax="250" />
-  <Firmware directory="C:\Users\Johnnyboy\Desktop\Marlin\Aktuell Bigbox -- Marlin 1.1.0-RC7\Marlin-RC\Marlin" />
+  <Firmware directory="C:\Users\Johnnyboy\Desktop\Marlin\Aktuell Rigidbot -- Marlin 1.1.0-RC7\Marlin-1.0.2-1\Marlin-1.0.2-1\Marlin" />
   <NewFirmware directory="C:\Users\Johnnyboy\Desktop\Marlin\For Test -- Marlin 1.1.0-RC7 - 31 July 2016\Marlin-RC\Marlin" />
   <ArduinoIDE directory="C:\Program Files (x86)\Arduino" />
   <NeverClear value="True" />
