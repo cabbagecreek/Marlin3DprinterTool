@@ -118,7 +118,7 @@
       </Component>
       
       <!-- Marlin3DprinterToolConfiguration.xml -->
-      <Component Id="Marlin3DprinterToolConfiguration.xml" Guid="{33AE66A1-8306-460E-91D7-9BDE1096A59D}">
+      <Component Id="Marlin3DprinterToolConfiguration.xml" NeverOverwrite="yes" Permanent="" Guid="{33AE66A1-8306-460E-91D7-9BDE1096A59D}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.xml" />
       </Component>
 
