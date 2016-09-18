@@ -147,6 +147,8 @@ namespace MarlinComunicationHelper
 
         private string GetFirmwareFeatureValue(string feauture )
         {
+            if (string.IsNullOrEmpty(feauture)) return "";
+
             string featurevalue = "No value!";
             List<int> rows = new List<int>();
             rows = fastColoredTextBoxOldFirmware.FindLines(@"\s*\#define\s*" + feauture, RegexOptions.Singleline);
@@ -324,7 +326,6 @@ namespace MarlinComunicationHelper
         {
             //#define DEFAULT_Kp 22.2
             // update the current firmware.
-            InstanceFrmFirmware.chlBxUpdateCurrentFirmware.Checked = true;
             InstanceFrmFirmware.cmbBxFirmwareFeatures.Text = @"DEFAULT_Kp";
             InstanceFrmFirmware.txtBxCurrentFirmwareValue.Text = kp;
         }

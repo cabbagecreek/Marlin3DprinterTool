@@ -409,7 +409,6 @@ namespace Marlin3DprinterTool
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            string language = CultureInfo.CurrentCulture.Name;
             var url = "https://www.paypal.com/cgi-bin/webscr" +
                       @"?cmd=" + "_donations" +
                       @"&business=" + "cabbagecreek@gmail.com" +
@@ -561,6 +560,7 @@ namespace Marlin3DprinterTool
 
         private void btnZprobeHeightNext_Click(object sender, EventArgs e)
         {
+
             txtBxJogControlZprobeHeightHelp.Visible = false;
             btnZprobeHeightNext.Visible = false;
             verticalJogControlZprobeHeight.BackColor = SystemColors.Control;
@@ -583,8 +583,9 @@ namespace Marlin3DprinterTool
 
 
             lblCalculatedZProbeOffset.Visible = true;
-            txtBxCalculatedZProbeOffset.Visible = true;
-            btnZpromeFirmwareUpdate.Visible = true;
+            txtBxCalculatedZProbeOffset.Visible = false;
+            btnZpromeFirmwareUpdate.Visible = false;
+            btnZpromeEepromUpdate.Visible = false;
 
             _com.ProbeResponceList = new List<Position>(); //Clear the proberesponcelist fron old probing
 
@@ -707,56 +708,6 @@ namespace Marlin3DprinterTool
         }
 
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            var data =
-                "PID Autotune start\n" + "\n\n\n" +
-                " T: 40.7 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 47.1 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 53.6 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 60.2 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 67.2 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 73.6 / 0.0 B: 25.2 / 0.0 @:127 B@:0\n" +
-                " T: 79.8 / 0.0 B: 25.5 / 0.0 @:127 B@:0\n" +
-                " T: 85.9 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 91.8 / 0.0 B: 25.5 / 0.0 @:127 B@:0\n" +
-                " T: 97.8 / 0.0 B: 25.5 / 0.0 @:127 B@:0\n" +
-                " T: 104.2 / 0.0 B: 25.1 / 0.0 @:127 B@:0\n" +
-                " T: 109.9 / 0.0 B: 25.7 / 0.0 @:127 B@:0\n" +
-                " T: 115.5 / 0.0 B: 25.1 / 0.0 @:127 B@:0\n" +
-                " T: 121.1 / 0.0 B: 25.5 / 0.0 @:127 B@:0\n" +
-                " T: 126.5 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 131.9 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 137.7 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 143.0 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 148.1 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 153.0 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 157.9 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 162.9 / 0.0 B: 25.4 / 0.0 @:127 B@:0\n" +
-                " T: 168.2 / 0.0 B: 25.3 / 0.0 @:127 B@:0\n" +
-                " T: 173.0 / 0.0 B: 25.3 / 0.0 @:0 B@:0\n" +
-                " T: 176.1 / 0.0 B: 25.4 / 0.0 @:0 B@:0\n" +
-                " T: 177.0 / 0.0 B: 25.5 / 0.0 @:0 B@:0\n" +
-                " T: 176.7 / 0.0 B: 25.4 / 0.0 @:0 B@:0\n" +
-                " T: 175.6 / 0.0 B: 25.5 / 0.0 @:0 B@:0\n" +
-                " T: 174.2 / 0.0 B: 25.3 / 0.0 @:0 B@:0\n" +
-                " T: 172.9 / 0.0 B: 25.5 / 0.0 @:0 B@:0\n";
-
-
-            //string pattern = @"\sT:.[0-9]*.[0-9]*\s\/.[0-9]*.[0-9]*.\sB:.[0-9]*.[0-9]*.\s\/.[0-9]*.[0-9]*\s\@:.[0-9]*.\sB\@:[0-9]*";
-            var pattern =
-                @"\sT:.[0-9]*.[0-9]*\s\/.[0-9]*.[0-9]*.\sB:.[0-9]*.[0-9]*.\s\/.[0-9]*.[0-9]*\s\@:.[0-9]*\sB\@:[0-9]*";
-
-
-            foreach (Match m in Regex.Matches(data, pattern))
-            {
-                //MessageBox.Show( string.Format( "'{0}' found at index {1}.",m.Value, m.Index));
-            }
-
-            MessageBox.Show(Regex.Replace(data, pattern, ""));
-
-            MessageBox.Show(Regex.Replace(Regex.Replace(data, pattern, ""), @"\s*$", ""));
-        }
 
 
         private void Kill()
@@ -771,8 +722,6 @@ namespace Marlin3DprinterTool
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
             txtBxPIDresponce.Text = "";
-            grpBxHeatbedPID.Enabled = false;
-            grpBxExtruderPID.Enabled = true;
             _com.ClearReceived();
             _com.SendCommand($"M303 E0 S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
         }
@@ -785,6 +734,7 @@ namespace Marlin3DprinterTool
             lblCalculatedZProbeOffset.Visible = false;
             txtBxCalculatedZProbeOffset.Visible = false;
             btnZpromeFirmwareUpdate.Visible = false;
+            btnZpromeEepromUpdate.Visible = false;
 
             kompassControllConfigBed.Visible = false;
             btnHomeX.Visible = false;
@@ -819,6 +769,7 @@ namespace Marlin3DprinterTool
             lblCalculatedZProbeOffset.Visible = false;
             txtBxCalculatedZProbeOffset.Visible = false;
             btnZpromeFirmwareUpdate.Visible = false;
+            btnZpromeEepromUpdate.Visible = false;
         }
 
         private void tabPageEndstop_Click(object sender, EventArgs e)
@@ -858,8 +809,6 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateBedPid_Click(object sender, EventArgs e)
         {
-            grpBxHeatbedPID.Enabled = true;
-            grpBxExtruderPID.Enabled = false;
             txtBxPIDresponce.Text = "";
             _com.SendCommand($"M303 E-1 S{numUpDownPidBedTemp.Value} C{numUpDownPidBedCykles.Value}");
         }
@@ -930,6 +879,7 @@ namespace Marlin3DprinterTool
                     _com.M303Responce += _com_M303Responce;
                     _com.M304Responce += _com_M304Responce;
                     _com.M500Responce += _com_M500Responce;
+                    _com.M501Responce += _com_M501Responce;
                     _com.ReadyForNextCommand += _com_ReadyForNextCommand;
                     
                     _com.DisConnected += _com_DisConnected;
@@ -961,6 +911,7 @@ namespace Marlin3DprinterTool
             }
         }
 
+        
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
         {
@@ -976,9 +927,8 @@ namespace Marlin3DprinterTool
         
         private void _com_M301Responce(object sender, ResponceData responce)
         {
-            MessageBox.Show(responce.Data, @"Extruder Pid", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            grpBxHeatbedPID.Enabled = true;
-            grpBxExtruderPID.Enabled = true;
+            // TODO: Show EEPROM
+            
         }
 
         private void _com_M303Responce(object sender, ResponceData responceData)
@@ -1012,12 +962,21 @@ namespace Marlin3DprinterTool
                 pidResponce += line + Environment.NewLine;
             }
 
+            
+
             // get the Kp , Ki and Kd from the responce
             foreach (string line in linesList)
             {
                 Match matchKp = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Kp\s)[0-9|.]*", RegexOptions.IgnoreCase);
                 Match matchKi = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Ki\s)[0-9|.]*", RegexOptions.IgnoreCase);
                 Match matchKd = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Kd\s)[0-9|.]*", RegexOptions.IgnoreCase);
+
+                if (line.Contains(@"Bad extruder number"))
+                {
+                    MessageBox.Show(line + Environment.NewLine + Environment.NewLine +
+                        @"It looks like Firmware had BedPID disabled", @"BedPID", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
 
                 if (matchKp.Success)
                 {
@@ -1044,24 +1003,31 @@ namespace Marlin3DprinterTool
 
         private void _com_M304Responce(object sender, ResponceData responce)
         {
-            grpBxHeatbedPID.Enabled = true;
-            grpBxExtruderPID.Enabled = true;
-            MessageBox.Show(responce.Data, @"Bed Pid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+           // TODO: SHOW EEPROM
         }
 
 
         private void _com_M500Responce(object sender, ResponceData responce)
         {
-            grpBxHeatbedPID.Enabled = true;
-            grpBxExtruderPID.Enabled = true;
+            // TODO: Show saved EEPROM
             MessageBox.Show(responce.Data, @"Saved EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void _com_M501Responce(object sender, ResponceData responce)
+        {
+            MessageBox.Show(responce.Data, @"Data in EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
         {
+            
+
             // Z-ProbeHeight 
-            if (txtBxCalculatedZProbeOffset.Visible)
+            if (lblCalculatedZProbeOffset.Visible)
             {
+                DeligateAndInvoke.DelegateVisible(txtBxCalculatedZProbeOffset, true);
+                DeligateAndInvoke.DelegateVisible(btnZpromeFirmwareUpdate,true);
+                DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate,true);
                 foreach (var position in probePositions)
                 {
                     DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, position.Z.ToString());
@@ -1556,18 +1522,67 @@ namespace Marlin3DprinterTool
         private void btnTransferExtruderPid_Click(object sender, EventArgs e)
         {
             // Update Firmware)
+            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
             _com.Firmware.UpdateExtruderKp(txtBxKpExtruder.Text);
-            _com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
-            _com.Firmware.UpdateExtruderKd(txtBxKdExtruder.Text);
-
         }
 
         private void btnTransferBedPid_Click(object sender, EventArgs e)
         {
             // Update Firmware)
+            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
             _com.Firmware.UpdateBedKp(txtBxKpExtruder.Text);
-            _com.Firmware.UpdateBedKi(txtBxKiExtruder.Text);
-            _com.Firmware.UpdateBedKd(txtBxKdExtruder.Text);
+            
+        }
+
+        private void btnTransferExtruderPidKi_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            _com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
+            
+        }
+
+        private void btnTransferExtruderPidKd_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            _com.Firmware.UpdateExtruderKd(txtBxKpBed.Text);
+        }
+
+        private void btnTransferBedPidKi_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            _com.Firmware.UpdateBedKi(txtBxKiBed.Text);
+        }
+
+        private void btnTransferBedPidKd_Click(object sender, EventArgs e)
+        {
+            // Update Firmware)
+            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            _com.Firmware.UpdateBedKd(txtBxKdBed.Text);
+        }
+
+        private void btnM500SaveEeprom_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand(new List<string>(new[] { "M500" }));
+        }
+
+        private void btnM501ReadEeprom_Click(object sender, EventArgs e)
+        {
+            _com.Gcode = "";
+            _com.ClearCommunication();
+            _com.SendCommand(new List<string>(new[] { "M501" }));
+
+        }
+
+        private void btnZpromeEepromUpdate_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            commands.Add(string.Format("M851 Z-{0}", txtBxCalculatedZProbeOffset.Text.Replace(',','.')));
+            commands.Add("M500");
+            _com.SendCommand(commands);
+            
         }
     }
 }
