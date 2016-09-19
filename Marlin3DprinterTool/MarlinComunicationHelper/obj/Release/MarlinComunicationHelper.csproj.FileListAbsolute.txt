@@ -10,7 +10,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\Release\MarlinEditor.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\Release\FastColoredTextBox.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.csprojResolveAssemblyReference.cache
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.FrmFirmware.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.FrmShowCommunication.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.KompassControll.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.Properties.Resources.resources
@@ -18,3 +17,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.csproj.GenerateResource.Cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\Release\MarlinComunicationHelper.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\Release\MarlinEditorConfiguration.xml

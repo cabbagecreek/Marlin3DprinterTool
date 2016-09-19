@@ -7,9 +7,12 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
+using MarlinEditor;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
+using Configuration = MarlinComunicationHelper.Configuration;
+using Position = MarlinComunicationHelper.Position;
 
 namespace Marlin3DprinterTool
 {
@@ -26,6 +29,9 @@ namespace Marlin3DprinterTool
 
         private MarlinCommunication _com = new MarlinCommunication();
         private double _fix;
+
+        MarlinEditor.FrmMarlinEditor _marlinEditor = new FrmMarlinEditor();
+
 
 
         ///
@@ -830,7 +836,12 @@ namespace Marlin3DprinterTool
 
         private void btnFirmware_Click(object sender, EventArgs e)
         {
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
+
+            FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
+            marlinEditor.Show();
+
+
+
         }
 
         private void btnEmergency_Click(object sender, EventArgs e)
@@ -840,16 +851,18 @@ namespace Marlin3DprinterTool
 
         private void btnZprobeFirmwareUpdate_Click(object sender, EventArgs e)
         {
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
 
-            // The found offset has wrong sing. Cahnge positive to negative
-            var calcZProbeOffset = Convert.ToDecimal(txtBxCalculatedZProbeOffset.Text)*-1;
+            //TODO: 
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
 
-            // round to to decimals
-            var round = decimal.Round(calcZProbeOffset, 2);
+            //// The found offset has wrong sing. Cahnge positive to negative
+            //var calcZProbeOffset = Convert.ToDecimal(txtBxCalculatedZProbeOffset.Text)*-1;
 
-            // Format the round to a string with 2 decimals and decimalpoint. (Not decimal =, )
-            _com.Firmware.UpdateZprobeOffset($"{round:0.00}".Replace(",", "."));
+            //// round to to decimals
+            //var round = decimal.Round(calcZProbeOffset, 2);
+
+            //// Format the round to a string with 2 decimals and decimalpoint. (Not decimal =, )
+            ////TODO: _com.Firmware.UpdateZprobeOffset($"{round:0.00}".Replace(",", "."));
         }
 
         #region Communication
@@ -1521,46 +1534,46 @@ namespace Marlin3DprinterTool
 
         private void btnTransferExtruderPid_Click(object sender, EventArgs e)
         {
-            // Update Firmware)
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            _com.Firmware.UpdateExtruderKp(txtBxKpExtruder.Text);
+            //// Update Firmware)
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            //_com.Firmware.UpdateExtruderKp(txtBxKpExtruder.Text);
         }
 
         private void btnTransferBedPid_Click(object sender, EventArgs e)
         {
-            // Update Firmware)
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            _com.Firmware.UpdateBedKp(txtBxKpExtruder.Text);
+            //// Update Firmware)
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            //_com.Firmware.UpdateBedKp(txtBxKpExtruder.Text);
             
         }
 
         private void btnTransferExtruderPidKi_Click(object sender, EventArgs e)
         {
-            // Update Firmware)
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            _com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
+            //// Update Firmware)
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            //_com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
             
         }
 
         private void btnTransferExtruderPidKd_Click(object sender, EventArgs e)
         {
-            // Update Firmware)
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            _com.Firmware.UpdateExtruderKd(txtBxKpBed.Text);
+            //// Update Firmware)
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            //_com.Firmware.UpdateExtruderKd(txtBxKpBed.Text);
         }
 
         private void btnTransferBedPidKi_Click(object sender, EventArgs e)
         {
-            // Update Firmware)
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            _com.Firmware.UpdateBedKi(txtBxKiBed.Text);
+            //// Update Firmware)
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            //_com.Firmware.UpdateBedKi(txtBxKiBed.Text);
         }
 
         private void btnTransferBedPidKd_Click(object sender, EventArgs e)
         {
-            // Update Firmware)
-            _com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            _com.Firmware.UpdateBedKd(txtBxKdBed.Text);
+            //// Update Firmware)
+            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
+            //_com.Firmware.UpdateBedKd(txtBxKdBed.Text);
         }
 
         private void btnM500SaveEeprom_Click(object sender, EventArgs e)

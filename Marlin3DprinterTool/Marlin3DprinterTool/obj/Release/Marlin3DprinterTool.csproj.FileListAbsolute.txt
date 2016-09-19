@@ -27,3 +27,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\Release\Marlin3DprinterTool.exe.licenses
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\Release\Marlin3DprinterTool.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\Release\Marlin3DprinterTool.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\Release\MarlinEditorConfiguration.xml

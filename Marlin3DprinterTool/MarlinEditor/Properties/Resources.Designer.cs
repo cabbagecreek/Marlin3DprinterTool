@@ -63,6 +63,16 @@ namespace MarlinEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arduino_logo {
+            get {
+                object obj = ResourceManager.GetObject("arduino_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap backward0_16x16 {
             get {
                 object obj = ResourceManager.GetObject("backward0_16x16", resourceCulture);

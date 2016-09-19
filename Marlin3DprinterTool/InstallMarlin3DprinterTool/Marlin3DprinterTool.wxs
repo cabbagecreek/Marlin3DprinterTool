@@ -123,6 +123,13 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.xml" />
       </Component>
 
+      
+
+      <!-- MarlinEditorConfiguration.xml -->
+      <Component Id="MarlinEditorConfiguration.xml" NeverOverwrite="yes" Permanent="yes" Guid="{50951E18-4502-4FB4-B0B3-413D2EDBE50C}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditorConfiguration.xml" />
+      </Component>
+
 
       <!-- MarlinComunicationHelper.dll -->
       <Component Id="MarlinComunicationHelper.dll" Guid="{755DDFEC-39F6-4C3A-991F-56FDA1BDC1AA}">

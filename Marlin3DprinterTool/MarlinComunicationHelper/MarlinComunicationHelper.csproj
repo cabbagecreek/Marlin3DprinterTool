@@ -50,14 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArduinoIDE.cs" />
     <Compile Include="Properties\Configuration.cs" />
-    <Compile Include="FrmFirmware.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmFirmware.Designer.cs">
-      <DependentUpon>FrmFirmware.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmShowCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,10 +81,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmFirmware.resx">
-      <DependentUpon>FrmFirmware.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmShowCommunication.resx">
       <DependentUpon>FrmShowCommunication.cs</DependentUpon>
     </EmbeddedResource>
