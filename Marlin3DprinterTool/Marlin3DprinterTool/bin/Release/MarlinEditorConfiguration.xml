@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  
+  <CurrentFirmware directory="C:\Users\Johnnyboy\Desktop\Marlin\Aktuell Rigidbot -- Marlin 1.1.0-RC7\Marlin-1.0.2-1\Marlin-1.0.2-1\Marlin" />
+  <NewFirmware directory="C:\Users\Johnnyboy\Desktop\Marlin\For Test -- Marlin 1.1.0-RC7 - 31 July 2016\Marlin-RC\Marlin" />
+  <ArduinoIDE directory="C:\Program Files (x86)\Arduino" />
+  
+</configuration>

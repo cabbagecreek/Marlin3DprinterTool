@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace MarlinEditor
 {
     public partial class FrmMarlinEditor : Form
     {
+
+        
+
+
+
+        private readonly Configuration _configuration = new Configuration();
 
         private readonly string[] _keywords = { "#define","abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
         private readonly string[] _methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
@@ -44,8 +51,9 @@ namespace MarlinEditor
             }
         }
 
-        public string Directory
+        public string FirmwareDirectory
         {
+            get { return ofdMain.InitialDirectory; }
             set
             {
                 ofdMain.InitialDirectory = value; 
@@ -226,7 +234,6 @@ namespace MarlinEditor
                 tsFiles.SelectedItem = (tb.Parent as FATabStripItem);
                 tb.Navigate(iLine);
                 lastNavigatedDateTime = tb[iLine].LastVisit;
-                Console.WriteLine("Forward: " + lastNavigatedDateTime);
                 tb.Focus();
                 tb.Invalidate();
                 return true;
@@ -255,7 +262,6 @@ namespace MarlinEditor
                 tsFiles.SelectedItem = (tb.Parent as FATabStripItem);
                 tb.Navigate(iLine);
                 lastNavigatedDateTime = tb[iLine].LastVisit;
-                Console.WriteLine("Backward: " + lastNavigatedDateTime);
                 tb.Focus();
                 tb.Invalidate();
                 return true;
@@ -327,13 +333,14 @@ namespace MarlinEditor
                 //find classes, methods and properties
                 Regex regex = new Regex(@"^(?<range>[\w\s]+\b(class|struct|enum|interface)\s+[\w<>,\s]+)|^\s*(#define|//\s*#define|public|private|internal|protected)[^\n]+(\n?\s*{|;)?", RegexOptions.Multiline);
                 foreach (Match r in regex.Matches(text))
+                {
                     try
                     {
-                       var item = new ExplorerItem { title = r.Value.Trim(), position = r.Index };
+                        var item = new ExplorerItem {title = r.Value.Trim(), position = r.Index};
 
                         if (item.title.Contains("#define"))
                         {
-                            
+
 
                             if (item.title.StartsWith(@"#define"))
                             {
@@ -357,61 +364,25 @@ namespace MarlinEditor
 
 
 
-                            
-                            
+
+
 
                         }
-                        
 
 
 
-                       
-
-                        
-
-
-
-                        //if (Regex.IsMatch(item.title, @"\b(class|struct|enum|interface)\b"))
-                        //{
-                        //    item.title = item.title.Substring(item.title.LastIndexOf(' ')).Trim();
-                        //    item.type = ExplorerItemType.Class;
-                        //    list.Sort(lastClassIndex + 1, list.Count - (lastClassIndex + 1), new ExplorerItemComparer());
-                        //    lastClassIndex = list.Count;
-                        //}
-                        //else
-                        //    if (item.title.Contains(" event "))
-                        //{
-                        //    int ii = item.title.LastIndexOf(' ');
-                        //    item.title = item.title.Substring(ii).Trim();
-                        //    item.type = ExplorerItemType.Event;
-                        //}
-                        //else
-                        //        if (item.title.Contains("("))
-                        //{
-                        //    var parts = item.title.Split('(');
-                        //    item.title = parts[0].Substring(parts[0].LastIndexOf(' ')).Trim() + "(" + parts[1];
-                        //    item.type = ExplorerItemType.Method;
-                        //}
-                        //else
-                        //            if (item.title.EndsWith("]"))
-                        //{
-                        //    var parts = item.title.Split('[');
-                        //    if (parts.Length < 2) continue;
-                        //    item.title = parts[0].Substring(parts[0].LastIndexOf(' ')).Trim() + "[" + parts[1];
-                        //    item.type = ExplorerItemType.Method;
-                        //}
-                        //else
-                        //{
-                        //    int ii = item.title.LastIndexOf(' ');
-                        //    item.title = item.title.Substring(ii).Trim();
-                        //    item.type = ExplorerItemType.Property;
-                        //}
                         list.Add(item);
                     }
-                    catch {; }
+                    catch
+                    {
+                        ;
 
+                    }
 
-                // list.Sort(lastClassIndex + 1, list.Count - (lastClassIndex + 1), new ExplorerItemComparer());
+                }
+
+                
+
 
                 BeginInvoke(
                     new Action(() =>
@@ -430,7 +401,9 @@ namespace MarlinEditor
             foreach (FATabStripItem tab in tsFiles.Items)
                 (tab.Controls[0] as FastColoredTextBox).ShowFoldingLines = btShowFoldingLines.Checked;
             if (CurrentFastColoredTextBox != null)
+            {
                 CurrentFastColoredTextBox.Invalidate();
+            }
         }
 
        
@@ -504,7 +477,9 @@ namespace MarlinEditor
             foreach (FATabStripItem tab in tsFiles.Items)
                 HighlightInvisibleChars((tab.Controls[0] as FastColoredTextBox).Range);
             if (CurrentFastColoredTextBox != null)
+            {
                 CurrentFastColoredTextBox.Invalidate();
+            }
         }
 
         private void pasteToolStripButton_Click(object sender, EventArgs e)
@@ -515,13 +490,18 @@ namespace MarlinEditor
         private void undoStripButton_Click(object sender, EventArgs e)
         {
             if (CurrentFastColoredTextBox.UndoEnabled)
+            {
                 CurrentFastColoredTextBox.Undo();
+            }
         }
 
         private void redoStripButton_Click(object sender, EventArgs e)
         {
             if (CurrentFastColoredTextBox.RedoEnabled)
+            {
                 CurrentFastColoredTextBox.Redo();
+                
+            }
 
         }
 
@@ -537,15 +517,13 @@ namespace MarlinEditor
 
         private void bookmarkPlusButton_Click(object sender, EventArgs e)
         {
-            if (CurrentFastColoredTextBox == null)
-                return;
+            if (CurrentFastColoredTextBox == null) return;
             CurrentFastColoredTextBox.BookmarkLine(CurrentFastColoredTextBox.Selection.Start.iLine);
         }
 
         private void bookmarkMinusButton_Click(object sender, EventArgs e)
         {
-            if (CurrentFastColoredTextBox == null)
-                return;
+            if (CurrentFastColoredTextBox == null) return;
             CurrentFastColoredTextBox.UnbookmarkLine(CurrentFastColoredTextBox.Selection.Start.iLine);
         }
 
@@ -644,18 +622,64 @@ namespace MarlinEditor
 
         private void tsFiles_TabStripItemSelectionChanged(TabStripItemChangedEventArgs e)
         {
-            //TODO: Show the filename in the Frame title
+            this.Text = string.Format("Marlin Editor - {0}", e.Item.Tag);
         }
 
         private void FrmMarlinEditor_Load(object sender, EventArgs e)
         {
             string documentation =  MarlinDocumentationHarvestClass.GetMarlinConfigurationDocumentation(@"http://www.marlinfw.org/docs/development/configuration.html");
+
+            //TODO: Dialog containing setup for Current and New Firmware
+
+            if (string.IsNullOrEmpty(FirmwareDirectory))
+            {
+                FirmwareDirectory = _configuration.CurrentFirmware;
+            }
+
+            if (File.Exists(Path.Combine(FirmwareDirectory, @"configuration.h")))
+            {
+                CreateTab(Path.Combine(FirmwareDirectory, @"configuration.h"));
+            }
         }
 
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
             if (CurrentFastColoredTextBox != null)
                 CurrentFastColoredTextBox.Zoom = int.Parse((sender as ToolStripItem).Tag.ToString());
+        }
+
+        private void toolStripArduinoIDE_Click(object sender, EventArgs e)
+        {
+            Configuration configuration = new Configuration();
+
+            string workingDirectory = Path.GetDirectoryName(tsFiles.SelectedItem.Tag.ToString());
+
+            DialogResult result =
+            MessageBox.Show(@"Starting Arduino IDE with Marlin.ino" + Environment.NewLine + Environment.NewLine +
+                            @"* Working directory: " + workingDirectory + Environment.NewLine +
+                            @"* Arduino directory: " + configuration.ArduinoIde + Environment.NewLine +
+                            Environment.NewLine +
+                            @"Is CallConvThiscall what you want?", @"Starting Arduino IDE with Marlin.ino",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            if (result == DialogResult.Cancel) return;
+
+
+
+            
+            var compileAndUpload = new Process();
+            compileAndUpload.StartInfo.UseShellExecute = false;
+            compileAndUpload.StartInfo.RedirectStandardOutput = true;
+            compileAndUpload.StartInfo.WorkingDirectory = configuration.CurrentFirmware;
+            compileAndUpload.StartInfo.FileName = Path.Combine(configuration.ArduinoIde, "arduino.exe");
+            compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(configuration.CurrentFirmware, "marlin.ino") + "\" ";
+            compileAndUpload.Start();
+            // Do not wait for the child process to exit before
+            // reading to the end of its redirected stream.
+            // p.WaitForExit();
+            // Read the output stream first and then wait.
+            // string output = compileAndUpload.StandardOutput.ReadToEnd();
+            compileAndUpload.WaitForExit();
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using MarlinEditor;
 using ZylSerialPort;
 
 namespace MarlinComunicationHelper
@@ -12,7 +13,7 @@ namespace MarlinComunicationHelper
         private readonly SerialPort _serialPort = new SerialPort();
         private List<string> _commands;
         private string _dataReceived;
-        private FrmFirmware _firmware;
+        private FrmMarlinEditor _marlinEditor;
         private FrmShowCommunication _showcom;
 
         /// <summary>
@@ -57,24 +58,7 @@ namespace MarlinComunicationHelper
             }
         }
 
-        public FrmFirmware Firmware
-        {
-            get
-            {
-                if (_firmware == null || _firmware.IsDisposed)
-                {
-                    return FrmFirmware.InstanceFrmFirmware;
-                }
-                return _firmware;
-            }
-            set
-            {
-                _firmware = value;
-                _firmware = FrmFirmware.InstanceFrmFirmware;
-                _firmware.Show();
-            }
-        }
-
+       
 
         public void Connect()
         {

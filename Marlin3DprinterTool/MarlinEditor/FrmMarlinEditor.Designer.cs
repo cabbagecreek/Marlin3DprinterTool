@@ -75,6 +75,8 @@ namespace MarlinEditor
             this.bookmarkPlusButton = new System.Windows.Forms.ToolStripButton();
             this.bookmarkMinusButton = new System.Windows.Forms.ToolStripButton();
             this.gotoButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripArduinoIDE = new System.Windows.Forms.ToolStripButton();
             this.sfdMain = new System.Windows.Forms.SaveFileDialog();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.cmMain = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -206,35 +208,35 @@ namespace MarlinEditor
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem11.Tag = "300";
             this.toolStripMenuItem11.Text = "300%";
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem10.Tag = "200";
             this.toolStripMenuItem10.Text = "200%";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem9.Tag = "150";
             this.toolStripMenuItem9.Text = "150%";
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem8.Tag = "100";
             this.toolStripMenuItem8.Text = "100%";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem7.Tag = "50";
             this.toolStripMenuItem7.Text = "50%";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
@@ -242,7 +244,7 @@ namespace MarlinEditor
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(102, 22);
             this.toolStripMenuItem6.Tag = "25";
             this.toolStripMenuItem6.Text = "25%";
             // 
@@ -271,7 +273,9 @@ namespace MarlinEditor
             this.toolStripSeparator6,
             this.bookmarkPlusButton,
             this.bookmarkMinusButton,
-            this.gotoButton});
+            this.gotoButton,
+            this.toolStripSeparator1,
+            this.toolStripArduinoIDE});
             this.tsMain.Location = new System.Drawing.Point(0, 24);
             this.tsMain.Name = "tsMain";
             this.tsMain.Size = new System.Drawing.Size(1184, 25);
@@ -489,6 +493,22 @@ namespace MarlinEditor
             this.gotoButton.Text = "Goto...";
             this.gotoButton.DropDownOpening += new System.EventHandler(this.gotoButton_DropDownOpening);
             this.gotoButton.Click += new System.EventHandler(this.gotoButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripArduinoIDE
+            // 
+            this.toolStripArduinoIDE.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripArduinoIDE.Image = global::MarlinEditor.Properties.Resources.arduino_logo;
+            this.toolStripArduinoIDE.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripArduinoIDE.Name = "toolStripArduinoIDE";
+            this.toolStripArduinoIDE.Size = new System.Drawing.Size(23, 22);
+            this.toolStripArduinoIDE.Text = "toolStripButton1";
+            this.toolStripArduinoIDE.ToolTipText = "Arduino IDE";
+            this.toolStripArduinoIDE.Click += new System.EventHandler(this.toolStripArduinoIDE_Click);
             // 
             // sfdMain
             // 
@@ -793,6 +813,8 @@ namespace MarlinEditor
         private DataGridViewTextBoxColumn clName;
         private FarsiLibrary.Win.FATabStrip tsFiles;
         private Splitter splitter1;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton toolStripArduinoIDE;
     }
 }
 
