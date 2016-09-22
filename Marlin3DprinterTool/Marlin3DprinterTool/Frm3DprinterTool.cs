@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
@@ -30,9 +29,6 @@ namespace Marlin3DprinterTool
         private MarlinCommunication _com = new MarlinCommunication();
         private double _fix;
 
-        MarlinEditor.FrmMarlinEditor _marlinEditor = new FrmMarlinEditor();
-
-
 
         ///
         public Frm3DprinterTool()
@@ -54,6 +50,7 @@ namespace Marlin3DprinterTool
             PopulateConfig();
             ValidateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
+
         }
 
 
@@ -612,6 +609,8 @@ namespace Marlin3DprinterTool
                 {
                     cmbBxComPort.Items.Add(serialPort);
                 }
+                cmbBxComPort.Text = _configuration.ComPort;
+                cmbBxBaud.Text = _configuration.Baudrate;
             }
             catch (Exception)
             {
@@ -702,18 +701,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand(commands);
         }
 
-        private void timerTemperature_Tick(object sender, EventArgs e)
-        {
-            //Random rndTemp = new Random(DateTime.Now.Millisecond);
-            //double temp = 80 + (20.0*rndTemp.NextDouble());
-
-
-            //SetExtruderTemp( (int) temp, _com.SetExtruderTemp);
-
-            //SetBedTemp((int) temp -60, _com.SetBedTemp);
-        }
-
-
+    
 
 
         private void Kill()
@@ -1311,6 +1299,8 @@ namespace Marlin3DprinterTool
         private void _com_Connected(object sender, EventArgs e)
         {
             btnConnect.Text = @"DisConnect";
+            _configuration.ComPort = _com.Port;
+            _configuration.Baudrate = _com.BaudRate;
         }
 
         private void _com_G29Responce(object sender, Responce responce)
