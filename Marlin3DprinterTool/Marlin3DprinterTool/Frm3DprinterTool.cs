@@ -728,6 +728,13 @@ namespace Marlin3DprinterTool
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
             txtBxPIDresponce.Text = "";
+            
+            chartTemperature.Series["Extruder"].Points.Clear();
+            chartTemperature.Series["SetExtruder"].Points.Clear();
+            chartTemperature.Series["Bed"].Points.Clear();
+            chartTemperature.Series["SetBed"].Points.Clear();
+
+
             _com.ClearReceived();
             _com.SendCommand($"M303 E0 S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
         }
@@ -1534,47 +1541,37 @@ namespace Marlin3DprinterTool
 
         private void btnTransferExtruderPid_Click(object sender, EventArgs e)
         {
-            //// Update Firmware)
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            //_com.Firmware.UpdateExtruderKp(txtBxKpExtruder.Text);
+            _com.Port = cmbBxComPort.Text;
+            _com.DisConnect();
+
+
+            btnConnect.Text = @"Connect";
+
+            // Update Firmware)
+
+            FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
+            marlinEditor.UpdateAndSavePidExtruder(txtBxKpExtruder.Text, txtBxKiExtruder.Text,txtBxKdExtruder.Text);
+            marlinEditor.ShowDialog();
+
         }
 
         private void btnTransferBedPid_Click(object sender, EventArgs e)
         {
-            //// Update Firmware)
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            //_com.Firmware.UpdateBedKp(txtBxKpExtruder.Text);
-            
+            _com.Port = cmbBxComPort.Text;
+            _com.DisConnect();
+
+
+            btnConnect.Text = @"Connect";
+
+            FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
+            marlinEditor.UpdateAndSavePidBed(txtBxKpBed.Text, txtBxKiBed.Text, txtBxKdBed.Text);
+
+            marlinEditor = new FrmMarlinEditor();
+            marlinEditor.ShowDialog();
         }
 
-        private void btnTransferExtruderPidKi_Click(object sender, EventArgs e)
-        {
-            //// Update Firmware)
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            //_com.Firmware.UpdateExtruderKi(txtBxKiExtruder.Text);
-            
-        }
+       
 
-        private void btnTransferExtruderPidKd_Click(object sender, EventArgs e)
-        {
-            //// Update Firmware)
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            //_com.Firmware.UpdateExtruderKd(txtBxKpBed.Text);
-        }
-
-        private void btnTransferBedPidKi_Click(object sender, EventArgs e)
-        {
-            //// Update Firmware)
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            //_com.Firmware.UpdateBedKi(txtBxKiBed.Text);
-        }
-
-        private void btnTransferBedPidKd_Click(object sender, EventArgs e)
-        {
-            //// Update Firmware)
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-            //_com.Firmware.UpdateBedKd(txtBxKdBed.Text);
-        }
 
         private void btnM500SaveEeprom_Click(object sender, EventArgs e)
         {

@@ -67,7 +67,12 @@
     <Compile Include="FrmMarlinEditor.Designer.cs">
       <DependentUpon>FrmMarlinEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarlinDocumentationHarvestClass.cs" />
+    <Compile Include="FrmMarlinEditorSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMarlinEditorSetup.Designer.cs">
+      <DependentUpon>FrmMarlinEditorSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmFirmwareMigrate.resx">
@@ -76,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMarlinEditor.resx">
       <DependentUpon>FrmMarlinEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMarlinEditorSetup.resx">
+      <DependentUpon>FrmMarlinEditorSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -161,7 +169,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Images\arduino_logo.png" />
+    <None Include="Images\data_transfer.png" />
     <Content Include="Images\disabled_property.png" />
+    <None Include="Images\Setting.png" />
+    <None Include="Images\migration.png" />
     <Content Include="MarlinEditorConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

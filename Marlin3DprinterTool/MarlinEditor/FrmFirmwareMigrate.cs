@@ -12,9 +12,9 @@ namespace MarlinEditor
     public partial class FrmFirmware : Form
     {
         private static FrmFirmware _instanceOfFrmFirmware;
+        private readonly Style _invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
+        
 
-
-       
         public FrmFirmware()
         {
             InitializeComponent();
@@ -32,21 +32,21 @@ namespace MarlinEditor
             }
         }
 
-        public string ArduinoIdeDirectory { get; set; }
-        public string NewFirmwareDirectory { get; set; }
-        public string CurrentFirmwareDirectory { get; set; }
-
-
-
+       
         private List<string> FindFirmwareFeatures()
         {
             List<string> allFeatures = new List<string>();
-            List<int> rows = fastColoredTextBoxCurrentFirmware.FindLines(@"\#define", RegexOptions.Singleline);
+            List<int> rows = fctbCurrentFirmware.FindLines(@"\#define", RegexOptions.Singleline);
             foreach (int row in rows)
             {
-                string text = fastColoredTextBoxCurrentFirmware.GetLineText(row);
+                string text = fctbCurrentFirmware.GetLineText(row);
                 //Get word after #define featurename
                 string feature = Regex.Match(text, @"(?<=\s*\#define\s*)(\w+)", RegexOptions.Singleline).Value;
+
+
+                if (allFeatures.Contains(feature)) continue;
+                
+
 
                 allFeatures.Add(feature);
             }
@@ -59,21 +59,35 @@ namespace MarlinEditor
 
         private void FrmFirmware_Load(object sender, EventArgs e)
         {
+
+            Configuration configuration = new Configuration();
+
+
             //TODO: Show current and new Firmware filenames in grpbox
-            grpBxOldFirmware.Text = Path.Combine(CurrentFirmwareDirectory, @"configuration.h");
-            grpBxNewFirmware.Text = Path.Combine(NewFirmwareDirectory, @"configuration.h");
+            grpBxOldFirmware.Text = Path.Combine(configuration.CurrentFirmware, @"configuration.h");
+            grpBxNewFirmware.Text = Path.Combine(configuration.NewFirmware, @"configuration.h");
 
-            fastColoredTextBoxCurrentFirmware.DescriptionFile = "ArduinoSyntax.xml";
-            fastColoredTextBoxCurrentFirmware.Language = Language.Custom;
-            fastColoredTextBoxCurrentFirmware.Font = new Font("Consolas", 9.75f);
-            
-            
-            
-            if (File.Exists(Path.Combine(CurrentFirmwareDirectory, @"configuration.h"))) fastColoredTextBoxCurrentFirmware.OpenFile(Path.Combine(CurrentFirmwareDirectory, @"configuration.h"));
-            fastColoredTextBoxCurrentFirmware.Tag = Path.Combine(CurrentFirmwareDirectory, @"configuration.h");
+            fctbCurrentFirmware.DescriptionFile = "ArduinoSyntax.xml";
+            fctbCurrentFirmware.Language = Language.Custom;
+            fctbCurrentFirmware.Font = new Font("Consolas", 9.75f);
 
-            if (File.Exists(Path.Combine(NewFirmwareDirectory, @"configuration.h"))) fastColoredTextBoxNewFirmware.OpenFile(Path.Combine(NewFirmwareDirectory, @"configuration.h"));
-            fastColoredTextBoxNewFirmware.Tag = Path.Combine(NewFirmwareDirectory, @"configuration.h");
+
+
+
+            fixCrLFproblems(Path.Combine(configuration.CurrentFirmware, @"configuration.h"));
+            fixCrLFproblems(Path.Combine(configuration.NewFirmware, @"configuration.h"));
+
+
+
+            if (File.Exists(Path.Combine(configuration.CurrentFirmware, @"configuration.h"))) fctbCurrentFirmware.OpenFile(Path.Combine(configuration.CurrentFirmware, @"configuration.h"),Encoding.UTF8);
+            fctbCurrentFirmware.Tag = Path.Combine(configuration.CurrentFirmware, @"configuration.h");
+
+            if (File.Exists(Path.Combine(configuration.NewFirmware, @"configuration.h"))) fctbNewFirmware.OpenFile(Path.Combine(configuration.NewFirmware, @"configuration.h"), Encoding.UTF8);
+            fctbNewFirmware.Tag = Path.Combine(configuration.NewFirmware, @"configuration.h");
+
+
+            HighlightInvisibleChars(fctbCurrentFirmware.Range);
+            HighlightInvisibleChars(fctbNewFirmware.Range);
 
             cmbBxFirmwareFeatures.Items.Clear();
             cmbBxFirmwareFeatures.Items.AddRange(FindFirmwareFeatures().ToArray());
@@ -81,147 +95,201 @@ namespace MarlinEditor
 
         }
 
-        
-
-
-        private void UpdateFirmwareFeatures()
+        private void fixCrLFproblems(string filename)
         {
-            
+            string allText = File.ReadAllText(filename, Encoding.UTF8);
 
-            // Old firmware
-            List<int> rows = new List<int>();
-            rows = fastColoredTextBoxCurrentFirmware.FindLines(@"\#define\s*" + cmbBxFirmwareFeatures.Text,RegexOptions.Singleline);
-            foreach (int row in rows)
-            {
-                fastColoredTextBoxCurrentFirmware.Navigate(row);
-                if (fastColoredTextBoxCurrentFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
-            }
-            
-            txtBxCurrentFirmwareValue.Text = GetFirmwareFeatureValue(cmbBxFirmwareFeatures.Text);
+            allText = allText.Replace("\r\n", "\n");
+            allText = allText.Replace("\n", "\r\n");
+            allText = allText.Replace("\r\n", "\n");
 
-            rows = fastColoredTextBoxNewFirmware.FindLines(@"^\s*[/]*\#define\s*" + cmbBxFirmwareFeatures.Text, RegexOptions.Singleline);
-            foreach (int row in rows)
-            {
-                fastColoredTextBoxNewFirmware.Navigate(row);
-                if (fastColoredTextBoxNewFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
-            }
-           
+            File.WriteAllText(filename,allText);
 
-            if (rows.Count == 0)
-            {
-                MessageBox.Show(string.Format(@"The Feature {0} is not available in the new Firmware. ", cmbBxFirmwareFeatures.Text) + Environment.NewLine + Environment.NewLine + 
-                    @"This feature may have been obsolite in the new Firmware");
-            }
 
 
         }
 
-        private string GetFirmwareFeatureValue(string feauture )
+        private void ShowFirmwareFeatures(string feature)
         {
-            if (string.IsNullOrEmpty(feauture)) return "";
-
-            string featurevalue = "No value!";
             List<int> rows = new List<int>();
-            rows = fastColoredTextBoxCurrentFirmware.FindLines(@"\s*\#define\s*" + feauture, RegexOptions.Singleline);
 
-            if (rows.Count >= 1)
+            // Old firmware
+            string oldFeatureValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
+            string newFeatureValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
+
+            rows = fctbCurrentFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
+            foreach (int row in rows)
             {
-                string row = fastColoredTextBoxCurrentFirmware.GetLineText(rows[0]).Trim();
+                fctbCurrentFirmware.Navigate(row);
+                if (fctbCurrentFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
+            }
 
-               
-                
-                featurevalue = row.Substring(row.IndexOf(feauture, StringComparison.Ordinal));
+            txtBxCurrentFirmwareValue.Text = oldFeatureValue;
+            // !Old firmware
 
-                
 
-                featurevalue = featurevalue.Replace(feauture, "");
 
-                featurevalue = featurevalue.Trim();
 
-                if (featurevalue.StartsWith("\""))
-                {
-                    featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("\"" ,1, StringComparison.Ordinal) +1);
-                }
-                if (string.IsNullOrEmpty(featurevalue)) featurevalue = "Activates a feature";
-                
-                
+            //New Firmware
+            rows = fctbNewFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
+            foreach (int row in rows)
+            {
+                fctbNewFirmware.Navigate(row);
+                if (fctbNewFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
             }
 
 
-            if (featurevalue.Contains("//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("//", StringComparison.Ordinal));
+            fctbCurrentFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
+            fctbNewFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
+            //! New Firmware
+            
+
+
+
+        }
+
+        private string GetFirmwareFeatureValue(FastColoredTextBox fctb, string feauture )
+        {
+            if (string.IsNullOrEmpty(feauture)) return "";
+
+            string featurevalue = "";
+            string row = "";
+
+            List<int> rows = new List<int>();
+            rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Multiline);
+
+            foreach (int index in rows)
+            {
+                row = fctb.GetLineText(index).Trim();
+
+                featurevalue = row.Substring(row.IndexOf(feauture, StringComparison.Ordinal));
+                featurevalue = featurevalue.Replace(feauture, "");
+                if (featurevalue.StartsWith("\""))
+                {
+                    featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("\"", 1, StringComparison.Ordinal) + 1);
+                }
+
+                if (row.StartsWith("#define")) break;
+            }
+
+            
+            if (featurevalue.Contains("//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("//", StringComparison.Ordinal)).Trim();
+
+            if(string.IsNullOrEmpty(featurevalue))
+            {
+                if (row.StartsWith(@"//")) featurevalue = "// Deactivated feature";
+                else featurevalue = "// Activated feature";
+            }
+            
 
             return featurevalue;
         }
 
+        private int GetFirmwareFeatureRow(FastColoredTextBox fctb, string feauture)
+        {
+            if (string.IsNullOrEmpty(feauture)) return 0;
+
+            
+            List<int> rows = new List<int>();
+            rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Singleline);
+            // return last occurance of feature
+            return rows[rows.Count - 1];
+           
+
+
+        }
+
         private void btnPassValue_Click(object sender, EventArgs e)
         {
-            List<int> rows = new List<int>();
+            UpdateFeatureValue(cmbBxFirmwareFeatures.Text);
+
+            ShowFirmwareFeatures(cmbBxFirmwareFeatures.Text);
+            // Move the focus to cmbBxFirmwareFeatures => Next feature
+            cmbBxFirmwareFeatures.Focus();
+        }
+
+        private void UpdateFeatureValue(string feature)
+        {
+
+            // Get the last occurance for the feature in current firmware
+            int currentrow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
+            string currentValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
+            string currentRow = fctbCurrentFirmware.GetLineText(currentrow).Trim();
+
+            // Get the last occurance for the feature in new firmware
+            int newrow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
+            string newValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
+            string newRow = fctbNewFirmware.GetLineText(currentrow).Trim();
 
 
-            rows = fastColoredTextBoxNewFirmware.FindLines(@"^\s*\#define\s*" + cmbBxFirmwareFeatures.Text,
-                RegexOptions.Singleline);
-            if (rows.Count > 0)
+            if (currentValue.StartsWith("//"))
             {
-
-                fastColoredTextBoxNewFirmware.Navigate(rows[0]);
-                fastColoredTextBoxNewFirmware.CommentSelected("//");
-                fastColoredTextBoxNewFirmware.Navigate(rows[0] + 1);
-                fastColoredTextBoxNewFirmware.InsertText(
-                    string.Format("#define {0} {1} // Created by Marlin3DprinterTool {2} {3}\n",
-                        cmbBxFirmwareFeatures.Text,
-                        txtBxCurrentFirmwareValue.Text,
-                        DateTime.Now.ToShortDateString(),
-                        DateTime.Now.ToShortTimeString())
-
-
-                    );
-
-                fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0]);
-                fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0] + 1);
-
-
-
-
-            }
-            else
-            {
-                // DeActivated Feature
-                rows = fastColoredTextBoxNewFirmware.FindLines(@"\s*\#define\s*" + cmbBxFirmwareFeatures.Text,
-                RegexOptions.Singleline);
-                if (rows.Count > 0)
+                if (!newValue.StartsWith("//"))
                 {
+                    fctbNewFirmware.Navigate(newrow);
+                    fctbNewFirmware.CommentSelected("// Activated by Marlin3dPrinterTool -- ");
+                    fctbNewFirmware.Navigate(newrow + 1);
 
-                    fastColoredTextBoxNewFirmware.Navigate(rows[0]);
-                    fastColoredTextBoxNewFirmware.CommentSelected("// Activated by Marlin3DprinterTool -- ");
-                    fastColoredTextBoxNewFirmware.Navigate(rows[0] + 1);
-
-                    fastColoredTextBoxNewFirmware.InsertText(
-                        txtBxCurrentFirmwareValue.Text == @"Activates a feature"
-                            ? $"#define {cmbBxFirmwareFeatures.Text} {""} // Created by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n"
-                            : $"#define {cmbBxFirmwareFeatures.Text} {txtBxCurrentFirmwareValue.Text} // Created by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n"
-                        );
-
-                    fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0]);
-                    fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0] + 1);
-
-
-
+                    fctbNewFirmware.InsertText($"#define {cmbBxFirmwareFeatures.Text}  // Activated by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n");
+                    fctbNewFirmware.DoAutoIndent(newrow);
+                    fctbNewFirmware.DoAutoIndent(newrow + 1);
 
                 }
+                else
+                {
+                    fctbNewFirmware.Navigate(newrow);
+                    fctbNewFirmware.CommentSelected("// Deactivated by Marlin3dPrinterTool -- ");
+                    fctbNewFirmware.Navigate(newrow + 1);
 
+                    fctbNewFirmware.InsertText($"//#define {cmbBxFirmwareFeatures.Text}  // Deactivated by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n");
+                    fctbNewFirmware.DoAutoIndent(newrow);
+                    fctbNewFirmware.DoAutoIndent(newrow + 1);
+                }
+                
             }
+
+
+           
+            else
+            {
+                //Feature with value
+
+                fctbNewFirmware.Navigate(newrow);
+                fctbNewFirmware.CommentSelected("//");
+                fctbNewFirmware.Navigate(newrow + 1);
+
+                fctbNewFirmware.InsertText($"#define {cmbBxFirmwareFeatures.Text} {txtBxCurrentFirmwareValue.Text} // Created by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n");
+
+                fctbNewFirmware.DoAutoIndent(newrow);
+                fctbNewFirmware.DoAutoIndent(newrow + 1);
+            }
+
+
+
+
+
+
+        }
+
+        
+
+        private void ActivateFeature(string feature)
+        {
+
         }
 
         private void btnExtruderFirmwareCopyToClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(fastColoredTextBoxNewFirmware.Text);
+            Clipboard.SetText(fctbNewFirmware.Text);
         }
 
         private void btnUpdateExtruderInFirmware_Click(object sender, EventArgs e)
         {
-            if (File.Exists(Path.Combine(NewFirmwareDirectory, "configuration.h")))
+
+            Configuration configuration = new Configuration();
+            if (File.Exists(Path.Combine(configuration.NewFirmware, "configuration.h")))
             {
-                fastColoredTextBoxNewFirmware.SaveToFile(Path.Combine(NewFirmwareDirectory, "configuration.h"),Encoding.UTF8);
+                fctbNewFirmware.SaveToFile(Path.Combine(configuration.NewFirmware, "configuration.h"),Encoding.UTF8);
             }
 
         }
@@ -230,10 +298,11 @@ namespace MarlinEditor
 
         private void btnOpenArduinoIde_Click(object sender, EventArgs e)
         {
+            Configuration configuration = new Configuration();
             var arduino = new ArduinoIDE
             {
-                FirmwareDirectory = NewFirmwareDirectory,
-                ArduinoDirectory =  ArduinoIdeDirectory
+                FirmwareDirectory = configuration.NewFirmware,
+                ArduinoDirectory =  configuration.ArduinoIde
             };
             arduino.OpenArduinoWithMarlin();
         }
@@ -242,7 +311,7 @@ namespace MarlinEditor
 
         private void cmbBxFirmwareFeatures_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFirmwareFeatures();
+            ShowFirmwareFeatures(cmbBxFirmwareFeatures.Text);
         }
 
         
@@ -254,11 +323,47 @@ namespace MarlinEditor
             _instanceOfFrmFirmware = null;
         }
 
-       
+        private void fctbCurrentFirmware_SelectionChanged(object sender, EventArgs e)
+        {
+            string possibleFeature = fctbCurrentFirmware.SelectedText;
+            if (string.IsNullOrEmpty(possibleFeature)) return;
 
+            foreach (string item in cmbBxFirmwareFeatures.Items)
+            {
+                if (item == possibleFeature) cmbBxFirmwareFeatures.Text = possibleFeature;
+            }
 
+        }
 
+        
 
-       
+        private void fctbBoxNewFirmware_SelectionChanged(object sender, EventArgs e)
+        {
+            string possibleFeature = fctbNewFirmware.SelectedText;
+            if (string.IsNullOrEmpty(possibleFeature)) return;
+
+            foreach (string item in cmbBxFirmwareFeatures.Items)
+            {
+                if (item == possibleFeature) cmbBxFirmwareFeatures.Text = possibleFeature;
+            }
+        }
+
+        private void HighlightInvisibleChars(Range range)
+        {
+            range.ClearStyle(_invisibleCharsStyle);
+            range.SetStyle(_invisibleCharsStyle, @".$|.\r\n|\s");
+        }
+
+        private void fctbCurrentFirmware_TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
+            //show invisible chars
+            HighlightInvisibleChars(e.ChangedRange);
+        }
+
+        private void fctbNewFirmware_TextChangedDelayed(object sender, TextChangedEventArgs e)
+        {
+            //show invisible chars
+            HighlightInvisibleChars(e.ChangedRange);
+        }
     }
 }

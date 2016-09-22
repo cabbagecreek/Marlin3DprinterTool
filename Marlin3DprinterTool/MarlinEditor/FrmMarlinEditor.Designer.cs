@@ -77,6 +77,10 @@ namespace MarlinEditor
             this.gotoButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripArduinoIDE = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMigration = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSetup = new System.Windows.Forms.ToolStripButton();
             this.sfdMain = new System.Windows.Forms.SaveFileDialog();
             this.ofdMain = new System.Windows.Forms.OpenFileDialog();
             this.cmMain = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -250,6 +254,8 @@ namespace MarlinEditor
             // 
             // tsMain
             // 
+            this.tsMain.AutoSize = false;
+            this.tsMain.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripButton,
             this.openToolStripButton,
@@ -275,10 +281,15 @@ namespace MarlinEditor
             this.bookmarkMinusButton,
             this.gotoButton,
             this.toolStripSeparator1,
-            this.toolStripArduinoIDE});
+            this.toolStripArduinoIDE,
+            this.toolStripSeparator2,
+            this.toolStripMigration,
+            this.toolStripSeparator7,
+            this.toolStripSetup});
             this.tsMain.Location = new System.Drawing.Point(0, 24);
             this.tsMain.Name = "tsMain";
-            this.tsMain.Size = new System.Drawing.Size(1184, 25);
+            this.tsMain.Size = new System.Drawing.Size(1184, 49);
+            this.tsMain.Stretch = true;
             this.tsMain.TabIndex = 4;
             this.tsMain.Text = "toolStrip1";
             // 
@@ -288,7 +299,7 @@ namespace MarlinEditor
             this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.newToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.newToolStripButton.Text = "&New";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
@@ -298,7 +309,7 @@ namespace MarlinEditor
             this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.openToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.openToolStripButton.Text = "&Open";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
@@ -308,7 +319,7 @@ namespace MarlinEditor
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
@@ -318,14 +329,14 @@ namespace MarlinEditor
             this.printToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("printToolStripButton.Image")));
             this.printToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolStripButton.Name = "printToolStripButton";
-            this.printToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.printToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.printToolStripButton.Text = "&Print";
             this.printToolStripButton.Click += new System.EventHandler(this.printToolStripButton_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 49);
             // 
             // cutToolStripButton
             // 
@@ -333,7 +344,7 @@ namespace MarlinEditor
             this.cutToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripButton.Image")));
             this.cutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolStripButton.Name = "cutToolStripButton";
-            this.cutToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.cutToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.cutToolStripButton.Text = "C&ut";
             this.cutToolStripButton.Click += new System.EventHandler(this.cutToolStripButton_Click);
             // 
@@ -343,7 +354,7 @@ namespace MarlinEditor
             this.copyToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripButton.Image")));
             this.copyToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolStripButton.Name = "copyToolStripButton";
-            this.copyToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.copyToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.copyToolStripButton.Text = "&Copy";
             this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripButton_Click);
             // 
@@ -353,7 +364,7 @@ namespace MarlinEditor
             this.pasteToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripButton.Image")));
             this.pasteToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolStripButton.Name = "pasteToolStripButton";
-            this.pasteToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.pasteToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.pasteToolStripButton.Text = "&Paste";
             this.pasteToolStripButton.Click += new System.EventHandler(this.pasteToolStripButton_Click);
             // 
@@ -364,7 +375,7 @@ namespace MarlinEditor
             this.btInvisibleChars.Image = ((System.Drawing.Image)(resources.GetObject("btInvisibleChars.Image")));
             this.btInvisibleChars.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btInvisibleChars.Name = "btInvisibleChars";
-            this.btInvisibleChars.Size = new System.Drawing.Size(23, 22);
+            this.btInvisibleChars.Size = new System.Drawing.Size(23, 46);
             this.btInvisibleChars.Text = "¶";
             this.btInvisibleChars.ToolTipText = "Show invisible chars";
             this.btInvisibleChars.Click += new System.EventHandler(this.btInvisibleChars_Click);
@@ -376,7 +387,7 @@ namespace MarlinEditor
             this.btHighlightCurrentLine.Image = global::MarlinEditor.Properties.Resources.edit_padding_top;
             this.btHighlightCurrentLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btHighlightCurrentLine.Name = "btHighlightCurrentLine";
-            this.btHighlightCurrentLine.Size = new System.Drawing.Size(23, 22);
+            this.btHighlightCurrentLine.Size = new System.Drawing.Size(36, 46);
             this.btHighlightCurrentLine.Text = "Highlight current line";
             this.btHighlightCurrentLine.ToolTipText = "Highlight current line";
             this.btHighlightCurrentLine.Click += new System.EventHandler(this.btHighlightCurrentLine_Click);
@@ -390,14 +401,14 @@ namespace MarlinEditor
             this.btShowFoldingLines.Image = ((System.Drawing.Image)(resources.GetObject("btShowFoldingLines.Image")));
             this.btShowFoldingLines.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btShowFoldingLines.Name = "btShowFoldingLines";
-            this.btShowFoldingLines.Size = new System.Drawing.Size(23, 22);
+            this.btShowFoldingLines.Size = new System.Drawing.Size(36, 46);
             this.btShowFoldingLines.Text = "Show folding lines";
             this.btShowFoldingLines.Click += new System.EventHandler(this.btShowFoldingLines_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 49);
             // 
             // undoStripButton
             // 
@@ -405,7 +416,7 @@ namespace MarlinEditor
             this.undoStripButton.Image = global::MarlinEditor.Properties.Resources.undo_16x16;
             this.undoStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoStripButton.Name = "undoStripButton";
-            this.undoStripButton.Size = new System.Drawing.Size(23, 22);
+            this.undoStripButton.Size = new System.Drawing.Size(36, 46);
             this.undoStripButton.Text = "Undo (Ctrl+Z)";
             this.undoStripButton.Click += new System.EventHandler(this.undoStripButton_Click);
             // 
@@ -415,14 +426,14 @@ namespace MarlinEditor
             this.redoStripButton.Image = global::MarlinEditor.Properties.Resources.redo_16x16;
             this.redoStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoStripButton.Name = "redoStripButton";
-            this.redoStripButton.Size = new System.Drawing.Size(23, 22);
+            this.redoStripButton.Size = new System.Drawing.Size(36, 46);
             this.redoStripButton.Text = "Redo (Ctrl+R)";
             this.redoStripButton.Click += new System.EventHandler(this.redoStripButton_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 49);
             // 
             // backStripButton
             // 
@@ -430,7 +441,7 @@ namespace MarlinEditor
             this.backStripButton.Image = global::MarlinEditor.Properties.Resources.backward0_16x16;
             this.backStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.backStripButton.Name = "backStripButton";
-            this.backStripButton.Size = new System.Drawing.Size(23, 22);
+            this.backStripButton.Size = new System.Drawing.Size(36, 46);
             this.backStripButton.Text = "Navigate Backward (Ctrl+ -)";
             this.backStripButton.Click += new System.EventHandler(this.backStripButton_Click);
             // 
@@ -440,7 +451,7 @@ namespace MarlinEditor
             this.forwardStripButton.Image = global::MarlinEditor.Properties.Resources.forward_16x16;
             this.forwardStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.forwardStripButton.Name = "forwardStripButton";
-            this.forwardStripButton.Size = new System.Drawing.Size(23, 22);
+            this.forwardStripButton.Size = new System.Drawing.Size(36, 46);
             this.forwardStripButton.Text = "Navigate Forward (Ctrl+Shift+ -)";
             this.forwardStripButton.Click += new System.EventHandler(this.forwardStripButton_Click_1);
             // 
@@ -449,19 +460,19 @@ namespace MarlinEditor
             this.tbFind.AcceptsReturn = true;
             this.tbFind.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(100, 25);
+            this.tbFind.Size = new System.Drawing.Size(100, 49);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(36, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(36, 46);
             this.toolStripLabel1.Text = "Find: ";
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 49);
             // 
             // bookmarkPlusButton
             // 
@@ -469,7 +480,7 @@ namespace MarlinEditor
             this.bookmarkPlusButton.Image = global::MarlinEditor.Properties.Resources.layer__plus;
             this.bookmarkPlusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bookmarkPlusButton.Name = "bookmarkPlusButton";
-            this.bookmarkPlusButton.Size = new System.Drawing.Size(23, 22);
+            this.bookmarkPlusButton.Size = new System.Drawing.Size(36, 46);
             this.bookmarkPlusButton.Text = "Add bookmark (Ctrl-B)";
             this.bookmarkPlusButton.Click += new System.EventHandler(this.bookmarkPlusButton_Click);
             // 
@@ -479,7 +490,7 @@ namespace MarlinEditor
             this.bookmarkMinusButton.Image = global::MarlinEditor.Properties.Resources.layer__minus;
             this.bookmarkMinusButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bookmarkMinusButton.Name = "bookmarkMinusButton";
-            this.bookmarkMinusButton.Size = new System.Drawing.Size(23, 22);
+            this.bookmarkMinusButton.Size = new System.Drawing.Size(36, 46);
             this.bookmarkMinusButton.Text = "Remove bookmark (Ctrl-Shift-B)";
             this.bookmarkMinusButton.Click += new System.EventHandler(this.bookmarkMinusButton_Click);
             // 
@@ -489,7 +500,7 @@ namespace MarlinEditor
             this.gotoButton.Image = ((System.Drawing.Image)(resources.GetObject("gotoButton.Image")));
             this.gotoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.gotoButton.Name = "gotoButton";
-            this.gotoButton.Size = new System.Drawing.Size(55, 22);
+            this.gotoButton.Size = new System.Drawing.Size(55, 46);
             this.gotoButton.Text = "Goto...";
             this.gotoButton.DropDownOpening += new System.EventHandler(this.gotoButton_DropDownOpening);
             this.gotoButton.Click += new System.EventHandler(this.gotoButton_Click);
@@ -497,7 +508,7 @@ namespace MarlinEditor
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 49);
             // 
             // toolStripArduinoIDE
             // 
@@ -505,10 +516,42 @@ namespace MarlinEditor
             this.toolStripArduinoIDE.Image = global::MarlinEditor.Properties.Resources.arduino_logo;
             this.toolStripArduinoIDE.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripArduinoIDE.Name = "toolStripArduinoIDE";
-            this.toolStripArduinoIDE.Size = new System.Drawing.Size(23, 22);
+            this.toolStripArduinoIDE.Size = new System.Drawing.Size(36, 46);
             this.toolStripArduinoIDE.Text = "toolStripButton1";
             this.toolStripArduinoIDE.ToolTipText = "Arduino IDE";
             this.toolStripArduinoIDE.Click += new System.EventHandler(this.toolStripArduinoIDE_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 49);
+            // 
+            // toolStripMigration
+            // 
+            this.toolStripMigration.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripMigration.Image = global::MarlinEditor.Properties.Resources.data_transfer;
+            this.toolStripMigration.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripMigration.Name = "toolStripMigration";
+            this.toolStripMigration.Size = new System.Drawing.Size(36, 46);
+            this.toolStripMigration.Text = "toolStripButton2";
+            this.toolStripMigration.ToolTipText = "Migration of Marlin Firmware";
+            this.toolStripMigration.Click += new System.EventHandler(this.toolStripMigration_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 49);
+            // 
+            // toolStripSetup
+            // 
+            this.toolStripSetup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSetup.Image = global::MarlinEditor.Properties.Resources.Setting;
+            this.toolStripSetup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSetup.Name = "toolStripSetup";
+            this.toolStripSetup.Size = new System.Drawing.Size(36, 46);
+            this.toolStripSetup.Text = "toolStripSetup";
+            this.toolStripSetup.ToolTipText = "Setup of Marlin Firmware Editor";
+            this.toolStripSetup.Click += new System.EventHandler(this.toolStripSetup_Click);
             // 
             // sfdMain
             // 
@@ -666,7 +709,7 @@ namespace MarlinEditor
             this.dgvObjectExplorer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dgvObjectExplorer.Dock = System.Windows.Forms.DockStyle.Left;
             this.dgvObjectExplorer.GridColor = System.Drawing.Color.White;
-            this.dgvObjectExplorer.Location = new System.Drawing.Point(0, 49);
+            this.dgvObjectExplorer.Location = new System.Drawing.Point(0, 73);
             this.dgvObjectExplorer.MultiSelect = false;
             this.dgvObjectExplorer.Name = "dgvObjectExplorer";
             this.dgvObjectExplorer.ReadOnly = true;
@@ -676,7 +719,7 @@ namespace MarlinEditor
             this.dgvObjectExplorer.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Green;
             this.dgvObjectExplorer.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvObjectExplorer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvObjectExplorer.Size = new System.Drawing.Size(172, 426);
+            this.dgvObjectExplorer.Size = new System.Drawing.Size(172, 402);
             this.dgvObjectExplorer.TabIndex = 7;
             this.dgvObjectExplorer.VirtualMode = true;
             this.dgvObjectExplorer.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvObjectExplorer_CellMouseDoubleClick);
@@ -701,18 +744,18 @@ namespace MarlinEditor
             // 
             this.tsFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tsFiles.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.tsFiles.Location = new System.Drawing.Point(172, 49);
+            this.tsFiles.Location = new System.Drawing.Point(172, 73);
             this.tsFiles.Name = "tsFiles";
-            this.tsFiles.Size = new System.Drawing.Size(1012, 426);
+            this.tsFiles.Size = new System.Drawing.Size(1012, 402);
             this.tsFiles.TabIndex = 8;
             this.tsFiles.Text = "faTabStrip1";
             this.tsFiles.TabStripItemSelectionChanged += new FarsiLibrary.Win.TabStripItemChangedHandler(this.tsFiles_TabStripItemSelectionChanged);
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(172, 49);
+            this.splitter1.Location = new System.Drawing.Point(172, 73);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(5, 426);
+            this.splitter1.Size = new System.Drawing.Size(5, 402);
             this.splitter1.TabIndex = 9;
             this.splitter1.TabStop = false;
             // 
@@ -727,6 +770,7 @@ namespace MarlinEditor
             this.Controls.Add(this.tsMain);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.msMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMarlinEditor";
             this.Text = "Marlin Editor";
             this.Load += new System.EventHandler(this.FrmMarlinEditor_Load);
@@ -815,6 +859,10 @@ namespace MarlinEditor
         private Splitter splitter1;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton toolStripArduinoIDE;
+        private ToolStripButton toolStripSetup;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton toolStripMigration;
+        private ToolStripSeparator toolStripSeparator7;
     }
 }
 
