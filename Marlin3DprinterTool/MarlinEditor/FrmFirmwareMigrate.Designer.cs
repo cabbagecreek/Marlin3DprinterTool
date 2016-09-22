@@ -31,45 +31,53 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFirmware));
             this.grpBxOldFirmware = new System.Windows.Forms.GroupBox();
-            this.fastColoredTextBoxCurrentFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.fctbCurrentFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
             this.lblFeatureValue = new System.Windows.Forms.Label();
             this.lblFeature = new System.Windows.Forms.Label();
             this.txtBxCurrentFirmwareValue = new System.Windows.Forms.TextBox();
             this.btnPassValue = new System.Windows.Forms.Button();
             this.cmbBxFirmwareFeatures = new System.Windows.Forms.ComboBox();
-            this.btnSaveFirmwareLocation = new System.Windows.Forms.Button();
-            this.btnExtruderBrowseFirmware = new System.Windows.Forms.Button();
-            this.grpBxNewFirmware = new System.Windows.Forms.GroupBox();
-            this.btnOpenArduinoIde = new System.Windows.Forms.Button();
-            this.fastColoredTextBoxNewFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.btnCopyToClipboard = new System.Windows.Forms.Button();
             this.btnUpdateExtruderInFirmware = new System.Windows.Forms.Button();
-            this.btnExtruderFirmwareCopyToClipboard = new System.Windows.Forms.Button();
+            this.btnOpenArduinoIde = new System.Windows.Forms.Button();
+            this.grpBxNewFirmware = new System.Windows.Forms.GroupBox();
+            this.fctbNewFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grpBxOldFirmware.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxCurrentFirmware)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).BeginInit();
             this.grpBxNewFirmware.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxNewFirmware)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fctbNewFirmware)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBxOldFirmware
             // 
-            this.grpBxOldFirmware.Controls.Add(this.fastColoredTextBoxCurrentFirmware);
+            this.grpBxOldFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBxOldFirmware.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grpBxOldFirmware.Controls.Add(this.fctbCurrentFirmware);
             this.grpBxOldFirmware.Controls.Add(this.lblFeatureValue);
             this.grpBxOldFirmware.Controls.Add(this.lblFeature);
             this.grpBxOldFirmware.Controls.Add(this.txtBxCurrentFirmwareValue);
             this.grpBxOldFirmware.Controls.Add(this.btnPassValue);
             this.grpBxOldFirmware.Controls.Add(this.cmbBxFirmwareFeatures);
-            this.grpBxOldFirmware.Controls.Add(this.btnSaveFirmwareLocation);
-            this.grpBxOldFirmware.Controls.Add(this.btnExtruderBrowseFirmware);
-            this.grpBxOldFirmware.Location = new System.Drawing.Point(3, 12);
+            this.grpBxOldFirmware.Location = new System.Drawing.Point(3, 3);
             this.grpBxOldFirmware.Name = "grpBxOldFirmware";
-            this.grpBxOldFirmware.Size = new System.Drawing.Size(568, 639);
+            this.grpBxOldFirmware.Size = new System.Drawing.Size(495, 456);
             this.grpBxOldFirmware.TabIndex = 28;
             this.grpBxOldFirmware.TabStop = false;
             this.grpBxOldFirmware.Text = "Current Firmware (configuration.h)";
             // 
-            // fastColoredTextBoxCurrentFirmware
+            // fctbCurrentFirmware
             // 
-            this.fastColoredTextBoxCurrentFirmware.AutoCompleteBracketsList = new char[] {
+            this.fctbCurrentFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fctbCurrentFirmware.AutoCompleteBracketsList = new char[] {
         '(',
         ')',
         '{',
@@ -80,30 +88,33 @@
         '\"',
         '\'',
         '\''};
-            this.fastColoredTextBoxCurrentFirmware.AutoScrollMinSize = new System.Drawing.Size(27, 14);
-            this.fastColoredTextBoxCurrentFirmware.BackBrush = null;
-            this.fastColoredTextBoxCurrentFirmware.CharHeight = 14;
-            this.fastColoredTextBoxCurrentFirmware.CharWidth = 8;
-            this.fastColoredTextBoxCurrentFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
-            this.fastColoredTextBoxCurrentFirmware.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.fastColoredTextBoxCurrentFirmware.DescriptionFile = "C:\\Users\\Johnnyboy\\Documents\\GitHub\\Marlin3DprinterTool\\Marlin3DprinterTool\\Marli" +
+            this.fctbCurrentFirmware.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.fctbCurrentFirmware.BackBrush = null;
+            this.fctbCurrentFirmware.CharHeight = 14;
+            this.fctbCurrentFirmware.CharWidth = 8;
+            this.fctbCurrentFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
+            this.fctbCurrentFirmware.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fctbCurrentFirmware.DescriptionFile = "C:\\Users\\Johnnyboy\\Documents\\GitHub\\Marlin3DprinterTool\\Marlin3DprinterTool\\Marli" +
     "nComunicationHelper\\ArduinoSyntax.xml";
-            this.fastColoredTextBoxCurrentFirmware.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBoxCurrentFirmware.IsReplaceMode = false;
-            this.fastColoredTextBoxCurrentFirmware.Location = new System.Drawing.Point(9, 19);
-            this.fastColoredTextBoxCurrentFirmware.Name = "fastColoredTextBoxCurrentFirmware";
-            this.fastColoredTextBoxCurrentFirmware.Paddings = new System.Windows.Forms.Padding(0);
-            this.fastColoredTextBoxCurrentFirmware.ReadOnly = true;
-            this.fastColoredTextBoxCurrentFirmware.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fastColoredTextBoxCurrentFirmware.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxCurrentFirmware.ServiceColors")));
-            this.fastColoredTextBoxCurrentFirmware.Size = new System.Drawing.Size(553, 505);
-            this.fastColoredTextBoxCurrentFirmware.TabIndex = 48;
-            this.fastColoredTextBoxCurrentFirmware.Zoom = 100;
+            this.fctbCurrentFirmware.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fctbCurrentFirmware.IsReplaceMode = false;
+            this.fctbCurrentFirmware.Location = new System.Drawing.Point(0, 19);
+            this.fctbCurrentFirmware.Name = "fctbCurrentFirmware";
+            this.fctbCurrentFirmware.Paddings = new System.Windows.Forms.Padding(0);
+            this.fctbCurrentFirmware.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fctbCurrentFirmware.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbCurrentFirmware.ServiceColors")));
+            this.fctbCurrentFirmware.ShowFoldingLines = true;
+            this.fctbCurrentFirmware.Size = new System.Drawing.Size(489, 369);
+            this.fctbCurrentFirmware.TabIndex = 48;
+            this.fctbCurrentFirmware.Zoom = 100;
+            this.fctbCurrentFirmware.SelectionChanged += new System.EventHandler(this.fctbCurrentFirmware_SelectionChanged);
+            this.fctbCurrentFirmware.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fctbCurrentFirmware_TextChangedDelayed);
             // 
             // lblFeatureValue
             // 
+            this.lblFeatureValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFeatureValue.AutoSize = true;
-            this.lblFeatureValue.Location = new System.Drawing.Point(293, 535);
+            this.lblFeatureValue.Location = new System.Drawing.Point(261, 406);
             this.lblFeatureValue.Name = "lblFeatureValue";
             this.lblFeatureValue.Size = new System.Drawing.Size(73, 13);
             this.lblFeatureValue.TabIndex = 47;
@@ -111,8 +122,9 @@
             // 
             // lblFeature
             // 
+            this.lblFeature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFeature.AutoSize = true;
-            this.lblFeature.Location = new System.Drawing.Point(6, 535);
+            this.lblFeature.Location = new System.Drawing.Point(7, 406);
             this.lblFeature.Name = "lblFeature";
             this.lblFeature.Size = new System.Drawing.Size(43, 13);
             this.lblFeature.TabIndex = 46;
@@ -120,16 +132,18 @@
             // 
             // txtBxCurrentFirmwareValue
             // 
-            this.txtBxCurrentFirmwareValue.Location = new System.Drawing.Point(296, 559);
+            this.txtBxCurrentFirmwareValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBxCurrentFirmwareValue.Location = new System.Drawing.Point(264, 430);
             this.txtBxCurrentFirmwareValue.Name = "txtBxCurrentFirmwareValue";
-            this.txtBxCurrentFirmwareValue.Size = new System.Drawing.Size(266, 20);
+            this.txtBxCurrentFirmwareValue.Size = new System.Drawing.Size(225, 20);
             this.txtBxCurrentFirmwareValue.TabIndex = 45;
             // 
             // btnPassValue
             // 
-            this.btnPassValue.Location = new System.Drawing.Point(372, 530);
+            this.btnPassValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPassValue.Location = new System.Drawing.Point(377, 401);
             this.btnPassValue.Name = "btnPassValue";
-            this.btnPassValue.Size = new System.Drawing.Size(196, 23);
+            this.btnPassValue.Size = new System.Drawing.Size(112, 23);
             this.btnPassValue.TabIndex = 44;
             this.btnPassValue.Text = "Transfer Value -->";
             this.btnPassValue.UseVisualStyleBackColor = true;
@@ -137,59 +151,71 @@
             // 
             // cmbBxFirmwareFeatures
             // 
+            this.cmbBxFirmwareFeatures.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbBxFirmwareFeatures.FormattingEnabled = true;
-            this.cmbBxFirmwareFeatures.Location = new System.Drawing.Point(9, 559);
+            this.cmbBxFirmwareFeatures.Location = new System.Drawing.Point(6, 430);
             this.cmbBxFirmwareFeatures.Name = "cmbBxFirmwareFeatures";
-            this.cmbBxFirmwareFeatures.Size = new System.Drawing.Size(281, 21);
+            this.cmbBxFirmwareFeatures.Size = new System.Drawing.Size(252, 21);
             this.cmbBxFirmwareFeatures.TabIndex = 42;
             this.cmbBxFirmwareFeatures.SelectedIndexChanged += new System.EventHandler(this.cmbBxFirmwareFeatures_SelectedIndexChanged);
             // 
-            // btnSaveFirmwareLocation
+            // btnCopyToClipboard
             // 
-            this.btnSaveFirmwareLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveFirmwareLocation.Location = new System.Drawing.Point(1104, 153);
-            this.btnSaveFirmwareLocation.Name = "btnSaveFirmwareLocation";
-            this.btnSaveFirmwareLocation.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveFirmwareLocation.TabIndex = 38;
-            this.btnSaveFirmwareLocation.Text = "Save";
-            this.btnSaveFirmwareLocation.UseVisualStyleBackColor = true;
+            this.btnCopyToClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCopyToClipboard.Location = new System.Drawing.Point(6, 397);
+            this.btnCopyToClipboard.Name = "btnCopyToClipboard";
+            this.btnCopyToClipboard.Size = new System.Drawing.Size(98, 25);
+            this.btnCopyToClipboard.TabIndex = 34;
+            this.btnCopyToClipboard.Text = "Copy to clipboard";
+            this.btnCopyToClipboard.UseVisualStyleBackColor = true;
+            this.btnCopyToClipboard.Click += new System.EventHandler(this.btnExtruderFirmwareCopyToClipboard_Click);
             // 
-            // btnExtruderBrowseFirmware
+            // btnUpdateExtruderInFirmware
             // 
-            this.btnExtruderBrowseFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExtruderBrowseFirmware.Location = new System.Drawing.Point(1070, 153);
-            this.btnExtruderBrowseFirmware.Name = "btnExtruderBrowseFirmware";
-            this.btnExtruderBrowseFirmware.Size = new System.Drawing.Size(28, 23);
-            this.btnExtruderBrowseFirmware.TabIndex = 35;
-            this.btnExtruderBrowseFirmware.Text = "...";
-            this.btnExtruderBrowseFirmware.UseVisualStyleBackColor = true;
-            // 
-            // grpBxNewFirmware
-            // 
-            this.grpBxNewFirmware.Controls.Add(this.btnOpenArduinoIde);
-            this.grpBxNewFirmware.Controls.Add(this.fastColoredTextBoxNewFirmware);
-            this.grpBxNewFirmware.Controls.Add(this.btnUpdateExtruderInFirmware);
-            this.grpBxNewFirmware.Controls.Add(this.btnExtruderFirmwareCopyToClipboard);
-            this.grpBxNewFirmware.Location = new System.Drawing.Point(577, 12);
-            this.grpBxNewFirmware.Name = "grpBxNewFirmware";
-            this.grpBxNewFirmware.Size = new System.Drawing.Size(626, 639);
-            this.grpBxNewFirmware.TabIndex = 29;
-            this.grpBxNewFirmware.TabStop = false;
-            this.grpBxNewFirmware.Text = "New Firmware  (configuration.h)";
+            this.btnUpdateExtruderInFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdateExtruderInFirmware.Location = new System.Drawing.Point(110, 397);
+            this.btnUpdateExtruderInFirmware.Name = "btnUpdateExtruderInFirmware";
+            this.btnUpdateExtruderInFirmware.Size = new System.Drawing.Size(238, 23);
+            this.btnUpdateExtruderInFirmware.TabIndex = 35;
+            this.btnUpdateExtruderInFirmware.Text = "Update and Save Firmware (configuration.h)";
+            this.btnUpdateExtruderInFirmware.UseVisualStyleBackColor = true;
+            this.btnUpdateExtruderInFirmware.Visible = false;
+            this.btnUpdateExtruderInFirmware.Click += new System.EventHandler(this.btnUpdateExtruderInFirmware_Click);
             // 
             // btnOpenArduinoIde
             // 
-            this.btnOpenArduinoIde.Location = new System.Drawing.Point(15, 610);
+            this.btnOpenArduinoIde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenArduinoIde.Location = new System.Drawing.Point(6, 427);
             this.btnOpenArduinoIde.Name = "btnOpenArduinoIde";
-            this.btnOpenArduinoIde.Size = new System.Drawing.Size(595, 23);
+            this.btnOpenArduinoIde.Size = new System.Drawing.Size(475, 23);
             this.btnOpenArduinoIde.TabIndex = 22;
             this.btnOpenArduinoIde.Text = "Open Arduino IDE with Marlin.ino";
             this.btnOpenArduinoIde.UseVisualStyleBackColor = true;
             this.btnOpenArduinoIde.Click += new System.EventHandler(this.btnOpenArduinoIde_Click);
             // 
-            // fastColoredTextBoxNewFirmware
+            // grpBxNewFirmware
             // 
-            this.fastColoredTextBoxNewFirmware.AutoCompleteBracketsList = new char[] {
+            this.grpBxNewFirmware.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grpBxNewFirmware.Controls.Add(this.fctbNewFirmware);
+            this.grpBxNewFirmware.Controls.Add(this.btnOpenArduinoIde);
+            this.grpBxNewFirmware.Controls.Add(this.btnUpdateExtruderInFirmware);
+            this.grpBxNewFirmware.Controls.Add(this.btnCopyToClipboard);
+            this.grpBxNewFirmware.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBxNewFirmware.Location = new System.Drawing.Point(0, 0);
+            this.grpBxNewFirmware.Name = "grpBxNewFirmware";
+            this.grpBxNewFirmware.Size = new System.Drawing.Size(497, 459);
+            this.grpBxNewFirmware.TabIndex = 29;
+            this.grpBxNewFirmware.TabStop = false;
+            this.grpBxNewFirmware.Text = "New Firmware  (configuration.h)";
+            // 
+            // fctbNewFirmware
+            // 
+            this.fctbNewFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fctbNewFirmware.AutoCompleteBracketsList = new char[] {
         '(',
         ')',
         '{',
@@ -200,62 +226,68 @@
         '\"',
         '\'',
         '\''};
-            this.fastColoredTextBoxNewFirmware.AutoScrollMinSize = new System.Drawing.Size(27, 14);
-            this.fastColoredTextBoxNewFirmware.BackBrush = null;
-            this.fastColoredTextBoxNewFirmware.ChangedLineColor = System.Drawing.Color.PaleGreen;
-            this.fastColoredTextBoxNewFirmware.CharHeight = 14;
-            this.fastColoredTextBoxNewFirmware.CharWidth = 8;
-            this.fastColoredTextBoxNewFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
-            this.fastColoredTextBoxNewFirmware.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.fastColoredTextBoxNewFirmware.DescriptionFile = "C:\\Users\\Johnnyboy\\Documents\\GitHub\\Marlin3DprinterTool\\Marlin3DprinterTool\\Marli" +
+            this.fctbNewFirmware.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.fctbNewFirmware.BackBrush = null;
+            this.fctbNewFirmware.CharHeight = 14;
+            this.fctbNewFirmware.CharWidth = 8;
+            this.fctbNewFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
+            this.fctbNewFirmware.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fctbNewFirmware.DescriptionFile = "C:\\Users\\Johnnyboy\\Documents\\GitHub\\Marlin3DprinterTool\\Marlin3DprinterTool\\Marli" +
     "nComunicationHelper\\ArduinoSyntax.xml";
-            this.fastColoredTextBoxNewFirmware.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBoxNewFirmware.IsReplaceMode = false;
-            this.fastColoredTextBoxNewFirmware.Location = new System.Drawing.Point(13, 19);
-            this.fastColoredTextBoxNewFirmware.Name = "fastColoredTextBoxNewFirmware";
-            this.fastColoredTextBoxNewFirmware.Paddings = new System.Windows.Forms.Padding(0);
-            this.fastColoredTextBoxNewFirmware.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.fastColoredTextBoxNewFirmware.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxNewFirmware.ServiceColors")));
-            this.fastColoredTextBoxNewFirmware.Size = new System.Drawing.Size(605, 556);
-            this.fastColoredTextBoxNewFirmware.TabIndex = 45;
-            this.fastColoredTextBoxNewFirmware.Zoom = 100;
+            this.fctbNewFirmware.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fctbNewFirmware.IsReplaceMode = false;
+            this.fctbNewFirmware.Location = new System.Drawing.Point(5, 22);
+            this.fctbNewFirmware.Name = "fctbNewFirmware";
+            this.fctbNewFirmware.Paddings = new System.Windows.Forms.Padding(0);
+            this.fctbNewFirmware.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fctbNewFirmware.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbNewFirmware.ServiceColors")));
+            this.fctbNewFirmware.ShowFoldingLines = true;
+            this.fctbNewFirmware.Size = new System.Drawing.Size(489, 369);
+            this.fctbNewFirmware.TabIndex = 49;
+            this.fctbNewFirmware.Zoom = 100;
+            this.fctbNewFirmware.SelectionChanged += new System.EventHandler(this.fctbBoxNewFirmware_SelectionChanged);
+            this.fctbNewFirmware.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fctbNewFirmware_TextChangedDelayed);
             // 
-            // btnUpdateExtruderInFirmware
+            // splitContainer1
             // 
-            this.btnUpdateExtruderInFirmware.Location = new System.Drawing.Point(119, 581);
-            this.btnUpdateExtruderInFirmware.Name = "btnUpdateExtruderInFirmware";
-            this.btnUpdateExtruderInFirmware.Size = new System.Drawing.Size(238, 23);
-            this.btnUpdateExtruderInFirmware.TabIndex = 35;
-            this.btnUpdateExtruderInFirmware.Text = "Update and Save Firmware (configuration.h)";
-            this.btnUpdateExtruderInFirmware.UseVisualStyleBackColor = true;
-            this.btnUpdateExtruderInFirmware.Click += new System.EventHandler(this.btnUpdateExtruderInFirmware_Click);
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(2, 12);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // btnExtruderFirmwareCopyToClipboard
+            // splitContainer1.Panel1
             // 
-            this.btnExtruderFirmwareCopyToClipboard.Location = new System.Drawing.Point(15, 581);
-            this.btnExtruderFirmwareCopyToClipboard.Name = "btnExtruderFirmwareCopyToClipboard";
-            this.btnExtruderFirmwareCopyToClipboard.Size = new System.Drawing.Size(98, 23);
-            this.btnExtruderFirmwareCopyToClipboard.TabIndex = 34;
-            this.btnExtruderFirmwareCopyToClipboard.Text = "Copy to clipboard";
-            this.btnExtruderFirmwareCopyToClipboard.UseVisualStyleBackColor = true;
-            this.btnExtruderFirmwareCopyToClipboard.Click += new System.EventHandler(this.btnExtruderFirmwareCopyToClipboard_Click);
+            this.splitContainer1.Panel1.Controls.Add(this.grpBxOldFirmware);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.grpBxNewFirmware);
+            this.splitContainer1.Size = new System.Drawing.Size(1002, 459);
+            this.splitContainer1.SplitterDistance = 501;
+            this.splitContainer1.TabIndex = 30;
             // 
             // FrmFirmware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1207, 663);
-            this.Controls.Add(this.grpBxNewFirmware);
-            this.Controls.Add(this.grpBxOldFirmware);
+            this.ClientSize = new System.Drawing.Size(1008, 474);
+            this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(700, 400);
             this.Name = "FrmFirmware";
             this.Text = "Marlin Firmware";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFirmware_FormClosed);
             this.Load += new System.EventHandler(this.FrmFirmware_Load);
             this.grpBxOldFirmware.ResumeLayout(false);
             this.grpBxOldFirmware.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxCurrentFirmware)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).EndInit();
             this.grpBxNewFirmware.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxNewFirmware)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fctbNewFirmware)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -268,13 +300,12 @@
         private System.Windows.Forms.TextBox txtBxCurrentFirmwareValue;
         private System.Windows.Forms.Button btnPassValue;
         private System.Windows.Forms.ComboBox cmbBxFirmwareFeatures;
-        private System.Windows.Forms.Button btnSaveFirmwareLocation;
-        private System.Windows.Forms.Button btnExtruderBrowseFirmware;
-        private System.Windows.Forms.GroupBox grpBxNewFirmware;
-        private System.Windows.Forms.Button btnOpenArduinoIde;
+        private FastColoredTextBoxNS.FastColoredTextBox fctbCurrentFirmware;
+        private System.Windows.Forms.Button btnCopyToClipboard;
         private System.Windows.Forms.Button btnUpdateExtruderInFirmware;
-        private System.Windows.Forms.Button btnExtruderFirmwareCopyToClipboard;
-        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBoxCurrentFirmware;
-        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBoxNewFirmware;
+        private System.Windows.Forms.Button btnOpenArduinoIde;
+        private System.Windows.Forms.GroupBox grpBxNewFirmware;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private FastColoredTextBoxNS.FastColoredTextBox fctbNewFirmware;
     }
 }

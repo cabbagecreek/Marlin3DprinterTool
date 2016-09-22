@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -82,7 +83,83 @@ namespace MarlinEditor
 
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
-            CreateTab(null);
+            FastColoredTextBox tb = CreateTab(null);
+        }
+
+        public void UpdateAndSavePidExtruder(string kp, string ki, string kd)
+        {
+            if (string.IsNullOrEmpty(FirmwareDirectory))
+            {
+                FirmwareDirectory = _configuration.CurrentFirmware;
+            }
+
+
+            if (File.Exists(Path.Combine(FirmwareDirectory, @"configuration.h")))
+            {
+                FastColoredTextBox fb = CreateTab(Path.Combine(FirmwareDirectory, @"configuration.h"));
+
+
+                UpdateFeature(fb, @"DEFAULT_Kp",kp);
+                UpdateFeature(fb, @"DEFAULT_Ki", ki);
+                UpdateFeature(fb, @"DEFAULT_Kd", kd);
+                fb.SaveToFile(Path.Combine(FirmwareDirectory, @"configuration.h"),Encoding.UTF8);
+
+            }
+        }
+
+        public void UpdateAndSavePidBed(string kp, string ki, string kd)
+        {
+            if (string.IsNullOrEmpty(FirmwareDirectory))
+            {
+                FirmwareDirectory = _configuration.CurrentFirmware;
+            }
+
+            if (File.Exists(Path.Combine(FirmwareDirectory, @"configuration.h")))
+            {
+                FastColoredTextBox fb = CreateTab(Path.Combine(FirmwareDirectory, @"configuration.h"));
+
+
+                UpdateFeature(fb, @"DEFAULT_bedKp", kp);
+                UpdateFeature(fb, @"DEFAULT_bedKi", ki);
+                UpdateFeature(fb, @"DEFAULT_bedKd", kd);
+                fb.SaveToFile(Path.Combine(FirmwareDirectory, @"configuration.h"), Encoding.UTF8);
+
+            }
+        }
+
+
+
+
+        private void UpdateFeature(FastColoredTextBox fastColoredTextBoxNewFirmware, string feature, string value )
+        {
+            List<int> rows = new List<int>();
+
+
+            rows = fastColoredTextBoxNewFirmware.FindLines(@"^\s*\#define\s*" + feature,
+                RegexOptions.Singleline);
+            if (rows.Count > 0)
+            {
+
+                fastColoredTextBoxNewFirmware.Navigate(rows[0]);
+                fastColoredTextBoxNewFirmware.CommentSelected("//");
+                fastColoredTextBoxNewFirmware.Navigate(rows[0] + 1);
+                fastColoredTextBoxNewFirmware.InsertText(
+                    string.Format("#define {0} {1} // Created by Marlin3DprinterTool {2} {3}\n",
+                        feature,
+                        value,
+                        DateTime.Now.ToShortDateString(),
+                        DateTime.Now.ToShortTimeString())
+
+
+                    );
+
+                fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0]);
+                fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0] + 1);
+
+
+
+
+            }
         }
 
 
@@ -90,7 +167,7 @@ namespace MarlinEditor
 
 
 
-        private void CreateTab(string fileName)
+        private FastColoredTextBox CreateTab(string fileName)
         {
             try
             {
@@ -113,6 +190,7 @@ namespace MarlinEditor
                 tsFiles.AddTab(tab);
                 tsFiles.SelectedItem = tab;
                 tb.Focus();
+                tb.CurrentLineColor = Color.Turquoise;
                 tb.DelayedTextChangedInterval = 1000;
                 tb.DelayedEventsInterval = 500;
                 tb.TextChangedDelayed += tb_TextChangedDelayed;
@@ -130,12 +208,14 @@ namespace MarlinEditor
                 popupMenu.Opening += popupMenu_Opening;
                 BuildAutocompleteMenu(popupMenu);
                 (tb.Tag as TbInfo).popupMenu = popupMenu;
+                return tb;
             }
             catch (Exception ex)
             {
                 if (MessageBox.Show(ex.Message, "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                    CreateTab(fileName);
+                    return CreateTab(fileName);
             }
+            return null;
         }
 
         void tb_MouseMove(object sender, MouseEventArgs e)
@@ -241,6 +321,9 @@ namespace MarlinEditor
             return false;
         }
 
+
+        
+
         private bool NavigateBackward()
         {
             DateTime max = new DateTime();
@@ -324,6 +407,8 @@ namespace MarlinEditor
 
         List<ExplorerItem> explorerList = new List<ExplorerItem>();
 
+       
+
         private void ReBuildObjectExplorer(string text)
         {
             try
@@ -382,7 +467,7 @@ namespace MarlinEditor
                 }
 
                 
-
+                explorerList.Clear();
 
                 BeginInvoke(
                     new Action(() =>
@@ -623,11 +708,21 @@ namespace MarlinEditor
         private void tsFiles_TabStripItemSelectionChanged(TabStripItemChangedEventArgs e)
         {
             this.Text = string.Format("Marlin Editor - {0}", e.Item.Tag);
+            
+            FastColoredTextBox tb = (e.Item.Controls[0] as FastColoredTextBox);
+            //rebuild object explorer
+            if (tb != null)
+            {
+                string text = tb.Text;
+                ThreadPool.QueueUserWorkItem(
+                    o => ReBuildObjectExplorer(text)
+                    );
+            }
         }
 
         private void FrmMarlinEditor_Load(object sender, EventArgs e)
         {
-            string documentation =  MarlinDocumentationHarvestClass.GetMarlinConfigurationDocumentation(@"http://www.marlinfw.org/docs/development/configuration.html");
+            //string documentation =  MarlinDocumentationHarvestClass.GetMarlinConfigurationDocumentation(@"http://www.marlinfw.org/docs/development/configuration.html");
 
             //TODO: Dialog containing setup for Current and New Firmware
 
@@ -680,6 +775,20 @@ namespace MarlinEditor
             // Read the output stream first and then wait.
             // string output = compileAndUpload.StandardOutput.ReadToEnd();
             compileAndUpload.WaitForExit();
+        }
+
+        private void toolStripMigration_Click(object sender, EventArgs e)
+        {
+            FrmFirmware migrate = new FrmFirmware();
+            migrate.ShowDialog();
+
+        }
+
+        private void toolStripSetup_Click(object sender, EventArgs e)
+        {
+            FrmMarlinEditorSetup setup = new FrmMarlinEditorSetup();
+            setup.ShowDialog();
+
         }
     }
 

@@ -3,13 +3,14 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
 
-  <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="1.0.0.0" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
+  <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="0.0.0.2" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <WixVariable Id="WixUILicenseRtf" Value="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
+    
     <Icon Id='Marlin3DprinterTool.ico' SourceFile="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Marlin3DprinterTool.ico" />
 
-    <Property Id='ARPPRODUCTICON' Value='Marlin3DprinterTool' />
-
+    
     <MajorUpgrade DowngradeErrorMessage="A newer version of Marlin3DprinterTool is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
@@ -25,11 +26,17 @@
     </Feature>
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
-    <UIRef Id="WixUI_Minimal" />
-
+    <UI>
+      <UIRef Id="WixUI_Minimal" />
+      
+      
+    </UI>
     
 
+    
   </Product>
+
+
 
 
   <Fragment>
@@ -51,10 +58,16 @@
   <Fragment>
    <DirectoryRef Id="ApplicationProgramsFolder">
      <Component Id="ApplicationShortcut" Guid="{04BCF613-9A80-4979-AEF3-F4E8576CCFBD}">
-       <Shortcut Id="ApplicationStartMenuShortcut" 
+       <Shortcut Id="ApplicationStartMenuShortcutMarlin3DprinterTool" 
                  Name="Marlin3DprinterTool" 
                  Description="Tool to configure a Marlin-based 3D printer" 
                  Target="[INSTALLFOLDER]Marlin3DprinterTool.exe" 
+                 WorkingDirectory="INSTALLFOLDER"
+                 Icon ="Marlin3DprinterTool.ico"  />
+       <Shortcut Id="ApplicationStartMenuShortcutMarlinEditor" 
+                 Name="MarlinEditor" 
+                 Description="Editor for Marlin-based 3D printer" 
+                 Target="[INSTALLFOLDER]MarlinEditor.exe" 
                  WorkingDirectory="INSTALLFOLDER"
                  Icon ="Marlin3DprinterTool.ico"  />
        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
@@ -86,7 +99,8 @@
       </Component>
     </DirectoryRef>
   </Fragment>
-
+  
+  
 
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
@@ -98,16 +112,18 @@
       </Component>
 
       
-      
+      <!-- MarlinEditor.exe -->
+      <Component Id="MarlinEditor.exe" Guid="{188B6FAA-4934-4179-A6E3-A6D4839D955E}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditor.exe" />
+      </Component>
 
+      
       <!-- Marlin3DprinterTool.exe.config -->
       <Component Id="Marlin3DprinterTool.exe.config" NeverOverwrite="yes" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe.config" />
       </Component>
 
       
-      
-
       <!-- ArduinoSyntax.xml -->
       <Component Id="ArduinoSyntax.xml" Guid="{22AAD8D6-7878-4C4F-9783-B66610187456}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\ArduinoSyntax.xml" />
@@ -178,6 +194,16 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.System.dll" />
       </Component>
 
+      <!--TabStrip.dll -->
+      <Component Id="TabStrip.dll" Guid="{64EEE10E-C60C-4DBF-9B5F-387AD08B4CA0}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\TabStrip.dll" />
+      </Component>
+      
+       <!--Licence.rtf -->
+      <Component Id="Licence.rtf" Guid="{17C56FA8-5222-47E6-8C71-23997E59755C}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
+      </Component>
+      
 
       <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
       <!-- <Component Id="ProductComponent"> -->

@@ -203,6 +203,16 @@ namespace MarlinEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap data_transfer {
+            get {
+                object obj = ResourceManager.GetObject("data_transfer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap disabled_property {
             get {
                 object obj = ResourceManager.GetObject("disabled_property", resourceCulture);
@@ -296,6 +306,26 @@ namespace MarlinEditor.Properties {
         internal static System.Drawing.Bitmap lol {
             get {
                 object obj = ResourceManager.GetObject("lol", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap migration {
+            get {
+                object obj = ResourceManager.GetObject("migration", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap migration1 {
+            get {
+                object obj = ResourceManager.GetObject("migration1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -406,6 +436,16 @@ namespace MarlinEditor.Properties {
         internal static System.Drawing.Bitmap saveToolStripButton_Image {
             get {
                 object obj = ResourceManager.GetObject("saveToolStripButton.Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Setting {
+            get {
+                object obj = ResourceManager.GetObject("Setting", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

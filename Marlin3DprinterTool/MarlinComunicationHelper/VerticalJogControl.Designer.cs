@@ -143,6 +143,7 @@ namespace MarlinComunicationHelper
             this.btnPlus100.TabIndex = 8;
             this.btnPlus100.Text = "100";
             this.btnPlus100.UseVisualStyleBackColor = false;
+            this.btnPlus100.Click += new System.EventHandler(this.btnPlus100_Click);
             // 
             // panelVerticalJogControl
             // 

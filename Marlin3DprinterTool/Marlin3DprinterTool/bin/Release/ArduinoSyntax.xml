@@ -2,14 +2,17 @@
 
 <doc>
 
-  
+
   <!-- #define -->
   <style name="Define" color="Crimson" fontStyle="Bold" />
-  <rule style="Define" options="Singleline">^\s*\#define</rule>
+  <rule style="Define" option="Singleline" >(?&lt;!//)\s*\#define</rule>
+  <!-- <rule style="Define" options="Singleline">(?&lt;!//)\s*\#define</rule> -->
 
-  <!-- Inactivated #define -->
+  <!-- deactivated #define -->
   <style name="CommentedDefine" color="Crimson" fontStyle="Strikeout" />
-  <rule style="CommentedDefine" >\/\/\s*#define.*</rule>
+  <rule style="CommentedDefine" option="Singleline">\s*//[ |\t]*\#define\s*\w*</rule>
+  <!-- <rule style="CommentedDefine" options="Singleline" >//\s*\#define\s*\w*</rule> -->
+
 
 
   <!-- Feature name (word after #define) -->
