@@ -29,13 +29,14 @@ namespace MarlinComunicationHelper
         /// <summary>
         ///     Baudrate
         /// </summary>
-        public string BaudRate { private get; set; }
+        public string BaudRate { get; set; }
 
         /// <summary>
         ///     Set the serial com port from a string like COM10
         /// </summary>
         public string Port
         {
+            get { return _serialPort.SerialCommPortToString(_serialPort.Port) ; }
             set { _serialPort.Port = SerialPort.StringToSerialCommPort(value); }
         }
 

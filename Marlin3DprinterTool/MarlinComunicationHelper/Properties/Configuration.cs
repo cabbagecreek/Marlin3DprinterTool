@@ -120,6 +120,48 @@ namespace MarlinComunicationHelper
             }
         }
 
+        public string ComPort {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load("Marlin3DprinterToolConfiguration.xml");
+                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/comport");
+                if (xmlNodeArduinoIde == null) return "";
+
+                return xmlNodeArduinoIde.GetAttribute("port");
+            }
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load("Marlin3DprinterToolConfiguration.xml");
+                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/comport");
+                xmlNodeArduinoIde?.SetAttribute("port", value);
+                xml.Save("Marlin3DprinterToolConfiguration.xml");
+
+            }
+        }
+
+        public string Baudrate
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load("Marlin3DprinterToolConfiguration.xml");
+                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/comport");
+                if (xmlNodeArduinoIde == null) return "";
+
+                return xmlNodeArduinoIde.GetAttribute("baudrate");
+            }
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load("Marlin3DprinterToolConfiguration.xml");
+                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/baudrate");
+                xmlNodeArduinoIde?.SetAttribute("baudrate", value);
+                xml.Save("Marlin3DprinterToolConfiguration.xml");
+
+            }
+        }
 
         public string ArduinoIde
         {
@@ -297,6 +339,7 @@ namespace MarlinComunicationHelper
             }
         }
 
+       
 
         private Position GetPosition(string tag)
         {
