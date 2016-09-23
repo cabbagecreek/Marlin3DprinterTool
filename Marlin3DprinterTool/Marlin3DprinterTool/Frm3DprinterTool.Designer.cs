@@ -244,7 +244,6 @@ namespace Marlin3DprinterTool
             this.cmbBxBaud = new System.Windows.Forms.ComboBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.toolTip3DprinterTool = new System.Windows.Forms.ToolTip(this.components);
-            this.timerTemperature = new System.Windows.Forms.Timer(this.components);
             this.btnPayPal = new System.Windows.Forms.Button();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnEmergency = new System.Windows.Forms.Button();
@@ -2720,11 +2719,6 @@ namespace Marlin3DprinterTool
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // timerTemperature
-            // 
-            this.timerTemperature.Interval = 1000;
-            this.timerTemperature.Tick += new System.EventHandler(this.timerTemperature_Tick);
-            // 
             // btnPayPal
             // 
             this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -3082,7 +3076,6 @@ namespace Marlin3DprinterTool
         private Label lblXpoints;
         private Button btnScanSurface;
         private CheckBox chkBxColdExtruderCalibration;
-        private Timer timerTemperature;
         private TabPage tabPagePID;
         private GroupBox grpBxHeatbedPID;
         private GroupBox grpBxExtruderPID;

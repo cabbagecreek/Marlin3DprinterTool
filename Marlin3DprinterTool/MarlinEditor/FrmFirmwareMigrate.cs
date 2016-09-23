@@ -117,32 +117,56 @@ namespace MarlinEditor
             string oldFeatureValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
             string newFeatureValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
 
-            rows = fctbCurrentFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
-            foreach (int row in rows)
-            {
-                fctbCurrentFirmware.Navigate(row);
-                if (fctbCurrentFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
-            }
+
+
+            int oldRow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
+            int newRow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
 
             txtBxCurrentFirmwareValue.Text = oldFeatureValue;
-            // !Old firmware
 
-
-
-
-            //New Firmware
-            rows = fctbNewFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
-            foreach (int row in rows)
+            if (newRow == 0)
             {
-                fctbNewFirmware.Navigate(row);
-                if (fctbNewFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
+                MessageBox.Show(
+                    "It looks like feature " + feature + " is obsolite in new firmware" + Environment.NewLine,
+                    "Obsolite feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                fctbCurrentFirmware.Navigate(oldRow);
+                fctbCurrentFirmware.CurrentLineColor = Color.Red;
+                fctbNewFirmware.CurrentLineColor = Color.Transparent;
+            }
+            else
+            {
+                fctbCurrentFirmware.Navigate(oldRow);
+                fctbCurrentFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
+                fctbNewFirmware.Navigate(newRow);
+                fctbNewFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
             }
 
+            //rows = fctbCurrentFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
+            //foreach (int row in rows)
+            //{
+            //    fctbCurrentFirmware.Navigate(row);
+            //    if (fctbCurrentFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
+            //}
 
-            fctbCurrentFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
-            fctbNewFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
-            //! New Firmware
-            
+            //txtBxCurrentFirmwareValue.Text = oldFeatureValue;
+            //// !Old firmware
+
+
+
+
+            ////New Firmware
+            //rows = fctbNewFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
+            //foreach (int row in rows)
+            //{
+            //    fctbNewFirmware.Navigate(row);
+            //    if (fctbNewFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
+            //}
+
+
+            //fctbCurrentFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
+            //fctbNewFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
+            ////! New Firmware
+
 
 
 
@@ -182,19 +206,30 @@ namespace MarlinEditor
             }
             
 
-            return featurevalue;
+            return featurevalue.Trim();
         }
 
         private int GetFirmwareFeatureRow(FastColoredTextBox fctb, string feauture)
         {
             if (string.IsNullOrEmpty(feauture)) return 0;
 
-            
+            string row = "";
+            string featurevalue = "";
+
             List<int> rows = new List<int>();
             rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Singleline);
+            
             // return last occurance of feature
-            return rows[rows.Count - 1];
-           
+            foreach (int index in rows)
+            {
+                row = fctb.GetLineText(index).Trim();
+                if (row.StartsWith("#define")) return index;
+            }
+
+            if (rows.Count == 0) return 0;
+            
+            return  rows[rows.Count - 1] ;
+
 
 
         }
@@ -214,69 +249,56 @@ namespace MarlinEditor
             // Get the last occurance for the feature in current firmware
             int currentrow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
             string currentValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
-            string currentRow = fctbCurrentFirmware.GetLineText(currentrow).Trim();
+            string currentLine = fctbCurrentFirmware.GetLineText(currentrow).Trim();
 
             // Get the last occurance for the feature in new firmware
             int newrow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
             string newValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
-            string newRow = fctbNewFirmware.GetLineText(currentrow).Trim();
+            string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
 
+            
 
-            if (currentValue.StartsWith("//"))
+            if (currentLine.StartsWith("//"))
             {
-                if (!newValue.StartsWith("//"))
+                if (!newLine.StartsWith("//"))
                 {
                     fctbNewFirmware.Navigate(newrow);
-                    fctbNewFirmware.CommentSelected("// Activated by Marlin3dPrinterTool -- ");
-                    fctbNewFirmware.Navigate(newrow + 1);
-
-                    fctbNewFirmware.InsertText($"#define {cmbBxFirmwareFeatures.Text}  // Activated by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n");
-                    fctbNewFirmware.DoAutoIndent(newrow);
-                    fctbNewFirmware.DoAutoIndent(newrow + 1);
+                    fctbNewFirmware.CommentSelected("//");
 
                 }
-                else
+            }
+            if (!currentLine.StartsWith("//"))
+            {
+                if (newLine.StartsWith("//"))
                 {
                     fctbNewFirmware.Navigate(newrow);
-                    fctbNewFirmware.CommentSelected("// Deactivated by Marlin3dPrinterTool -- ");
-                    fctbNewFirmware.Navigate(newrow + 1);
-
-                    fctbNewFirmware.InsertText($"//#define {cmbBxFirmwareFeatures.Text}  // Deactivated by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n");
-                    fctbNewFirmware.DoAutoIndent(newrow);
-                    fctbNewFirmware.DoAutoIndent(newrow + 1);
+                    fctbNewFirmware.RemoveLinePrefix("//");
                 }
-                
             }
 
-
-           
-            else
+            if (!currentValue.StartsWith("//"))
             {
-                //Feature with value
-
+                string originalLine = fctbNewFirmware.GetLineText(newrow);
                 fctbNewFirmware.Navigate(newrow);
-                fctbNewFirmware.CommentSelected("//");
-                fctbNewFirmware.Navigate(newrow + 1);
+                List<int> removeRow = new List<int>();
 
-                fctbNewFirmware.InsertText($"#define {cmbBxFirmwareFeatures.Text} {txtBxCurrentFirmwareValue.Text} // Created by Marlin3DprinterTool {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}\n");
+                removeRow.Add(newrow);
+                fctbNewFirmware.RemoveLines(removeRow);
+                fctbNewFirmware.Navigate(newrow);
+                fctbNewFirmware.InsertText(originalLine.ReplaceFirst(newValue, currentValue) + Environment.NewLine);
 
-                fctbNewFirmware.DoAutoIndent(newrow);
-                fctbNewFirmware.DoAutoIndent(newrow + 1);
             }
 
-
-
-
-
-
+            fctbNewFirmware.DoAutoIndent(newrow);
+            fctbNewFirmware.DoAutoIndent(newrow + 1);
         }
 
         
 
-        private void ActivateFeature(string feature)
-        {
 
-        }
+        
+
+       
 
         private void btnExtruderFirmwareCopyToClipboard_Click(object sender, EventArgs e)
         {
@@ -364,6 +386,26 @@ namespace MarlinEditor
         {
             //show invisible chars
             HighlightInvisibleChars(e.ChangedRange);
+        }
+    }
+
+    public static class StringExtension
+    {
+        public static string ReplaceFirst(this string text, string search, string replace)
+        {
+
+
+
+            int pos = text.IndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+
+            string firstPart = text.Substring(0, pos);
+            string lastPart  = text.Substring(pos + search.Length);
+
+            return firstPart + replace + lastPart;
         }
     }
 }

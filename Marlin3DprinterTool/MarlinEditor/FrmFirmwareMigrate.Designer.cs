@@ -101,6 +101,7 @@
             this.fctbCurrentFirmware.Location = new System.Drawing.Point(0, 19);
             this.fctbCurrentFirmware.Name = "fctbCurrentFirmware";
             this.fctbCurrentFirmware.Paddings = new System.Windows.Forms.Padding(0);
+            this.fctbCurrentFirmware.ReadOnly = true;
             this.fctbCurrentFirmware.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbCurrentFirmware.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbCurrentFirmware.ServiceColors")));
             this.fctbCurrentFirmware.ShowFoldingLines = true;
@@ -180,7 +181,6 @@
             this.btnUpdateExtruderInFirmware.TabIndex = 35;
             this.btnUpdateExtruderInFirmware.Text = "Update and Save Firmware (configuration.h)";
             this.btnUpdateExtruderInFirmware.UseVisualStyleBackColor = true;
-            this.btnUpdateExtruderInFirmware.Visible = false;
             this.btnUpdateExtruderInFirmware.Click += new System.EventHandler(this.btnUpdateExtruderInFirmware_Click);
             // 
             // btnOpenArduinoIde

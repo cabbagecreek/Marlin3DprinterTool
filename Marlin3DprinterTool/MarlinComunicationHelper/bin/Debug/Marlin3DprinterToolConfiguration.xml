@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
+  <comport port="COM15" baudrate="115200" />
   <LowerLeftCorner x="0" y="0" />
   <LowerRightCorner x="160" y="0" />
   <UpperRightCorner x="160" y="170" />
