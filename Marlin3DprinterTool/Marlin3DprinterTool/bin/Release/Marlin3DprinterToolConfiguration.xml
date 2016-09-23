@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
-  <comport port="COM12" baudrate="115200" />
+  <comport port="COM15" baudrate="115200" />
   <LowerLeftCorner x="0" y="0" />
-  <LowerRightCorner x="160" y="0" />
-  <UpperRightCorner x="160" y="170" />
-  <UpperLeftCorner x="0" y="170" />
+  <LowerRightCorner x="290" y="0" />
+  <UpperRightCorner x="290" y="150" />
+  <UpperLeftCorner x="0" y="150" />
   <LowerLeftAdjuster x="0" y="0" />
-  <LowerRightAdjuster x="160" y="0" />
-  <UpperRightAdjuster x="160" y="170" />
-  <UpperLeftAdjuster x="0" y="170" />
-  <SafeHome x="100" y="100" />
+  <LowerRightAdjuster x="290" y="0" />
+  <UpperRightAdjuster x="290" y="150" />
+  <UpperLeftAdjuster x="0" y="150" />
+  <SafeHome x="150" y="70" />
   <Adjuster type="M3" />
   <GcodeAssistZprobeEngage>
     <Row order="0">G91</Row>
