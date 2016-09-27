@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using FastColoredTextBoxNS;
 
 namespace MarlinEditor
@@ -93,6 +94,9 @@ namespace MarlinEditor
             cmbBxFirmwareFeatures.Items.AddRange(FindFirmwareFeatures().ToArray());
             cmbBxFirmwareFeatures.Text = cmbBxFirmwareFeatures.Items[1].ToString();
 
+
+           
+
         }
 
         private void fixCrLFproblems(string filename)
@@ -111,7 +115,7 @@ namespace MarlinEditor
 
         private void ShowFirmwareFeatures(string feature)
         {
-            List<int> rows = new List<int>();
+            BookmarkChangeNeeded(feature);
 
             // Old firmware
             string oldFeatureValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
@@ -141,34 +145,7 @@ namespace MarlinEditor
                 fctbNewFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
             }
 
-            //rows = fctbCurrentFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
-            //foreach (int row in rows)
-            //{
-            //    fctbCurrentFirmware.Navigate(row);
-            //    if (fctbCurrentFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
-            //}
-
-            //txtBxCurrentFirmwareValue.Text = oldFeatureValue;
-            //// !Old firmware
-
-
-
-
-            ////New Firmware
-            //rows = fctbNewFirmware.FindLines(@"^\s*[/]*\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
-            //foreach (int row in rows)
-            //{
-            //    fctbNewFirmware.Navigate(row);
-            //    if (fctbNewFirmware.GetLineText(row).Trim().StartsWith("#define")) break;
-            //}
-
-
-            //fctbCurrentFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
-            //fctbNewFirmware.CurrentLineColor = oldFeatureValue == newFeatureValue ? Color.GreenYellow : Color.Magenta;
-            ////! New Firmware
-
-
-
+            
 
         }
 
@@ -207,6 +184,43 @@ namespace MarlinEditor
             
 
             return featurevalue.Trim();
+        }
+
+        private void BookmarkChangeNeeded(string feature)
+        {
+            // Get the last occurance for the feature in current firmware
+            int currentrow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
+            string currentValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
+            string currentLine = fctbCurrentFirmware.GetLineText(currentrow).Trim();
+
+            // Get the last occurance for the feature in new firmware
+            int newrow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
+            string newValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
+            string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
+
+
+            if ((newrow == 0) | currentValue != newValue )
+            {
+                fctbCurrentFirmware.BookmarkLine(currentrow);
+                return;
+
+            }
+
+            //if (currentLine.StartsWith("//") && !newLine.StartsWith("//"))
+            //{
+            //    fctbCurrentFirmware.BookmarkLine(currentrow);
+            //    return;
+            //}
+            //if (!currentLine.StartsWith("//") && newLine.StartsWith("//"))
+            //{
+            //    fctbCurrentFirmware.BookmarkLine(currentrow);
+            //    return;
+            //}
+
+
+            fctbCurrentFirmware.UnbookmarkLine(currentrow);
+
+
         }
 
         private int GetFirmwareFeatureRow(FastColoredTextBox fctb, string feauture)
