@@ -56,6 +56,10 @@ namespace Marlin3DprinterTool
 
         private void PopulateConfig()
         {
+            rdoBn3pointAdjusterLeft.Checked = _configuration.BedType == "3pointLeft";
+            rdoBn3pointAdjusterRight.Checked = _configuration.BedType == "3pointRight";
+            rdoBn4pointAdjuster.Checked = _configuration.BedType == "4point";
+            RedesignBedAdjusters();
             txtBxGcodeAssistZprobeEngage.Lines = _configuration.GcodeAssistZprobeEngage.ToArray();
             txtBxGcodeAssistZprobeRelease.Lines = _configuration.GcodeAssistZprobeRelease.ToArray();
             txtBxArduinoIDE.Text = _configuration.ArduinoIde;
@@ -172,7 +176,7 @@ namespace Marlin3DprinterTool
             var config = new Configuration();
 
 
-            var position = config.UpperLeftCorner;
+            Position position = config.UpperLeftCorner;
             if (position != null)
             {
                 if (position.X > 9000 && position.Y > 9000)
@@ -352,7 +356,89 @@ namespace Marlin3DprinterTool
         {
             nChartControlSurface.Charts[0].Series.Clear();
             nChartControlSurface.Refresh();
-            ScanSurface(2, 2, 1);
+
+
+            if (_configuration.BedType == "4point")
+            {
+                ScanSurface(2, 2, 1);
+            }
+            if (_configuration.BedType == "3pointLeft")
+            {
+                ScanSurface3Point();
+            }
+            if (_configuration.BedType == "3pointRight")
+            {
+                ScanSurface3Point();
+            }
+
+        }
+
+        private void ScanSurface3Point(int numberOfRepetitions)
+        {
+            var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
+               MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                var conf = new Configuration();
+                _com.SendCommand(conf.GcodeAssistZprobeEngage);
+            }
+
+            _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
+
+           
+
+            var commands = new List<string> { "M420 S0", "G28 Y", "G28 X", "G28 Z" };
+
+            _probePoints.Clear();
+
+            List<Point> probePointsList = new List<Point>();
+
+            if (_configuration.BedType == "3pointLeft")
+            {
+
+
+                probePointsList.Add(new Point((int) _configuration.LowerLeftAdjuster.X,(int) _configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
+
+
+
+            }
+
+            if (_configuration.BedType == "3pointRight")
+            {
+                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
+            }
+
+            foreach (Point probePoint in probePointsList)
+            {
+                
+                
+            
+                    // move to X&Y
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F8000");
+                    //commands.Add("G1 Z40");
+
+
+
+                    for (var i = 0; i < numberOfRepetitions; i++)
+                    {
+                        // probe the point
+                        commands.Add("G30 S-1");
+                        commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F6000");
+                    }
+
+                    // Rise the probe
+
+                }
+            }
+
+            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z40.0 F5000");
+
+
+            _com.SendCommand(commands);
         }
 
 
@@ -574,7 +660,7 @@ namespace Marlin3DprinterTool
             kompassControllConfigBed.Visible = true;
             btnHomeX.Visible = true;
             btnHomeY.Visible = true;
-            btnHomeZ.Visible = true;
+            grpBxBed.Visible = true;
 
             var commands = new List<string> {"G92 Z0", "M114", "G1 Z50"};
             _com.SendCommand(commands);
@@ -740,7 +826,7 @@ namespace Marlin3DprinterTool
             kompassControllConfigBed.Visible = false;
             btnHomeX.Visible = false;
             btnHomeY.Visible = false;
-            btnHomeZ.Visible = false;
+            grpBxBed.Visible = false;
 
             var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -1583,6 +1669,183 @@ namespace Marlin3DprinterTool
             commands.Add("M500");
             _com.SendCommand(commands);
             
+        }
+
+        private void rdoBn4pointAdjuster_CheckedChanged(object sender, EventArgs e)
+        {
+            RedesignBedAdjusters();
+        }
+
+        private void RedesignBedAdjusters()
+        {
+            if (rdoBn4pointAdjuster.Checked)
+            {
+                btnSaveLowerLeftAdjuster.Visible = true;
+                btnSaveLowerLeftAdjuster.Location = new Point(13,199);
+                btnMoveLowerLeftAdjuster.Visible = true;
+                btnMoveLowerLeftAdjuster.Location = new Point(60, 199);
+
+                btnSaveLowerRightAdjuster.Visible = true;
+                btnSaveLowerRightAdjuster.Location = new Point(407, 199);
+                btnMoveLowerRightAdjuster.Visible = true;
+                btnMoveLowerRightAdjuster.Location = new Point(387, 199);
+            
+                btnSaveUpperLeftAdjuster.Visible = true;
+                btnSaveUpperLeftAdjuster.Location = new Point(13, 98);
+                btnMoveUpperLeftAdjuster.Visible = true;
+                btnMoveUpperLeftAdjuster.Location = new Point(60, 98);
+
+                btnSaveUpperRightAdjuster.Visible = true;
+                btnSaveUpperRightAdjuster.Location = new Point(407, 98);
+                btnMoveUpperRightAdjuster.Visible = true;
+                btnMoveUpperRightAdjuster.Location = new Point(387, 98);
+
+
+                panel1.Visible = true;
+                panelAdjust1.Location = new Point(20,234);
+
+                picBxLowerLeftAdjuster.Visible = true;
+                picBxLowerLeftAdjuster.Location = new Point(126,238);
+
+                panelAdjust2.Visible = true;
+                panelAdjust2.Location = new Point(663, 234);
+
+                picBxLowerRightAdjuster.Visible = true;
+                picBxLowerRightAdjuster.Location = new Point(624, 238);
+
+                panelAdjust3.Visible = true;
+                panelAdjust3.Location = new Point(668, 38);
+
+                picBxUpperLeftAdjuster.Visible = true;
+                picBxUpperLeftAdjuster.Location = new Point(624, 42);
+
+                panelAdjust4.Visible = true;
+                panelAdjust4.Location = new Point(20, 38);
+
+                picBxUpperRightAdjuster.Visible = true;
+                picBxUpperRightAdjuster.Location = new Point(126, 42);
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+            else
+            if (rdoBn3pointAdjusterRight.Checked)
+            {
+                btnSaveLowerLeftAdjuster.Visible = true;
+                btnSaveLowerLeftAdjuster.Location = new Point(13, 199);
+                btnMoveLowerLeftAdjuster.Visible = true;
+                btnMoveLowerLeftAdjuster.Location = new Point(60, 199);
+
+                btnSaveLowerRightAdjuster.Visible = true;
+                btnSaveLowerRightAdjuster.Location = new Point(407, 167);
+                btnMoveLowerRightAdjuster.Visible = true;
+                btnMoveLowerRightAdjuster.Location = new Point(387, 167);
+
+                btnSaveUpperLeftAdjuster.Visible = true;
+                btnSaveUpperLeftAdjuster.Location = new Point(13, 98);
+                btnMoveUpperLeftAdjuster.Visible = true;
+                btnMoveUpperLeftAdjuster.Location = new Point(60, 98);
+
+                btnSaveUpperRightAdjuster.Visible = false;
+                btnSaveUpperRightAdjuster.Location = new Point(407, 98);
+                btnMoveUpperRightAdjuster.Visible = false;
+                btnMoveUpperRightAdjuster.Location = new Point(387, 98);
+
+
+                panel1.Visible = true;
+                panelAdjust1.Location = new Point(20, 234);
+
+                picBxLowerLeftAdjuster.Visible = true;
+                picBxLowerLeftAdjuster.Location = new Point(126, 238);
+
+                panelAdjust2.Visible = true;
+                panelAdjust2.Location = new Point(663, 134);
+
+                picBxLowerRightAdjuster.Visible = true;
+                picBxLowerRightAdjuster.Location = new Point(624, 140);
+
+                panelAdjust3.Visible = false;
+                panelAdjust3.Location = new Point(668, 38);
+
+                picBxUpperLeftAdjuster.Visible = false;
+                picBxUpperLeftAdjuster.Location = new Point(624, 42);
+
+                panelAdjust4.Visible = true;
+                panelAdjust4.Location = new Point(20, 38);
+
+                picBxUpperRightAdjuster.Visible = true;
+                picBxUpperRightAdjuster.Location = new Point(126, 42);
+
+
+
+
+
+
+
+            }
+            else
+            if (rdoBn3pointAdjusterLeft.Checked)
+            {
+                btnSaveLowerLeftAdjuster.Visible = true;
+                btnSaveLowerLeftAdjuster.Location = new Point(13, 167);
+                btnMoveLowerLeftAdjuster.Visible = true;
+                btnMoveLowerLeftAdjuster.Location = new Point(60, 167);
+
+                btnSaveLowerRightAdjuster.Visible = true;
+                btnSaveLowerRightAdjuster.Location = new Point(407, 199);
+                btnMoveLowerRightAdjuster.Visible = true;
+                btnMoveLowerRightAdjuster.Location = new Point(387, 199);
+
+                btnSaveUpperLeftAdjuster.Visible = false;
+                btnSaveUpperLeftAdjuster.Location = new Point(13, 98);
+                btnMoveUpperLeftAdjuster.Visible = false;
+                btnMoveUpperLeftAdjuster.Location = new Point(60, 98);
+
+                btnSaveUpperRightAdjuster.Visible = true;
+                btnSaveUpperRightAdjuster.Location = new Point(407, 98);
+                btnMoveUpperRightAdjuster.Visible = true;
+                btnMoveUpperRightAdjuster.Location = new Point(387, 98);
+
+
+                panel1.Visible = true;
+                panelAdjust1.Location = new Point(20, 130);
+
+                picBxLowerLeftAdjuster.Visible = true;
+                picBxLowerLeftAdjuster.Location = new Point(126, 134);
+
+                panelAdjust2.Visible = true;
+                panelAdjust2.Location = new Point(663, 234);
+
+                picBxLowerRightAdjuster.Visible = true;
+                picBxLowerRightAdjuster.Location = new Point(624, 238);
+
+                panelAdjust3.Visible = true;
+                panelAdjust3.Location = new Point(668, 38);
+
+                picBxUpperLeftAdjuster.Visible = true;
+                picBxUpperLeftAdjuster.Location = new Point(624, 42);
+
+                panelAdjust4.Visible = false;
+                panelAdjust4.Location = new Point(20, 38);
+
+                picBxUpperRightAdjuster.Visible = false;
+                picBxUpperRightAdjuster.Location = new Point(126, 42);
+
+
+            }
+
+
+
         }
     }
 }

@@ -50,7 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Configuration.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="FrmShowCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
