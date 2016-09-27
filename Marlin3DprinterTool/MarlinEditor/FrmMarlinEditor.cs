@@ -767,7 +767,7 @@ namespace MarlinEditor
             compileAndUpload.StartInfo.RedirectStandardOutput = true;
             compileAndUpload.StartInfo.WorkingDirectory = configuration.CurrentFirmware;
             compileAndUpload.StartInfo.FileName = Path.Combine(configuration.ArduinoIde, "arduino.exe");
-            compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(configuration.CurrentFirmware, "marlin.ino") + "\" ";
+            compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(configuration.CurrentFirmware, "marlin.ino") + "\" --upload ";
             compileAndUpload.Start();
             // Do not wait for the child process to exit before
             // reading to the end of its redirected stream.

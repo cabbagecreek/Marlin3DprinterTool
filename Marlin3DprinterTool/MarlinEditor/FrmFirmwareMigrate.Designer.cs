@@ -90,6 +90,7 @@
         '\''};
             this.fctbCurrentFirmware.AutoScrollMinSize = new System.Drawing.Size(27, 14);
             this.fctbCurrentFirmware.BackBrush = null;
+            this.fctbCurrentFirmware.BookmarkColor = System.Drawing.Color.Magenta;
             this.fctbCurrentFirmware.CharHeight = 14;
             this.fctbCurrentFirmware.CharWidth = 8;
             this.fctbCurrentFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
