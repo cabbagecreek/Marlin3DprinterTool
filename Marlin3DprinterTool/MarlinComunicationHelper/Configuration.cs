@@ -8,6 +8,30 @@ namespace MarlinComunicationHelper
 {
     public class Configuration
     {
+
+        public string BedType
+        {
+            get 
+            {
+                var xml = new XmlDocument();
+                xml.Load("Marlin3DprinterToolConfiguration.xml");
+                var xmlNodeBed = (XmlElement) xml.SelectSingleNode("/configuration/bed");
+                if (xmlNodeBed == null) return "4point";
+
+                return xmlNodeBed.GetAttribute("bedtype");
+            }
+
+            set 
+            {
+                var xml = new XmlDocument();
+                xml.Load("Marlin3DprinterToolConfiguration.xml");
+                var xmlNodeBed = (XmlElement) xml.SelectSingleNode("/configuration/bed");
+                // 4point, 3pointLeft, 3pointRight
+                xmlNodeBed?.SetAttribute("bedtype", value);
+                xml.Save("Marlin3DprinterToolConfiguration.xml");
+            }
+         }
+
         public Position LowerLeftCorner
         {
             get { return GetPosition("LowerLeftCorner"); }
@@ -383,6 +407,7 @@ namespace MarlinComunicationHelper
 
     public class Position
     {
+        
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
