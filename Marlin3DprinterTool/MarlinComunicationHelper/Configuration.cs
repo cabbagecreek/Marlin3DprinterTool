@@ -27,7 +27,7 @@ namespace MarlinComunicationHelper
                 xml.Load("Marlin3DprinterToolConfiguration.xml");
                 var xmlNodeBed = (XmlElement) xml.SelectSingleNode("/configuration/bed");
                 // 4point, 3pointLeft, 3pointRight
-                xmlNodeBed?.SetAttribute("value", value);
+                xmlNodeBed?.SetAttribute("bedtype", value);
                 xml.Save("Marlin3DprinterToolConfiguration.xml");
             }
          }

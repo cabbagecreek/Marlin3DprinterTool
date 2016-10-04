@@ -48,7 +48,6 @@ namespace Marlin3DprinterTool
             DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
             PopulatecmbBxComPort();
             PopulateConfig();
-            ValidateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
 
         }
@@ -134,7 +133,7 @@ namespace Marlin3DprinterTool
                     UpdateZmaintDescription();
                     break;
             }
-            ValidateConfig();
+
         }
 
 
@@ -170,157 +169,157 @@ namespace Marlin3DprinterTool
         }
 
         #region
+        // TODO: ta bort
+        //private void ValidateConfig()
+        //{
+            //var config = new Configuration();
 
-        private void ValidateConfig()
-        {
-            var config = new Configuration();
 
+            //Position position = config.UpperLeftCorner;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveUpperLeftCorner.BackColor = Color.Red;
+            //        btnMoveUpperLeftCorner.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveUpperLeftCorner.BackColor = Color.Green;
+            //        btnMoveUpperLeftCorner.Enabled = true;
+            //    }
+            //}
 
-            Position position = config.UpperLeftCorner;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveUpperLeftCorner.BackColor = Color.Red;
-                    btnMoveUpperLeftCorner.Enabled = false;
-                }
-                else
-                {
-                    btnSaveUpperLeftCorner.BackColor = Color.Green;
-                    btnMoveUpperLeftCorner.Enabled = true;
-                }
-            }
+            //position = config.UpperRightCorner;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveUpperRightCorner.BackColor = Color.Red;
+            //        btnMoveUpperRightCorner.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveUpperRightCorner.BackColor = Color.Green;
+            //        btnMoveUpperRightCorner.Enabled = true;
+            //    }
+            //}
 
-            position = config.UpperRightCorner;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveUpperRightCorner.BackColor = Color.Red;
-                    btnMoveUpperRightCorner.Enabled = false;
-                }
-                else
-                {
-                    btnSaveUpperRightCorner.BackColor = Color.Green;
-                    btnMoveUpperRightCorner.Enabled = true;
-                }
-            }
+            //position = config.LowerRightCorner;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveLowerRightCorner.BackColor = Color.Red;
+            //        btnMoveLowerRightCorner.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveLowerRightCorner.BackColor = Color.Green;
+            //        btnMoveLowerRightCorner.Enabled = true;
+            //    }
+            //}
 
-            position = config.LowerRightCorner;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveLowerRightCorner.BackColor = Color.Red;
-                    btnMoveLowerRightCorner.Enabled = false;
-                }
-                else
-                {
-                    btnSaveLowerRightCorner.BackColor = Color.Green;
-                    btnMoveLowerRightCorner.Enabled = true;
-                }
-            }
+            //position = config.LowerLeftCorner;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveLowerLeftCorner.BackColor = Color.Red;
+            //        btnMoveLowerLeftCorner.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveLowerLeftCorner.BackColor = Color.Green;
+            //        btnMoveLowerLeftCorner.Enabled = true;
+            //    }
+            //}
 
-            position = config.LowerLeftCorner;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveLowerLeftCorner.BackColor = Color.Red;
-                    btnMoveLowerLeftCorner.Enabled = false;
-                }
-                else
-                {
-                    btnSaveLowerLeftCorner.BackColor = Color.Green;
-                    btnMoveLowerLeftCorner.Enabled = true;
-                }
-            }
+            //position = config.UpperLeftAdjuster;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveUpperLeftAdjuster.BackColor = Color.Red;
+            //        btnMoveUpperLeftAdjuster.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveUpperLeftAdjuster.BackColor = Color.Green;
+            //        btnMoveUpperLeftAdjuster.Enabled = true;
+            //    }
+            //}
 
-            position = config.UpperLeftAdjuster;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveUpperLeftAdjuster.BackColor = Color.Red;
-                    btnMoveUpperLeftAdjuster.Enabled = false;
-                }
-                else
-                {
-                    btnSaveUpperLeftAdjuster.BackColor = Color.Green;
-                    btnMoveUpperLeftAdjuster.Enabled = true;
-                }
-            }
+            //position = config.UpperRightAdjuster;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveUpperRightAdjuster.BackColor = Color.Red;
+            //        btnMoveUpperRightAdjuster.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveUpperRightAdjuster.BackColor = Color.Green;
+            //        btnMoveUpperRightAdjuster.Enabled = true;
+            //    }
+            //}
+            //position = config.LowerRightAdjuster;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveLowerRightAdjuster.BackColor = Color.Red;
+            //        btnMoveLowerRightAdjuster.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveLowerRightAdjuster.BackColor = Color.Green;
+            //        btnMoveLowerRightAdjuster.Enabled = true;
+            //    }
+            //}
 
-            position = config.UpperRightAdjuster;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveUpperRightAdjuster.BackColor = Color.Red;
-                    btnMoveUpperRightAdjuster.Enabled = false;
-                }
-                else
-                {
-                    btnSaveUpperRightAdjuster.BackColor = Color.Green;
-                    btnMoveUpperRightAdjuster.Enabled = true;
-                }
-            }
-            position = config.LowerRightAdjuster;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveLowerRightAdjuster.BackColor = Color.Red;
-                    btnMoveLowerRightAdjuster.Enabled = false;
-                }
-                else
-                {
-                    btnSaveLowerRightAdjuster.BackColor = Color.Green;
-                    btnMoveLowerRightAdjuster.Enabled = true;
-                }
-            }
+            //position = config.LowerLeftAdjuster;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveLowerLeftAdjuster.BackColor = Color.Red;
+            //        btnMoveLowerLeftAdjuster.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveLowerLeftAdjuster.BackColor = Color.Green;
+            //        btnMoveLowerLeftAdjuster.Enabled = true;
+            //    }
+            //}
 
-            position = config.LowerLeftAdjuster;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveLowerLeftAdjuster.BackColor = Color.Red;
-                    btnMoveLowerLeftAdjuster.Enabled = false;
-                }
-                else
-                {
-                    btnSaveLowerLeftAdjuster.BackColor = Color.Green;
-                    btnMoveLowerLeftAdjuster.Enabled = true;
-                }
-            }
+            //position = config.SafeHome;
+            //if (position != null)
+            //{
+            //    if (position.X > 9000 && position.Y > 9000)
+            //    {
+            //        btnSaveSafeHome.BackColor = Color.Red;
+            //        btnMoveSafeHome.Enabled = false;
+            //    }
+            //    else
+            //    {
+            //        btnSaveSafeHome.BackColor = Color.Green;
+            //        btnMoveSafeHome.Enabled = true;
+            //    }
+            //}
 
-            position = config.SafeHome;
-            if (position != null)
-            {
-                if (position.X > 9000 && position.Y > 9000)
-                {
-                    btnSaveSafeHome.BackColor = Color.Red;
-                    btnMoveSafeHome.Enabled = false;
-                }
-                else
-                {
-                    btnSaveSafeHome.BackColor = Color.Green;
-                    btnMoveSafeHome.Enabled = true;
-                }
-            }
-
-            if (chkListBxAdjustment.CheckedItems.Count != 0)
-            {
-                btnSaveAdjustment.BackColor = Color.Green;
-                chkListBxAdjustment.BackColor = Color.Green;
-            }
-            else
-            {
-                btnSaveAdjustment.BackColor = Color.Red;
-                chkListBxAdjustment.BackColor = Color.Red;
-            }
-        }
+            //if (chkListBxAdjustment.CheckedItems.Count != 0)
+            //{
+            //    btnSaveAdjustment.BackColor = Color.Green;
+            //    chkListBxAdjustment.BackColor = Color.Green;
+            //}
+            //else
+            //{
+            //    btnSaveAdjustment.BackColor = Color.Red;
+            //    chkListBxAdjustment.BackColor = Color.Red;
+            //}
+        //}
 
         #endregion
 
@@ -357,92 +356,44 @@ namespace Marlin3DprinterTool
             nChartControlSurface.Charts[0].Series.Clear();
             nChartControlSurface.Refresh();
 
-
-            if (_configuration.BedType == "4point")
-            {
-                ScanSurface(2, 2, 1);
-            }
-            if (_configuration.BedType == "3pointLeft")
-            {
-                ScanSurface3Point();
-            }
-            if (_configuration.BedType == "3pointRight")
-            {
-                ScanSurface3Point();
-            }
-
-        }
-
-        private void ScanSurface3Point(int numberOfRepetitions)
-        {
-            var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
-               MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
-            {
-                var conf = new Configuration();
-                _com.SendCommand(conf.GcodeAssistZprobeEngage);
-            }
-
-            _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
-
-           
-
-            var commands = new List<string> { "M420 S0", "G28 Y", "G28 X", "G28 Z" };
-
-            _probePoints.Clear();
-
             List<Point> probePointsList = new List<Point>();
-
-            if (_configuration.BedType == "3pointLeft")
-            {
-
-
-                probePointsList.Add(new Point((int) _configuration.LowerLeftAdjuster.X,(int) _configuration.LowerLeftAdjuster.Y));
+            if (_configuration.BedType == "4point")
+            {  
+                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
                 probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
                 probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
+            }
+               
 
-
-
+            if (_configuration.BedType == "3pointLeft")
+            {
+                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
+                //probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
             }
 
             if (_configuration.BedType == "3pointRight")
             {
                 probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
                 probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
+                //probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
                 probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
             }
 
-            foreach (Point probePoint in probePointsList)
+            if (_configuration.BedType == "3pointFront")
             {
-                
-                
-            
-                    // move to X&Y
-                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F8000");
-                    //commands.Add("G1 Z40");
-
-
-
-                    for (var i = 0; i < numberOfRepetitions; i++)
-                    {
-                        // probe the point
-                        commands.Add("G30 S-1");
-                        commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F6000");
-                    }
-
-                    // Rise the probe
-
-                }
+                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
+                //probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
+                probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
             }
-
-            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z40.0 F5000");
-
-
-            _com.SendCommand(commands);
+            
+            ScanSurface(probePointsList, 1);
         }
 
-
-        private void ScanSurface(int numberOfXpoint, int numberOfYpoints, int numberOfRepetitions)
+        private void ScanSurface(List<Point> probePointsList,  int numberOfRepetitions)
         {
             var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -452,8 +403,36 @@ namespace Marlin3DprinterTool
                 _com.SendCommand(conf.GcodeAssistZprobeEngage);
             }
 
-            _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
+            var commands = new List<string> { "M420 S0", "G28 Y", "G28 X", "G28 Z" };
 
+            _probePoints.Clear();
+
+            _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
+            
+            foreach (Point probePoint in probePointsList)
+            {
+                // move to X&Y
+                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F8000");
+                //commands.Add("G1 Z40");
+                
+                for (var i = 0; i < numberOfRepetitions; i++)
+                {
+                    // probe the point
+                    commands.Add("G30 S-1");
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F6000");
+                }
+            }
+
+            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z40.0 F5000");
+            _com.SendCommand(commands);
+        }
+
+
+        private void ScanSurface(int numberOfXpoint, int numberOfYpoints, int numberOfRepetitions)
+        {
+
+            List<Point> probePointsList = new List<Point>();
+            
             var xMin = (int) Convert.ToDecimal(_configuration.LowerLeftAdjuster.X);
             var xMax = (int) Convert.ToDecimal(_configuration.LowerRightAdjuster.X);
             var xStep = (xMax - xMin)/(numberOfXpoint - 1);
@@ -462,37 +441,18 @@ namespace Marlin3DprinterTool
             var yMax = (int) Convert.ToDecimal(_configuration.UpperLeftAdjuster.Y);
             var yStep = (yMax - yMin)/(numberOfYpoints - 1);
 
-            var commands = new List<string> { "M420 S0",  "G28 Y", "G28 X", "G28 Z"};
-
+            
             _probePoints.Clear();
 
             for (var y = yMin; y <= yMax; y += yStep)
             {
                 for (var x = xMin; x <= xMax; x += xStep)
                 {
-                    // move to X&Y
-
-                    commands.Add($"G1 X{x}.0 Y{y}.0 Z40.0 F8000");
-                    //commands.Add("G1 Z40");
-
-
-                    
-                    for (var i = 0; i < numberOfRepetitions; i++)
-                    {
-                        // probe the point
-                        commands.Add("G30 S-1");
-                        commands.Add($"G1 X{x}.0 Y{y}.0 Z40.0 F6000");
-                    }
-
-                    // Rise the probe
-
+                    probePointsList.Add(new Point(x,y));
                 }
             }
 
-            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z40.0 F5000");
-
-
-            _com.SendCommand(commands);
+            ScanSurface(probePointsList, 1);
         }
 
 
@@ -625,7 +585,7 @@ namespace Marlin3DprinterTool
                 break;
             }
 
-            ValidateConfig();
+           
         }
 
         private void chkListBxAdjustment_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -1500,7 +1460,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerLeftAdjuster = _currectPosition;
-            ValidateConfig();
+           
         }
 
         private void btnSaveUpperLeftAdjuster_Click(object sender, EventArgs e)
@@ -1509,7 +1469,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.UpperLeftAdjuster = _currectPosition;
-            ValidateConfig();
+            
         }
 
         private void btnSaveLowerLeftCorner_Click(object sender, EventArgs e)
@@ -1518,7 +1478,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerLeftCorner = _currectPosition;
-            ValidateConfig();
+            
         }
 
         private void btnSaveLowerRightCorner_Click(object sender, EventArgs e)
@@ -1527,7 +1487,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerRightCorner = _currectPosition;
-            ValidateConfig();
+            
         }
 
         private void btnSaveLowerRightAdjuster_Click(object sender, EventArgs e)
@@ -1536,7 +1496,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerRightAdjuster = _currectPosition;
-            ValidateConfig();
+            
         }
 
         private void btnSaveUpperRightAdjuster_Click(object sender, EventArgs e)
@@ -1545,7 +1505,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.UpperRightAdjuster = _currectPosition;
-            ValidateConfig();
+            
         }
 
         private void btnSaveUpperRightCorner_Click(object sender, EventArgs e)
@@ -1555,7 +1515,7 @@ namespace Marlin3DprinterTool
 
 
             _configuration.UpperRightCorner = _currectPosition;
-            ValidateConfig();
+            
         }
 
 
@@ -1567,7 +1527,7 @@ namespace Marlin3DprinterTool
 
 
             _configuration.UpperLeftCorner = _currectPosition;
-            ValidateConfig();
+            
         }
 
         private void btnSaveSafeHome_Click
@@ -1577,7 +1537,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.SafeHome = _currectPosition;
-            ValidateConfig();
+            
         }
 
         #endregion
@@ -1671,34 +1631,32 @@ namespace Marlin3DprinterTool
             
         }
 
-        private void rdoBn4pointAdjuster_CheckedChanged(object sender, EventArgs e)
-        {
-            RedesignBedAdjusters();
-        }
+       
 
         private void RedesignBedAdjusters()
         {
             if (rdoBn4pointAdjuster.Checked)
             {
+                _configuration.BedType = "4point";
                 btnSaveLowerLeftAdjuster.Visible = true;
-                btnSaveLowerLeftAdjuster.Location = new Point(13,199);
+                btnSaveLowerLeftAdjuster.Location = new Point(5,200);
                 btnMoveLowerLeftAdjuster.Visible = true;
-                btnMoveLowerLeftAdjuster.Location = new Point(60, 199);
+                btnMoveLowerLeftAdjuster.Location = new Point(50, 200);
 
                 btnSaveLowerRightAdjuster.Visible = true;
-                btnSaveLowerRightAdjuster.Location = new Point(407, 199);
+                btnSaveLowerRightAdjuster.Location = new Point(430, 200);
                 btnMoveLowerRightAdjuster.Visible = true;
-                btnMoveLowerRightAdjuster.Location = new Point(387, 199);
+                btnMoveLowerRightAdjuster.Location = new Point(390, 200);
             
                 btnSaveUpperLeftAdjuster.Visible = true;
-                btnSaveUpperLeftAdjuster.Location = new Point(13, 98);
+                btnSaveUpperLeftAdjuster.Location = new Point(5, 100);
                 btnMoveUpperLeftAdjuster.Visible = true;
-                btnMoveUpperLeftAdjuster.Location = new Point(60, 98);
+                btnMoveUpperLeftAdjuster.Location = new Point(50, 100);
 
                 btnSaveUpperRightAdjuster.Visible = true;
-                btnSaveUpperRightAdjuster.Location = new Point(407, 98);
+                btnSaveUpperRightAdjuster.Location = new Point(430, 100);
                 btnMoveUpperRightAdjuster.Visible = true;
-                btnMoveUpperRightAdjuster.Location = new Point(387, 98);
+                btnMoveUpperRightAdjuster.Location = new Point(390, 100);
 
 
                 panel1.Visible = true;
@@ -1725,41 +1683,30 @@ namespace Marlin3DprinterTool
                 picBxUpperRightAdjuster.Visible = true;
                 picBxUpperRightAdjuster.Location = new Point(126, 42);
 
-
-
-
-
-
-
-
-
-
-
-
-
             }
             else
             if (rdoBn3pointAdjusterRight.Checked)
             {
+                _configuration.BedType = "3pointRight";
                 btnSaveLowerLeftAdjuster.Visible = true;
-                btnSaveLowerLeftAdjuster.Location = new Point(13, 199);
+                btnSaveLowerLeftAdjuster.Location = new Point(5, 200);
                 btnMoveLowerLeftAdjuster.Visible = true;
-                btnMoveLowerLeftAdjuster.Location = new Point(60, 199);
+                btnMoveLowerLeftAdjuster.Location = new Point(50, 200);
 
                 btnSaveLowerRightAdjuster.Visible = true;
-                btnSaveLowerRightAdjuster.Location = new Point(407, 167);
+                btnSaveLowerRightAdjuster.Location = new Point(430, 150);
                 btnMoveLowerRightAdjuster.Visible = true;
-                btnMoveLowerRightAdjuster.Location = new Point(387, 167);
+                btnMoveLowerRightAdjuster.Location = new Point(390, 150);
 
                 btnSaveUpperLeftAdjuster.Visible = true;
-                btnSaveUpperLeftAdjuster.Location = new Point(13, 98);
+                btnSaveUpperLeftAdjuster.Location = new Point(5, 100);
                 btnMoveUpperLeftAdjuster.Visible = true;
-                btnMoveUpperLeftAdjuster.Location = new Point(60, 98);
+                btnMoveUpperLeftAdjuster.Location = new Point(50, 100);
 
                 btnSaveUpperRightAdjuster.Visible = false;
-                btnSaveUpperRightAdjuster.Location = new Point(407, 98);
+                btnSaveUpperRightAdjuster.Location = new Point(430, 100);
                 btnMoveUpperRightAdjuster.Visible = false;
-                btnMoveUpperRightAdjuster.Location = new Point(387, 98);
+                btnMoveUpperRightAdjuster.Location = new Point(390, 98);
 
 
                 panel1.Visible = true;
@@ -1785,36 +1732,30 @@ namespace Marlin3DprinterTool
 
                 picBxUpperRightAdjuster.Visible = true;
                 picBxUpperRightAdjuster.Location = new Point(126, 42);
-
-
-
-
-
-
-
             }
             else
             if (rdoBn3pointAdjusterLeft.Checked)
             {
+                _configuration.BedType = "3pointLeft";
                 btnSaveLowerLeftAdjuster.Visible = true;
-                btnSaveLowerLeftAdjuster.Location = new Point(13, 167);
+                btnSaveLowerLeftAdjuster.Location = new Point(5, 150);
                 btnMoveLowerLeftAdjuster.Visible = true;
-                btnMoveLowerLeftAdjuster.Location = new Point(60, 167);
+                btnMoveLowerLeftAdjuster.Location = new Point(50, 150);
 
                 btnSaveLowerRightAdjuster.Visible = true;
-                btnSaveLowerRightAdjuster.Location = new Point(407, 199);
+                btnSaveLowerRightAdjuster.Location = new Point(430, 200);
                 btnMoveLowerRightAdjuster.Visible = true;
-                btnMoveLowerRightAdjuster.Location = new Point(387, 199);
+                btnMoveLowerRightAdjuster.Location = new Point(390, 200);
 
                 btnSaveUpperLeftAdjuster.Visible = false;
-                btnSaveUpperLeftAdjuster.Location = new Point(13, 98);
+                btnSaveUpperLeftAdjuster.Location = new Point(5, 100);
                 btnMoveUpperLeftAdjuster.Visible = false;
-                btnMoveUpperLeftAdjuster.Location = new Point(60, 98);
+                btnMoveUpperLeftAdjuster.Location = new Point(50, 100);
 
                 btnSaveUpperRightAdjuster.Visible = true;
-                btnSaveUpperRightAdjuster.Location = new Point(407, 98);
+                btnSaveUpperRightAdjuster.Location = new Point(430, 100);
                 btnMoveUpperRightAdjuster.Visible = true;
-                btnMoveUpperRightAdjuster.Location = new Point(387, 98);
+                btnMoveUpperRightAdjuster.Location = new Point(390, 100);
 
 
                 panel1.Visible = true;
@@ -1843,9 +1784,86 @@ namespace Marlin3DprinterTool
 
 
             }
+            else
+            if (rdoBn3pointAdjusterFront.Checked)
+            {
+                _configuration.BedType = "3pointFront";
+                btnSaveLowerLeftAdjuster.Visible = true;
+                btnSaveLowerLeftAdjuster.Location = new Point(171, 334);
+                btnMoveLowerLeftAdjuster.Visible = true;
+                btnMoveLowerLeftAdjuster.Location = new Point(218, 334);
+
+                btnSaveLowerRightAdjuster.Visible = false;
+                btnSaveLowerRightAdjuster.Location = new Point(430, 200);
+                btnMoveLowerRightAdjuster.Visible = false;
+                btnMoveLowerRightAdjuster.Location = new Point(390, 200);
+
+                btnSaveUpperLeftAdjuster.Visible = true;
+                btnSaveUpperLeftAdjuster.Location = new Point(5, 100);
+                btnMoveUpperLeftAdjuster.Visible = true;
+                btnMoveUpperLeftAdjuster.Location = new Point(50, 100);
+
+                btnSaveUpperRightAdjuster.Visible = true;
+                btnSaveUpperRightAdjuster.Location = new Point(430, 100);
+                btnMoveUpperRightAdjuster.Visible = true;
+                btnMoveUpperRightAdjuster.Location = new Point(390, 100);
 
 
+                panel1.Visible = true;
+                panelAdjust1.Location = new Point(390, 320);
 
+                picBxLowerLeftAdjuster.Visible = true;
+                picBxLowerLeftAdjuster.Location = new Point(330, 320);
+
+                panelAdjust2.Visible = false;
+                panelAdjust2.Location = new Point(663, 234);
+
+                picBxLowerRightAdjuster.Visible = false;
+                picBxLowerRightAdjuster.Location = new Point(624, 238);
+
+                panelAdjust3.Visible = true;
+                panelAdjust3.Location = new Point(668, 38);
+
+                picBxUpperLeftAdjuster.Visible = true;
+                picBxUpperLeftAdjuster.Location = new Point(624, 42);
+
+                panelAdjust4.Visible = true;
+                panelAdjust4.Location = new Point(20, 38);
+
+                picBxUpperRightAdjuster.Visible = true;
+                picBxUpperRightAdjuster.Location = new Point(126, 42);
+
+
+            }
+
+
+        }
+        private void rdoBn4pointAdjuster_CheckedChanged(object sender, EventArgs e)
+        {
+            RedesignBedAdjusters();
+        }
+        private void rdoBn3pointAdjusterRight_CheckedChanged(object sender, EventArgs e)
+        {
+            RedesignBedAdjusters();
+        }
+
+        private void rdoBn3pointAdjusterLeft_CheckedChanged(object sender, EventArgs e)
+        {
+            RedesignBedAdjusters();
+        }
+
+        private void rdoBn3pointAdjusterFront_CheckedChanged(object sender, EventArgs e)
+        {
+            RedesignBedAdjusters();
+        }
+
+        private void chkListBxAdjustment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var item in chkListBxAdjustment.CheckedItems)
+            {
+                _configuration.Adjuster = (string)item;
+                break;
+            }
         }
     }
 }
