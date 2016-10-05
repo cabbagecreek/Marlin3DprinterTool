@@ -75,7 +75,9 @@ namespace MarlinEditor
 
         private static string GetConfigurationFile(string filename)
         {
-            string programDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string programDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            programDataDirectory = Path.Combine(programDataDirectory, "cabbagecreek");
+            programDataDirectory = Path.Combine(programDataDirectory, "Marlin3DprinterTool");
             return Path.Combine(programDataDirectory, filename);
         }
 

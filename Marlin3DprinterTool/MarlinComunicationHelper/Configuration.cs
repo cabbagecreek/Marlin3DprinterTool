@@ -43,6 +43,7 @@ namespace MarlinComunicationHelper
             return Path.Combine(programDataDirectory, filename);
         }
 
+
         public Position LowerLeftCorner
         {
             get { return GetPosition("LowerLeftCorner"); }
