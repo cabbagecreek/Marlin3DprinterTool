@@ -73,7 +73,8 @@ namespace MarlinComunicationHelper
                     _serialPort.Received += _serialPort_Received;
 
 
-                    _serialPort.BaudRate = (SerialPort.SerialBaudRate) Convert.ToInt32(BaudRate);
+                    _serialPort.CustomBaudRate = Convert.ToInt32(BaudRate);
+                    _serialPort.BaudRate = SerialPort.SerialBaudRate.brCustom;
 
 
                     // 8 batabits No parity 1 Stop Bit

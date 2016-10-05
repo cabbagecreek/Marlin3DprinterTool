@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using System;
+using System.IO;
+using System.Xml;
 
 namespace MarlinEditor
 {
@@ -12,7 +14,7 @@ namespace MarlinEditor
             get
             {
                 var xml = new XmlDocument();
-                xml.Load("MarlinEditorConfiguration.xml");
+                xml.Load(GetConfigurationFile( GetConfigurationFile( "MarlinEditorConfiguration.xml" ) ));
                 var xmlNodeFirmware = (XmlElement) xml.SelectSingleNode("/configuration/CurrentFirmware");
 
                 return xmlNodeFirmware?.GetAttribute("directory") ?? "";
@@ -20,10 +22,10 @@ namespace MarlinEditor
             set
             {
                 var xml = new XmlDocument();
-                xml.Load("MarlinEditorConfiguration.xml");
+                xml.Load(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
                 var xmlNodeFirmware = (XmlElement) xml.SelectSingleNode("/configuration/CurrentFirmware");
                 xmlNodeFirmware?.SetAttribute("directory", value); // if (xmlNodeFirmware != null)
-                xml.Save("MarlinEditorConfiguration.xml");
+                xml.Save(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
             }
         }
 
@@ -33,7 +35,7 @@ namespace MarlinEditor
             get
             {
                 var xml = new XmlDocument();
-                xml.Load("MarlinEditorConfiguration.xml");
+                xml.Load(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
                 var xmlNodeFirmware = (XmlElement)xml.SelectSingleNode("/configuration/NewFirmware");
 
                 return xmlNodeFirmware?.GetAttribute("directory") ?? "";
@@ -41,10 +43,10 @@ namespace MarlinEditor
             set
             {
                 var xml = new XmlDocument();
-                xml.Load("MarlinEditorConfiguration.xml");
+                xml.Load(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
                 var xmlNodeFirmware = (XmlElement)xml.SelectSingleNode("/configuration/NewFirmware");
                 xmlNodeFirmware?.SetAttribute("directory", value); // if (xmlNodeFirmware != null)
-                xml.Save("MarlinEditorConfiguration.xml");
+                xml.Save(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
             }
         }
 
@@ -55,7 +57,7 @@ namespace MarlinEditor
             get
             {
                 var xml = new XmlDocument();
-                xml.Load("MarlinEditorConfiguration.xml");
+                xml.Load(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
                 var xmlNodeArduinoIde = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
                 if (xmlNodeArduinoIde == null) return "";
 
@@ -64,19 +66,20 @@ namespace MarlinEditor
             set
             {
                 var xml = new XmlDocument();
-                xml.Load("MarlinEditorConfiguration.xml");
+                xml.Load(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
                 var xmlNodeArduinoIde = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
                 xmlNodeArduinoIde?.SetAttribute("directory", value);
-                xml.Save("MarlinEditorConfiguration.xml");
+                xml.Save(GetConfigurationFile( "MarlinEditorConfiguration.xml" ));
             }
+        }
+
+        private static string GetConfigurationFile(string filename)
+        {
+            string programDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            return Path.Combine(programDataDirectory, filename);
         }
 
     }
 
-    public class Position
-    {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
-    }
+   
 }
