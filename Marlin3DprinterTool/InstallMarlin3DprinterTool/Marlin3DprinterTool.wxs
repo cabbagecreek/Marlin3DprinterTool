@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="0.0.0.5" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
@@ -19,10 +19,15 @@
     
 
     <Feature Id="ProductFeature" Title="Marlin3DprinterTool" Level="1">
+      
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="ApplicationShortcutDesktop" />
-      <ComponentGroupRef Id="ConfigFiles"/>
+      <ComponentGroupRef Id="ProgramDataPermission"/>
+      
+      
+     
+      
     </Feature>
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
@@ -49,13 +54,15 @@
             <Directory Id="DesktopFolder" Name="Desktop"></Directory>
       
         </Directory>
+         
         
-        
-            <Directory Id="CommonAppDataFolder">
-                <Directory Id="CommonAppDataManufacturerFolder" Name="cabbagecreek">
-                    <Directory Id="Marlin3DprinterToolConfig" Name="Marlin3DprinterTool"/>
-                </Directory>
+        <Directory Id="CommonAppDataFolder">
+            <Directory Id="CommonAppDataManufacturerFolder" Name="cabbagecreek">
+              <Directory Id="Marlin3DprinterToolConfiguration" Name ="Marlin3DprinterTool"/>
+              
+              
             </Directory>
+        </Directory>
         
     
        
@@ -111,28 +118,24 @@
       </Component>
     </DirectoryRef>
   </Fragment>
-  
-  
+
+
 
   <Fragment>
-    
-    <ComponentGroup Id="ConfigFiles" Directory="Marlin3DprinterToolConfig">
-      
-      <!-- Marlin3DprinterToolConfiguration.xml -->
-      <Component Id="Marlin3DprinterToolConfiguration.xml" NeverOverwrite="yes" Permanent="yes" Guid="{33AE66A1-8306-460E-91D7-9BDE1096A59D}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.xml" />
-      </Component>
 
-      
-
-      <!-- MarlinEditorConfiguration.xml -->
-      <Component Id="MarlinEditorConfiguration.xml" NeverOverwrite="yes" Permanent="yes" Guid="{50951E18-4502-4FB4-B0B3-413D2EDBE50C}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditorConfiguration.xml" />
-      </Component>
-
-      
-    
+    <ComponentGroup Id="ProgramDataPermission" Directory="Marlin3DprinterToolConfiguration">
+      <Component Id ="Marlin3DprinterConfigurationFiles" Guid="{73359C75-511D-4B1D-9DAF-F50201D375E4}" >
+        <CreateFolder>
+          <util:PermissionEx  User="Users" Domain="[MachineName]" GenericAll="yes"/>
+        </CreateFolder>
+      </Component>  
     </ComponentGroup>
+  </Fragment>
+  
+  
+  <Fragment>
+    
+
     
       <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 
