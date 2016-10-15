@@ -37,7 +37,9 @@ namespace MarlinComunicationHelper
             this.chkBxNeverClear = new System.Windows.Forms.CheckBox();
             this.btnCopyToClipBoard = new System.Windows.Forms.Button();
             this.fastColoredTextMarlinCommunication = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextMarlinCommunication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClearResponces
@@ -105,6 +107,11 @@ namespace MarlinComunicationHelper
             this.fastColoredTextMarlinCommunication.TabIndex = 18;
             this.fastColoredTextMarlinCommunication.Zoom = 100;
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // FrmShowCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,6 +127,7 @@ namespace MarlinComunicationHelper
             this.Text = "Show Communication";
             this.Load += new System.EventHandler(this.FrmShowForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextMarlinCommunication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,5 +139,6 @@ namespace MarlinComunicationHelper
         private CheckBox chkBxNeverClear;
         private Button btnCopyToClipBoard;
         private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextMarlinCommunication;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }

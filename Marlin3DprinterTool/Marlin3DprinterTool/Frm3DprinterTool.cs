@@ -46,7 +46,7 @@ namespace Marlin3DprinterTool
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
             DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
-            PopulatecmbBxComPort();
+            PopulateComboBoxes();
             PopulateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
 
@@ -448,6 +448,11 @@ namespace Marlin3DprinterTool
             {
                 for (var x = xMin; x <= xMax; x += xStep)
                 {
+                    //TODO: Multiple probe on point = numberOfRepetitions
+                    for (int repetition = 0; repetition < numberOfRepetitions; repetition++)
+                    {
+                        // probePointsList.Add(new Point(x,y));    
+                    }
                     probePointsList.Add(new Point(x,y));
                 }
             }
@@ -577,16 +582,18 @@ namespace Marlin3DprinterTool
             _configuration.ArduinoIde = txtBxArduinoIDE.Text;
         }
 
-        private void btnSaveAdjustment_Click(object sender, EventArgs e)
-        {
-            foreach (var item in chkListBxAdjustment.CheckedItems)
-            {
-                _configuration.Adjuster = (string) item;
-                break;
-            }
+
+        //TOFO: Tabort
+        //private void btnSaveAdjustment_Click(object sender, EventArgs e)
+        //{
+        //    foreach (var item in chkListBxAdjustment.CheckedItems)
+        //    {
+        //        _configuration.Adjuster = (string) item;
+        //        break;
+        //    }
 
            
-        }
+        //}
 
         private void chkListBxAdjustment_ItemCheck(object sender, ItemCheckEventArgs e)
         {
@@ -643,8 +650,58 @@ namespace Marlin3DprinterTool
 
         #region Pupulating Form
 
-        private void PopulatecmbBxComPort()
+        private void PopulateComboBoxes()
         {
+
+
+            cmbBxLeadScrewMotorStepAngle.Items.Clear();
+            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"1.8°", Value = (int) (360.0/1.8)});
+            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"0.9°", Value = (int)(360.0 / 0.9) });
+            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"7.5°", Value = (int)(360.0 / 7.5) });
+            cmbBxLeadScrewMotorStepAngle.Text = @"1.8°";
+
+            cmbBxLeadScrewDriverMicrostepping.Items.Clear();
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1    - Full step",    Value = (float)(1/(1.0 / 1.0))  });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/2  - Half step",    Value = (float)(1/(1.0 / 2.0))  });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/4  - Quarter step", Value = (float)(1/(1.0 / 4.0))  });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/8  - Micro step",   Value = (float)(1/(1.0 / 8.0))  });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/16 - Micro step",   Value = (float)(1/(1.0 / 16.0)) });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/32 - Micro step",   Value = (float)(1/(1.0 / 32.0)) });
+            cmbBxLeadScrewDriverMicrostepping.Text = @"1/16 - Micro step";
+
+            cmbBxLeadScrewPitch.Items.Clear();
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"M8 - Metric (1.25mm / revolution)", Value = (float)(1.25) });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"M6 - Metric (1.00mm / revolution)", Value = (float)(1.00) });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"M5 - Metric (0.80mm / revolution)", Value = (float)(0.80) });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"5/16-18 imperial coarse (1.41111mm / revolution)", Value = (float)(1.41111) });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"1/4-16 - Acme (1.5875mm / revolution", Value = (float)(1.5875) });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"8mm Trapezoidal Threaded (2.00mm / revolution", Value = (float)(2.00) });
+            cmbBxLeadScrewPitch.Text = @"8mm Trapezoidal Threaded (2.00mm / revolution";
+
+            cmbBxBeltMotorStepAngle.Items.Clear();
+            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"1.8°", Value = (int)(360.0 / 1.8) });
+            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"0.9°", Value = (int)(360.0 / 0.9) });
+            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"7.5°", Value = (int)(360.0 / 7.5) });
+            cmbBxBeltMotorStepAngle.Text = @"1.8°";
+
+            cmbBxBeltDriverMicrostepping.Items.Clear();
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1    - Full step",    Value = (float)(1/(1.0 / 1.0)) });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/2  - Half step",    Value = (float)(1/(1.0 / 2.0)) });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/4  - Quarter step", Value = (float)(1/(1.0 / 4.0)) });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/8  - Micro step",   Value = (float)(1/(1.0 / 8.0)) });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/16 - Micro step",   Value = (float)(1/(1.0 / 16.0)) });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/32 - Micro step",   Value = (float)(1/(1.0 / 32.0)) });
+            cmbBxBeltDriverMicrostepping.Text = @"1/16 - Micro step";
+
+            cmbBxBeltPitch.Items.Clear();
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"2mm   - Metric (GT2)", Value = (float)(2.00) });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"2.5mm - Metric (T2.5)", Value = (float)(2.50) });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"3mm   - Metric (GT2, HTD)", Value = (float)(3.00) });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"5mm   - Metric (T5,GT2, HTD)", Value = (float)(5.00) });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"MXL   - Inch   (2.03mm)", Value = (float)(2.03) });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"XL    - Inch   (5.08mm)", Value = (float)(5.08) });
+            cmbBxBeltPitch.Text = @"2mm   - Metric (GT2)";
+
             try
             {
                 //var serialPorts = _com.GetExistingSerialPorts();
@@ -1558,20 +1615,22 @@ namespace Marlin3DprinterTool
 
         private void btnUpdateExtruderPid_Click(object sender, EventArgs e)
         {
-            List<string> commands   = new List<string>();
+            List<string> commands = new List<string>
+            {
+                $"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}","M500"
+            };
             // M301 P19.56 I0.71 D134.26
-            commands.Add($"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}");
-            commands.Add("M500");
             _com.SendCommand(commands);
 
         }
 
         private void btnUpdateBedPid_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string>();
+            List<string> commands = new List<string>
+            {
+                $"M304 P{txtBxKpBed.Text} I{txtBxKiBed.Text} D{txtBxKdBed.Text}","M500"
+            };
             // M301 P19.56 I0.71 D134.26
-            commands.Add($"M304 P{txtBxKpBed.Text} I{txtBxKiBed.Text} D{txtBxKdBed.Text}");
-            commands.Add("M500");
             _com.SendCommand(commands);
         }
 
@@ -1624,9 +1683,10 @@ namespace Marlin3DprinterTool
 
         private void btnZpromeEepromUpdate_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string>();
-            commands.Add(string.Format("M851 Z-{0}", txtBxCalculatedZProbeOffset.Text.Replace(',','.')));
-            commands.Add("M500");
+            List<string> commands = new List<string>
+            {
+                $"M851 Z-{txtBxCalculatedZProbeOffset.Text.Replace(',', '.')}","M500"
+            };
             _com.SendCommand(commands);
             
         }
@@ -1864,6 +1924,228 @@ namespace Marlin3DprinterTool
                 _configuration.Adjuster = (string)item;
                 break;
             }
+        }
+
+        
+        private void CalculateLeadScrew()
+        {
+            float microStep = 1;
+            int stepsPerRevolution = (int)(360.0 / 1.8);
+            float pitch = (float)1.25;
+            float gear;
+
+            var comboboxItemTextValue = cmbBxLeadScrewMotorStepAngle.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null) { stepsPerRevolution = (int)comboboxItemTextValue.ToValue(); }
+
+            comboboxItemTextValue = cmbBxLeadScrewDriverMicrostepping.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null){microStep = (float) comboboxItemTextValue.ToValue();}
+
+            comboboxItemTextValue = cmbBxLeadScrewPitch.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null) { pitch = (float)comboboxItemTextValue.ToValue(); }
+
+
+
+            if (chkBxLeadScrewDirectDriven.Checked) gear = (float) 1.0;
+            else
+            {
+                gear = (float)(numUpDnLeadScrewMotorTeethCount.Value / numUpDnLeadScrewTeethCount.Value);
+            }
+            
+            
+            var stepsPerMM = (int)(stepsPerRevolution  * ( microStep / pitch)  * gear );
+
+            fastColoredTextBoxLeadScrewStepsPerMM.Text = $"{stepsPerMM} steps/mm";
+            
+        }
+
+        private void cmbBxLeadScrewMotorStepAngle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateLeadScrew();
+        }
+        private void chkBxLeadScrewDirectDriven_CheckedChanged(object sender, EventArgs e)
+        {
+            numUpDnLeadScrewTeethCount.Visible      = !chkBxLeadScrewDirectDriven.Checked;
+            numUpDnLeadScrewMotorTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
+            lblLeadScrewMotorTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
+            lblLeadscrewTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
+            CalculateLeadScrew();
+
+        }
+
+        private void cmbBxLeadScrewDriverMicrostepping_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateLeadScrew();
+        }
+
+        private void numUpDnLeadScrewMotorPulleyTeethCount_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateLeadScrew();
+        }
+
+        private void numUpDnLeadScrewPulleyTeethCount_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateLeadScrew();
+        }
+
+        private void cmbBxLeadScrewPitch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateLeadScrew();
+        }
+
+        private void cmbBxBeltMotorStepAngle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateBelt();
+        }
+
+        private void CalculateBelt()
+        {
+            float microStep = 1;
+            int stepsPerRevolution = (int)(360.0 / 1.8);
+            float pitch = (float)1.25;
+            float gear;
+
+            var comboboxItemTextValue = cmbBxBeltMotorStepAngle.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null) { stepsPerRevolution = (int)comboboxItemTextValue.ToValue(); }
+
+            comboboxItemTextValue = cmbBxBeltDriverMicrostepping.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null) { microStep = (float)comboboxItemTextValue.ToValue(); }
+
+            comboboxItemTextValue = cmbBxBeltPitch.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null) { pitch = (float)comboboxItemTextValue.ToValue(); }
+
+
+
+            if (chkBxBeltDirectDriven.Checked) gear = (float)1.0;
+            else
+            {
+                gear = (float)(numUpDnBeltMotorTeethCount.Value / numUpDnBeltTeethCount.Value);
+            }
+
+
+            var stepsPerMM =
+                (int) (stepsPerRevolution*(microStep/(pitch*(double) numUpDnBeltPulleyTeethCount.Value)) ) * gear;
+
+            fastColoredTextBoxBeltStepsPerMM.Text = $"{stepsPerMM} steps/mm";
+        }
+
+        private void numUpDnExtruderExpectedValue_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateExtruder();
+        }
+
+        private void CalculateExtruder()
+        {
+
+            // Extruder steps/mm = ( extrude button clicks * extruded length per click * old extruder steps/mm ) / marked length on filament
+
+            int extrudedLength = (int) numUpDnExtruderExpectedValue.Value;
+            int oldStepsPerMM = (int) numUpDnExtruderOldFirmware.Value;
+            int meassuredExtrudedLength = (int) numUpDnExtruderMeassuredExtrusion.Value;
+
+            var stepsPerMM = extrudedLength * oldStepsPerMM / meassuredExtrudedLength;
+
+
+            fastColoredTextBoxExtruderStepsPerMM.Text = $"{stepsPerMM} steps/mm";
+            fastColoredTextBoxExtruderStepsPerMM.Tag = stepsPerMM.ToString();
+        }
+
+        private void btnExtruderOldFirmware_Click(object sender, EventArgs e)
+        {
+            // TODO: Get extruder Steps Per MM from EEPROM
+            // get the OldFirmware settings from EEPROM
+            // M501 without a Responce shown
+            // Only Parse responce 
+
+        }
+
+        private void btnExtruderUpdateStepsPerMMinFirmware_Click(object sender, EventArgs e)
+        {
+            //TODO: Update current Firmware
+            MessageBox.Show(@"Not implemented (yet)");
+        }
+
+        private void btnExtruderUpdateStepsPerMMinEEPROM_Click(object sender, EventArgs e)
+        {
+            // TODO: Set Extruder two???? 
+            // Send M92 E420.5 
+            _com.SendCommand($"M92 E{fastColoredTextBoxExtruderStepsPerMM.Tag}");
+        }
+
+        private void numUpDnFeedRateMMperMinute_ValueChanged(object sender, EventArgs e)
+        {
+            numUpDnFeedRateMMperSecund.Value = numUpDnFeedRateMMperMinute.Value/60;
+        }
+
+        private void numUpDnFeedRateMMperSecund_ValueChanged(object sender, EventArgs e)
+        {
+            numUpDnFeedRateMMperMinute.Value = numUpDnFeedRateMMperSecund.Value*60;
+        }
+
+        private void numUpDnBeltMotorPulleyTeethCount_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateBelt();
+        }
+
+        private void numUpDnBeltTeethCount_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateBelt();
+        }
+
+        private void cmbBxBeltDriverMicrostepping_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateBelt();
+        }
+
+        private void cmbBxBeltPitch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalculateBelt();
+        }
+
+        private void chkBxBeltDirectDriven_CheckedChanged(object sender, EventArgs e)
+        {
+            numUpDnBeltTeethCount.Visible = !chkBxBeltDirectDriven.Checked;
+            numUpDnBeltMotorTeethCount.Visible = !chkBxBeltDirectDriven.Checked;
+            lblBeltMotorTeethCount.Visible = !chkBxBeltDirectDriven.Checked;
+            lblBeltTeethCount.Visible = !chkBxBeltDirectDriven.Checked;
+            CalculateBelt();
+        }
+
+        private void numUpDnBeltPulleyTeethCount_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateBelt();
+        }
+    }
+
+
+    /// <summary>
+    /// Combobox with Text-Value Keypair. 
+    /// </summary>
+    public class ComboboxItemTextValue
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Text { private get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public object Value { private get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Text;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public object ToValue()
+        {
+            return Value;
         }
     }
 }

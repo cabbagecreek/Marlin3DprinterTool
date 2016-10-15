@@ -36,12 +36,12 @@ namespace Marlin3DprinterTool
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm3DprinterTool));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series25 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series26 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series27 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series28 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
             this.grpBxZ = new System.Windows.Forms.GroupBox();
@@ -229,6 +229,49 @@ namespace Marlin3DprinterTool
             this.trackBarZmaintenanceMax = new System.Windows.Forms.TrackBar();
             this.lblZmaintenanceRepetitions = new System.Windows.Forms.Label();
             this.numUpDnZmaintenanceRepetitions = new System.Windows.Forms.NumericUpDown();
+            this.tabCalculations = new System.Windows.Forms.TabPage();
+            this.grpBxFeedRate = new System.Windows.Forms.GroupBox();
+            this.numUpDnFeedRateMMperMinute = new System.Windows.Forms.NumericUpDown();
+            this.lblFeedRateMMperMinute = new System.Windows.Forms.Label();
+            this.lblFeedRateMMperSecund = new System.Windows.Forms.Label();
+            this.numUpDnFeedRateMMperSecund = new System.Windows.Forms.NumericUpDown();
+            this.grpBxExtruderCalculation = new System.Windows.Forms.GroupBox();
+            this.btnExtruderUpdateStepsPerMMinFirmware = new System.Windows.Forms.Button();
+            this.btnExtruderUpdateStepsPerMMinEEPROM = new System.Windows.Forms.Button();
+            this.btnExtruderOldFirmware = new System.Windows.Forms.Button();
+            this.lblExtruderOldFirmware = new System.Windows.Forms.Label();
+            this.numUpDnExtruderOldFirmware = new System.Windows.Forms.NumericUpDown();
+            this.numUpDnExtruderMeassuredExtrusion = new System.Windows.Forms.NumericUpDown();
+            this.lblExtruderMeassuredValue = new System.Windows.Forms.Label();
+            this.lblExtruderExpectedValue = new System.Windows.Forms.Label();
+            this.numUpDnExtruderExpectedValue = new System.Windows.Forms.NumericUpDown();
+            this.fastColoredTextBoxExtruderStepsPerMM = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.grpBxBelts = new System.Windows.Forms.GroupBox();
+            this.cmbBxBeltPitch = new System.Windows.Forms.ComboBox();
+            this.lblBeltPitch = new System.Windows.Forms.Label();
+            this.fastColoredTextBoxBeltStepsPerMM = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.numUpDnBeltTeethCount = new System.Windows.Forms.NumericUpDown();
+            this.lblBeltTeethCount = new System.Windows.Forms.Label();
+            this.numUpDnBeltMotorTeethCount = new System.Windows.Forms.NumericUpDown();
+            this.chkBxBeltDirectDriven = new System.Windows.Forms.CheckBox();
+            this.lblBeltMotorTeethCount = new System.Windows.Forms.Label();
+            this.cmbBxBeltDriverMicrostepping = new System.Windows.Forms.ComboBox();
+            this.lblBeltDriverMicrostepping = new System.Windows.Forms.Label();
+            this.cmbBxBeltMotorStepAngle = new System.Windows.Forms.ComboBox();
+            this.lblBeltMotorStepAngle = new System.Windows.Forms.Label();
+            this.grpBxLeadScrew = new System.Windows.Forms.GroupBox();
+            this.cmbBxLeadScrewPitch = new System.Windows.Forms.ComboBox();
+            this.lblLeadScrewPitch = new System.Windows.Forms.Label();
+            this.fastColoredTextBoxLeadScrewStepsPerMM = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.numUpDnLeadScrewTeethCount = new System.Windows.Forms.NumericUpDown();
+            this.lblLeadscrewTeethCount = new System.Windows.Forms.Label();
+            this.numUpDnLeadScrewMotorTeethCount = new System.Windows.Forms.NumericUpDown();
+            this.chkBxLeadScrewDirectDriven = new System.Windows.Forms.CheckBox();
+            this.lblLeadScrewMotorTeethCount = new System.Windows.Forms.Label();
+            this.cmbBxLeadScrewDriverMicrostepping = new System.Windows.Forms.ComboBox();
+            this.lblLeadScrewDriverMicrostepping = new System.Windows.Forms.Label();
+            this.cmbBxLeadScrewMotorStepAngle = new System.Windows.Forms.ComboBox();
+            this.lblLeadScrewMotorStepAngle = new System.Windows.Forms.Label();
             this.grpBxNavigation = new System.Windows.Forms.GroupBox();
             this.btnM501ReadEeprom = new System.Windows.Forms.Button();
             this.btnM500SaveEeprom = new System.Windows.Forms.Button();
@@ -252,6 +295,8 @@ namespace Marlin3DprinterTool
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnEmergency = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
+            this.lblBeltPulleyTeethCount = new System.Windows.Forms.Label();
+            this.numUpDnBeltPulleyTeethCount = new System.Windows.Forms.NumericUpDown();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -327,9 +372,27 @@ namespace Marlin3DprinterTool
             this.grpBxZmaintMax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZmaintenanceMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnZmaintenanceRepetitions)).BeginInit();
+            this.tabCalculations.SuspendLayout();
+            this.grpBxFeedRate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperMinute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperSecund)).BeginInit();
+            this.grpBxExtruderCalculation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderOldFirmware)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderMeassuredExtrusion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderExpectedValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxExtruderStepsPerMM)).BeginInit();
+            this.grpBxBelts.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxBeltStepsPerMM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltTeethCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltMotorTeethCount)).BeginInit();
+            this.grpBxLeadScrew.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxLeadScrewStepsPerMM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).BeginInit();
             this.grpBxNavigation.SuspendLayout();
             this.lblStepperDriverPulley.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltPulleyTeethCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl3DprinterTool
@@ -344,6 +407,7 @@ namespace Marlin3DprinterTool
             this.tabControl3DprinterTool.Controls.Add(this.tabPagePID);
             this.tabControl3DprinterTool.Controls.Add(this.tabPageExtruderCalibration);
             this.tabControl3DprinterTool.Controls.Add(this.tabPageZMaintenance);
+            this.tabControl3DprinterTool.Controls.Add(this.tabCalculations);
             this.tabControl3DprinterTool.Location = new System.Drawing.Point(12, 84);
             this.tabControl3DprinterTool.Name = "tabControl3DprinterTool";
             this.tabControl3DprinterTool.SelectedIndex = 0;
@@ -921,7 +985,7 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurateZprobe.Controls.Add(this.grpBxTestZprobe);
             this.tabPageConfigurateZprobe.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfigurateZprobe.Name = "tabPageConfigurateZprobe";
-            this.tabPageConfigurateZprobe.Size = new System.Drawing.Size(804, 646);
+            this.tabPageConfigurateZprobe.Size = new System.Drawing.Size(804, 625);
             this.tabPageConfigurateZprobe.TabIndex = 6;
             this.tabPageConfigurateZprobe.Text = "Configurate Z-probe";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurateZprobe, "Configuration and Test of the Z-probe");
@@ -1283,7 +1347,6 @@ namespace Marlin3DprinterTool
             this.fastColoredTextBoxM48Responce.CharWidth = 8;
             this.fastColoredTextBoxM48Responce.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBoxM48Responce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBoxM48Responce.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBoxM48Responce.IsReplaceMode = false;
             this.fastColoredTextBoxM48Responce.Location = new System.Drawing.Point(6, 44);
             this.fastColoredTextBoxM48Responce.Name = "fastColoredTextBoxM48Responce";
@@ -1622,7 +1685,7 @@ namespace Marlin3DprinterTool
             this.tabPageScanSurface.Controls.Add(this.numUpDownXpoints);
             this.tabPageScanSurface.Location = new System.Drawing.Point(4, 22);
             this.tabPageScanSurface.Name = "tabPageScanSurface";
-            this.tabPageScanSurface.Size = new System.Drawing.Size(804, 646);
+            this.tabPageScanSurface.Size = new System.Drawing.Size(804, 625);
             this.tabPageScanSurface.TabIndex = 9;
             this.tabPageScanSurface.Text = "Scan buildsurface";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageScanSurface, "Scan the building surface");
@@ -1760,18 +1823,18 @@ namespace Marlin3DprinterTool
             this.tabPagePID.Controls.Add(this.grpBxExtruderPID);
             this.tabPagePID.Location = new System.Drawing.Point(4, 22);
             this.tabPagePID.Name = "tabPagePID";
-            this.tabPagePID.Size = new System.Drawing.Size(804, 646);
+            this.tabPagePID.Size = new System.Drawing.Size(804, 625);
             this.tabPagePID.TabIndex = 10;
             this.tabPagePID.Text = "PID";
             this.tabPagePID.UseVisualStyleBackColor = true;
             // 
             // txtBxPIDresponce
             // 
-            this.txtBxPIDresponce.Location = new System.Drawing.Point(17, 433);
+            this.txtBxPIDresponce.Location = new System.Drawing.Point(9, 400);
             this.txtBxPIDresponce.Multiline = true;
             this.txtBxPIDresponce.Name = "txtBxPIDresponce";
             this.txtBxPIDresponce.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBxPIDresponce.Size = new System.Drawing.Size(575, 196);
+            this.txtBxPIDresponce.Size = new System.Drawing.Size(558, 211);
             this.txtBxPIDresponce.TabIndex = 6;
             // 
             // grpBxHeatbedPID
@@ -2186,7 +2249,7 @@ namespace Marlin3DprinterTool
             this.tabPageExtruderCalibration.Controls.Add(this.grpBxTestExtrude);
             this.tabPageExtruderCalibration.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtruderCalibration.Name = "tabPageExtruderCalibration";
-            this.tabPageExtruderCalibration.Size = new System.Drawing.Size(804, 646);
+            this.tabPageExtruderCalibration.Size = new System.Drawing.Size(804, 625);
             this.tabPageExtruderCalibration.TabIndex = 2;
             this.tabPageExtruderCalibration.Text = "Extruder Calibration";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageExtruderCalibration, "Extruder calibration");
@@ -2428,7 +2491,7 @@ namespace Marlin3DprinterTool
             this.tabPageZMaintenance.Controls.Add(this.grpBxZMaintenance);
             this.tabPageZMaintenance.Location = new System.Drawing.Point(4, 22);
             this.tabPageZMaintenance.Name = "tabPageZMaintenance";
-            this.tabPageZMaintenance.Size = new System.Drawing.Size(804, 646);
+            this.tabPageZMaintenance.Size = new System.Drawing.Size(804, 625);
             this.tabPageZMaintenance.TabIndex = 7;
             this.tabPageZMaintenance.Text = "Z  Maintenance";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageZMaintenance, "Move Z up and down for oiling and check for binding(s)");
@@ -2548,6 +2611,667 @@ namespace Marlin3DprinterTool
             0,
             0});
             this.numUpDnZmaintenanceRepetitions.ValueChanged += new System.EventHandler(this.numUpDnZmaintenanceRepetitions_ValueChanged);
+            // 
+            // tabCalculations
+            // 
+            this.tabCalculations.Controls.Add(this.grpBxFeedRate);
+            this.tabCalculations.Controls.Add(this.grpBxExtruderCalculation);
+            this.tabCalculations.Controls.Add(this.grpBxBelts);
+            this.tabCalculations.Controls.Add(this.grpBxLeadScrew);
+            this.tabCalculations.Location = new System.Drawing.Point(4, 22);
+            this.tabCalculations.Name = "tabCalculations";
+            this.tabCalculations.Size = new System.Drawing.Size(804, 625);
+            this.tabCalculations.TabIndex = 11;
+            this.tabCalculations.Text = "Calculations";
+            this.tabCalculations.UseVisualStyleBackColor = true;
+            // 
+            // grpBxFeedRate
+            // 
+            this.grpBxFeedRate.Controls.Add(this.numUpDnFeedRateMMperMinute);
+            this.grpBxFeedRate.Controls.Add(this.lblFeedRateMMperMinute);
+            this.grpBxFeedRate.Controls.Add(this.lblFeedRateMMperSecund);
+            this.grpBxFeedRate.Controls.Add(this.numUpDnFeedRateMMperSecund);
+            this.grpBxFeedRate.Location = new System.Drawing.Point(539, 19);
+            this.grpBxFeedRate.Name = "grpBxFeedRate";
+            this.grpBxFeedRate.Size = new System.Drawing.Size(200, 119);
+            this.grpBxFeedRate.TabIndex = 25;
+            this.grpBxFeedRate.TabStop = false;
+            this.grpBxFeedRate.Text = "Feedrate";
+            // 
+            // numUpDnFeedRateMMperMinute
+            // 
+            this.numUpDnFeedRateMMperMinute.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperMinute.Location = new System.Drawing.Point(6, 92);
+            this.numUpDnFeedRateMMperMinute.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperMinute.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperMinute.Name = "numUpDnFeedRateMMperMinute";
+            this.numUpDnFeedRateMMperMinute.Size = new System.Drawing.Size(120, 20);
+            this.numUpDnFeedRateMMperMinute.TabIndex = 34;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnFeedRateMMperMinute, "The standard feedrate as used within gcode is in millimeters per minute. For exam" +
+        "ple:  G1 X90.6 Y13.8 E22.4 F3000");
+            this.numUpDnFeedRateMMperMinute.Value = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperMinute.ValueChanged += new System.EventHandler(this.numUpDnFeedRateMMperMinute_ValueChanged);
+            // 
+            // lblFeedRateMMperMinute
+            // 
+            this.lblFeedRateMMperMinute.AutoSize = true;
+            this.lblFeedRateMMperMinute.Location = new System.Drawing.Point(3, 70);
+            this.lblFeedRateMMperMinute.Name = "lblFeedRateMMperMinute";
+            this.lblFeedRateMMperMinute.Size = new System.Drawing.Size(146, 13);
+            this.lblFeedRateMMperMinute.TabIndex = 33;
+            this.lblFeedRateMMperMinute.Text = "Gcode Feedrate (mm/Minute)";
+            // 
+            // lblFeedRateMMperSecund
+            // 
+            this.lblFeedRateMMperSecund.AutoSize = true;
+            this.lblFeedRateMMperSecund.Location = new System.Drawing.Point(3, 20);
+            this.lblFeedRateMMperSecund.Name = "lblFeedRateMMperSecund";
+            this.lblFeedRateMMperSecund.Size = new System.Drawing.Size(84, 13);
+            this.lblFeedRateMMperSecund.TabIndex = 32;
+            this.lblFeedRateMMperSecund.Text = "Feedrate (mm/s)";
+            // 
+            // numUpDnFeedRateMMperSecund
+            // 
+            this.numUpDnFeedRateMMperSecund.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperSecund.Location = new System.Drawing.Point(6, 42);
+            this.numUpDnFeedRateMMperSecund.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperSecund.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperSecund.Name = "numUpDnFeedRateMMperSecund";
+            this.numUpDnFeedRateMMperSecund.Size = new System.Drawing.Size(120, 20);
+            this.numUpDnFeedRateMMperSecund.TabIndex = 25;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnFeedRateMMperSecund, "Feedrate is normally used as mm per secund");
+            this.numUpDnFeedRateMMperSecund.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnFeedRateMMperSecund.ValueChanged += new System.EventHandler(this.numUpDnFeedRateMMperSecund_ValueChanged);
+            // 
+            // grpBxExtruderCalculation
+            // 
+            this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderUpdateStepsPerMMinFirmware);
+            this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderUpdateStepsPerMMinEEPROM);
+            this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderOldFirmware);
+            this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderOldFirmware);
+            this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderOldFirmware);
+            this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderMeassuredExtrusion);
+            this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderMeassuredValue);
+            this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderExpectedValue);
+            this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderExpectedValue);
+            this.grpBxExtruderCalculation.Controls.Add(this.fastColoredTextBoxExtruderStepsPerMM);
+            this.grpBxExtruderCalculation.Location = new System.Drawing.Point(343, 19);
+            this.grpBxExtruderCalculation.Name = "grpBxExtruderCalculation";
+            this.grpBxExtruderCalculation.Size = new System.Drawing.Size(189, 346);
+            this.grpBxExtruderCalculation.TabIndex = 24;
+            this.grpBxExtruderCalculation.TabStop = false;
+            this.grpBxExtruderCalculation.Text = "Extruder";
+            // 
+            // btnExtruderUpdateStepsPerMMinFirmware
+            // 
+            this.btnExtruderUpdateStepsPerMMinFirmware.Location = new System.Drawing.Point(9, 265);
+            this.btnExtruderUpdateStepsPerMMinFirmware.Name = "btnExtruderUpdateStepsPerMMinFirmware";
+            this.btnExtruderUpdateStepsPerMMinFirmware.Size = new System.Drawing.Size(174, 26);
+            this.btnExtruderUpdateStepsPerMMinFirmware.TabIndex = 31;
+            this.btnExtruderUpdateStepsPerMMinFirmware.Text = "Update current Firmware";
+            this.toolTip3DprinterTool.SetToolTip(this.btnExtruderUpdateStepsPerMMinFirmware, "Update the current Firmwarefile (configuration.h) with the calculated steps per m" +
+        "m");
+            this.btnExtruderUpdateStepsPerMMinFirmware.UseVisualStyleBackColor = true;
+            this.btnExtruderUpdateStepsPerMMinFirmware.Click += new System.EventHandler(this.btnExtruderUpdateStepsPerMMinFirmware_Click);
+            // 
+            // btnExtruderUpdateStepsPerMMinEEPROM
+            // 
+            this.btnExtruderUpdateStepsPerMMinEEPROM.Location = new System.Drawing.Point(9, 216);
+            this.btnExtruderUpdateStepsPerMMinEEPROM.Name = "btnExtruderUpdateStepsPerMMinEEPROM";
+            this.btnExtruderUpdateStepsPerMMinEEPROM.Size = new System.Drawing.Size(174, 26);
+            this.btnExtruderUpdateStepsPerMMinEEPROM.TabIndex = 30;
+            this.btnExtruderUpdateStepsPerMMinEEPROM.Text = "Update and Save in EEPROM";
+            this.toolTip3DprinterTool.SetToolTip(this.btnExtruderUpdateStepsPerMMinEEPROM, "Updates the EEPROM with the calculated value for Steps per mm");
+            this.btnExtruderUpdateStepsPerMMinEEPROM.UseVisualStyleBackColor = true;
+            this.btnExtruderUpdateStepsPerMMinEEPROM.Click += new System.EventHandler(this.btnExtruderUpdateStepsPerMMinEEPROM_Click);
+            // 
+            // btnExtruderOldFirmware
+            // 
+            this.btnExtruderOldFirmware.Location = new System.Drawing.Point(115, 139);
+            this.btnExtruderOldFirmware.Name = "btnExtruderOldFirmware";
+            this.btnExtruderOldFirmware.Size = new System.Drawing.Size(68, 23);
+            this.btnExtruderOldFirmware.TabIndex = 29;
+            this.btnExtruderOldFirmware.Text = "Ask printer";
+            this.toolTip3DprinterTool.SetToolTip(this.btnExtruderOldFirmware, "Sends a M501 and parse the result to get current Firmware Steps per mm");
+            this.btnExtruderOldFirmware.UseVisualStyleBackColor = true;
+            this.btnExtruderOldFirmware.Click += new System.EventHandler(this.btnExtruderOldFirmware_Click);
+            // 
+            // lblExtruderOldFirmware
+            // 
+            this.lblExtruderOldFirmware.AutoSize = true;
+            this.lblExtruderOldFirmware.Location = new System.Drawing.Point(6, 120);
+            this.lblExtruderOldFirmware.Name = "lblExtruderOldFirmware";
+            this.lblExtruderOldFirmware.Size = new System.Drawing.Size(143, 13);
+            this.lblExtruderOldFirmware.TabIndex = 28;
+            this.lblExtruderOldFirmware.Text = "Current Firmware Steps / mm";
+            // 
+            // numUpDnExtruderOldFirmware
+            // 
+            this.numUpDnExtruderOldFirmware.Location = new System.Drawing.Point(9, 142);
+            this.numUpDnExtruderOldFirmware.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numUpDnExtruderOldFirmware.Name = "numUpDnExtruderOldFirmware";
+            this.numUpDnExtruderOldFirmware.Size = new System.Drawing.Size(100, 20);
+            this.numUpDnExtruderOldFirmware.TabIndex = 27;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnExtruderOldFirmware, "The current setting in Firmware. Can be found with M501");
+            this.numUpDnExtruderOldFirmware.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // numUpDnExtruderMeassuredExtrusion
+            // 
+            this.numUpDnExtruderMeassuredExtrusion.Location = new System.Drawing.Point(9, 92);
+            this.numUpDnExtruderMeassuredExtrusion.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numUpDnExtruderMeassuredExtrusion.Name = "numUpDnExtruderMeassuredExtrusion";
+            this.numUpDnExtruderMeassuredExtrusion.Size = new System.Drawing.Size(120, 20);
+            this.numUpDnExtruderMeassuredExtrusion.TabIndex = 26;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnExtruderMeassuredExtrusion, "The actual amount of filament used");
+            this.numUpDnExtruderMeassuredExtrusion.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // lblExtruderMeassuredValue
+            // 
+            this.lblExtruderMeassuredValue.AutoSize = true;
+            this.lblExtruderMeassuredValue.Location = new System.Drawing.Point(6, 70);
+            this.lblExtruderMeassuredValue.Name = "lblExtruderMeassuredValue";
+            this.lblExtruderMeassuredValue.Size = new System.Drawing.Size(129, 13);
+            this.lblExtruderMeassuredValue.TabIndex = 25;
+            this.lblExtruderMeassuredValue.Text = "Meassured extrusion (mm)";
+            // 
+            // lblExtruderExpectedValue
+            // 
+            this.lblExtruderExpectedValue.AutoSize = true;
+            this.lblExtruderExpectedValue.Location = new System.Drawing.Point(6, 20);
+            this.lblExtruderExpectedValue.Name = "lblExtruderExpectedValue";
+            this.lblExtruderExpectedValue.Size = new System.Drawing.Size(122, 13);
+            this.lblExtruderExpectedValue.TabIndex = 23;
+            this.lblExtruderExpectedValue.Text = "Expected extrusion (mm)";
+            // 
+            // numUpDnExtruderExpectedValue
+            // 
+            this.numUpDnExtruderExpectedValue.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnExtruderExpectedValue.Location = new System.Drawing.Point(9, 42);
+            this.numUpDnExtruderExpectedValue.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numUpDnExtruderExpectedValue.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numUpDnExtruderExpectedValue.Name = "numUpDnExtruderExpectedValue";
+            this.numUpDnExtruderExpectedValue.Size = new System.Drawing.Size(120, 20);
+            this.numUpDnExtruderExpectedValue.TabIndex = 24;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnExtruderExpectedValue, "The amount of filament to be extruded ");
+            this.numUpDnExtruderExpectedValue.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numUpDnExtruderExpectedValue.ValueChanged += new System.EventHandler(this.numUpDnExtruderExpectedValue_ValueChanged);
+            // 
+            // fastColoredTextBoxExtruderStepsPerMM
+            // 
+            this.fastColoredTextBoxExtruderStepsPerMM.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBoxExtruderStepsPerMM.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.fastColoredTextBoxExtruderStepsPerMM.BackBrush = null;
+            this.fastColoredTextBoxExtruderStepsPerMM.CharHeight = 14;
+            this.fastColoredTextBoxExtruderStepsPerMM.CharWidth = 8;
+            this.fastColoredTextBoxExtruderStepsPerMM.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBoxExtruderStepsPerMM.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBoxExtruderStepsPerMM.IsReplaceMode = false;
+            this.fastColoredTextBoxExtruderStepsPerMM.Location = new System.Drawing.Point(9, 168);
+            this.fastColoredTextBoxExtruderStepsPerMM.Multiline = false;
+            this.fastColoredTextBoxExtruderStepsPerMM.Name = "fastColoredTextBoxExtruderStepsPerMM";
+            this.fastColoredTextBoxExtruderStepsPerMM.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBoxExtruderStepsPerMM.ReadOnly = true;
+            this.fastColoredTextBoxExtruderStepsPerMM.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBoxExtruderStepsPerMM.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxExtruderStepsPerMM.ServiceColors")));
+            this.fastColoredTextBoxExtruderStepsPerMM.ShowLineNumbers = false;
+            this.fastColoredTextBoxExtruderStepsPerMM.ShowScrollBars = false;
+            this.fastColoredTextBoxExtruderStepsPerMM.Size = new System.Drawing.Size(174, 27);
+            this.fastColoredTextBoxExtruderStepsPerMM.TabIndex = 23;
+            this.fastColoredTextBoxExtruderStepsPerMM.Zoom = 100;
+            // 
+            // grpBxBelts
+            // 
+            this.grpBxBelts.Controls.Add(this.numUpDnBeltPulleyTeethCount);
+            this.grpBxBelts.Controls.Add(this.lblBeltPulleyTeethCount);
+            this.grpBxBelts.Controls.Add(this.cmbBxBeltPitch);
+            this.grpBxBelts.Controls.Add(this.lblBeltPitch);
+            this.grpBxBelts.Controls.Add(this.fastColoredTextBoxBeltStepsPerMM);
+            this.grpBxBelts.Controls.Add(this.numUpDnBeltTeethCount);
+            this.grpBxBelts.Controls.Add(this.lblBeltTeethCount);
+            this.grpBxBelts.Controls.Add(this.numUpDnBeltMotorTeethCount);
+            this.grpBxBelts.Controls.Add(this.chkBxBeltDirectDriven);
+            this.grpBxBelts.Controls.Add(this.lblBeltMotorTeethCount);
+            this.grpBxBelts.Controls.Add(this.cmbBxBeltDriverMicrostepping);
+            this.grpBxBelts.Controls.Add(this.lblBeltDriverMicrostepping);
+            this.grpBxBelts.Controls.Add(this.cmbBxBeltMotorStepAngle);
+            this.grpBxBelts.Controls.Add(this.lblBeltMotorStepAngle);
+            this.grpBxBelts.Location = new System.Drawing.Point(180, 19);
+            this.grpBxBelts.Name = "grpBxBelts";
+            this.grpBxBelts.Size = new System.Drawing.Size(157, 385);
+            this.grpBxBelts.TabIndex = 23;
+            this.grpBxBelts.TabStop = false;
+            this.grpBxBelts.Text = "Belts";
+            // 
+            // cmbBxBeltPitch
+            // 
+            this.cmbBxBeltPitch.FormattingEnabled = true;
+            this.cmbBxBeltPitch.Location = new System.Drawing.Point(6, 141);
+            this.cmbBxBeltPitch.Name = "cmbBxBeltPitch";
+            this.cmbBxBeltPitch.Size = new System.Drawing.Size(143, 21);
+            this.cmbBxBeltPitch.TabIndex = 22;
+            this.toolTip3DprinterTool.SetToolTip(this.cmbBxBeltPitch, "The pitch on the belt");
+            this.cmbBxBeltPitch.SelectedIndexChanged += new System.EventHandler(this.cmbBxBeltPitch_SelectedIndexChanged);
+            // 
+            // lblBeltPitch
+            // 
+            this.lblBeltPitch.AutoSize = true;
+            this.lblBeltPitch.Location = new System.Drawing.Point(3, 120);
+            this.lblBeltPitch.Name = "lblBeltPitch";
+            this.lblBeltPitch.Size = new System.Drawing.Size(51, 13);
+            this.lblBeltPitch.TabIndex = 21;
+            this.lblBeltPitch.Text = "Belt pitch";
+            // 
+            // fastColoredTextBoxBeltStepsPerMM
+            // 
+            this.fastColoredTextBoxBeltStepsPerMM.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBoxBeltStepsPerMM.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.fastColoredTextBoxBeltStepsPerMM.BackBrush = null;
+            this.fastColoredTextBoxBeltStepsPerMM.CharHeight = 14;
+            this.fastColoredTextBoxBeltStepsPerMM.CharWidth = 8;
+            this.fastColoredTextBoxBeltStepsPerMM.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBoxBeltStepsPerMM.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBoxBeltStepsPerMM.IsReplaceMode = false;
+            this.fastColoredTextBoxBeltStepsPerMM.Location = new System.Drawing.Point(6, 344);
+            this.fastColoredTextBoxBeltStepsPerMM.Multiline = false;
+            this.fastColoredTextBoxBeltStepsPerMM.Name = "fastColoredTextBoxBeltStepsPerMM";
+            this.fastColoredTextBoxBeltStepsPerMM.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBoxBeltStepsPerMM.ReadOnly = true;
+            this.fastColoredTextBoxBeltStepsPerMM.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBoxBeltStepsPerMM.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxBeltStepsPerMM.ServiceColors")));
+            this.fastColoredTextBoxBeltStepsPerMM.ShowLineNumbers = false;
+            this.fastColoredTextBoxBeltStepsPerMM.ShowScrollBars = false;
+            this.fastColoredTextBoxBeltStepsPerMM.Size = new System.Drawing.Size(143, 27);
+            this.fastColoredTextBoxBeltStepsPerMM.TabIndex = 20;
+            this.fastColoredTextBoxBeltStepsPerMM.Zoom = 100;
+            // 
+            // numUpDnBeltTeethCount
+            // 
+            this.numUpDnBeltTeethCount.Location = new System.Drawing.Point(6, 265);
+            this.numUpDnBeltTeethCount.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnBeltTeethCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltTeethCount.Name = "numUpDnBeltTeethCount";
+            this.numUpDnBeltTeethCount.Size = new System.Drawing.Size(143, 20);
+            this.numUpDnBeltTeethCount.TabIndex = 8;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnBeltTeethCount, "Pulley on Belt (Normally bigger pulley)");
+            this.numUpDnBeltTeethCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltTeethCount.ValueChanged += new System.EventHandler(this.numUpDnBeltTeethCount_ValueChanged);
+            // 
+            // lblBeltTeethCount
+            // 
+            this.lblBeltTeethCount.AutoSize = true;
+            this.lblBeltTeethCount.Location = new System.Drawing.Point(3, 244);
+            this.lblBeltTeethCount.Name = "lblBeltTeethCount";
+            this.lblBeltTeethCount.Size = new System.Drawing.Size(82, 13);
+            this.lblBeltTeethCount.TabIndex = 7;
+            this.lblBeltTeethCount.Text = "Belt teeth count";
+            // 
+            // numUpDnBeltMotorTeethCount
+            // 
+            this.numUpDnBeltMotorTeethCount.Location = new System.Drawing.Point(6, 216);
+            this.numUpDnBeltMotorTeethCount.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnBeltMotorTeethCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltMotorTeethCount.Name = "numUpDnBeltMotorTeethCount";
+            this.numUpDnBeltMotorTeethCount.Size = new System.Drawing.Size(143, 20);
+            this.numUpDnBeltMotorTeethCount.TabIndex = 6;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnBeltMotorTeethCount, "The stepper motor pulley (Normally small pulley)");
+            this.numUpDnBeltMotorTeethCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltMotorTeethCount.ValueChanged += new System.EventHandler(this.numUpDnBeltMotorPulleyTeethCount_ValueChanged);
+            // 
+            // chkBxBeltDirectDriven
+            // 
+            this.chkBxBeltDirectDriven.AutoSize = true;
+            this.chkBxBeltDirectDriven.Location = new System.Drawing.Point(6, 170);
+            this.chkBxBeltDirectDriven.Name = "chkBxBeltDirectDriven";
+            this.chkBxBeltDirectDriven.Size = new System.Drawing.Size(86, 17);
+            this.chkBxBeltDirectDriven.TabIndex = 5;
+            this.chkBxBeltDirectDriven.Text = "Direct driven";
+            this.toolTip3DprinterTool.SetToolTip(this.chkBxBeltDirectDriven, "If directdrivven the ratio is 1:1");
+            this.chkBxBeltDirectDriven.UseVisualStyleBackColor = true;
+            this.chkBxBeltDirectDriven.CheckedChanged += new System.EventHandler(this.chkBxBeltDirectDriven_CheckedChanged);
+            // 
+            // lblBeltMotorTeethCount
+            // 
+            this.lblBeltMotorTeethCount.AutoSize = true;
+            this.lblBeltMotorTeethCount.Location = new System.Drawing.Point(3, 195);
+            this.lblBeltMotorTeethCount.Name = "lblBeltMotorTeethCount";
+            this.lblBeltMotorTeethCount.Size = new System.Drawing.Size(91, 13);
+            this.lblBeltMotorTeethCount.TabIndex = 4;
+            this.lblBeltMotorTeethCount.Text = "Motor teeth count";
+            // 
+            // cmbBxBeltDriverMicrostepping
+            // 
+            this.cmbBxBeltDriverMicrostepping.FormattingEnabled = true;
+            this.cmbBxBeltDriverMicrostepping.Location = new System.Drawing.Point(6, 91);
+            this.cmbBxBeltDriverMicrostepping.Name = "cmbBxBeltDriverMicrostepping";
+            this.cmbBxBeltDriverMicrostepping.Size = new System.Drawing.Size(143, 21);
+            this.cmbBxBeltDriverMicrostepping.TabIndex = 3;
+            this.toolTip3DprinterTool.SetToolTip(this.cmbBxBeltDriverMicrostepping, "Microstepping (set by jumpers)");
+            this.cmbBxBeltDriverMicrostepping.SelectedIndexChanged += new System.EventHandler(this.cmbBxBeltDriverMicrostepping_SelectedIndexChanged);
+            // 
+            // lblBeltDriverMicrostepping
+            // 
+            this.lblBeltDriverMicrostepping.AutoSize = true;
+            this.lblBeltDriverMicrostepping.Location = new System.Drawing.Point(3, 70);
+            this.lblBeltDriverMicrostepping.Name = "lblBeltDriverMicrostepping";
+            this.lblBeltDriverMicrostepping.Size = new System.Drawing.Size(103, 13);
+            this.lblBeltDriverMicrostepping.TabIndex = 2;
+            this.lblBeltDriverMicrostepping.Text = "Driver microstepping";
+            // 
+            // cmbBxBeltMotorStepAngle
+            // 
+            this.cmbBxBeltMotorStepAngle.FormattingEnabled = true;
+            this.cmbBxBeltMotorStepAngle.Location = new System.Drawing.Point(6, 41);
+            this.cmbBxBeltMotorStepAngle.Name = "cmbBxBeltMotorStepAngle";
+            this.cmbBxBeltMotorStepAngle.Size = new System.Drawing.Size(143, 21);
+            this.cmbBxBeltMotorStepAngle.TabIndex = 1;
+            this.toolTip3DprinterTool.SetToolTip(this.cmbBxBeltMotorStepAngle, "Microstepping (set by jumpers)");
+            this.cmbBxBeltMotorStepAngle.SelectedIndexChanged += new System.EventHandler(this.cmbBxBeltMotorStepAngle_SelectedIndexChanged);
+            // 
+            // lblBeltMotorStepAngle
+            // 
+            this.lblBeltMotorStepAngle.AutoSize = true;
+            this.lblBeltMotorStepAngle.Location = new System.Drawing.Point(3, 20);
+            this.lblBeltMotorStepAngle.Name = "lblBeltMotorStepAngle";
+            this.lblBeltMotorStepAngle.Size = new System.Drawing.Size(86, 13);
+            this.lblBeltMotorStepAngle.TabIndex = 0;
+            this.lblBeltMotorStepAngle.Text = "Motor step angle";
+            // 
+            // grpBxLeadScrew
+            // 
+            this.grpBxLeadScrew.Controls.Add(this.cmbBxLeadScrewPitch);
+            this.grpBxLeadScrew.Controls.Add(this.lblLeadScrewPitch);
+            this.grpBxLeadScrew.Controls.Add(this.fastColoredTextBoxLeadScrewStepsPerMM);
+            this.grpBxLeadScrew.Controls.Add(this.numUpDnLeadScrewTeethCount);
+            this.grpBxLeadScrew.Controls.Add(this.lblLeadscrewTeethCount);
+            this.grpBxLeadScrew.Controls.Add(this.numUpDnLeadScrewMotorTeethCount);
+            this.grpBxLeadScrew.Controls.Add(this.chkBxLeadScrewDirectDriven);
+            this.grpBxLeadScrew.Controls.Add(this.lblLeadScrewMotorTeethCount);
+            this.grpBxLeadScrew.Controls.Add(this.cmbBxLeadScrewDriverMicrostepping);
+            this.grpBxLeadScrew.Controls.Add(this.lblLeadScrewDriverMicrostepping);
+            this.grpBxLeadScrew.Controls.Add(this.cmbBxLeadScrewMotorStepAngle);
+            this.grpBxLeadScrew.Controls.Add(this.lblLeadScrewMotorStepAngle);
+            this.grpBxLeadScrew.Location = new System.Drawing.Point(17, 19);
+            this.grpBxLeadScrew.Name = "grpBxLeadScrew";
+            this.grpBxLeadScrew.Size = new System.Drawing.Size(157, 385);
+            this.grpBxLeadScrew.TabIndex = 1;
+            this.grpBxLeadScrew.TabStop = false;
+            this.grpBxLeadScrew.Text = "Lead Screw";
+            // 
+            // cmbBxLeadScrewPitch
+            // 
+            this.cmbBxLeadScrewPitch.FormattingEnabled = true;
+            this.cmbBxLeadScrewPitch.Location = new System.Drawing.Point(6, 141);
+            this.cmbBxLeadScrewPitch.Name = "cmbBxLeadScrewPitch";
+            this.cmbBxLeadScrewPitch.Size = new System.Drawing.Size(143, 21);
+            this.cmbBxLeadScrewPitch.TabIndex = 22;
+            this.toolTip3DprinterTool.SetToolTip(this.cmbBxLeadScrewPitch, "The pitch on the leadscrew");
+            this.cmbBxLeadScrewPitch.SelectedIndexChanged += new System.EventHandler(this.cmbBxLeadScrewPitch_SelectedIndexChanged);
+            // 
+            // lblLeadScrewPitch
+            // 
+            this.lblLeadScrewPitch.AutoSize = true;
+            this.lblLeadScrewPitch.Location = new System.Drawing.Point(3, 120);
+            this.lblLeadScrewPitch.Name = "lblLeadScrewPitch";
+            this.lblLeadScrewPitch.Size = new System.Drawing.Size(85, 13);
+            this.lblLeadScrewPitch.TabIndex = 21;
+            this.lblLeadScrewPitch.Text = "Leadscrew pitch";
+            // 
+            // fastColoredTextBoxLeadScrewStepsPerMM
+            // 
+            this.fastColoredTextBoxLeadScrewStepsPerMM.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBoxLeadScrewStepsPerMM.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.fastColoredTextBoxLeadScrewStepsPerMM.BackBrush = null;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.CharHeight = 14;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.CharWidth = 8;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBoxLeadScrewStepsPerMM.IsReplaceMode = false;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Location = new System.Drawing.Point(6, 344);
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Multiline = false;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Name = "fastColoredTextBoxLeadScrewStepsPerMM";
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBoxLeadScrewStepsPerMM.ReadOnly = true;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBoxLeadScrewStepsPerMM.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxLeadScrewStepsPerMM.ServiceColors")));
+            this.fastColoredTextBoxLeadScrewStepsPerMM.ShowLineNumbers = false;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.ShowScrollBars = false;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Size = new System.Drawing.Size(143, 27);
+            this.fastColoredTextBoxLeadScrewStepsPerMM.TabIndex = 20;
+            this.fastColoredTextBoxLeadScrewStepsPerMM.Zoom = 100;
+            // 
+            // numUpDnLeadScrewTeethCount
+            // 
+            this.numUpDnLeadScrewTeethCount.Location = new System.Drawing.Point(6, 265);
+            this.numUpDnLeadScrewTeethCount.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnLeadScrewTeethCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnLeadScrewTeethCount.Name = "numUpDnLeadScrewTeethCount";
+            this.numUpDnLeadScrewTeethCount.Size = new System.Drawing.Size(143, 20);
+            this.numUpDnLeadScrewTeethCount.TabIndex = 8;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnLeadScrewTeethCount, "Pulley on Leadscrew (Normally bigger pulley)");
+            this.numUpDnLeadScrewTeethCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnLeadScrewTeethCount.ValueChanged += new System.EventHandler(this.numUpDnLeadScrewPulleyTeethCount_ValueChanged);
+            // 
+            // lblLeadscrewTeethCount
+            // 
+            this.lblLeadscrewTeethCount.AutoSize = true;
+            this.lblLeadscrewTeethCount.Location = new System.Drawing.Point(3, 244);
+            this.lblLeadscrewTeethCount.Name = "lblLeadscrewTeethCount";
+            this.lblLeadscrewTeethCount.Size = new System.Drawing.Size(116, 13);
+            this.lblLeadscrewTeethCount.TabIndex = 7;
+            this.lblLeadscrewTeethCount.Text = "Leadscrew teeth count";
+            // 
+            // numUpDnLeadScrewMotorTeethCount
+            // 
+            this.numUpDnLeadScrewMotorTeethCount.Location = new System.Drawing.Point(6, 216);
+            this.numUpDnLeadScrewMotorTeethCount.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnLeadScrewMotorTeethCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnLeadScrewMotorTeethCount.Name = "numUpDnLeadScrewMotorTeethCount";
+            this.numUpDnLeadScrewMotorTeethCount.Size = new System.Drawing.Size(143, 20);
+            this.numUpDnLeadScrewMotorTeethCount.TabIndex = 6;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnLeadScrewMotorTeethCount, "The stepper motor pulley (Normally small pulley)");
+            this.numUpDnLeadScrewMotorTeethCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnLeadScrewMotorTeethCount.ValueChanged += new System.EventHandler(this.numUpDnLeadScrewMotorPulleyTeethCount_ValueChanged);
+            // 
+            // chkBxLeadScrewDirectDriven
+            // 
+            this.chkBxLeadScrewDirectDriven.AutoSize = true;
+            this.chkBxLeadScrewDirectDriven.Location = new System.Drawing.Point(6, 170);
+            this.chkBxLeadScrewDirectDriven.Name = "chkBxLeadScrewDirectDriven";
+            this.chkBxLeadScrewDirectDriven.Size = new System.Drawing.Size(86, 17);
+            this.chkBxLeadScrewDirectDriven.TabIndex = 5;
+            this.chkBxLeadScrewDirectDriven.Text = "Direct driven";
+            this.toolTip3DprinterTool.SetToolTip(this.chkBxLeadScrewDirectDriven, "If directdrivven the ratio is 1:1");
+            this.chkBxLeadScrewDirectDriven.UseVisualStyleBackColor = true;
+            this.chkBxLeadScrewDirectDriven.CheckedChanged += new System.EventHandler(this.chkBxLeadScrewDirectDriven_CheckedChanged);
+            // 
+            // lblLeadScrewMotorTeethCount
+            // 
+            this.lblLeadScrewMotorTeethCount.AutoSize = true;
+            this.lblLeadScrewMotorTeethCount.Location = new System.Drawing.Point(3, 195);
+            this.lblLeadScrewMotorTeethCount.Name = "lblLeadScrewMotorTeethCount";
+            this.lblLeadScrewMotorTeethCount.Size = new System.Drawing.Size(91, 13);
+            this.lblLeadScrewMotorTeethCount.TabIndex = 4;
+            this.lblLeadScrewMotorTeethCount.Text = "Motor teeth count";
+            // 
+            // cmbBxLeadScrewDriverMicrostepping
+            // 
+            this.cmbBxLeadScrewDriverMicrostepping.FormattingEnabled = true;
+            this.cmbBxLeadScrewDriverMicrostepping.Location = new System.Drawing.Point(6, 91);
+            this.cmbBxLeadScrewDriverMicrostepping.Name = "cmbBxLeadScrewDriverMicrostepping";
+            this.cmbBxLeadScrewDriverMicrostepping.Size = new System.Drawing.Size(143, 21);
+            this.cmbBxLeadScrewDriverMicrostepping.TabIndex = 3;
+            this.toolTip3DprinterTool.SetToolTip(this.cmbBxLeadScrewDriverMicrostepping, "Microstepping (set by jumpers)");
+            this.cmbBxLeadScrewDriverMicrostepping.SelectedIndexChanged += new System.EventHandler(this.cmbBxLeadScrewDriverMicrostepping_SelectedIndexChanged);
+            // 
+            // lblLeadScrewDriverMicrostepping
+            // 
+            this.lblLeadScrewDriverMicrostepping.AutoSize = true;
+            this.lblLeadScrewDriverMicrostepping.Location = new System.Drawing.Point(3, 70);
+            this.lblLeadScrewDriverMicrostepping.Name = "lblLeadScrewDriverMicrostepping";
+            this.lblLeadScrewDriverMicrostepping.Size = new System.Drawing.Size(103, 13);
+            this.lblLeadScrewDriverMicrostepping.TabIndex = 2;
+            this.lblLeadScrewDriverMicrostepping.Text = "Driver microstepping";
+            // 
+            // cmbBxLeadScrewMotorStepAngle
+            // 
+            this.cmbBxLeadScrewMotorStepAngle.FormattingEnabled = true;
+            this.cmbBxLeadScrewMotorStepAngle.Location = new System.Drawing.Point(6, 41);
+            this.cmbBxLeadScrewMotorStepAngle.Name = "cmbBxLeadScrewMotorStepAngle";
+            this.cmbBxLeadScrewMotorStepAngle.Size = new System.Drawing.Size(143, 21);
+            this.cmbBxLeadScrewMotorStepAngle.TabIndex = 1;
+            this.toolTip3DprinterTool.SetToolTip(this.cmbBxLeadScrewMotorStepAngle, "Stepperdriver type");
+            this.cmbBxLeadScrewMotorStepAngle.SelectedIndexChanged += new System.EventHandler(this.cmbBxLeadScrewMotorStepAngle_SelectedIndexChanged);
+            // 
+            // lblLeadScrewMotorStepAngle
+            // 
+            this.lblLeadScrewMotorStepAngle.AutoSize = true;
+            this.lblLeadScrewMotorStepAngle.Location = new System.Drawing.Point(3, 20);
+            this.lblLeadScrewMotorStepAngle.Name = "lblLeadScrewMotorStepAngle";
+            this.lblLeadScrewMotorStepAngle.Size = new System.Drawing.Size(86, 13);
+            this.lblLeadScrewMotorStepAngle.TabIndex = 0;
+            this.lblLeadScrewMotorStepAngle.Text = "Motor step angle";
             // 
             // grpBxNavigation
             // 
@@ -2795,50 +3519,50 @@ namespace Marlin3DprinterTool
             // 
             // chartTemperature
             // 
-            chartArea6.AxisX.Title = "Secunds";
-            chartArea6.AxisY.Title = "Temp";
-            chartArea6.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea6);
-            legend6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            legend6.IsTextAutoFit = false;
-            legend6.Name = "Legend1";
-            this.chartTemperature.Legends.Add(legend6);
+            chartArea7.AxisX.Title = "Secunds";
+            chartArea7.AxisY.Title = "Temp";
+            chartArea7.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea7);
+            legend7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            legend7.IsTextAutoFit = false;
+            legend7.Name = "Legend1";
+            this.chartTemperature.Legends.Add(legend7);
             this.chartTemperature.Location = new System.Drawing.Point(830, 414);
             this.chartTemperature.Name = "chartTemperature";
-            series21.BorderWidth = 2;
-            series21.ChartArea = "ChartArea1";
-            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series21.Color = System.Drawing.Color.Red;
-            series21.IsVisibleInLegend = false;
-            series21.Legend = "Legend1";
-            series21.Name = "Extruder";
-            series22.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series22.BorderWidth = 2;
-            series22.ChartArea = "ChartArea1";
-            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series22.Color = System.Drawing.Color.LightCoral;
-            series22.IsVisibleInLegend = false;
-            series22.Legend = "Legend1";
-            series22.Name = "SetExtruder";
-            series23.BorderWidth = 2;
-            series23.ChartArea = "ChartArea1";
-            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series23.Color = System.Drawing.Color.Blue;
-            series23.IsVisibleInLegend = false;
-            series23.Legend = "Legend1";
-            series23.Name = "Bed";
-            series24.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series24.BorderWidth = 2;
-            series24.ChartArea = "ChartArea1";
-            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series24.Color = System.Drawing.Color.LightBlue;
-            series24.IsVisibleInLegend = false;
-            series24.Legend = "Legend1";
-            series24.Name = "SetBed";
-            this.chartTemperature.Series.Add(series21);
-            this.chartTemperature.Series.Add(series22);
-            this.chartTemperature.Series.Add(series23);
-            this.chartTemperature.Series.Add(series24);
+            series25.BorderWidth = 2;
+            series25.ChartArea = "ChartArea1";
+            series25.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series25.Color = System.Drawing.Color.Red;
+            series25.IsVisibleInLegend = false;
+            series25.Legend = "Legend1";
+            series25.Name = "Extruder";
+            series26.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series26.BorderWidth = 2;
+            series26.ChartArea = "ChartArea1";
+            series26.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series26.Color = System.Drawing.Color.LightCoral;
+            series26.IsVisibleInLegend = false;
+            series26.Legend = "Legend1";
+            series26.Name = "SetExtruder";
+            series27.BorderWidth = 2;
+            series27.ChartArea = "ChartArea1";
+            series27.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series27.Color = System.Drawing.Color.Blue;
+            series27.IsVisibleInLegend = false;
+            series27.Legend = "Legend1";
+            series27.Name = "Bed";
+            series28.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series28.BorderWidth = 2;
+            series28.ChartArea = "ChartArea1";
+            series28.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series28.Color = System.Drawing.Color.LightBlue;
+            series28.IsVisibleInLegend = false;
+            series28.Legend = "Legend1";
+            series28.Name = "SetBed";
+            this.chartTemperature.Series.Add(series25);
+            this.chartTemperature.Series.Add(series26);
+            this.chartTemperature.Series.Add(series27);
+            this.chartTemperature.Series.Add(series28);
             this.chartTemperature.Size = new System.Drawing.Size(484, 338);
             this.chartTemperature.TabIndex = 21;
             this.chartTemperature.Text = "chart1";
@@ -2863,6 +3587,39 @@ namespace Marlin3DprinterTool
             this.btnFirmware.Text = "Firmware and Arduino IDE";
             this.btnFirmware.UseVisualStyleBackColor = true;
             this.btnFirmware.Click += new System.EventHandler(this.btnFirmware_Click);
+            // 
+            // lblBeltPulleyTeethCount
+            // 
+            this.lblBeltPulleyTeethCount.AutoSize = true;
+            this.lblBeltPulleyTeethCount.Location = new System.Drawing.Point(3, 299);
+            this.lblBeltPulleyTeethCount.Name = "lblBeltPulleyTeethCount";
+            this.lblBeltPulleyTeethCount.Size = new System.Drawing.Size(112, 13);
+            this.lblBeltPulleyTeethCount.TabIndex = 23;
+            this.lblBeltPulleyTeethCount.Text = "Belt pulley teeth count";
+            // 
+            // numUpDnBeltPulleyTeethCount
+            // 
+            this.numUpDnBeltPulleyTeethCount.Location = new System.Drawing.Point(6, 318);
+            this.numUpDnBeltPulleyTeethCount.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnBeltPulleyTeethCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltPulleyTeethCount.Name = "numUpDnBeltPulleyTeethCount";
+            this.numUpDnBeltPulleyTeethCount.Size = new System.Drawing.Size(143, 20);
+            this.numUpDnBeltPulleyTeethCount.TabIndex = 24;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnBeltPulleyTeethCount, "Pulley on Belt (Normally bigger pulley)");
+            this.numUpDnBeltPulleyTeethCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltPulleyTeethCount.ValueChanged += new System.EventHandler(this.numUpDnBeltPulleyTeethCount_ValueChanged);
             // 
             // Frm3DprinterTool
             // 
@@ -2986,9 +3743,31 @@ namespace Marlin3DprinterTool
             this.grpBxZmaintMax.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZmaintenanceMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnZmaintenanceRepetitions)).EndInit();
+            this.tabCalculations.ResumeLayout(false);
+            this.grpBxFeedRate.ResumeLayout(false);
+            this.grpBxFeedRate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperMinute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperSecund)).EndInit();
+            this.grpBxExtruderCalculation.ResumeLayout(false);
+            this.grpBxExtruderCalculation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderOldFirmware)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderMeassuredExtrusion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderExpectedValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxExtruderStepsPerMM)).EndInit();
+            this.grpBxBelts.ResumeLayout(false);
+            this.grpBxBelts.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxBeltStepsPerMM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltTeethCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltMotorTeethCount)).EndInit();
+            this.grpBxLeadScrew.ResumeLayout(false);
+            this.grpBxLeadScrew.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxLeadScrewStepsPerMM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).EndInit();
             this.grpBxNavigation.ResumeLayout(false);
             this.lblStepperDriverPulley.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltPulleyTeethCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3205,6 +3984,51 @@ namespace Marlin3DprinterTool
         private RadioButton rdoBn3pointAdjusterRight;
         private RadioButton rdoBn4pointAdjuster;
         private RadioButton rdoBn3pointAdjusterFront;
+        private TabPage tabCalculations;
+        private GroupBox grpBxLeadScrew;
+        private FastColoredTextBox fastColoredTextBoxLeadScrewStepsPerMM;
+        private NumericUpDown numUpDnLeadScrewTeethCount;
+        private Label lblLeadscrewTeethCount;
+        private NumericUpDown numUpDnLeadScrewMotorTeethCount;
+        private CheckBox chkBxLeadScrewDirectDriven;
+        private Label lblLeadScrewMotorTeethCount;
+        private ComboBox cmbBxLeadScrewDriverMicrostepping;
+        private Label lblLeadScrewDriverMicrostepping;
+        private ComboBox cmbBxLeadScrewMotorStepAngle;
+        private Label lblLeadScrewMotorStepAngle;
+        private ComboBox cmbBxLeadScrewPitch;
+        private Label lblLeadScrewPitch;
+        private GroupBox grpBxBelts;
+        private ComboBox cmbBxBeltPitch;
+        private Label lblBeltPitch;
+        private FastColoredTextBox fastColoredTextBoxBeltStepsPerMM;
+        private NumericUpDown numUpDnBeltTeethCount;
+        private Label lblBeltTeethCount;
+        private NumericUpDown numUpDnBeltMotorTeethCount;
+        private CheckBox chkBxBeltDirectDriven;
+        private Label lblBeltMotorTeethCount;
+        private ComboBox cmbBxBeltDriverMicrostepping;
+        private Label lblBeltDriverMicrostepping;
+        private ComboBox cmbBxBeltMotorStepAngle;
+        private Label lblBeltMotorStepAngle;
+        private GroupBox grpBxExtruderCalculation;
+        private Button btnExtruderUpdateStepsPerMMinFirmware;
+        private Button btnExtruderUpdateStepsPerMMinEEPROM;
+        private Button btnExtruderOldFirmware;
+        private Label lblExtruderOldFirmware;
+        private NumericUpDown numUpDnExtruderOldFirmware;
+        private NumericUpDown numUpDnExtruderMeassuredExtrusion;
+        private Label lblExtruderMeassuredValue;
+        private Label lblExtruderExpectedValue;
+        private NumericUpDown numUpDnExtruderExpectedValue;
+        private FastColoredTextBox fastColoredTextBoxExtruderStepsPerMM;
+        private GroupBox grpBxFeedRate;
+        private NumericUpDown numUpDnFeedRateMMperMinute;
+        private Label lblFeedRateMMperMinute;
+        private Label lblFeedRateMMperSecund;
+        private NumericUpDown numUpDnFeedRateMMperSecund;
+        private NumericUpDown numUpDnBeltPulleyTeethCount;
+        private Label lblBeltPulleyTeethCount;
     }
 }
 

@@ -128,6 +128,33 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:Marlin3DprinterTool.ComboboxItemTextValue">
+            <summary>
+            Combobox with Text-Value Keypair. 
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.ComboboxItemTextValue.Text">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.ComboboxItemTextValue.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Marlin3DprinterTool.ComboboxItemTextValue.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Marlin3DprinterTool.ComboboxItemTextValue.ToValue">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Marlin3DprinterTool.Program.Main">
             <summary>
                 The main entry point for the application.
