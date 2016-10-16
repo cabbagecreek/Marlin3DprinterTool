@@ -1079,8 +1079,25 @@ namespace Marlin3DprinterTool
             foreach (string line in linesList)
             {
                 Match matchKp = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Kp\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                if (!matchKp.Success)
+                {
+                    matchKp = Regex.Match(line, @"(?<=Kp:\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                }
+
                 Match matchKi = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Ki\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                if (!matchKi.Success)
+                {
+                    matchKi = Regex.Match(line, @"(?<=Ki:\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                }
+
                 Match matchKd = Regex.Match(line, @"(?<=#define\s*DEFAULT_[0-9]*Kd\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                if (!matchKd.Success)
+                {
+                    matchKd = Regex.Match(line, @"(?<=Kd:\s)[0-9|.]*", RegexOptions.IgnoreCase);
+                }
+
+
+
 
                 if (line.Contains(@"Bad extruder number"))
                 {
