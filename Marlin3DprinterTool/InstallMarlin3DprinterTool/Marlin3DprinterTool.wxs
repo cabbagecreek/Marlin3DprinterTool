@@ -7,6 +7,7 @@
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <WixVariable Id="WixUILicenseRtf" Value="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
     
+    
     <Icon Id='Marlin3DprinterTool.ico' SourceFile="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.ico" />
     <Property Id="ARPPRODUCTICON" Value="Marlin3DprinterTool.ico" />
 
