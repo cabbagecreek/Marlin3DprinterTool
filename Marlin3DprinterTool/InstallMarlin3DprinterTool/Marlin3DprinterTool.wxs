@@ -3,7 +3,7 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="0.0.0.5" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
+  <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="0.0.0.9" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <WixVariable Id="WixUILicenseRtf" Value="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
     
@@ -127,8 +127,17 @@
       <Component Id ="Marlin3DprinterConfigurationFiles" Guid="{73359C75-511D-4B1D-9DAF-F50201D375E4}" >
         <CreateFolder>
           <util:PermissionEx  User="Users" Domain="[MachineName]" GenericAll="yes"/>
+          
         </CreateFolder>
-      </Component>  
+        
+        
+      </Component>
+      <Component Id="Marlin3DprinterToolConfiguration" Guid="{CB8CFECD-23D5-4C21-99B1-975CC70DEFD6}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.xml" />  
+      </Component>
+      <Component Id="MarlinEditorConfiguration" Guid="{39AB2903-47CC-492C-8CC4-4B9CFB64BCB2}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditorConfiguration.xml" />
+      </Component>
     </ComponentGroup>
   </Fragment>
   
