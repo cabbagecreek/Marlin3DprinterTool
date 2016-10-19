@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Marlin3DprinterStlViewer.STLviewerWPF"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Marlin3DprinterStlViewer"
+             xmlns:helix="http://helix-toolkit.org/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <helix:HelixViewport3D x:Name="myViewPort3D" Grid.RowSpan="3"  AllowDrop="True" >
+
+            <helix:SunLight />
+            <ModelVisual3D x:Name="StlModel"></ModelVisual3D>
+        </helix:HelixViewport3D>
+
+    </Grid>
+</UserControl>
+
