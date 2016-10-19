@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
 using MarlinEditor;
+using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
+using ServerManager;
+using SharpShell;
+using SharpShell.ServerRegistration;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
 
@@ -17,7 +23,7 @@ namespace Marlin3DprinterTool
 {
     /// <summary>
     /// </summary>
-    public partial class Frm3DprinterTool : Form
+    public partial class FrmMarlin3DprinterTool : Form
     {
         private readonly Configuration _configuration = new Configuration();
 
@@ -31,7 +37,7 @@ namespace Marlin3DprinterTool
 
 
         ///
-        public Frm3DprinterTool()
+        public FrmMarlin3DprinterTool()
         {
             InitializeComponent();
             DeligateAndInvoke = new DeligateAndInvoke(this);
@@ -2130,6 +2136,105 @@ namespace Marlin3DprinterTool
         private void numUpDnBeltPulleyTeethCount_ValueChanged(object sender, EventArgs e)
         {
             CalculateBelt();
+        }
+
+        private void btnAssociateStlViewer_Click(object sender, EventArgs e)
+        {
+            string stlViewerExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.exe");
+            SetAssociation(".stl","Marlin3DprinterTool_STLviewer",stlViewerExe,"STL 3D model file");    
+        }
+
+
+        private static void SetAssociation(string Extension, string KeyName, string OpenWith, string FileDescription)
+        {
+            RegistryKey BaseKey;
+            RegistryKey OpenMethod;
+            RegistryKey Shell;
+            RegistryKey CurrentUser;
+
+            BaseKey = Registry.ClassesRoot.CreateSubKey(Extension);
+            BaseKey.SetValue("", KeyName);
+
+            OpenMethod = Registry.ClassesRoot.CreateSubKey(KeyName);
+            OpenMethod.SetValue("", FileDescription);
+            OpenMethod.CreateSubKey("DefaultIcon").SetValue("", "\"" + OpenWith + "\",0");
+            Shell = OpenMethod.CreateSubKey("Shell");
+            Shell.CreateSubKey("edit").CreateSubKey("command").SetValue("", "\"" + OpenWith + "\"" + " \"%1\"");
+            Shell.CreateSubKey("open").CreateSubKey("command").SetValue("", "\"" + OpenWith + "\"" + " \"%1\"");
+            BaseKey.Close();
+            OpenMethod.Close();
+            Shell.Close();
+
+
+            // Delete the key instead of trying to change it
+            CurrentUser = Registry.CurrentUser.OpenSubKey(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.stl", true);
+            CurrentUser.DeleteSubKey("UserChoice", false);
+
+            // Create the the key
+            CurrentUser = Registry.CurrentUser.CreateSubKey(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.stl");
+            CurrentUser = CurrentUser.OpenSubKey("UserChoice", RegistryKeyPermissionCheck.ReadWriteSubTree, System.Security.AccessControl.RegistryRights.FullControl);
+            CurrentUser.SetValue("Progid", KeyName, RegistryValueKind.String);
+            CurrentUser.Close();
+
+
+
+            CurrentUser.Close();
+
+            // Tell explorer the file association has been changed
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+
+        }
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+
+        private void btnInstallStlServer_Click(object sender, EventArgs e)
+        {
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+            foreach (ServerEntry serverEntry in serverEntries)
+            {
+                ServerRegistrationManager.InstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
+            }
+        }
+
+        
+
+        private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
+        {
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+            foreach (ServerEntry serverEntry in serverEntries)
+            {
+                ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+                
+            }           
+        }
+
+
+        private void btnRegisterStlServer_Click(object sender, EventArgs e)
+        {
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+            foreach (ServerEntry serverEntry in serverEntries)
+            {
+                ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
+            }
+            
+        }
+
+        private void btnUnInstallStlServer_Click(object sender, EventArgs e)
+        {
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+            foreach (ServerEntry serverEntry in serverEntries)
+            {
+                ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+            }
         }
     }
 

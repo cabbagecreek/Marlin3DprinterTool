@@ -15,13 +15,13 @@ namespace Marlin3DprinterTool
     {
         /// <summary>
         /// </summary>
-        private readonly Frm3DprinterTool _frm3DprinterTool;
+        private readonly FrmMarlin3DprinterTool _frm3DprinterTool;
 
 
         /// <summary>
         /// </summary>
         /// <param name="frm3DprinterTool"></param>
-        public DeligateAndInvoke(Frm3DprinterTool frm3DprinterTool)
+        public DeligateAndInvoke(FrmMarlin3DprinterTool frm3DprinterTool)
         {
             _frm3DprinterTool = frm3DprinterTool;
         }

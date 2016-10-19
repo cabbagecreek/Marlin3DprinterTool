@@ -61,9 +61,13 @@
     </Win32Resource>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FastColoredTextBox, Version=2.16.18.1, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Apex.WinForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=98d06957926c086d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\Apex.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FastColoredTextBox, Version=2.16.11.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.11.0\lib\FastColoredTextBox.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Nevron.Chart, Version=16.5.16.12, Culture=neutral, PublicKeyToken=2961c51bb98125d2">
       <Private>True</Private>
@@ -78,6 +82,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Nevron.System, Version=16.5.16.12, Culture=neutral, PublicKeyToken=6a987feae5e496fd">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServerManager, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\ServerManager.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpShell, Version=2.2.0.0, Culture=neutral, PublicKeyToken=f14dc899472fe6fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpShell.2.2.0.0\lib\net40\SharpShell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="srm, Version=2.2.0.0, Culture=neutral, PublicKeyToken=68bd4561cc3495fc, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\srm.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -108,6 +124,7 @@
     <None Include="Licence.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,6 +146,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Marlin3DprinterStlViewer\Marlin3DprinterStlViewer.csproj">
+      <Project>{cb7cdea2-d23a-4761-b7e8-e42e31cbf686}</Project>
+      <Name>Marlin3DprinterStlViewer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
       <Name>MarlinComunicationHelper</Name>

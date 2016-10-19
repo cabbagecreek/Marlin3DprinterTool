@@ -13,7 +13,7 @@ namespace Marlin3DprinterTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm3DprinterTool());
+            Application.Run(new FrmMarlin3DprinterTool());
         }
     }
 }

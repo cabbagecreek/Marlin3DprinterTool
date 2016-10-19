@@ -6,7 +6,7 @@ using MarlinComunicationHelper;
 
 namespace Marlin3DprinterTool
 {
-    partial class Frm3DprinterTool
+    partial class FrmMarlin3DprinterTool
     {
         /// <summary>
         /// Required designer variable.
@@ -35,13 +35,13 @@ namespace Marlin3DprinterTool
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm3DprinterTool));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series25 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series26 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series27 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series28 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMarlin3DprinterTool));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
             this.grpBxZ = new System.Windows.Forms.GroupBox();
@@ -247,6 +247,8 @@ namespace Marlin3DprinterTool
             this.numUpDnExtruderExpectedValue = new System.Windows.Forms.NumericUpDown();
             this.fastColoredTextBoxExtruderStepsPerMM = new FastColoredTextBoxNS.FastColoredTextBox();
             this.grpBxBelts = new System.Windows.Forms.GroupBox();
+            this.numUpDnBeltPulleyTeethCount = new System.Windows.Forms.NumericUpDown();
+            this.lblBeltPulleyTeethCount = new System.Windows.Forms.Label();
             this.cmbBxBeltPitch = new System.Windows.Forms.ComboBox();
             this.lblBeltPitch = new System.Windows.Forms.Label();
             this.fastColoredTextBoxBeltStepsPerMM = new FastColoredTextBoxNS.FastColoredTextBox();
@@ -272,6 +274,15 @@ namespace Marlin3DprinterTool
             this.lblLeadScrewDriverMicrostepping = new System.Windows.Forms.Label();
             this.cmbBxLeadScrewMotorStepAngle = new System.Windows.Forms.ComboBox();
             this.lblLeadScrewMotorStepAngle = new System.Windows.Forms.Label();
+            this.tabStlViewer = new System.Windows.Forms.TabPage();
+            this.grpBxAssociateStlViewer = new System.Windows.Forms.GroupBox();
+            this.btnAssociateStlViewer = new System.Windows.Forms.Button();
+            this.grpBxInstallingStlThumbnailServer = new System.Windows.Forms.GroupBox();
+            this.chkBx32BitOS = new System.Windows.Forms.CheckBox();
+            this.btnUnInstallStlServer = new System.Windows.Forms.Button();
+            this.btnUnRegisterStlServer = new System.Windows.Forms.Button();
+            this.btnInstallStlServer = new System.Windows.Forms.Button();
+            this.btnRegisterStlServer = new System.Windows.Forms.Button();
             this.grpBxNavigation = new System.Windows.Forms.GroupBox();
             this.btnM501ReadEeprom = new System.Windows.Forms.Button();
             this.btnM500SaveEeprom = new System.Windows.Forms.Button();
@@ -295,8 +306,6 @@ namespace Marlin3DprinterTool
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnEmergency = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
-            this.lblBeltPulleyTeethCount = new System.Windows.Forms.Label();
-            this.numUpDnBeltPulleyTeethCount = new System.Windows.Forms.NumericUpDown();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -382,6 +391,7 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderExpectedValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxExtruderStepsPerMM)).BeginInit();
             this.grpBxBelts.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltPulleyTeethCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxBeltStepsPerMM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltTeethCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltMotorTeethCount)).BeginInit();
@@ -389,10 +399,12 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxLeadScrewStepsPerMM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).BeginInit();
+            this.tabStlViewer.SuspendLayout();
+            this.grpBxAssociateStlViewer.SuspendLayout();
+            this.grpBxInstallingStlThumbnailServer.SuspendLayout();
             this.grpBxNavigation.SuspendLayout();
             this.lblStepperDriverPulley.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltPulleyTeethCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl3DprinterTool
@@ -408,6 +420,7 @@ namespace Marlin3DprinterTool
             this.tabControl3DprinterTool.Controls.Add(this.tabPageExtruderCalibration);
             this.tabControl3DprinterTool.Controls.Add(this.tabPageZMaintenance);
             this.tabControl3DprinterTool.Controls.Add(this.tabCalculations);
+            this.tabControl3DprinterTool.Controls.Add(this.tabStlViewer);
             this.tabControl3DprinterTool.Location = new System.Drawing.Point(12, 84);
             this.tabControl3DprinterTool.Name = "tabControl3DprinterTool";
             this.tabControl3DprinterTool.SelectedIndex = 0;
@@ -2916,6 +2929,39 @@ namespace Marlin3DprinterTool
             this.grpBxBelts.TabStop = false;
             this.grpBxBelts.Text = "Belts";
             // 
+            // numUpDnBeltPulleyTeethCount
+            // 
+            this.numUpDnBeltPulleyTeethCount.Location = new System.Drawing.Point(6, 318);
+            this.numUpDnBeltPulleyTeethCount.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numUpDnBeltPulleyTeethCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltPulleyTeethCount.Name = "numUpDnBeltPulleyTeethCount";
+            this.numUpDnBeltPulleyTeethCount.Size = new System.Drawing.Size(143, 20);
+            this.numUpDnBeltPulleyTeethCount.TabIndex = 24;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnBeltPulleyTeethCount, "Pulley on Belt (Normally bigger pulley)");
+            this.numUpDnBeltPulleyTeethCount.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDnBeltPulleyTeethCount.ValueChanged += new System.EventHandler(this.numUpDnBeltPulleyTeethCount_ValueChanged);
+            // 
+            // lblBeltPulleyTeethCount
+            // 
+            this.lblBeltPulleyTeethCount.AutoSize = true;
+            this.lblBeltPulleyTeethCount.Location = new System.Drawing.Point(3, 299);
+            this.lblBeltPulleyTeethCount.Name = "lblBeltPulleyTeethCount";
+            this.lblBeltPulleyTeethCount.Size = new System.Drawing.Size(112, 13);
+            this.lblBeltPulleyTeethCount.TabIndex = 23;
+            this.lblBeltPulleyTeethCount.Text = "Belt pulley teeth count";
+            // 
             // cmbBxBeltPitch
             // 
             this.cmbBxBeltPitch.FormattingEnabled = true;
@@ -3273,6 +3319,101 @@ namespace Marlin3DprinterTool
             this.lblLeadScrewMotorStepAngle.TabIndex = 0;
             this.lblLeadScrewMotorStepAngle.Text = "Motor step angle";
             // 
+            // tabStlViewer
+            // 
+            this.tabStlViewer.Controls.Add(this.grpBxAssociateStlViewer);
+            this.tabStlViewer.Controls.Add(this.grpBxInstallingStlThumbnailServer);
+            this.tabStlViewer.Location = new System.Drawing.Point(4, 22);
+            this.tabStlViewer.Name = "tabStlViewer";
+            this.tabStlViewer.Size = new System.Drawing.Size(804, 625);
+            this.tabStlViewer.TabIndex = 12;
+            this.tabStlViewer.Text = "STL viewer";
+            this.tabStlViewer.UseVisualStyleBackColor = true;
+            // 
+            // grpBxAssociateStlViewer
+            // 
+            this.grpBxAssociateStlViewer.Controls.Add(this.btnAssociateStlViewer);
+            this.grpBxAssociateStlViewer.Location = new System.Drawing.Point(17, 129);
+            this.grpBxAssociateStlViewer.Name = "grpBxAssociateStlViewer";
+            this.grpBxAssociateStlViewer.Size = new System.Drawing.Size(388, 100);
+            this.grpBxAssociateStlViewer.TabIndex = 5;
+            this.grpBxAssociateStlViewer.TabStop = false;
+            this.grpBxAssociateStlViewer.Text = "Associate STL viewer";
+            // 
+            // btnAssociateStlViewer
+            // 
+            this.btnAssociateStlViewer.Location = new System.Drawing.Point(6, 19);
+            this.btnAssociateStlViewer.Name = "btnAssociateStlViewer";
+            this.btnAssociateStlViewer.Size = new System.Drawing.Size(188, 23);
+            this.btnAssociateStlViewer.TabIndex = 5;
+            this.btnAssociateStlViewer.Text = "STL Viewer prefered STL viewer";
+            this.btnAssociateStlViewer.UseVisualStyleBackColor = true;
+            this.btnAssociateStlViewer.Click += new System.EventHandler(this.btnAssociateStlViewer_Click);
+            // 
+            // grpBxInstallingStlThumbnailServer
+            // 
+            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.chkBx32BitOS);
+            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnUnInstallStlServer);
+            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnUnRegisterStlServer);
+            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnInstallStlServer);
+            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnRegisterStlServer);
+            this.grpBxInstallingStlThumbnailServer.Location = new System.Drawing.Point(17, 19);
+            this.grpBxInstallingStlThumbnailServer.Name = "grpBxInstallingStlThumbnailServer";
+            this.grpBxInstallingStlThumbnailServer.Size = new System.Drawing.Size(388, 103);
+            this.grpBxInstallingStlThumbnailServer.TabIndex = 4;
+            this.grpBxInstallingStlThumbnailServer.TabStop = false;
+            this.grpBxInstallingStlThumbnailServer.Text = "Installing the STL thumbnail Shell Extension";
+            // 
+            // chkBx32BitOS
+            // 
+            this.chkBx32BitOS.AutoSize = true;
+            this.chkBx32BitOS.Location = new System.Drawing.Point(14, 19);
+            this.chkBx32BitOS.Name = "chkBx32BitOS";
+            this.chkBx32BitOS.Size = new System.Drawing.Size(70, 17);
+            this.chkBx32BitOS.TabIndex = 4;
+            this.chkBx32BitOS.Text = "32-bit OS";
+            this.chkBx32BitOS.UseVisualStyleBackColor = true;
+            // 
+            // btnUnInstallStlServer
+            // 
+            this.btnUnInstallStlServer.Location = new System.Drawing.Point(185, 71);
+            this.btnUnInstallStlServer.Name = "btnUnInstallStlServer";
+            this.btnUnInstallStlServer.Size = new System.Drawing.Size(165, 23);
+            this.btnUnInstallStlServer.TabIndex = 2;
+            this.btnUnInstallStlServer.Text = "UnInstall Stl Thumbnail";
+            this.btnUnInstallStlServer.UseVisualStyleBackColor = true;
+            this.btnUnInstallStlServer.Click += new System.EventHandler(this.btnUnInstallStlServer_Click);
+            // 
+            // btnUnRegisterStlServer
+            // 
+            this.btnUnRegisterStlServer.Location = new System.Drawing.Point(185, 42);
+            this.btnUnRegisterStlServer.Name = "btnUnRegisterStlServer";
+            this.btnUnRegisterStlServer.Size = new System.Drawing.Size(165, 23);
+            this.btnUnRegisterStlServer.TabIndex = 3;
+            this.btnUnRegisterStlServer.Text = "UnRegister Stl Thumbnail";
+            this.btnUnRegisterStlServer.UseVisualStyleBackColor = true;
+            this.btnUnRegisterStlServer.Click += new System.EventHandler(this.btnUnRegisterStlServer_Click);
+            // 
+            // btnInstallStlServer
+            // 
+            this.btnInstallStlServer.Location = new System.Drawing.Point(14, 42);
+            this.btnInstallStlServer.Name = "btnInstallStlServer";
+            this.btnInstallStlServer.Size = new System.Drawing.Size(165, 23);
+            this.btnInstallStlServer.TabIndex = 0;
+            this.btnInstallStlServer.Text = "Install Stl Thumbnail";
+            this.btnInstallStlServer.UseVisualStyleBackColor = true;
+            this.btnInstallStlServer.Click += new System.EventHandler(this.btnInstallStlServer_Click);
+            // 
+            // btnRegisterStlServer
+            // 
+            this.btnRegisterStlServer.Location = new System.Drawing.Point(14, 71);
+            this.btnRegisterStlServer.Name = "btnRegisterStlServer";
+            this.btnRegisterStlServer.Size = new System.Drawing.Size(165, 23);
+            this.btnRegisterStlServer.TabIndex = 1;
+            this.btnRegisterStlServer.Text = "Register Stl Thumbnail";
+            this.btnRegisterStlServer.UseVisualStyleBackColor = true;
+            this.btnRegisterStlServer.Click += new System.EventHandler(this.btnRegisterStlServer_Click);
+            // 
             // grpBxNavigation
             // 
             this.grpBxNavigation.Controls.Add(this.btnM501ReadEeprom);
@@ -3519,50 +3660,50 @@ namespace Marlin3DprinterTool
             // 
             // chartTemperature
             // 
-            chartArea7.AxisX.Title = "Secunds";
-            chartArea7.AxisY.Title = "Temp";
-            chartArea7.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea7);
-            legend7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            legend7.IsTextAutoFit = false;
-            legend7.Name = "Legend1";
-            this.chartTemperature.Legends.Add(legend7);
+            chartArea5.AxisX.Title = "Secunds";
+            chartArea5.AxisY.Title = "Temp";
+            chartArea5.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea5);
+            legend5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            legend5.IsTextAutoFit = false;
+            legend5.Name = "Legend1";
+            this.chartTemperature.Legends.Add(legend5);
             this.chartTemperature.Location = new System.Drawing.Point(830, 414);
             this.chartTemperature.Name = "chartTemperature";
-            series25.BorderWidth = 2;
-            series25.ChartArea = "ChartArea1";
-            series25.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series25.Color = System.Drawing.Color.Red;
-            series25.IsVisibleInLegend = false;
-            series25.Legend = "Legend1";
-            series25.Name = "Extruder";
-            series26.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series26.BorderWidth = 2;
-            series26.ChartArea = "ChartArea1";
-            series26.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series26.Color = System.Drawing.Color.LightCoral;
-            series26.IsVisibleInLegend = false;
-            series26.Legend = "Legend1";
-            series26.Name = "SetExtruder";
-            series27.BorderWidth = 2;
-            series27.ChartArea = "ChartArea1";
-            series27.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series27.Color = System.Drawing.Color.Blue;
-            series27.IsVisibleInLegend = false;
-            series27.Legend = "Legend1";
-            series27.Name = "Bed";
-            series28.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series28.BorderWidth = 2;
-            series28.ChartArea = "ChartArea1";
-            series28.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series28.Color = System.Drawing.Color.LightBlue;
-            series28.IsVisibleInLegend = false;
-            series28.Legend = "Legend1";
-            series28.Name = "SetBed";
-            this.chartTemperature.Series.Add(series25);
-            this.chartTemperature.Series.Add(series26);
-            this.chartTemperature.Series.Add(series27);
-            this.chartTemperature.Series.Add(series28);
+            series17.BorderWidth = 2;
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series17.Color = System.Drawing.Color.Red;
+            series17.IsVisibleInLegend = false;
+            series17.Legend = "Legend1";
+            series17.Name = "Extruder";
+            series18.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series18.BorderWidth = 2;
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series18.Color = System.Drawing.Color.LightCoral;
+            series18.IsVisibleInLegend = false;
+            series18.Legend = "Legend1";
+            series18.Name = "SetExtruder";
+            series19.BorderWidth = 2;
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series19.Color = System.Drawing.Color.Blue;
+            series19.IsVisibleInLegend = false;
+            series19.Legend = "Legend1";
+            series19.Name = "Bed";
+            series20.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series20.BorderWidth = 2;
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series20.Color = System.Drawing.Color.LightBlue;
+            series20.IsVisibleInLegend = false;
+            series20.Legend = "Legend1";
+            series20.Name = "SetBed";
+            this.chartTemperature.Series.Add(series17);
+            this.chartTemperature.Series.Add(series18);
+            this.chartTemperature.Series.Add(series19);
+            this.chartTemperature.Series.Add(series20);
             this.chartTemperature.Size = new System.Drawing.Size(484, 338);
             this.chartTemperature.TabIndex = 21;
             this.chartTemperature.Text = "chart1";
@@ -3588,40 +3729,7 @@ namespace Marlin3DprinterTool
             this.btnFirmware.UseVisualStyleBackColor = true;
             this.btnFirmware.Click += new System.EventHandler(this.btnFirmware_Click);
             // 
-            // lblBeltPulleyTeethCount
-            // 
-            this.lblBeltPulleyTeethCount.AutoSize = true;
-            this.lblBeltPulleyTeethCount.Location = new System.Drawing.Point(3, 299);
-            this.lblBeltPulleyTeethCount.Name = "lblBeltPulleyTeethCount";
-            this.lblBeltPulleyTeethCount.Size = new System.Drawing.Size(112, 13);
-            this.lblBeltPulleyTeethCount.TabIndex = 23;
-            this.lblBeltPulleyTeethCount.Text = "Belt pulley teeth count";
-            // 
-            // numUpDnBeltPulleyTeethCount
-            // 
-            this.numUpDnBeltPulleyTeethCount.Location = new System.Drawing.Point(6, 318);
-            this.numUpDnBeltPulleyTeethCount.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numUpDnBeltPulleyTeethCount.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numUpDnBeltPulleyTeethCount.Name = "numUpDnBeltPulleyTeethCount";
-            this.numUpDnBeltPulleyTeethCount.Size = new System.Drawing.Size(143, 20);
-            this.numUpDnBeltPulleyTeethCount.TabIndex = 24;
-            this.toolTip3DprinterTool.SetToolTip(this.numUpDnBeltPulleyTeethCount, "Pulley on Belt (Normally bigger pulley)");
-            this.numUpDnBeltPulleyTeethCount.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numUpDnBeltPulleyTeethCount.ValueChanged += new System.EventHandler(this.numUpDnBeltPulleyTeethCount_ValueChanged);
-            // 
-            // Frm3DprinterTool
+            // FrmMarlin3DprinterTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -3635,7 +3743,7 @@ namespace Marlin3DprinterTool
             this.Controls.Add(this.lblStepperDriverPulley);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1300, 726);
-            this.Name = "Frm3DprinterTool";
+            this.Name = "FrmMarlin3DprinterTool";
             this.Text = "3DprinterTool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm3DprinterTool_FormClosing);
             this.Load += new System.EventHandler(this.Frm3DprinterTool_Load);
@@ -3756,6 +3864,7 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxExtruderStepsPerMM)).EndInit();
             this.grpBxBelts.ResumeLayout(false);
             this.grpBxBelts.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltPulleyTeethCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxBeltStepsPerMM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltTeethCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltMotorTeethCount)).EndInit();
@@ -3764,10 +3873,13 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxLeadScrewStepsPerMM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).EndInit();
+            this.tabStlViewer.ResumeLayout(false);
+            this.grpBxAssociateStlViewer.ResumeLayout(false);
+            this.grpBxInstallingStlThumbnailServer.ResumeLayout(false);
+            this.grpBxInstallingStlThumbnailServer.PerformLayout();
             this.grpBxNavigation.ResumeLayout(false);
             this.lblStepperDriverPulley.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDnBeltPulleyTeethCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4029,6 +4141,15 @@ namespace Marlin3DprinterTool
         private NumericUpDown numUpDnFeedRateMMperSecund;
         private NumericUpDown numUpDnBeltPulleyTeethCount;
         private Label lblBeltPulleyTeethCount;
+        private TabPage tabStlViewer;
+        private GroupBox grpBxInstallingStlThumbnailServer;
+        private CheckBox chkBx32BitOS;
+        private Button btnUnInstallStlServer;
+        private Button btnUnRegisterStlServer;
+        private Button btnInstallStlServer;
+        private Button btnRegisterStlServer;
+        private GroupBox grpBxAssociateStlViewer;
+        private Button btnAssociateStlViewer;
     }
 }
 
