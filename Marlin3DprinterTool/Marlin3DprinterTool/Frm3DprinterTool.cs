@@ -2190,7 +2190,9 @@ namespace Marlin3DprinterTool
 
         private void btnInstallStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            if (!File.Exists(stlViewerThumbnail)) return;
+
             IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
             foreach (ServerEntry serverEntry in serverEntries)
@@ -2203,7 +2205,9 @@ namespace Marlin3DprinterTool
 
         private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            if (!File.Exists(stlViewerThumbnail)) return;
+
             IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
             foreach (ServerEntry serverEntry in serverEntries)
@@ -2216,7 +2220,9 @@ namespace Marlin3DprinterTool
 
         private void btnRegisterStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            if (!File.Exists(stlViewerThumbnail)) return;
+
             IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
             foreach (ServerEntry serverEntry in serverEntries)
@@ -2228,7 +2234,9 @@ namespace Marlin3DprinterTool
 
         private void btnUnInstallStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.dll");
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            if (!File.Exists(stlViewerThumbnail)) return;
+
             IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
             foreach (ServerEntry serverEntry in serverEntries)

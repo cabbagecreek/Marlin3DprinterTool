@@ -13,7 +13,7 @@
             <summary>
             </summary>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.#ctor(Marlin3DprinterTool.Frm3DprinterTool)">
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.#ctor(Marlin3DprinterTool.FrmMarlin3DprinterTool)">
             <summary>
             </summary>
             <param name="frm3DprinterTool"></param>
@@ -99,30 +99,30 @@
             <param name="bedTemp"></param>
             <param name="setBedTemp"></param>
         </member>
-        <member name="T:Marlin3DprinterTool.Frm3DprinterTool">
+        <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>
             </summary>
         </member>
-        <member name="M:Marlin3DprinterTool.Frm3DprinterTool.#ctor">
+        <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.#ctor">
             
         </member>
-        <member name="P:Marlin3DprinterTool.Frm3DprinterTool.DeligateAndInvoke">
+        <member name="P:Marlin3DprinterTool.FrmMarlin3DprinterTool.DeligateAndInvoke">
             <summary>
                 All deligates, Callback and Invoke is in separate class
             </summary>
         </member>
-        <member name="F:Marlin3DprinterTool.Frm3DprinterTool.components">
+        <member name="F:Marlin3DprinterTool.FrmMarlin3DprinterTool.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:Marlin3DprinterTool.Frm3DprinterTool.Dispose(System.Boolean)">
+        <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:Marlin3DprinterTool.Frm3DprinterTool.InitializeComponent">
+        <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
