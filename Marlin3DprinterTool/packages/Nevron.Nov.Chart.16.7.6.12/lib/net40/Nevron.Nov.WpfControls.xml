@@ -1,0 +1,563 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nevron.Nov.WpfControls</name>
+    </assembly>
+    <members>
+        <member name="M:Nevron.Nov.WpfControls.NNovControlHelpers.InstallFramework">
+            <summary>
+            Static constructor
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NLinearBarcodeControl">
+            <summary>
+            Represents an NLinearBarcodeControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NLinearBarcodeControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NMatrixBarcodeControl">
+            <summary>
+            Represents an NMatrixBarcodeControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NMatrixBarcodeControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NChartViewControl">
+            <summary>
+            Represents an NChartViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NChartViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NLinearGaugeControl">
+            <summary>
+            Represents an NLinearGaugeControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NLinearGaugeControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NNumericLedDisplayControl">
+            <summary>
+            Represents an NNumericLedDisplayControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NNumericLedDisplayControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NRadialGaugeControl">
+            <summary>
+            Represents an NRadialGaugeControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NRadialGaugeControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NDrawingViewControl">
+            <summary>
+            Represents an NDrawingViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NDrawingViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NLibraryBrowserControl">
+            <summary>
+            Represents an NLibraryBrowserControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NLibraryBrowserControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NLibraryViewControl">
+            <summary>
+            Represents an NLibraryViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NLibraryViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NPanAndZoomViewControl">
+            <summary>
+            Represents an NPanAndZoomViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NPanAndZoomViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NTableGridViewControl">
+            <summary>
+            Represents an NTableGridViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NTableGridViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NTreeGridViewControl">
+            <summary>
+            Represents an NTreeGridViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NTreeGridViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NAutoCompleteBoxControl">
+            <summary>
+            Represents an NAutoCompleteBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NAutoCompleteBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NBorderSplitButtonControl">
+            <summary>
+            Represents an NBorderSplitButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NBorderSplitButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NButtonControl">
+            <summary>
+            Represents an NButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NCalendarControl">
+            <summary>
+            Represents an NCalendarControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NCalendarControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NCheckBoxControl">
+            <summary>
+            Represents an NCheckBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NCheckBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NColorBoxControl">
+            <summary>
+            Represents an NColorBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NColorBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NComboBoxControl">
+            <summary>
+            Represents an NComboBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NComboBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NDateTimeBoxControl">
+            <summary>
+            Represents an NDateTimeBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NDateTimeBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NDockPanelControl">
+            <summary>
+            Represents an NDockPanelControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NDockPanelControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NFillSplitButtonControl">
+            <summary>
+            Represents an NFillSplitButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NFillSplitButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NGroupBoxControl">
+            <summary>
+            Represents an NGroupBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NGroupBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NHsbColorPickerControl">
+            <summary>
+            Represents an NHsbColorPickerControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NHsbColorPickerControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NHsbWheelColorPickerControl">
+            <summary>
+            Represents an NHsbWheelColorPickerControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NHsbWheelColorPickerControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NImageBoxControl">
+            <summary>
+            Represents an NImageBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NImageBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NLabelControl">
+            <summary>
+            Represents an NLabelControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NLabelControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NListBoxControl">
+            <summary>
+            Represents an NListBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NListBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NMenuBarControl">
+            <summary>
+            Represents an NMenuBarControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NMenuBarControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NMenuSplitButtonControl">
+            <summary>
+            Represents an NMenuSplitButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NMenuSplitButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NMetaImageBoxControl">
+            <summary>
+            Represents an NMetaImageBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NMetaImageBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NNavigationBarControl">
+            <summary>
+            Represents an NNavigationBarControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NNavigationBarControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NNumericUpDownControl">
+            <summary>
+            Represents an NNumericUpDownControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NNumericUpDownControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NPairBoxControl">
+            <summary>
+            Represents an NPairBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NPairBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NPaletteColorPickerControl">
+            <summary>
+            Represents an NPaletteColorPickerControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NPaletteColorPickerControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NProgressBarControl">
+            <summary>
+            Represents an NProgressBarControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NProgressBarControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NRadioButtonControl">
+            <summary>
+            Represents an NRadioButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NRadioButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NRangeSliderControl">
+            <summary>
+            Represents an NRangeSliderControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NRangeSliderControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NRepeatButtonControl">
+            <summary>
+            Represents an NRepeatButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NRepeatButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NRibbonControl">
+            <summary>
+            Represents an NRibbonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NRibbonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NScrollContentControl">
+            <summary>
+            Represents an NScrollContentControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NScrollContentControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NSliderControl">
+            <summary>
+            Represents an NSliderControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NSliderControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NSplitterControl">
+            <summary>
+            Represents an NSplitterControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NSplitterControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NStackPanelControl">
+            <summary>
+            Represents an NStackPanelControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NStackPanelControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NStrokeSplitButtonControl">
+            <summary>
+            Represents an NStrokeSplitButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NStrokeSplitButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NSymbolBoxControl">
+            <summary>
+            Represents an NSymbolBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NSymbolBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NTabControl">
+            <summary>
+            Represents an NTabControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NTabControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NTableFlowPanelControl">
+            <summary>
+            Represents an NTableFlowPanelControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NTableFlowPanelControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NTextBoxControl">
+            <summary>
+            Represents an NTextBoxControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NTextBoxControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NToggleButtonControl">
+            <summary>
+            Represents an NToggleButtonControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NToggleButtonControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NToolBarControl">
+            <summary>
+            Represents an NToolBarControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NToolBarControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NTreeViewControl">
+            <summary>
+            Represents an NTreeViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NTreeViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NWrapFlowPanelControl">
+            <summary>
+            Represents an NWrapFlowPanelControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NWrapFlowPanelControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NScheduleViewControl">
+            <summary>
+            Represents an NScheduleViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NScheduleViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.WpfControls.NRichTextViewControl">
+            <summary>
+            Represents an NRichTextViewControl control.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.WpfControls.NRichTextViewControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -53,6 +53,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStlViewer";
             this.Text = "STL viewer";
+            this.Load += new System.EventHandler(this.FrmStlViewer_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FrmStlViewer_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FrmStlViewer_DragEnter);
             this.ResumeLayout(false);

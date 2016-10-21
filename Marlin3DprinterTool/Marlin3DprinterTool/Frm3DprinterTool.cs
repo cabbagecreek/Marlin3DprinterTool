@@ -13,9 +13,6 @@ using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
-using ServerManager;
-using SharpShell;
-using SharpShell.ServerRegistration;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
 
@@ -57,6 +54,19 @@ namespace Marlin3DprinterTool
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
 
         }
+
+        //private void EnableTabPages(bool enable)
+        //{
+        //    DeligateAndInvoke.TabPageEnable(tabPageEndstop, enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPageBedLevel,enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPageConfigurateZprobe,enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPageConfigurationBed,enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPageExtruderCalibration,enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPagePID,enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPageZMaintenance,enable);
+        //    DeligateAndInvoke.TabPageEnable(tabPageCalculations, true);
+        //    DeligateAndInvoke.TabPageEnable(tabPageStlViewer,true);
+        //}
 
 
         private void PopulateConfig()
@@ -1173,8 +1183,9 @@ namespace Marlin3DprinterTool
         private void _com_Init(object sender, ResponceData e)
         {
             //Enable TAB
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
-
+            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool,true);
+            
+            
             //Enable EmergencyStop
             DeligateAndInvoke.DelegateBackgroundImage(btnEmergency, Resources.emargency_enabled);
             DeligateAndInvoke.DelegateVisible(btnEmergency, true);
@@ -1396,8 +1407,7 @@ namespace Marlin3DprinterTool
             btnConnect.Text = @"Connect";
 
             //Disable TAB
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
-
+            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
 
             //Disable EmergencyStop
             btnEmergency.BackgroundImage = Resources.emargency_disabled;
@@ -2141,7 +2151,7 @@ namespace Marlin3DprinterTool
         private void btnAssociateStlViewer_Click(object sender, EventArgs e)
         {
             string stlViewerExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.exe");
-            SetAssociation(".stl","Marlin3DprinterTool_STLviewer",stlViewerExe,"STL 3D model file");    
+            SetAssociation(".stl", "Marlin3DprinterTool_STLviewer", stlViewerExe, "STL 3D model file");
         }
 
 
@@ -2165,19 +2175,9 @@ namespace Marlin3DprinterTool
             OpenMethod.Close();
             Shell.Close();
 
-
-            // Delete the key instead of trying to change it
-            CurrentUser = Registry.CurrentUser.OpenSubKey(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.stl", true);
-            CurrentUser.DeleteSubKey("UserChoice", false);
-
-            // Create the the key
-            CurrentUser = Registry.CurrentUser.CreateSubKey(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.stl");
+            CurrentUser = Registry.CurrentUser.CreateSubKey(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ucs");
             CurrentUser = CurrentUser.OpenSubKey("UserChoice", RegistryKeyPermissionCheck.ReadWriteSubTree, System.Security.AccessControl.RegistryRights.FullControl);
             CurrentUser.SetValue("Progid", KeyName, RegistryValueKind.String);
-            CurrentUser.Close();
-
-
-
             CurrentUser.Close();
 
             // Tell explorer the file association has been changed
@@ -2190,59 +2190,59 @@ namespace Marlin3DprinterTool
 
         private void btnInstallStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            if (!File.Exists(stlViewerThumbnail)) return;
+            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            //if (!File.Exists(stlViewerThumbnail)) return;
 
-            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-            foreach (ServerEntry serverEntry in serverEntries)
-            {
-                ServerRegistrationManager.InstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
-            }
+            //foreach (ServerEntry serverEntry in serverEntries)
+            //{
+            //    ServerRegistrationManager.InstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
+            //}
         }
 
         
 
         private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            if (!File.Exists(stlViewerThumbnail)) return;
+            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            //if (!File.Exists(stlViewerThumbnail)) return;
 
-            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-            foreach (ServerEntry serverEntry in serverEntries)
-            {
-                ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+            //foreach (ServerEntry serverEntry in serverEntries)
+            //{
+            //    ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
                 
-            }           
+            //}           
         }
 
 
         private void btnRegisterStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            if (!File.Exists(stlViewerThumbnail)) return;
+            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            //if (!File.Exists(stlViewerThumbnail)) return;
 
-            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-            foreach (ServerEntry serverEntry in serverEntries)
-            {
-                ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
-            }
+            //foreach (ServerEntry serverEntry in serverEntries)
+            //{
+            //    ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
+            //}
             
         }
 
         private void btnUnInstallStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            if (!File.Exists(stlViewerThumbnail)) return;
+            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            //if (!File.Exists(stlViewerThumbnail)) return;
 
-            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-            foreach (ServerEntry serverEntry in serverEntries)
-            {
-                ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-            }
+            //foreach (ServerEntry serverEntry in serverEntries)
+            //{
+            //    ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+            //}
         }
     }
 
