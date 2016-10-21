@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nevron.Nov.Host.Silverlight</name>
+    </assembly>
+    <members>
+        <member name="T:Nevron.Nov.Windows.NHostSilverlightLoadAssemblyType">
+            <summary>
+            Dummy type used to explicitly load the Nevron.Nov.Host.Silverlight assembly
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Office.NInBrowserCloseHandler`1">
+            <summary>
+            Handles the close event of the application when in browser.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Office.NSLApplication`1">
+            <summary>
+            Base class for NOV Silverlight applications.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Office.NSLApplication`1.CreateOptions">
+            <summary>
+            Creates the application options.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovApplicationInstaller">
+            <summary>
+            The Silverlight Application installer. 
+            Make sure to call its Install() method in the constructor of your Silverlight application's main page  
+            prior to using Nevron Open Vision Products. For example:
+            <code>
+            public partial class MainPage : UserControl
+            {
+                public MainPage()
+                {
+                    NApplicationInstaller.Install();
+                    InitializeComponent();
+                }
+            }
+            </code>
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovApplicationInstaller.Install(Nevron.Nov.NModule[])">
+            <summary>
+            Installs the services needed for Windows Forms applications
+            </summary>
+            <param name="modules"></param>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NSLDesktop">
+            <summary>
+            Represents the Silverlight Desktop singleton. 
+            It is by default made to be the RootVisual of your Silverlight application.
+            You can place arbitrary Silverlight controls in the UserLayer of the Desktop, which is a UserControl.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NSLDesktop.ArrangeOverride(System.Windows.Size)">
+            <summary>
+            Overriden to stretch all layers to the size of the desktop
+            </summary>
+            <param name="finalSize"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Nevron.Nov.Windows.NSLDesktop.Instance">
+            <summary>
+            The instance of the Nevron Silverlight Desktop
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Windows.NSLDesktop.UserLayer">
+            <summary>
+            Gets the desktop user layer. The user layer can be popuplated with arbitrary Silverlight controls,
+            including the NSLChildWindowHost, which can host an arbitrary NOV NChildWindow instance.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NSLUserLayer">
+            <summary>
+            A User Control that hosts the user defined Silverlight content
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovControlHost`1">
+            <summary>
+            A System.Windows.Controls.ContentControl that contains a NOV widget of a certain type.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovWidgetHost`1">
+            <summary>
+            A System.Windows.Controls.ContentControl that contains a NOV widget of a certain type.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovChildWindowHost">
+            <summary>
+            A System.Windows.Controls.ContentControl which can host a Nevron Open Vision NChildWindow.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovChildWindowHost.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovChildWindowHost.MeasureOverride(System.Windows.Size)">
+            <summary>
+            
+            </summary>
+            <param name="constraint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovWidgetHost`1.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovWidgetHost`1.#ctor(`0)">
+            <summary>
+            Creates a new NNovWidget that hosts the specified widget.
+            </summary>
+            <param name="widget"></param>
+        </member>
+        <member name="P:Nevron.Nov.Windows.NNovWidgetHost`1.Widget">
+            <summary>
+            Gets the widget contained inside the host
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovControlHost`1.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+    </members>
+</doc>

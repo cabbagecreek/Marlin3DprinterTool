@@ -60,6 +60,8 @@ namespace Marlin3DprinterTool
             }
         }
 
+        
+
         /// <summary>
         /// </summary>
         /// <param name="verticalJogControl"></param>
@@ -127,6 +129,10 @@ namespace Marlin3DprinterTool
                 foreach (TabPage tabPage in tabControl.TabPages)
                 {
                     tabPage.Enabled = enable;
+
+
+
+
                 }
             }
         }
@@ -297,6 +303,26 @@ namespace Marlin3DprinterTool
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tabPage"></param>
+        /// <param name="enable"></param>
+        public void TabPageEnable(TabPage tabPage, bool enable)
+        {
+            if (tabPage.InvokeRequired)
+            {
+                TabPageEnableCallback d = TabPageEnable;
+                _frm3DprinterTool.Invoke(d, tabPage, enable);
+            }
+            else
+            {
+                ((Control)tabPage).Enabled = false;
+               
+            }
+        }
+
+       
 
         // Delegate
         private delegate void DelegateVerticalJogControlCallback(
@@ -325,6 +351,8 @@ namespace Marlin3DprinterTool
         private delegate void SetExtruderTempCallback(Chart chart, int time, int extruderTemp, int setExtruderTemp);
 
         private delegate int TabControl3DprinterToolSelectedIndexCallback(TabControl tabControl);
+
+        private delegate void TabPageEnableCallback(TabPage tabPage, bool enable);
 
         //!Delegate
     }

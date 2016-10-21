@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nevron.Nov.Host.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:Nevron.Nov.Windows.NHostWinFormLoadAssemblyType">
+            <summary>
+            Dummy type used to explicitly load the Nevron.Nov.Host.Wpf assembly
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Nevron.Nov.Windows.NHostWpfLoadAssemblyType" -->
+        <member name="T:Nevron.Nov.Windows.NNovControlHost`1">
+            <summary>
+            A WPF control that contains a NOV widget of a certain type.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovWidgetHost`1">
+            <summary>
+            A Windows Forms control that contains a NOV widget of a certain type.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovChildWindowHost">
+            <summary>
+            A System.Windows.Controls.ContentControl which can host a Nevron Open Vision NChildWindow.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovChildWindowHost.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovChildWindowHost.MeasureOverride(System.Windows.Size)">
+            <summary>
+            
+            </summary>
+            <param name="constraint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovWidgetHost`1.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovWidgetHost`1.#ctor(`0)">
+            <summary>
+            Creates a new NNovControl that hosts the specified widget.
+            </summary>
+            <param name="widget"></param>
+        </member>
+        <member name="P:Nevron.Nov.Windows.NNovWidgetHost`1.Widget">
+            <summary>
+            Gets/Sets the NOV widget contained by this host.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Windows.NNovWidgetHost`1.DesignTimeState">
+            <summary>
+            The design time state of the widget.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovControlHost`1.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovControlHost`1.#ctor(`0)">
+            <summary>
+            Creates a new NNovControl that hosts the specified widget.
+            </summary>
+            <param name="widget"></param>
+        </member>
+        <member name="T:Nevron.Nov.Windows.NNovApplicationInstaller">
+            <summary>
+            The WPF Application installer. 
+            Make sure to call its Install() method in your WPF application Main() 
+            function prior to using Nevron Open Vision Products. For example:
+            <code>
+            static class Program
+            {
+            	[STAThread]
+            	static void Main()
+            	{
+            		// install Nevron Open Vision for WPF
+            		NWPFApplicationInstaller.Install();
+            
+            		// show the main form
+            		try
+            		{
+            			Application app = new Application();
+            			app.Run(new Nevron.Examples.Wpf.NMainWindow());
+            		}
+            		catch (Exception ex)
+            		{
+            			System.Diagnostics.NDebug.Assert(false, ex.Message, ex.StackTrace);
+            		}
+            	}
+            }
+            </code>
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovApplicationInstaller.Install(Nevron.Nov.NModule[])">
+            <summary>
+            Installs the services needed for WPF applications
+            </summary>
+            <param name="license"></param>
+            <param name="modules"></param>
+        </member>
+        <member name="M:Nevron.Nov.Windows.NNovApplicationInstaller.InstallServer(Nevron.Nov.NModule[])">
+            <summary>
+            Installs the services needed for a WPF application server
+            </summary>
+            <param name="license"></param>
+            <param name="modules"></param>
+        </member>
+    </members>
+</doc>

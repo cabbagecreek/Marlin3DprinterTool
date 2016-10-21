@@ -91,6 +91,12 @@
                  Target="[INSTALLFOLDER]MarlinEditor.exe" 
                  WorkingDirectory="INSTALLFOLDER"
                  Icon ="Marlin3DprinterTool.ico"  />
+       <Shortcut Id="ApplicationStartMenuShortcutMarlinStlViewer"
+                 Name="Marlin3DprinterStl"
+                 Description="STL viewer"
+                 Target="[INSTALLFOLDER]Marlin3DprinterStlViewer.exe"
+                 WorkingDirectory="INSTALLFOLDER"
+                 Icon ="Marlin3DprinterTool.ico"  />
        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
        <RegistryValue Root="HKCU" Key="Software\Marlin3DprinterTool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
      </Component>
@@ -180,11 +186,7 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.WinForm.dll" />
       </Component>
 
-      <!--Nevron.GraphicsGL.dll -->
-      <Component Id="Nevron.GraphicsGL.dll" Guid="{CBBFBFC1-F9AC-414B-970D-967C68D9B301}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.GraphicsGL.dll" />
-      </Component>
-
+      
       <!--Nevron.Presentation.dll -->
       <Component Id="Nevron.Presentation.dll" Guid="{C6E377FB-40C9-49F9-95B3-F7F152EC481B}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Presentation.dll" />
@@ -242,8 +244,14 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditor.exe" />
       </Component>
 
-      
-      <!-- Marlin3DprinterTool.exe.config -->
+        
+      <!-- Marlin3DprinterStlViewer.exe -->
+      <Component Id="Marlin3DprinterStlViewer.exe" Guid="{73837F95-9A75-4B4F-B4C0-D64DE447A422}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterStlViewer.exe" />
+      </Component>
+
+
+        <!-- Marlin3DprinterTool.exe.config -->
       <Component Id="Marlin3DprinterTool.exe.config" NeverOverwrite="yes" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe.config" />
       </Component>

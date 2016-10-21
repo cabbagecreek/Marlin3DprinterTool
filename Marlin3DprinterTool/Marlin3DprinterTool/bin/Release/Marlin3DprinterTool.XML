@@ -99,6 +99,13 @@
             <param name="bedTemp"></param>
             <param name="setBedTemp"></param>
         </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.TabPageEnable(System.Windows.Forms.TabPage,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="tabPage"></param>
+            <param name="enable"></param>
+        </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>
             </summary>

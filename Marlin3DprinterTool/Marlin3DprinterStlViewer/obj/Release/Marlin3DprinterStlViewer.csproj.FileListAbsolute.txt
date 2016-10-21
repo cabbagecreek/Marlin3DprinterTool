@@ -1,5 +1,4 @@
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\Release\Marlin3DprinterStlViewer.exe.config
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\Release\StlViewerThumbnailHandlerClass.cs
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\Release\Marlin3DprinterStlViewer.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\Release\Marlin3DprinterStlViewer.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\Release\Apex.WinForms.dll
@@ -24,3 +23,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\Release\Marlin3DprinterStlViewer.csproj.GenerateResource.Cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\Release\Marlin3DprinterStlViewer.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\Release\Marlin3DprinterStlViewer.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\Release\Marlin3DprinterStlViewer.csprojResolveAssemblyReference.cache

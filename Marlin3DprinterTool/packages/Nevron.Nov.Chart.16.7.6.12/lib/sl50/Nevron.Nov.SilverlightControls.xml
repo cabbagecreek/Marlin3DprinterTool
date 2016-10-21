@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nevron.Nov.SilverlightControls</name>
+    </assembly>
+    <members>
+        <member name="T:Nevron.Nov.SilverlightControls.NNovLinearBarcodeControl">
+            <summary>
+            Represents a linear barcode control
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.SilverlightControls.NNovLinearBarcodeControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.SilverlightControls.NNovMatrixBarcodeControl">
+            <summary>
+            Represents a matrix barcode control
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.SilverlightControls.NNovMatrixBarcodeControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.SilverlightControls.NNovLinearGaugeControl">
+            <summary>
+            Represents a linear gauge control
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.SilverlightControls.NNovLinearGaugeControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.SilverlightControls.NNovNumericLedDisplayControl">
+            <summary>
+            Represents a radial gauge control
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.SilverlightControls.NNovNumericLedDisplayControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.SilverlightControls.NNovRadialGaugeControl">
+            <summary>
+            Represents a radial gauge control
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.SilverlightControls.NNovRadialGaugeControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.SilverlightControls.NNovRichTextViewControl">
+            <summary>
+            Represents a rich text editor
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.SilverlightControls.NNovRichTextViewControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,738 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nevron.Nov.Barcode</name>
+    </assembly>
+    <members>
+        <member name="T:Nevron.Nov.Barcode.NLinearBarcodeSymbology">
+            <summary>
+            Base class for all linear barcode symbologies.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodeSymbology.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodeSymbology.Encode(System.String@)">
+            <summary>
+            Encodes the given barcode.
+            </summary>
+            <param name="barcode">The barcode to encode. Can be changed by the encoding process
+            (for example by adding or correcting a check digit).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodeSymbology.PaintBarcode(Nevron.Nov.Barcode.NLinearBarcodePainter,Nevron.Nov.Dom.NPaintVisitor,System.Boolean)">
+            <summary>
+            Paints the given encoded value using the paint rules of this symbology.
+            </summary>
+            <param name="painter"></param>
+            <param name="visitor"></param>
+            <param name="labelVisible"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodeSymbology.PaintLabel(Nevron.Nov.Barcode.NLinearBarcodePainter,Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Paints the given barcode label using the paint rules of this symbology.
+            </summary>
+            <param name="painter"></param>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NLinearBarcodeSymbology.Type">
+            <summary>
+            Gets the type of this barcode symbology.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NMatrixBarcodeSymbology">
+            <summary>
+            Represents a matrix barcode symbology.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcodeSymbology.Encode(System.String,Nevron.Nov.Barcode.ENErrorCorrectionLevel)">
+            <summary>
+            Encodes the given barcode.
+            </summary>
+            <param name="barcode"></param>
+            <param name="errorCorrection"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcodeSymbology.Type">
+            <summary>
+            Gets the type of this matrix barcode symbology.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcodeSymbology.XScaleFactor">
+            <summary>
+            Gets the X scale factor.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcodeSymbology.YScaleFactor">
+            <summary>
+            Gets the Y scale factor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NMatrixBarcode">
+            <summary>
+            A widget, which renders a matrix (2D) barcode.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NBarcode">
+            <summary>
+            Base class for all barcode widgets.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.AppendContextMenuItems(Nevron.Nov.UI.NMenu,System.Boolean)">
+            <summary>
+            Appends the context menu items for this widget to the given menu.
+            </summary>
+            <param name="menu"></param>
+            <param name="readOnly"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.OnPrePaint(Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Performs the element pre children paint. Overriden to paint the barcode.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.GetBarcodePaintBounds">
+            <summary>
+            Gets the bounds in which the barcode should be painted. The rectangle returned is always
+            inside (or coincides) with the content edge bounds of the widget.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.CreatePainter">
+            <summary>
+            Creates a painter that should paint this widget's barcode.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.CreateEditMenuItem">
+            <summary>
+            Creates the "Edit Barcode" menu item.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.UpdatePainter">
+            <summary>
+            Updates the barcode painter from the settings of this barcode widget.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.OnEditMenuItemClick(Nevron.Nov.Dom.NEventArgs)">
+            <summary>
+            Called when the "Edit Barcode" menu item has been clicked.
+            </summary>
+            <param name="arg"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.OnEditDialogClosed(Nevron.Nov.Dom.NEventArgs)">
+            <summary>
+            Called when the edit dialog has been closed.
+            </summary>
+            <param name="arg"></param>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NBarcode.m_Painter">
+            <summary>
+            The painter that should be used to paint this barcode.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NBarcode.NBarcodeSchema">
+            <summary>
+            Schema associated with NBarcode.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NBarcode.ScaleProperty">
+            <summary>
+            Reference to the Scale property.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NBarcode.SizeModeProperty">
+            <summary>
+            Reference to the SizeMode property.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NBarcode.TextProperty">
+            <summary>
+            Reference to the Text property.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcode.SizeMode">
+            <summary>
+            Determines the way the barcode is sized in its slot.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcode.Scale">
+            <summary>
+            Gets/Sets the scale of the barcode. Valid only if the SizeMode is set to Scale.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcode.Text">
+            <summary>
+            Gets/Sets the text encoded by this barcode.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NBarcode.NBarcodeDesigner">
+            <summary>
+            Base class for barcode widget designers.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcode.NBarcodeDesigner.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.MeasureContent(System.Boolean)">
+            <summary>
+            Measures the element content.
+            </summary>
+            <param name="defaultMeasure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.GetBarcodePaintBounds">
+            <summary>
+            Gets the bounds in which the barcode should be painted. The rectangle returned is always
+            inside (or coincides) with the content edge bounds of the widget.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.CreatePainter">
+            <summary>
+            Creates a painter that should paint this widget's barcode.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.UpdatePainter">
+            <summary>
+            Updates the barcode painter from the settings of this barcode widget.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.CreateEditMenuItem">
+            <summary>
+            Creates the edit menu item.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NMatrixBarcode.NMatrixBarcodeSchema">
+            <summary>
+            Schema associated with NMatrixBarcode.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NMatrixBarcode.ErrorCorrectionProperty">
+            <summary>
+            Reference to the ErrorCorrection property.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NMatrixBarcode.SymbologyProperty">
+            <summary>
+            Reference to the Symbology property.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcode.ErrorCorrection">
+            <summary>
+            Gets/Sets the error correction level of this matrix barcode.
+            Currently taken into account only by the QR Code barcode symbology.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcode.Symbology">
+            <summary>
+            Gets/Sets the symbology of this matrix barcode.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NMatrixBarcode.NMatrixBarcodeDesigner">
+            <summary>
+            Designer for matrix barcode widgets.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcode.NMatrixBarcodeDesigner.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NMatrixBarcodePainter">
+            <summary>
+            Paints matrix (2D) barcodes.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NBarcodePainter">
+            <summary>
+            Base class for all barcode painters.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodePainter.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodePainter.CreateRaster(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Creates a raster with the given size and renders the barcode in it.
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="resolution"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodePainter.Paint(Nevron.Nov.Dom.NPaintVisitor,Nevron.Nov.Graphics.NRectangle)">
+            <summary>
+            Paints the barcode in the specified bounds on the given paint visitor.
+            </summary>
+            <param name="visitor"></param>
+            <param name="bounds"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodePainter.OnTextChanged(System.String,System.String)">
+            <summary>
+            Called when the value of the Text property has changed.
+            </summary>
+            <param name="oldValue"></param>
+            <param name="newValue"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodePainter.Paint(Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Called to paint the barcode on the given paint visitor.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NBarcodePainter.m_PaintBounds">
+            <summary>
+            The bounds in which the barcode should be painted.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcodePainter.BackgroundFill">
+            <summary>
+            Gets/Sets the background fill of the barcode.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcodePainter.TextFill">
+            <summary>
+            Gets/Sets the text (foreground) fill of the barcode.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcodePainter.Text">
+            <summary>
+            Gets/Sets the barcode text to encode and paint.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcodePainter.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcodePainter.OnTextChanged(System.String,System.String)">
+            <summary>
+            Called when the text of the barcode has changed.
+            </summary>
+            <param name="oldValue"></param>
+            <param name="newValue"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcodePainter.Paint(Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Paints the barcode.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcodePainter.InvalidateBarcode">
+            <summary>
+            Invalidates the barcode, so it will be reencoded on the next paint.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NMatrixBarcodePainter.OnSymbologyChanged(Nevron.Nov.Barcode.NMatrixBarcodeSymbology)">
+            <summary>
+            Called when the symbology has changed.
+            </summary>
+            <param name="symbology"></param>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcodePainter.Symbology">
+            <summary>
+            Gets/Sets the symbology type of the matrix barcode this painter should paint.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NMatrixBarcodePainter.ErrorCorrection">
+            <summary>
+            Gets/Sets the error correction level used by this painter.
+            Currently taken into account only by the QR Code barcode symbology.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NLinearBarcode">
+            <summary>
+            A widget, which renders a linear (1D) barcode.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.MeasureContent(System.Boolean)">
+            <summary>
+            Measures the element content.
+            </summary>
+            <param name="defaultMeasure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.GetBarcodePaintBounds">
+            <summary>
+            Gets the bounds in which the barcode should be painted. The rectangle returned is always
+            inside (or coincides) with the content edge bounds of the widget.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.CreatePainter">
+            <summary>
+            Creates a painter that should paint this widget's barcode.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.UpdatePainter">
+            <summary>
+            Updates the barcode painter from the settings of this barcode widget.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.CreateEditMenuItem">
+            <summary>
+            Creates the edit menu item.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NLinearBarcode.NLinearBarcodeSchema">
+            <summary>
+            Schema associated with NLinearBarcode.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NLinearBarcode.SymbologyProperty">
+            <summary>
+            Reference to the Symbology property.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NLinearBarcode.Symbology">
+            <summary>
+            Gets/Sets the symbology of this linear barcode.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NLinearBarcode.NLinearBarcodeDesigner">
+            <summary>
+            Designer for linear barcode widgets.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcode.NLinearBarcodeDesigner.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NBarcodeLoadAssemblyType">
+            <summary>
+            Dummy type used to explicitly load the Nevron.Nov.BarCode assembly
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodeLoadAssemblyType.Dispose">
+            <summary>
+            Disposes the dummy barcode load assembly type.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NBarcodeModule">
+            <summary>
+            Represents the Nevron Barcode module.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NBarcodeModule.Install">
+            <summary>
+            Installs the module.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NBarcodeModule.Instance">
+            <summary>
+            Gets the instance of this module.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.ENLinearBarcodeSymbology">
+            <summary>
+            Enumerates the supported linear (1D) barcode symbologies.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Codabar">
+            <summary>
+            Codabar symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code11">
+            <summary>
+            Code 11 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code39">
+            <summary>
+            Code 39 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code39Extended">
+            <summary>
+            Code 39 extended symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code93">
+            <summary>
+            Code 93 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code128">
+            <summary>
+            Code 128 Auto symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code128A">
+            <summary>
+            Code 128 subset A symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code128B">
+            <summary>
+            Code 128 subset B symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Code128C">
+            <summary>
+            Code 128 subset C symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.EAN8">
+            <summary>
+            EAN8 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.EAN13">
+            <summary>
+            EAN13 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.FIM">
+            <summary>
+            Facing Identification Mark symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Interleaved2of5">
+            <summary>
+            Interleaved 2 of 5 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.ISBN">
+            <summary>
+            ISBN symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.ITF14">
+            <summary>
+            ITF14 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.JAN13">
+            <summary>
+            JAN13 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.MSI_2Mod10">
+            <summary>
+            MSI 2 modulo 10 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.MSI_Mod10">
+            <summary>
+            MSI modulo 10 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.MSI_Mod11">
+            <summary>
+            MSI modulo 11 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.MSI_Mod11_Mod10">
+            <summary>
+            MSI modulo 11 / modulo 10 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Pharmacode">
+            <summary>
+            Pharmaceutical Binary Code (Pharmacode) symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.PostNet">
+            <summary>
+            PostNet symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Standard2of5">
+            <summary>
+            Standard 2 of 5 symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.Telepen">
+            <summary>
+            Telepen symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.UPCA">
+            <summary>
+            Universal Product Code A (UPCA) symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.UPCE">
+            <summary>
+            Zero-suppressed Universal Product Code (UPCE) symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.UPC_Supplemental_2Digit">
+            <summary>
+            UPC-2 symbology - a 2-digit supplement to the UPC used to indicate the edition of a magazine or periodical.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENLinearBarcodeSymbology.UPC_Supplemental_5Digit">
+            <summary>
+            UPC-5 symbology - a 5-digit supplement to the UPC used to indicate suggested retail price for books.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.ENMatrixBarcodeSymbology">
+            <summary>
+            Enumerates the supported matrix (2D) barcode symbologies.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENMatrixBarcodeSymbology.DataMatrix">
+            <summary>
+            Data Matrix symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENMatrixBarcodeSymbology.QrCode">
+            <summary>
+            QR Code symbology.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENMatrixBarcodeSymbology.Pdf417">
+            <summary>
+            PDF 417 symbology.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.ENBarcodeSizeMode">
+            <summary>
+            Enumerates the QR code size modes.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENBarcodeSizeMode.Scale">
+            <summary>
+            The barcode size is calculated based on its Scale property.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENBarcodeSizeMode.Fit">
+            <summary>
+            The barcode is drawn with such scale so that it fits the bounds of the widget
+            (the Scale property is not taken into account).
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.ENErrorCorrectionLevel">
+            <summary>
+            Enumerates the 2D barcode error correction levels.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENErrorCorrectionLevel.Low">
+            <summary>
+            7% of codewords can be restored.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENErrorCorrectionLevel.Medium">
+            <summary>
+            15% of codewords can be restored.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENErrorCorrectionLevel.Quartile">
+            <summary>
+            25% of codewords can be restored.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.ENErrorCorrectionLevel.High">
+            <summary>
+            30% of codewords can be restored.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NLinearBarcodePainter">
+            <summary>
+            Paints linear barcodes.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.OnTextChanged(System.String,System.String)">
+            <summary>
+            Called when the text of the barcode has changed.
+            </summary>
+            <param name="oldValue"></param>
+            <param name="newValue"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.Paint(Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Paints the barcode.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.InvalidateBarcode">
+            <summary>
+            Invalidates the barcode, so it will be reencoded on the next paint.
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.OnSymbologyChanged(Nevron.Nov.Barcode.NLinearBarcodeSymbology)">
+            <summary>
+            Called when the symbology has changed.
+            </summary>
+            <param name="symbology"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.PaintBarcode(Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Paints the barcode on the given visitor.
+            </summary>
+            <param name="visitor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.PaintError(Nevron.Nov.Dom.NPaintVisitor,System.Char[])">
+            <summary>
+            Paints the given error message.
+            </summary>
+            <param name="visitor"></param>
+            <param name="errorMessage"></param>
+        </member>
+        <member name="M:Nevron.Nov.Barcode.NLinearBarcodePainter.PaintLabel(Nevron.Nov.Dom.NPaintVisitor)">
+            <summary>
+            Paints the barcode label on the given visitor.
+            </summary>
+            <param name="visitor"></param>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NLinearBarcodePainter.Font">
+            <summary>
+            Gets/Sets the font of the barcode.
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Barcode.NLinearBarcodePainter.Symbology">
+            <summary>
+            Gets/Sets the symbology type of the linear barcode this painter should paint.
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Barcode.NResources">
+            <summary>
+            DO NOT MODIFY MANUALLY. Automatically generated by NResourceMaker.
+            </summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NResources.RBIN_QrCodeData_zip">
+            <summary></summary>
+        </member>
+        <member name="F:Nevron.Nov.Barcode.NResources.Instance">
+            <summary>
+            Singleton instance.
+            </summary>
+        </member>
+    </members>
+</doc>

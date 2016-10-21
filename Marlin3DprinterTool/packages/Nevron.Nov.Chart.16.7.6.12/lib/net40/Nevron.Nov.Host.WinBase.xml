@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nevron.Nov.Host.WinBase</name>
+    </assembly>
+    <members>
+        <member name="T:Nevron.Nov.Windows.NHostWinBaseLoadAssemblyType">
+            <summary>
+            Dummy type used to explicitly load the Nevron.Nov.WinHost.Base assembly
+            </summary>
+        </member>
+        <member name="T:Nevron.Nov.Data.NCLRDataTableDataTableAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.GetValue(System.Int32,System.Int32)">
+            <summary>
+            Gets the value for a given [row:field]
+            </summary>
+            <param name="row"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.GetFieldIndex(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.GetFieldInfo(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.RowCount">
+            <summary>
+            Gets the count of rows in the data table
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.FieldCount">
+            <summary>
+            Gets the count of fields in the data table
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanAddRow">
+            <summary>
+            Determines whether the data table supports the AddRow operation
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanInsertRow">
+            <summary>
+            Determines whether the data table supports the InsertRow operation
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanRemoveRow">
+            <summary>
+            Determines whether the data table supports the RemoveRow operation
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanAddField">
+            <summary>
+            Determines whether the data table supports the AddField operation
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanInsertField">
+            <summary>
+            Determines whether the data table supports the InsertField operation
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanRemoveField">
+            <summary>
+            Determines whether the data table supports the RemoveField operation
+            </summary>
+        </member>
+        <member name="P:Nevron.Nov.Data.NCLRDataTableDataTableAdapter.CanRenameField">
+            <summary>
+            Determines whether the data table supports the SetFieldName operation
+            </summary>
+        </member>
+    </members>
+</doc>
