@@ -8,8 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <helix:HelixViewport3D x:Name="myViewPort3D" Grid.RowSpan="3"  AllowDrop="True" >
-
+        <helix:HelixViewport3D x:Name="myViewPort3D" Grid.RowSpan="3"  AllowDrop="True"  >
             <helix:SunLight />
             <ModelVisual3D x:Name="StlModel"></ModelVisual3D>
         </helix:HelixViewport3D>
