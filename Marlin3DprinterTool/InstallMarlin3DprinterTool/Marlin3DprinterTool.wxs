@@ -217,10 +217,21 @@
       <!--SharpShell.dll -->
       <Component Id="SharpShell.dll" Guid="{BE48F854-BD58-4FC7-AFED-CBCF6AEDA3EE}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\SharpShell.dll" />
-      </Component> 
-  
-  
-  
+      </Component>
+     
+
+      <!--srm.exe -->
+      <Component Id="srm.exe" Guid="{8B7ACC6D-535D-4701-B645-8FFDE3E4F1ED}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\srm.exe" />
+      </Component>
+
+      <!--ServerManager.exe -->
+      <Component Id="ServerManager.exe" Guid="{6594131E-6F30-41CD-9764-2347DA78AE20}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\ServerManager.exe" />
+      </Component>
+      
+      
+
     </ComponentGroup>
   
   </Fragment>
