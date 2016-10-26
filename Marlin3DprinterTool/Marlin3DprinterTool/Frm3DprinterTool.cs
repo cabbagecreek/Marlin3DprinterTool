@@ -16,6 +16,7 @@ using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
 using ServerManager;
+using SharpShell.Diagnostics;
 using SharpShell.ServerRegistration;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
@@ -2150,44 +2151,8 @@ namespace Marlin3DprinterTool
         }
 
 
-        //private static void SetAssociation(string extension, string keyName, string openWith, string fileDescription)
-        //{
-            
-
-
-
-
-        //    //RegistryKey stlKey = Registry.ClassesRoot.OpenSubKey(".stl") ?? Registry.ClassesRoot.CreateSubKey(".stl");
-
-
-
-        //    //var stlType = stlKey.GetValue("");
-
-
-
-        //    //// Then you find out the path to your executable and build the "command string":
-
-        //    //String myExecutable = openWith;
-        //    //String command = "\"" + myExecutable + "\"" + " \"%1\"";
-        //    ////And register your executable to open files of that type:
-
-        //    //keyName = stlType + @"\shell\Open\command";
-        //    //using (var key = Registry.ClassesRoot.CreateSubKey(keyName))
-        //    //{
-        //    //    key.SetValue("", command);
-        //    //}
-
-
-
-
-
-        //    // Tell explorer the file association has been changed
-        //    SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-
-        //}
-
-        //[DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        //private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+        
+        
 
         private void btnInstallStlServer_Click(object sender, EventArgs e)
         {
@@ -2203,7 +2168,9 @@ namespace Marlin3DprinterTool
                 SharpShell.ServerRegistration.ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
             }
 
-            
+            ExplorerManager.RestartExplorer();
+
+
         }
 
         
@@ -2220,7 +2187,13 @@ namespace Marlin3DprinterTool
                 SharpShell.ServerRegistration.ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
                 SharpShell.ServerRegistration.ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
             }
-        }   
+            ExplorerManager.RestartExplorer();
+        }
+
+        private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
+        {
+            ExplorerManager.RestartExplorer();
+        }
     }
 
 
@@ -2275,6 +2248,7 @@ namespace Marlin3DprinterTool
         {
             Registry.ClassesRoot.CreateSubKey(extension).SetValue("", progID);
             if (progID != null && progID.Length > 0)
+            {
                 using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progID))
                 {
                     if (description != null)
@@ -2283,8 +2257,10 @@ namespace Marlin3DprinterTool
                         key.CreateSubKey("DefaultIcon").SetValue("", ToShortPathName(icon));
                     if (application != null)
                         key.CreateSubKey(@"Shell\Open\Command").SetValue("",
-                                    ToShortPathName(application) + " \"%1\"");
+                            ToShortPathName(application) + " \"%1\"");
                 }
+                SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+            }
         }
 
         /// <summary>
@@ -2310,5 +2286,13 @@ namespace Marlin3DprinterTool
             uint iRet = GetShortPathName(longName, s, iSize);
             return s.ToString();
         }
+
+        //    // Tell explorer the file association has been changed
+        //    SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+
+        //}
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
     }
 }
