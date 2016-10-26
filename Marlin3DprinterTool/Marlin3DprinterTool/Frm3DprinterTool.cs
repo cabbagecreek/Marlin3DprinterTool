@@ -53,25 +53,14 @@ namespace Marlin3DprinterTool
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
+            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
             PopulateComboBoxes();
             PopulateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
 
         }
 
-        //private void EnableTabPages(bool enable)
-        //{
-        //    DeligateAndInvoke.TabPageEnable(tabPageEndstop, enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPageBedLevel,enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPageConfigurateZprobe,enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPageConfigurationBed,enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPageExtruderCalibration,enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPagePID,enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPageZMaintenance,enable);
-        //    DeligateAndInvoke.TabPageEnable(tabPageCalculations, true);
-        //    DeligateAndInvoke.TabPageEnable(tabPageStlViewer,true);
-        //}
+        
 
 
         private void PopulateConfig()
