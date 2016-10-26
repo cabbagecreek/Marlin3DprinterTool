@@ -1,6 +1,0 @@
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.csprojResolveAssemblyReference.cache
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.FrmMarlin3DprinterTool.resources
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.Properties.Resources.resources
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.csproj.GenerateResource.Cache
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.exe.licenses
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterTool.exe.config
