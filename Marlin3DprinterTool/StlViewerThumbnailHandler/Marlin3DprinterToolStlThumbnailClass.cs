@@ -64,11 +64,15 @@ namespace Marlin3DprinterToolStlThumbnail
                     //...create UI controls...
 
                     Viewport3D viewport = new Viewport3D();
+                    
 
-                    viewport.Measure(new System.Windows.Size(320, 240));
-                    viewport.Arrange(new Rect(0, 0, 320, 240));
+                    // viewport.Measure(new System.Windows.Size(320, 240));
+                    viewport.Measure(new System.Windows.Size(width, width));
+                    // viewport.Arrange(new Rect(0, 0, 320, 240));
+                    viewport.Arrange(new Rect(0, 0, width, width));
 
                     ModelVisual3D root = new ModelVisual3D();
+                    
                     viewport.Children.Add(root);
 
 
@@ -85,6 +89,8 @@ namespace Marlin3DprinterToolStlThumbnail
                     root.Children.Add(new DefaultLights());
                         
                     root.Content = model;
+
+                    
 
                     CameraHelper.ZoomExtents(camera, viewport);
 

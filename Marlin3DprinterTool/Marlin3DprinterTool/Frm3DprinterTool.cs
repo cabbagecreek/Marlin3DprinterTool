@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
@@ -13,8 +15,11 @@ using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
+using ServerManager;
+using SharpShell.ServerRegistration;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
+using ServerRegistrationManager = SharpShell.ServerRegistration.ServerRegistrationManager;
 
 namespace Marlin3DprinterTool
 {
@@ -48,7 +53,7 @@ namespace Marlin3DprinterTool
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
+            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
             PopulateComboBoxes();
             PopulateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
@@ -2150,100 +2155,83 @@ namespace Marlin3DprinterTool
 
         private void btnAssociateStlViewer_Click(object sender, EventArgs e)
         {
-            string stlViewerExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "STLviewer.exe");
-            SetAssociation(".stl", "Marlin3DprinterTool_STLviewer", stlViewerExe, "STL 3D model file");
+            string stlViewerExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterStlViewer.exe");
+            //SetAssociation(".stl", "Marlin3DprinterTool_STLviewer", stlViewerExe, "STL 3D model file");
+            FileAssociation.Associate(".stl","Marlin3DprinterToolSTLviewer","MarlinSTLviewer","Marlin3DprinterTool.ico",stlViewerExe);
         }
 
 
-        private static void SetAssociation(string Extension, string KeyName, string OpenWith, string FileDescription)
-        {
-            RegistryKey BaseKey;
-            RegistryKey OpenMethod;
-            RegistryKey Shell;
-            RegistryKey CurrentUser;
+        //private static void SetAssociation(string extension, string keyName, string openWith, string fileDescription)
+        //{
+            
 
-            BaseKey = Registry.ClassesRoot.CreateSubKey(Extension);
-            BaseKey.SetValue("", KeyName);
 
-            OpenMethod = Registry.ClassesRoot.CreateSubKey(KeyName);
-            OpenMethod.SetValue("", FileDescription);
-            OpenMethod.CreateSubKey("DefaultIcon").SetValue("", "\"" + OpenWith + "\",0");
-            Shell = OpenMethod.CreateSubKey("Shell");
-            Shell.CreateSubKey("edit").CreateSubKey("command").SetValue("", "\"" + OpenWith + "\"" + " \"%1\"");
-            Shell.CreateSubKey("open").CreateSubKey("command").SetValue("", "\"" + OpenWith + "\"" + " \"%1\"");
-            BaseKey.Close();
-            OpenMethod.Close();
-            Shell.Close();
 
-            CurrentUser = Registry.CurrentUser.CreateSubKey(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ucs");
-            CurrentUser = CurrentUser.OpenSubKey("UserChoice", RegistryKeyPermissionCheck.ReadWriteSubTree, System.Security.AccessControl.RegistryRights.FullControl);
-            CurrentUser.SetValue("Progid", KeyName, RegistryValueKind.String);
-            CurrentUser.Close();
 
-            // Tell explorer the file association has been changed
-            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+        //    //RegistryKey stlKey = Registry.ClassesRoot.OpenSubKey(".stl") ?? Registry.ClassesRoot.CreateSubKey(".stl");
 
-        }
 
-        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+
+        //    //var stlType = stlKey.GetValue("");
+
+
+
+        //    //// Then you find out the path to your executable and build the "command string":
+
+        //    //String myExecutable = openWith;
+        //    //String command = "\"" + myExecutable + "\"" + " \"%1\"";
+        //    ////And register your executable to open files of that type:
+
+        //    //keyName = stlType + @"\shell\Open\command";
+        //    //using (var key = Registry.ClassesRoot.CreateSubKey(keyName))
+        //    //{
+        //    //    key.SetValue("", command);
+        //    //}
+
+
+
+
+
+        //    // Tell explorer the file association has been changed
+        //    SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+
+        //}
+
+        //[DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        //private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
         private void btnInstallStlServer_Click(object sender, EventArgs e)
         {
-            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            //if (!File.Exists(stlViewerThumbnail)) return;
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            if (!File.Exists(stlViewerThumbnail)) return;
 
-            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-            //foreach (ServerEntry serverEntry in serverEntries)
-            //{
-            //    ServerRegistrationManager.InstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
-            //}
+            foreach (ServerEntry serverEntry in serverEntries)
+            {
+
+                SharpShell.ServerRegistration.ServerRegistrationManager.InstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
+                SharpShell.ServerRegistration.ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
+            }
+
+            
         }
 
         
 
         private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
         {
-            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            //if (!File.Exists(stlViewerThumbnail)) return;
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            if (!File.Exists(stlViewerThumbnail)) return;
 
-            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-            //foreach (ServerEntry serverEntry in serverEntries)
-            //{
-            //    ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-                
-            //}           
-        }
-
-
-        private void btnRegisterStlServer_Click(object sender, EventArgs e)
-        {
-            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            //if (!File.Exists(stlViewerThumbnail)) return;
-
-            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-            //foreach (ServerEntry serverEntry in serverEntries)
-            //{
-            //    ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
-            //}
-            
-        }
-
-        private void btnUnInstallStlServer_Click(object sender, EventArgs e)
-        {
-            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            //if (!File.Exists(stlViewerThumbnail)) return;
-
-            //IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-            //foreach (ServerEntry serverEntry in serverEntries)
-            //{
-            //    ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-            //}
-        }
+            foreach (ServerEntry serverEntry in serverEntries)
+            {
+                SharpShell.ServerRegistration.ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+                SharpShell.ServerRegistration.ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+            }
+        }   
     }
 
 
@@ -2276,6 +2264,62 @@ namespace Marlin3DprinterTool
         public object ToValue()
         {
             return Value;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class FileAssociation
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="extension"></param>
+        /// <param name="progID"></param>
+        /// <param name="description"></param>
+        /// <param name="icon"></param>
+        /// <param name="application"></param>
+        // Associate file extension with progID, description, icon and application
+        public static void Associate(string extension,
+               string progID, string description, string icon, string application)
+        {
+            Registry.ClassesRoot.CreateSubKey(extension).SetValue("", progID);
+            if (progID != null && progID.Length > 0)
+                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progID))
+                {
+                    if (description != null)
+                        key.SetValue("", description);
+                    if (icon != null)
+                        key.CreateSubKey("DefaultIcon").SetValue("", ToShortPathName(icon));
+                    if (application != null)
+                        key.CreateSubKey(@"Shell\Open\Command").SetValue("",
+                                    ToShortPathName(application) + " \"%1\"");
+                }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="extension"></param>
+        /// <returns></returns>
+        // Return true if extension already associated in registry
+        public static bool IsAssociated(string extension)
+        {
+            return (Registry.ClassesRoot.OpenSubKey(extension, false) != null);
+        }
+
+        [DllImport("Kernel32.dll")]
+        private static extern uint GetShortPathName(string lpszLongPath,
+            [Out] StringBuilder lpszShortPath, uint cchBuffer);
+
+        // Return short path format of a file name
+        private static string ToShortPathName(string longName)
+        {
+            StringBuilder s = new StringBuilder(1000);
+            uint iSize = (uint)s.Capacity;
+            uint iRet = GetShortPathName(longName, s, iSize);
+            return s.ToString();
         }
     }
 }

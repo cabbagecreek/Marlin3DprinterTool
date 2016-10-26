@@ -162,6 +162,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Marlin3DprinterTool.FileAssociation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Marlin3DprinterTool.FileAssociation.Associate(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="extension"></param>
+            <param name="progID"></param>
+            <param name="description"></param>
+            <param name="icon"></param>
+            <param name="application"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.FileAssociation.IsAssociated(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="extension"></param>
+            <returns></returns>
+        </member>
         <member name="M:Marlin3DprinterTool.Program.Main">
             <summary>
                 The main entry point for the application.
