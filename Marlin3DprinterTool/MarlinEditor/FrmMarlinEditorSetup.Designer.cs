@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMarlinEditorSetup));
             this.grpBxCurrentFirmware = new System.Windows.Forms.GroupBox();
-            this.grpBxNewFirmware = new System.Windows.Forms.GroupBox();
-            this.lblDirectoryCurrentFirmware = new System.Windows.Forms.Label();
-            this.txtBxDirectoryCurrentFirmware = new System.Windows.Forms.TextBox();
             this.btnDirectoryCurrentFirmware = new System.Windows.Forms.Button();
+            this.txtBxDirectoryCurrentFirmware = new System.Windows.Forms.TextBox();
+            this.lblDirectoryCurrentFirmware = new System.Windows.Forms.Label();
+            this.grpBxNewFirmware = new System.Windows.Forms.GroupBox();
             this.btnDirectoryNewFirmware = new System.Windows.Forms.Button();
             this.txtBxDirectoryNewFirmware = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -55,38 +55,10 @@
             this.grpBxCurrentFirmware.Controls.Add(this.lblDirectoryCurrentFirmware);
             this.grpBxCurrentFirmware.Location = new System.Drawing.Point(12, 12);
             this.grpBxCurrentFirmware.Name = "grpBxCurrentFirmware";
-            this.grpBxCurrentFirmware.Size = new System.Drawing.Size(1019, 58);
+            this.grpBxCurrentFirmware.Size = new System.Drawing.Size(1019, 155);
             this.grpBxCurrentFirmware.TabIndex = 0;
             this.grpBxCurrentFirmware.TabStop = false;
             this.grpBxCurrentFirmware.Text = "Current Firmware";
-            // 
-            // grpBxNewFirmware
-            // 
-            this.grpBxNewFirmware.Controls.Add(this.btnDirectoryNewFirmware);
-            this.grpBxNewFirmware.Controls.Add(this.txtBxDirectoryNewFirmware);
-            this.grpBxNewFirmware.Controls.Add(this.label1);
-            this.grpBxNewFirmware.Location = new System.Drawing.Point(12, 76);
-            this.grpBxNewFirmware.Name = "grpBxNewFirmware";
-            this.grpBxNewFirmware.Size = new System.Drawing.Size(1019, 61);
-            this.grpBxNewFirmware.TabIndex = 1;
-            this.grpBxNewFirmware.TabStop = false;
-            this.grpBxNewFirmware.Text = "New Firmware (  to be migrated  )";
-            // 
-            // lblDirectoryCurrentFirmware
-            // 
-            this.lblDirectoryCurrentFirmware.AutoSize = true;
-            this.lblDirectoryCurrentFirmware.Location = new System.Drawing.Point(6, 27);
-            this.lblDirectoryCurrentFirmware.Name = "lblDirectoryCurrentFirmware";
-            this.lblDirectoryCurrentFirmware.Size = new System.Drawing.Size(149, 13);
-            this.lblDirectoryCurrentFirmware.TabIndex = 0;
-            this.lblDirectoryCurrentFirmware.Text = "Directory for Current Firmware:";
-            // 
-            // txtBxDirectoryCurrentFirmware
-            // 
-            this.txtBxDirectoryCurrentFirmware.Location = new System.Drawing.Point(158, 24);
-            this.txtBxDirectoryCurrentFirmware.Name = "txtBxDirectoryCurrentFirmware";
-            this.txtBxDirectoryCurrentFirmware.Size = new System.Drawing.Size(825, 20);
-            this.txtBxDirectoryCurrentFirmware.TabIndex = 1;
             // 
             // btnDirectoryCurrentFirmware
             // 
@@ -97,6 +69,34 @@
             this.btnDirectoryCurrentFirmware.Text = "...";
             this.btnDirectoryCurrentFirmware.UseVisualStyleBackColor = true;
             this.btnDirectoryCurrentFirmware.Click += new System.EventHandler(this.btnDirectoryCurrentFirmware_Click);
+            // 
+            // txtBxDirectoryCurrentFirmware
+            // 
+            this.txtBxDirectoryCurrentFirmware.Location = new System.Drawing.Point(158, 24);
+            this.txtBxDirectoryCurrentFirmware.Name = "txtBxDirectoryCurrentFirmware";
+            this.txtBxDirectoryCurrentFirmware.Size = new System.Drawing.Size(825, 20);
+            this.txtBxDirectoryCurrentFirmware.TabIndex = 1;
+            // 
+            // lblDirectoryCurrentFirmware
+            // 
+            this.lblDirectoryCurrentFirmware.AutoSize = true;
+            this.lblDirectoryCurrentFirmware.Location = new System.Drawing.Point(6, 27);
+            this.lblDirectoryCurrentFirmware.Name = "lblDirectoryCurrentFirmware";
+            this.lblDirectoryCurrentFirmware.Size = new System.Drawing.Size(149, 13);
+            this.lblDirectoryCurrentFirmware.TabIndex = 0;
+            this.lblDirectoryCurrentFirmware.Text = "Directory for Current Firmware:";
+            // 
+            // grpBxNewFirmware
+            // 
+            this.grpBxNewFirmware.Controls.Add(this.btnDirectoryNewFirmware);
+            this.grpBxNewFirmware.Controls.Add(this.txtBxDirectoryNewFirmware);
+            this.grpBxNewFirmware.Controls.Add(this.label1);
+            this.grpBxNewFirmware.Location = new System.Drawing.Point(6, 186);
+            this.grpBxNewFirmware.Name = "grpBxNewFirmware";
+            this.grpBxNewFirmware.Size = new System.Drawing.Size(1019, 114);
+            this.grpBxNewFirmware.TabIndex = 1;
+            this.grpBxNewFirmware.TabStop = false;
+            this.grpBxNewFirmware.Text = "New Firmware (  to be migrated  )";
             // 
             // btnDirectoryNewFirmware
             // 
@@ -129,9 +129,9 @@
             this.grpBxArduinoIDE.Controls.Add(this.btnArduinoIDE);
             this.grpBxArduinoIDE.Controls.Add(this.txtBxArduinoIDE);
             this.grpBxArduinoIDE.Controls.Add(this.lblArduinoIDE);
-            this.grpBxArduinoIDE.Location = new System.Drawing.Point(12, 143);
+            this.grpBxArduinoIDE.Location = new System.Drawing.Point(6, 331);
             this.grpBxArduinoIDE.Name = "grpBxArduinoIDE";
-            this.grpBxArduinoIDE.Size = new System.Drawing.Size(1019, 61);
+            this.grpBxArduinoIDE.Size = new System.Drawing.Size(1019, 124);
             this.grpBxArduinoIDE.TabIndex = 6;
             this.grpBxArduinoIDE.TabStop = false;
             this.grpBxArduinoIDE.Text = "Arduino IDE";
@@ -158,14 +158,14 @@
             this.lblArduinoIDE.AutoSize = true;
             this.lblArduinoIDE.Location = new System.Drawing.Point(6, 26);
             this.lblArduinoIDE.Name = "lblArduinoIDE";
-            this.lblArduinoIDE.Size = new System.Drawing.Size(132, 13);
+            this.lblArduinoIDE.Size = new System.Drawing.Size(127, 13);
             this.lblArduinoIDE.TabIndex = 3;
-            this.lblArduinoIDE.Text = "Directory for ARduino IDE:";
+            this.lblArduinoIDE.Text = "Directory for Arduino IDE:";
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(950, 210);
+            this.btnCancel.Location = new System.Drawing.Point(950, 461);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -174,7 +174,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(869, 210);
+            this.btnSave.Location = new System.Drawing.Point(872, 461);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 8;
@@ -187,7 +187,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(1043, 236);
+            this.ClientSize = new System.Drawing.Size(1043, 496);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.grpBxArduinoIDE);

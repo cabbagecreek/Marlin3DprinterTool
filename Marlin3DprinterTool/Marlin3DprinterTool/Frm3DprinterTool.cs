@@ -20,7 +20,6 @@ using SharpShell.Diagnostics;
 using SharpShell.ServerRegistration;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
-using ServerRegistrationManager = SharpShell.ServerRegistration.ServerRegistrationManager;
 
 namespace Marlin3DprinterTool
 {
@@ -2169,7 +2168,8 @@ namespace Marlin3DprinterTool
             }
 
             ExplorerManager.RestartExplorer();
-
+            // Tell explorer the file association has been changed
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
 
         }
 
@@ -2188,12 +2188,19 @@ namespace Marlin3DprinterTool
                 SharpShell.ServerRegistration.ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
             }
             ExplorerManager.RestartExplorer();
+            // Tell explorer the file association has been changed
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
         }
 
         private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
         {
             ExplorerManager.RestartExplorer();
         }
+
+        
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
     }
 
 
