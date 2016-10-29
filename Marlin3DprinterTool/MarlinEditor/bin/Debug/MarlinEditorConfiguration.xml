@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  
+  <CurrentFirmware directory="C:\Marlin\Current Bigbox -- Marlin 1.1.0-RC7\Marlin-RC\Marlin" />
+  <NewFirmware directory="C:\Marlin\Marlin-RCBugFix\Marlin" />
+  <ArduinoIDE directory="C:\Program Files (x86)\Arduino" />
+  
+</configuration>

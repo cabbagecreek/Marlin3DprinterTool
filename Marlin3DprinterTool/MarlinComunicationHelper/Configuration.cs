@@ -11,6 +11,45 @@ namespace MarlinComunicationHelper
     {
 
 
+        public string STLcolor
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/STLviewer");
+                if (xmlNode == null) return "Blue";
+                return xmlNode.GetAttribute("color");
+            }
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/STLviewer");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "STLviewer");
+                }
+
+                xmlNode?.SetAttribute("color", value);
+                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+
+            }
+            
+        }
+
+        private static XmlNode CreateMissingXmlNode(XmlDocument xml,string tag)
+        {
+            XmlNode xmlNode = xml.CreateElement(tag);
+            XmlNode configurationXmlNode = xml.DocumentElement;
+            if (configurationXmlNode != null)
+            {
+                configurationXmlNode.AppendChild(xmlNode);
+                xmlNode = (XmlElement)xml.SelectSingleNode($"/configuration/{tag}");
+                return xmlNode;
+            }
+            return null;
+        }
 
         public string BedType
         {
@@ -18,19 +57,23 @@ namespace MarlinComunicationHelper
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile( GetConfigurationFile( "Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeBed = (XmlElement) xml.SelectSingleNode("/configuration/bed");
-                if (xmlNodeBed == null) return "4point";
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/bed");
+                if (xmlNode == null) return "4point";
 
-                return xmlNodeBed.GetAttribute("bedtype");
+                return xmlNode.GetAttribute("bedtype");
             }
 
             set 
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeBed = (XmlElement) xml.SelectSingleNode("/configuration/bed");
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/bed");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "bed");
+                }
                 // 4point, 3pointLeft, 3pointRight
-                xmlNodeBed?.SetAttribute("bedtype", value);
+                xmlNode?.SetAttribute("bedtype", value);
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
          }
@@ -57,17 +100,21 @@ namespace MarlinComunicationHelper
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeNeverClear = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
-                if (xmlNodeNeverClear == null) return false;
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
+                if (xmlNode == null) return false;
 
-                return xmlNodeNeverClear.GetAttribute("value") == "true";
+                return xmlNode.GetAttribute("value") == "true";
             }
             set
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeNeverClear = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
-                xmlNodeNeverClear?.SetAttribute("value", value.ToString());
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "NeverClear");
+                }
+                xmlNode?.SetAttribute("value", value.ToString());
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
         }
@@ -79,17 +126,21 @@ namespace MarlinComunicationHelper
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeAdjuster = (XmlElement) xml.SelectSingleNode("/configuration/Adjuster");
-                if (xmlNodeAdjuster == null) return "M3";
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/Adjuster");
+                if (xmlNode == null) return "M3";
 
-                return xmlNodeAdjuster.GetAttribute("type");
+                return xmlNode.GetAttribute("type");
             }
             set
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeAdjuster = (XmlElement) xml.SelectSingleNode("/configuration/Adjuster");
-                xmlNodeAdjuster?.SetAttribute("type", value); //(xmlNodeAdjuster != null)
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/Adjuster");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "Adjuster");
+                }
+                xmlNode?.SetAttribute("type", value); //(xmlNodeAdjuster != null)
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
         }
@@ -101,77 +152,47 @@ namespace MarlinComunicationHelper
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeZmax = (XmlElement) xml.SelectSingleNode("/configuration/ZmaxTravel");
-                if (xmlNodeZmax == null) return 300;
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ZmaxTravel");
+                if (xmlNode == null) return 300;
 
-                return Convert.ToInt16(xmlNodeZmax.GetAttribute("zmax"));
+                return Convert.ToInt16(xmlNode.GetAttribute("zmax"));
             }
             set
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeZmax = (XmlElement) xml.SelectSingleNode("/configuration/ZmaxTravel");
-                xmlNodeZmax?.SetAttribute("zmax", value.ToString()); // if (xmlNodeZmax != null)
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ZmaxTravel");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "ZmaxTravel");
+                }
+                xmlNode?.SetAttribute("zmax", value.ToString()); // if (xmlNodeZmax != null)
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
         }
 
-        public string FirmwareLocation
-        {
-            get
-            {
-                var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeFirmware = (XmlElement) xml.SelectSingleNode("/configuration/Firmware");
-
-                return xmlNodeFirmware?.GetAttribute("directory") ?? "";
-            }
-            set
-            {
-                var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeFirmware = (XmlElement) xml.SelectSingleNode("/configuration/Firmware");
-                xmlNodeFirmware?.SetAttribute("directory", value); // if (xmlNodeFirmware != null)
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-            }
-        }
-
-        public string NewFirmwareLocation
-        {
-            get
-            {
-                var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeFirmware = (XmlElement) xml.SelectSingleNode("/configuration/NewFirmware");
-
-                return xmlNodeFirmware?.GetAttribute("directory") ?? "";
-            }
-            set
-            {
-                var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeFirmware = (XmlElement) xml.SelectSingleNode("/configuration/NewFirmware");
-                xmlNodeFirmware?.SetAttribute("directory", value); // if (xmlNodeFirmware != null)
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-            }
-        }
+       
 
         public string ComPort {
             get
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/comport");
-                if (xmlNodeArduinoIde == null) return "";
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/comport");
+                if (xmlNode == null) return "";
 
-                return xmlNodeArduinoIde.GetAttribute("port");
+                return xmlNode.GetAttribute("port");
             }
             set
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/comport");
-                xmlNodeArduinoIde?.SetAttribute("port", value);
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/comport");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "comport");
+                }
+                xmlNode?.SetAttribute("port", value);
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
 
             }
@@ -183,17 +204,21 @@ namespace MarlinComunicationHelper
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/comport");
-                if (xmlNodeArduinoIde == null) return "";
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/comport");
+                if (xmlNode == null) return "";
 
-                return xmlNodeArduinoIde.GetAttribute("baudrate");
+                return xmlNode.GetAttribute("baudrate");
             }
             set
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeArduinoIde = (XmlElement)xml.SelectSingleNode("/configuration/baudrate");
-                xmlNodeArduinoIde?.SetAttribute("baudrate", value);
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/baudrate");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "baudrate");
+                }
+                xmlNode?.SetAttribute("baudrate", value);
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
 
             }
@@ -205,17 +230,21 @@ namespace MarlinComunicationHelper
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeArduinoIde = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
-                if (xmlNodeArduinoIde == null) return "";
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
+                if (xmlNode == null) return "";
 
-                return xmlNodeArduinoIde.GetAttribute("directory");
+                return xmlNode.GetAttribute("directory");
             }
             set
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-                var xmlNodeArduinoIde = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
-                xmlNodeArduinoIde?.SetAttribute("directory", value);
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "ArduinoIDE");
+                }
+                xmlNode?.SetAttribute("directory", value);
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
         }
@@ -297,6 +326,7 @@ namespace MarlinComunicationHelper
                 xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
 
                 var gcodeAssistZprobeEngare = xml.SelectSingleNode("/configuration/GcodeAssistZprobeEngage");
+
 
                 var gcodeAssistZprobeEngageChilds = xml.SelectNodes("/configuration/GcodeAssistZprobeEngage/Row");
 
@@ -407,6 +437,11 @@ namespace MarlinComunicationHelper
             var xml = new XmlDocument();
             xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             var xmlNodePosition = (XmlElement) xml.SelectSingleNode($"/configuration/{tag}");
+            if (xmlNodePosition == null)
+            {
+                xmlNodePosition = (XmlElement)CreateMissingXmlNode(xml, tag);
+            }
+
             if (xmlNodePosition != null)
             {
                 xmlNodePosition.SetAttribute("x", position.X.ToString(CultureInfo.CreateSpecificCulture("en-GB")));

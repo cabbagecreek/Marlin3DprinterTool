@@ -40,7 +40,7 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Marlin3DprinterToolNoFrame.ico</ApplicationIcon>
+    <ApplicationIcon>Marlin3DprinterTool.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -113,6 +113,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="STL thumbnail debug.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -126,6 +129,12 @@
   <ItemGroup>
     <Content Include="Marlin3DprinterTool.ico" />
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
+      <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
+      <Name>MarlinComunicationHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

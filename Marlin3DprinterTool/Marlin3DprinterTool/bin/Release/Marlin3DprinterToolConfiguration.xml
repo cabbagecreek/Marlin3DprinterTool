@@ -27,4 +27,5 @@
   </GcodeAssistZprobeRelease>
   <ZmaxTravel zmax="250" />
   <NeverClear value="True" />
+  <STLviewer color="Blue" />
 </configuration>
