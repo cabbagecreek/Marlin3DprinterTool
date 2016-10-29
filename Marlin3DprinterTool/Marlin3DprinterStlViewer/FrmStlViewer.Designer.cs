@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStlViewer));
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.stLviewerWPF1 = new Marlin3DprinterStlViewer.STLviewerWPF();
+            this.stLviewerWPF1 = new Marlin3DprinterStlViewer.StlViewerWPF();
+            this.toolTipStlViewer = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // elementHost1
@@ -41,6 +43,8 @@
             this.elementHost1.Size = new System.Drawing.Size(284, 262);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
+            this.toolTipStlViewer.SetToolTip(this.elementHost1, "Scrooll wheel = Zoom\r\nRight Mousebutton Hold = Rotate\r\nMiddle Mousbutton Hold = P" +
+        "an");
             this.elementHost1.Child = this.stLviewerWPF1;
             // 
             // FrmStlViewer
@@ -53,6 +57,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStlViewer";
             this.Text = "STL viewer";
+            this.toolTipStlViewer.SetToolTip(this, "Scrooll wheel = Zoom\r\nRight Mousebutton Hold = Rotate\r\nMiddle Mousbutton Hold = P" +
+        "an\r\n\r\n");
             this.Load += new System.EventHandler(this.FrmStlViewer_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FrmStlViewer_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FrmStlViewer_DragEnter);
@@ -63,7 +69,8 @@
         #endregion
 
         private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private STLviewerWPF stLviewerWPF1;
+        private StlViewerWPF stLviewerWPF1;
+        private System.Windows.Forms.ToolTip toolTipStlViewer;
     }
 }
 

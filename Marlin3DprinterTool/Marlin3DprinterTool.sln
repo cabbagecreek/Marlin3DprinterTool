@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterStlViewer", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolStlThumbnail", "StlViewerThumbnailHandler\Marlin3DprinterToolStlThumbnail.csproj", "{FEA2A7BD-0A8E-48C2-969A-DD3EF6F3DCFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinDocumentation", "MarlinDocumentation\MarlinDocumentation.csproj", "{0909412D-4C12-49F6-9225-B60349C29D02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,8 +45,8 @@ Global
 		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Debug|x64.Build.0 = Debug|Any CPU
 		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Debug|x86.Build.0 = Debug|Any CPU
-		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|Any CPU.ActiveCfg = Release|x86
+		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|Any CPU.Build.0 = Release|x86
 		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|x64.ActiveCfg = Release|Any CPU
 		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|x64.Build.0 = Release|Any CPU
 		{6093F344-229A-4E2E-9F74-A17F7EE61115}.Release|x86.ActiveCfg = Release|x86
@@ -93,6 +95,18 @@ Global
 		{FEA2A7BD-0A8E-48C2-969A-DD3EF6F3DCFC}.Release|x64.Build.0 = Release|Any CPU
 		{FEA2A7BD-0A8E-48C2-969A-DD3EF6F3DCFC}.Release|x86.ActiveCfg = Release|Any CPU
 		{FEA2A7BD-0A8E-48C2-969A-DD3EF6F3DCFC}.Release|x86.Build.0 = Release|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|x64.Build.0 = Debug|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|x86.Build.0 = Debug|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x64.ActiveCfg = Release|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x64.Build.0 = Release|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x86.ActiveCfg = Release|Any CPU
+		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

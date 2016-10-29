@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
+using MarlinDocumentation;
 using MarlinEditor;
 using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
 using ServerManager;
+using SharpShell.Attributes;
 using SharpShell.Diagnostics;
 using SharpShell.ServerRegistration;
 using Configuration = MarlinComunicationHelper.Configuration;
@@ -53,14 +54,19 @@ namespace Marlin3DprinterTool
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
+#if DEBUG
+            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
+#else
             DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
+#endif
+            
             PopulateComboBoxes();
             PopulateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
 
         }
 
-        
+
 
 
         private void PopulateConfig()
@@ -123,6 +129,8 @@ namespace Marlin3DprinterTool
             //TODO:
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
 
+            UpdateServerStatus();
+
             switch (selectedTab)
             {
                 case 0:
@@ -141,6 +149,9 @@ namespace Marlin3DprinterTool
                     break;
                 case 7:
                     UpdateZmaintDescription();
+                    break;
+                case 9:
+                    UpdateServerStatus();
                     break;
             }
 
@@ -179,156 +190,157 @@ namespace Marlin3DprinterTool
         }
 
         #region
+
         // TODO: ta bort
         //private void ValidateConfig()
         //{
-            //var config = new Configuration();
+        //var config = new Configuration();
 
 
-            //Position position = config.UpperLeftCorner;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveUpperLeftCorner.BackColor = Color.Red;
-            //        btnMoveUpperLeftCorner.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveUpperLeftCorner.BackColor = Color.Green;
-            //        btnMoveUpperLeftCorner.Enabled = true;
-            //    }
-            //}
+        //Position position = config.UpperLeftCorner;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveUpperLeftCorner.BackColor = Color.Red;
+        //        btnMoveUpperLeftCorner.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveUpperLeftCorner.BackColor = Color.Green;
+        //        btnMoveUpperLeftCorner.Enabled = true;
+        //    }
+        //}
 
-            //position = config.UpperRightCorner;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveUpperRightCorner.BackColor = Color.Red;
-            //        btnMoveUpperRightCorner.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveUpperRightCorner.BackColor = Color.Green;
-            //        btnMoveUpperRightCorner.Enabled = true;
-            //    }
-            //}
+        //position = config.UpperRightCorner;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveUpperRightCorner.BackColor = Color.Red;
+        //        btnMoveUpperRightCorner.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveUpperRightCorner.BackColor = Color.Green;
+        //        btnMoveUpperRightCorner.Enabled = true;
+        //    }
+        //}
 
-            //position = config.LowerRightCorner;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveLowerRightCorner.BackColor = Color.Red;
-            //        btnMoveLowerRightCorner.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveLowerRightCorner.BackColor = Color.Green;
-            //        btnMoveLowerRightCorner.Enabled = true;
-            //    }
-            //}
+        //position = config.LowerRightCorner;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveLowerRightCorner.BackColor = Color.Red;
+        //        btnMoveLowerRightCorner.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveLowerRightCorner.BackColor = Color.Green;
+        //        btnMoveLowerRightCorner.Enabled = true;
+        //    }
+        //}
 
-            //position = config.LowerLeftCorner;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveLowerLeftCorner.BackColor = Color.Red;
-            //        btnMoveLowerLeftCorner.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveLowerLeftCorner.BackColor = Color.Green;
-            //        btnMoveLowerLeftCorner.Enabled = true;
-            //    }
-            //}
+        //position = config.LowerLeftCorner;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveLowerLeftCorner.BackColor = Color.Red;
+        //        btnMoveLowerLeftCorner.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveLowerLeftCorner.BackColor = Color.Green;
+        //        btnMoveLowerLeftCorner.Enabled = true;
+        //    }
+        //}
 
-            //position = config.UpperLeftAdjuster;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveUpperLeftAdjuster.BackColor = Color.Red;
-            //        btnMoveUpperLeftAdjuster.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveUpperLeftAdjuster.BackColor = Color.Green;
-            //        btnMoveUpperLeftAdjuster.Enabled = true;
-            //    }
-            //}
+        //position = config.UpperLeftAdjuster;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveUpperLeftAdjuster.BackColor = Color.Red;
+        //        btnMoveUpperLeftAdjuster.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveUpperLeftAdjuster.BackColor = Color.Green;
+        //        btnMoveUpperLeftAdjuster.Enabled = true;
+        //    }
+        //}
 
-            //position = config.UpperRightAdjuster;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveUpperRightAdjuster.BackColor = Color.Red;
-            //        btnMoveUpperRightAdjuster.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveUpperRightAdjuster.BackColor = Color.Green;
-            //        btnMoveUpperRightAdjuster.Enabled = true;
-            //    }
-            //}
-            //position = config.LowerRightAdjuster;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveLowerRightAdjuster.BackColor = Color.Red;
-            //        btnMoveLowerRightAdjuster.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveLowerRightAdjuster.BackColor = Color.Green;
-            //        btnMoveLowerRightAdjuster.Enabled = true;
-            //    }
-            //}
+        //position = config.UpperRightAdjuster;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveUpperRightAdjuster.BackColor = Color.Red;
+        //        btnMoveUpperRightAdjuster.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveUpperRightAdjuster.BackColor = Color.Green;
+        //        btnMoveUpperRightAdjuster.Enabled = true;
+        //    }
+        //}
+        //position = config.LowerRightAdjuster;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveLowerRightAdjuster.BackColor = Color.Red;
+        //        btnMoveLowerRightAdjuster.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveLowerRightAdjuster.BackColor = Color.Green;
+        //        btnMoveLowerRightAdjuster.Enabled = true;
+        //    }
+        //}
 
-            //position = config.LowerLeftAdjuster;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveLowerLeftAdjuster.BackColor = Color.Red;
-            //        btnMoveLowerLeftAdjuster.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveLowerLeftAdjuster.BackColor = Color.Green;
-            //        btnMoveLowerLeftAdjuster.Enabled = true;
-            //    }
-            //}
+        //position = config.LowerLeftAdjuster;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveLowerLeftAdjuster.BackColor = Color.Red;
+        //        btnMoveLowerLeftAdjuster.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveLowerLeftAdjuster.BackColor = Color.Green;
+        //        btnMoveLowerLeftAdjuster.Enabled = true;
+        //    }
+        //}
 
-            //position = config.SafeHome;
-            //if (position != null)
-            //{
-            //    if (position.X > 9000 && position.Y > 9000)
-            //    {
-            //        btnSaveSafeHome.BackColor = Color.Red;
-            //        btnMoveSafeHome.Enabled = false;
-            //    }
-            //    else
-            //    {
-            //        btnSaveSafeHome.BackColor = Color.Green;
-            //        btnMoveSafeHome.Enabled = true;
-            //    }
-            //}
+        //position = config.SafeHome;
+        //if (position != null)
+        //{
+        //    if (position.X > 9000 && position.Y > 9000)
+        //    {
+        //        btnSaveSafeHome.BackColor = Color.Red;
+        //        btnMoveSafeHome.Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnSaveSafeHome.BackColor = Color.Green;
+        //        btnMoveSafeHome.Enabled = true;
+        //    }
+        //}
 
-            //if (chkListBxAdjustment.CheckedItems.Count != 0)
-            //{
-            //    btnSaveAdjustment.BackColor = Color.Green;
-            //    chkListBxAdjustment.BackColor = Color.Green;
-            //}
-            //else
-            //{
-            //    btnSaveAdjustment.BackColor = Color.Red;
-            //    chkListBxAdjustment.BackColor = Color.Red;
-            //}
+        //if (chkListBxAdjustment.CheckedItems.Count != 0)
+        //{
+        //    btnSaveAdjustment.BackColor = Color.Green;
+        //    chkListBxAdjustment.BackColor = Color.Green;
+        //}
+        //else
+        //{
+        //    btnSaveAdjustment.BackColor = Color.Red;
+        //    chkListBxAdjustment.BackColor = Color.Red;
+        //}
         //}
 
         #endregion
@@ -368,63 +380,76 @@ namespace Marlin3DprinterTool
 
             List<Point> probePointsList = new List<Point>();
             if (_configuration.BedType == "4point")
-            {  
-                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
+            {
+                probePointsList.Add(new Point((int) _configuration.LowerLeftAdjuster.X,
+                    (int) _configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.LowerRightAdjuster.X,
+                    (int) _configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.UpperRightAdjuster.X,
+                    (int) _configuration.UpperRightAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.UpperLeftAdjuster.X,
+                    (int) _configuration.UpperLeftAdjuster.Y));
             }
-               
+
 
             if (_configuration.BedType == "3pointLeft")
             {
-                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.LowerLeftAdjuster.X,
+                    (int) _configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.LowerRightAdjuster.X,
+                    (int) _configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.UpperRightAdjuster.X,
+                    (int) _configuration.UpperRightAdjuster.Y));
                 //probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
             }
 
             if (_configuration.BedType == "3pointRight")
             {
-                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.LowerLeftAdjuster.X,
+                    (int) _configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.LowerRightAdjuster.X,
+                    (int) _configuration.LowerRightAdjuster.Y));
                 //probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.UpperLeftAdjuster.X,
+                    (int) _configuration.UpperLeftAdjuster.Y));
             }
 
             if (_configuration.BedType == "3pointFront")
             {
-                probePointsList.Add(new Point((int)_configuration.LowerLeftAdjuster.X, (int)_configuration.LowerLeftAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.LowerLeftAdjuster.X,
+                    (int) _configuration.LowerLeftAdjuster.Y));
                 //probePointsList.Add(new Point((int)_configuration.LowerRightAdjuster.X, (int)_configuration.LowerRightAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.UpperRightAdjuster.X, (int)_configuration.UpperRightAdjuster.Y));
-                probePointsList.Add(new Point((int)_configuration.UpperLeftAdjuster.X, (int)_configuration.UpperLeftAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.UpperRightAdjuster.X,
+                    (int) _configuration.UpperRightAdjuster.Y));
+                probePointsList.Add(new Point((int) _configuration.UpperLeftAdjuster.X,
+                    (int) _configuration.UpperLeftAdjuster.Y));
             }
-            
+
             ScanSurface(probePointsList, 1);
         }
 
-        private void ScanSurface(List<Point> probePointsList,  int numberOfRepetitions)
+        private void ScanSurface(List<Point> probePointsList, int numberOfRepetitions)
         {
             var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
-               MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
             {
                 var conf = new Configuration();
                 _com.SendCommand(conf.GcodeAssistZprobeEngage);
             }
 
-            var commands = new List<string> { "M420 S0", "G28 Y", "G28 X", "G28 Z" };
+            var commands = new List<string> {"M420 S0", "G28 Y", "G28 X", "G28 Z"};
 
             _probePoints.Clear();
 
             _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
-            
+
             foreach (Point probePoint in probePointsList)
             {
                 // move to X&Y
                 commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F8000");
                 //commands.Add("G1 Z40");
-                
+
                 for (var i = 0; i < numberOfRepetitions; i++)
                 {
                     // probe the point
@@ -442,7 +467,7 @@ namespace Marlin3DprinterTool
         {
 
             List<Point> probePointsList = new List<Point>();
-            
+
             var xMin = (int) Convert.ToDecimal(_configuration.LowerLeftAdjuster.X);
             var xMax = (int) Convert.ToDecimal(_configuration.LowerRightAdjuster.X);
             var xStep = (xMax - xMin)/(numberOfXpoint - 1);
@@ -451,7 +476,7 @@ namespace Marlin3DprinterTool
             var yMax = (int) Convert.ToDecimal(_configuration.UpperLeftAdjuster.Y);
             var yStep = (yMax - yMin)/(numberOfYpoints - 1);
 
-            
+
             _probePoints.Clear();
 
             for (var y = yMin; y <= yMax; y += yStep)
@@ -459,11 +484,11 @@ namespace Marlin3DprinterTool
                 for (var x = xMin; x <= xMax; x += xStep)
                 {
                     //TODO: Multiple probe on point = numberOfRepetitions
-                    for (int repetition = 0; repetition < numberOfRepetitions; repetition++)
-                    {
+                    //for (int repetition = 0; repetition < numberOfRepetitions; repetition++)
+                    //{
                         // probePointsList.Add(new Point(x,y));    
-                    }
-                    probePointsList.Add(new Point(x,y));
+                    //}
+                    probePointsList.Add(new Point(x, y));
                 }
             }
 
@@ -602,7 +627,7 @@ namespace Marlin3DprinterTool
         //        break;
         //    }
 
-           
+
         //}
 
         private void chkListBxAdjustment_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -666,50 +691,138 @@ namespace Marlin3DprinterTool
 
             cmbBxLeadScrewMotorStepAngle.Items.Clear();
             cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"1.8°", Value = (int) (360.0/1.8)});
-            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"0.9°", Value = (int)(360.0 / 0.9) });
-            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"7.5°", Value = (int)(360.0 / 7.5) });
+            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"0.9°", Value = (int) (360.0/0.9)});
+            cmbBxLeadScrewMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"7.5°", Value = (int) (360.0/7.5)});
             cmbBxLeadScrewMotorStepAngle.Text = @"1.8°";
 
             cmbBxLeadScrewDriverMicrostepping.Items.Clear();
-            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1    - Full step",    Value = (float)(1/(1.0 / 1.0))  });
-            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/2  - Half step",    Value = (float)(1/(1.0 / 2.0))  });
-            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/4  - Quarter step", Value = (float)(1/(1.0 / 4.0))  });
-            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/8  - Micro step",   Value = (float)(1/(1.0 / 8.0))  });
-            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/16 - Micro step",   Value = (float)(1/(1.0 / 16.0)) });
-            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/32 - Micro step",   Value = (float)(1/(1.0 / 32.0)) });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1    - Full step",
+                Value = (float) (1/(1.0/1.0))
+            });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/2  - Half step",
+                Value = (float) (1/(1.0/2.0))
+            });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/4  - Quarter step",
+                Value = (float) (1/(1.0/4.0))
+            });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/8  - Micro step",
+                Value = (float) (1/(1.0/8.0))
+            });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/16 - Micro step",
+                Value = (float) (1/(1.0/16.0))
+            });
+            cmbBxLeadScrewDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/32 - Micro step",
+                Value = (float) (1/(1.0/32.0))
+            });
             cmbBxLeadScrewDriverMicrostepping.Text = @"1/16 - Micro step";
 
             cmbBxLeadScrewPitch.Items.Clear();
-            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"M8 - Metric (1.25mm / revolution)", Value = (float)(1.25) });
-            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"M6 - Metric (1.00mm / revolution)", Value = (float)(1.00) });
-            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"M5 - Metric (0.80mm / revolution)", Value = (float)(0.80) });
-            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"5/16-18 imperial coarse (1.41111mm / revolution)", Value = (float)(1.41111) });
-            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"1/4-16 - Acme (1.5875mm / revolution", Value = (float)(1.5875) });
-            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue { Text = @"8mm Trapezoidal Threaded (2.00mm / revolution", Value = (float)(2.00) });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"M8 - Metric (1.25mm / revolution)",
+                Value = (float) (1.25)
+            });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"M6 - Metric (1.00mm / revolution)",
+                Value = (float) (1.00)
+            });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"M5 - Metric (0.80mm / revolution)",
+                Value = (float) (0.80)
+            });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"5/16-18 imperial coarse (1.41111mm / revolution)",
+                Value = (float) (1.41111)
+            });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/4-16 - Acme (1.5875mm / revolution",
+                Value = (float) (1.5875)
+            });
+            cmbBxLeadScrewPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"8mm Trapezoidal Threaded (2.00mm / revolution",
+                Value = (float) (2.00)
+            });
             cmbBxLeadScrewPitch.Text = @"8mm Trapezoidal Threaded (2.00mm / revolution";
 
             cmbBxBeltMotorStepAngle.Items.Clear();
-            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"1.8°", Value = (int)(360.0 / 1.8) });
-            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"0.9°", Value = (int)(360.0 / 0.9) });
-            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue { Text = @"7.5°", Value = (int)(360.0 / 7.5) });
+            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"1.8°", Value = (int) (360.0/1.8)});
+            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"0.9°", Value = (int) (360.0/0.9)});
+            cmbBxBeltMotorStepAngle.Items.Add(new ComboboxItemTextValue {Text = @"7.5°", Value = (int) (360.0/7.5)});
             cmbBxBeltMotorStepAngle.Text = @"1.8°";
 
             cmbBxBeltDriverMicrostepping.Items.Clear();
-            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1    - Full step",    Value = (float)(1/(1.0 / 1.0)) });
-            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/2  - Half step",    Value = (float)(1/(1.0 / 2.0)) });
-            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/4  - Quarter step", Value = (float)(1/(1.0 / 4.0)) });
-            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/8  - Micro step",   Value = (float)(1/(1.0 / 8.0)) });
-            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/16 - Micro step",   Value = (float)(1/(1.0 / 16.0)) });
-            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue { Text = @"1/32 - Micro step",   Value = (float)(1/(1.0 / 32.0)) });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1    - Full step",
+                Value = (float) (1/(1.0/1.0))
+            });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/2  - Half step",
+                Value = (float) (1/(1.0/2.0))
+            });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/4  - Quarter step",
+                Value = (float) (1/(1.0/4.0))
+            });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/8  - Micro step",
+                Value = (float) (1/(1.0/8.0))
+            });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/16 - Micro step",
+                Value = (float) (1/(1.0/16.0))
+            });
+            cmbBxBeltDriverMicrostepping.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"1/32 - Micro step",
+                Value = (float) (1/(1.0/32.0))
+            });
             cmbBxBeltDriverMicrostepping.Text = @"1/16 - Micro step";
 
             cmbBxBeltPitch.Items.Clear();
-            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"2mm   - Metric (GT2)", Value = (float)(2.00) });
-            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"2.5mm - Metric (T2.5)", Value = (float)(2.50) });
-            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"3mm   - Metric (GT2, HTD)", Value = (float)(3.00) });
-            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"5mm   - Metric (T5,GT2, HTD)", Value = (float)(5.00) });
-            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"MXL   - Inch   (2.03mm)", Value = (float)(2.03) });
-            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue { Text = @"XL    - Inch   (5.08mm)", Value = (float)(5.08) });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue {Text = @"2mm   - Metric (GT2)", Value = (float) (2.00)});
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue {Text = @"2.5mm - Metric (T2.5)", Value = (float) (2.50)});
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"3mm   - Metric (GT2, HTD)",
+                Value = (float) (3.00)
+            });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"5mm   - Metric (T5,GT2, HTD)",
+                Value = (float) (5.00)
+            });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"MXL   - Inch   (2.03mm)",
+                Value = (float) (2.03)
+            });
+            cmbBxBeltPitch.Items.Add(new ComboboxItemTextValue
+            {
+                Text = @"XL    - Inch   (5.08mm)",
+                Value = (float) (5.08)
+            });
             cmbBxBeltPitch.Text = @"2mm   - Metric (GT2)";
 
             try
@@ -814,7 +927,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand(commands);
         }
 
-    
+
 
 
         private void Kill()
@@ -829,7 +942,7 @@ namespace Marlin3DprinterTool
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
             txtBxPIDresponce.Text = "";
-            
+
             chartTemperature.Series["Extruder"].Points.Clear();
             chartTemperature.Series["SetExtruder"].Points.Clear();
             chartTemperature.Series["Bed"].Points.Clear();
@@ -1002,7 +1115,7 @@ namespace Marlin3DprinterTool
                     _com.M500Responce += _com_M500Responce;
                     _com.M501Responce += _com_M501Responce;
                     _com.ReadyForNextCommand += _com_ReadyForNextCommand;
-                    
+
                     _com.DisConnected += _com_DisConnected;
 
 
@@ -1032,7 +1145,7 @@ namespace Marlin3DprinterTool
             }
         }
 
-        
+
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
         {
@@ -1045,11 +1158,11 @@ namespace Marlin3DprinterTool
 
 
 
-        
+
         private void _com_M301Responce(object sender, ResponceData responce)
         {
             // TODO: Show EEPROM
-            
+
         }
 
         private void _com_M303Responce(object sender, ResponceData responceData)
@@ -1083,7 +1196,7 @@ namespace Marlin3DprinterTool
                 pidResponce += line + Environment.NewLine;
             }
 
-            
+
 
             // get the Kp , Ki and Kd from the responce
             foreach (string line in linesList)
@@ -1112,7 +1225,8 @@ namespace Marlin3DprinterTool
                 if (line.Contains(@"Bad extruder number"))
                 {
                     MessageBox.Show(line + Environment.NewLine + Environment.NewLine +
-                        @"It looks like Firmware had BedPID disabled", @"BedPID", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    @"It looks like Firmware had BedPID disabled", @"BedPID", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
 
 
@@ -1130,9 +1244,9 @@ namespace Marlin3DprinterTool
                 }
 
 
-            } 
+            }
 
-            
+
 
 
 
@@ -1141,7 +1255,7 @@ namespace Marlin3DprinterTool
 
         private void _com_M304Responce(object sender, ResponceData responce)
         {
-           // TODO: SHOW EEPROM
+            // TODO: SHOW EEPROM
         }
 
 
@@ -1158,14 +1272,14 @@ namespace Marlin3DprinterTool
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
         {
-            
+
 
             // Z-ProbeHeight 
             if (lblCalculatedZProbeOffset.Visible)
             {
                 DeligateAndInvoke.DelegateVisible(txtBxCalculatedZProbeOffset, true);
-                DeligateAndInvoke.DelegateVisible(btnZpromeFirmwareUpdate,true);
-                DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate,true);
+                DeligateAndInvoke.DelegateVisible(btnZpromeFirmwareUpdate, true);
+                DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate, true);
                 foreach (var position in probePositions)
                 {
                     DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, position.Z.ToString());
@@ -1177,9 +1291,9 @@ namespace Marlin3DprinterTool
         private void _com_Init(object sender, ResponceData e)
         {
             //Enable TAB
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool,true);
-            
-            
+            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
+
+
             //Enable EmergencyStop
             DeligateAndInvoke.DelegateBackgroundImage(btnEmergency, Resources.emargency_enabled);
             DeligateAndInvoke.DelegateVisible(btnEmergency, true);
@@ -1212,7 +1326,7 @@ namespace Marlin3DprinterTool
             if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
-       
+
 
         private void _com_ReadyForNextCommand(object sender, EventArgs e)
         {
@@ -1544,7 +1658,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerLeftAdjuster = _currectPosition;
-           
+
         }
 
         private void btnSaveUpperLeftAdjuster_Click(object sender, EventArgs e)
@@ -1553,7 +1667,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.UpperLeftAdjuster = _currectPosition;
-            
+
         }
 
         private void btnSaveLowerLeftCorner_Click(object sender, EventArgs e)
@@ -1562,7 +1676,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerLeftCorner = _currectPosition;
-            
+
         }
 
         private void btnSaveLowerRightCorner_Click(object sender, EventArgs e)
@@ -1571,7 +1685,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerRightCorner = _currectPosition;
-            
+
         }
 
         private void btnSaveLowerRightAdjuster_Click(object sender, EventArgs e)
@@ -1580,7 +1694,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.LowerRightAdjuster = _currectPosition;
-            
+
         }
 
         private void btnSaveUpperRightAdjuster_Click(object sender, EventArgs e)
@@ -1589,7 +1703,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.UpperRightAdjuster = _currectPosition;
-            
+
         }
 
         private void btnSaveUpperRightCorner_Click(object sender, EventArgs e)
@@ -1599,7 +1713,7 @@ namespace Marlin3DprinterTool
 
 
             _configuration.UpperRightCorner = _currectPosition;
-            
+
         }
 
 
@@ -1611,7 +1725,7 @@ namespace Marlin3DprinterTool
 
 
             _configuration.UpperLeftCorner = _currectPosition;
-            
+
         }
 
         private void btnSaveSafeHome_Click
@@ -1621,7 +1735,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand("M114");
 
             _configuration.SafeHome = _currectPosition;
-            
+
         }
 
         #endregion
@@ -1644,7 +1758,8 @@ namespace Marlin3DprinterTool
         {
             List<string> commands = new List<string>
             {
-                $"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}","M500"
+                $"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}",
+                "M500"
             };
             // M301 P19.56 I0.71 D134.26
             _com.SendCommand(commands);
@@ -1655,7 +1770,8 @@ namespace Marlin3DprinterTool
         {
             List<string> commands = new List<string>
             {
-                $"M304 P{txtBxKpBed.Text} I{txtBxKiBed.Text} D{txtBxKdBed.Text}","M500"
+                $"M304 P{txtBxKpBed.Text} I{txtBxKiBed.Text} D{txtBxKdBed.Text}",
+                "M500"
             };
             // M301 P19.56 I0.71 D134.26
             _com.SendCommand(commands);
@@ -1672,7 +1788,7 @@ namespace Marlin3DprinterTool
             // Update Firmware)
 
             FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
-            marlinEditor.UpdateAndSavePidExtruder(txtBxKpExtruder.Text, txtBxKiExtruder.Text,txtBxKdExtruder.Text);
+            marlinEditor.UpdateAndSavePidExtruder(txtBxKpExtruder.Text, txtBxKiExtruder.Text, txtBxKdExtruder.Text);
             marlinEditor.ShowDialog();
 
         }
@@ -1692,19 +1808,19 @@ namespace Marlin3DprinterTool
             marlinEditor.ShowDialog();
         }
 
-       
+
 
 
         private void btnM500SaveEeprom_Click(object sender, EventArgs e)
         {
-            _com.SendCommand(new List<string>(new[] { "M500" }));
+            _com.SendCommand(new List<string>(new[] {"M500"}));
         }
 
         private void btnM501ReadEeprom_Click(object sender, EventArgs e)
         {
             _com.Gcode = "";
             _com.ClearCommunication();
-            _com.SendCommand(new List<string>(new[] { "M501" }));
+            _com.SendCommand(new List<string>(new[] {"M501"}));
 
         }
 
@@ -1712,13 +1828,14 @@ namespace Marlin3DprinterTool
         {
             List<string> commands = new List<string>
             {
-                $"M851 Z-{txtBxCalculatedZProbeOffset.Text.Replace(',', '.')}","M500"
+                $"M851 Z-{txtBxCalculatedZProbeOffset.Text.Replace(',', '.')}",
+                "M500"
             };
             _com.SendCommand(commands);
-            
+
         }
 
-       
+
 
         private void RedesignBedAdjusters()
         {
@@ -1726,7 +1843,7 @@ namespace Marlin3DprinterTool
             {
                 _configuration.BedType = "4point";
                 btnSaveLowerLeftAdjuster.Visible = true;
-                btnSaveLowerLeftAdjuster.Location = new Point(5,200);
+                btnSaveLowerLeftAdjuster.Location = new Point(5, 200);
                 btnMoveLowerLeftAdjuster.Visible = true;
                 btnMoveLowerLeftAdjuster.Location = new Point(50, 200);
 
@@ -1734,7 +1851,7 @@ namespace Marlin3DprinterTool
                 btnSaveLowerRightAdjuster.Location = new Point(430, 200);
                 btnMoveLowerRightAdjuster.Visible = true;
                 btnMoveLowerRightAdjuster.Location = new Point(390, 200);
-            
+
                 btnSaveUpperLeftAdjuster.Visible = true;
                 btnSaveUpperLeftAdjuster.Location = new Point(5, 100);
                 btnMoveUpperLeftAdjuster.Visible = true;
@@ -1747,10 +1864,10 @@ namespace Marlin3DprinterTool
 
 
                 panel1.Visible = true;
-                panelAdjust1.Location = new Point(20,234);
+                panelAdjust1.Location = new Point(20, 234);
 
                 picBxLowerLeftAdjuster.Visible = true;
-                picBxLowerLeftAdjuster.Location = new Point(126,238);
+                picBxLowerLeftAdjuster.Location = new Point(126, 238);
 
                 panelAdjust2.Visible = true;
                 panelAdjust2.Location = new Point(663, 234);
@@ -1771,8 +1888,7 @@ namespace Marlin3DprinterTool
                 picBxUpperRightAdjuster.Location = new Point(126, 42);
 
             }
-            else
-            if (rdoBn3pointAdjusterRight.Checked)
+            else if (rdoBn3pointAdjusterRight.Checked)
             {
                 _configuration.BedType = "3pointRight";
                 btnSaveLowerLeftAdjuster.Visible = true;
@@ -1820,8 +1936,7 @@ namespace Marlin3DprinterTool
                 picBxUpperRightAdjuster.Visible = true;
                 picBxUpperRightAdjuster.Location = new Point(126, 42);
             }
-            else
-            if (rdoBn3pointAdjusterLeft.Checked)
+            else if (rdoBn3pointAdjusterLeft.Checked)
             {
                 _configuration.BedType = "3pointLeft";
                 btnSaveLowerLeftAdjuster.Visible = true;
@@ -1871,8 +1986,7 @@ namespace Marlin3DprinterTool
 
 
             }
-            else
-            if (rdoBn3pointAdjusterFront.Checked)
+            else if (rdoBn3pointAdjusterFront.Checked)
             {
                 _configuration.BedType = "3pointFront";
                 btnSaveLowerLeftAdjuster.Visible = true;
@@ -1925,10 +2039,12 @@ namespace Marlin3DprinterTool
 
 
         }
+
         private void rdoBn4pointAdjuster_CheckedChanged(object sender, EventArgs e)
         {
             RedesignBedAdjusters();
         }
+
         private void rdoBn3pointAdjusterRight_CheckedChanged(object sender, EventArgs e)
         {
             RedesignBedAdjusters();
@@ -1948,50 +2064,60 @@ namespace Marlin3DprinterTool
         {
             foreach (var item in chkListBxAdjustment.CheckedItems)
             {
-                _configuration.Adjuster = (string)item;
+                _configuration.Adjuster = (string) item;
                 break;
             }
         }
 
-        
+
         private void CalculateLeadScrew()
         {
             float microStep = 1;
-            int stepsPerRevolution = (int)(360.0 / 1.8);
-            float pitch = (float)1.25;
+            int stepsPerRevolution = (int) (360.0/1.8);
+            float pitch = (float) 1.25;
             float gear;
 
             var comboboxItemTextValue = cmbBxLeadScrewMotorStepAngle.SelectedItem as ComboboxItemTextValue;
-            if (comboboxItemTextValue != null) { stepsPerRevolution = (int)comboboxItemTextValue.ToValue(); }
+            if (comboboxItemTextValue != null)
+            {
+                stepsPerRevolution = (int) comboboxItemTextValue.ToValue();
+            }
 
             comboboxItemTextValue = cmbBxLeadScrewDriverMicrostepping.SelectedItem as ComboboxItemTextValue;
-            if (comboboxItemTextValue != null){microStep = (float) comboboxItemTextValue.ToValue();}
+            if (comboboxItemTextValue != null)
+            {
+                microStep = (float) comboboxItemTextValue.ToValue();
+            }
 
             comboboxItemTextValue = cmbBxLeadScrewPitch.SelectedItem as ComboboxItemTextValue;
-            if (comboboxItemTextValue != null) { pitch = (float)comboboxItemTextValue.ToValue(); }
+            if (comboboxItemTextValue != null)
+            {
+                pitch = (float) comboboxItemTextValue.ToValue();
+            }
 
 
 
             if (chkBxLeadScrewDirectDriven.Checked) gear = (float) 1.0;
             else
             {
-                gear = (float)(numUpDnLeadScrewMotorTeethCount.Value / numUpDnLeadScrewTeethCount.Value);
+                gear = (float) (numUpDnLeadScrewMotorTeethCount.Value/numUpDnLeadScrewTeethCount.Value);
             }
-            
-            
-            var stepsPerMM = (int)(stepsPerRevolution  * ( microStep / pitch)  * gear );
+
+
+            var stepsPerMM = (int) (stepsPerRevolution*(microStep/pitch)*gear);
 
             fastColoredTextBoxLeadScrewStepsPerMM.Text = $"{stepsPerMM} steps/mm";
-            
+
         }
 
         private void cmbBxLeadScrewMotorStepAngle_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalculateLeadScrew();
         }
+
         private void chkBxLeadScrewDirectDriven_CheckedChanged(object sender, EventArgs e)
         {
-            numUpDnLeadScrewTeethCount.Visible      = !chkBxLeadScrewDirectDriven.Checked;
+            numUpDnLeadScrewTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
             numUpDnLeadScrewMotorTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
             lblLeadScrewMotorTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
             lblLeadscrewTeethCount.Visible = !chkBxLeadScrewDirectDriven.Checked;
@@ -2027,30 +2153,39 @@ namespace Marlin3DprinterTool
         private void CalculateBelt()
         {
             float microStep = 1;
-            int stepsPerRevolution = (int)(360.0 / 1.8);
-            float pitch = (float)1.25;
+            int stepsPerRevolution = (int) (360.0/1.8);
+            float pitch = (float) 1.25;
             float gear;
 
             var comboboxItemTextValue = cmbBxBeltMotorStepAngle.SelectedItem as ComboboxItemTextValue;
-            if (comboboxItemTextValue != null) { stepsPerRevolution = (int)comboboxItemTextValue.ToValue(); }
+            if (comboboxItemTextValue != null)
+            {
+                stepsPerRevolution = (int) comboboxItemTextValue.ToValue();
+            }
 
             comboboxItemTextValue = cmbBxBeltDriverMicrostepping.SelectedItem as ComboboxItemTextValue;
-            if (comboboxItemTextValue != null) { microStep = (float)comboboxItemTextValue.ToValue(); }
+            if (comboboxItemTextValue != null)
+            {
+                microStep = (float) comboboxItemTextValue.ToValue();
+            }
 
             comboboxItemTextValue = cmbBxBeltPitch.SelectedItem as ComboboxItemTextValue;
-            if (comboboxItemTextValue != null) { pitch = (float)comboboxItemTextValue.ToValue(); }
+            if (comboboxItemTextValue != null)
+            {
+                pitch = (float) comboboxItemTextValue.ToValue();
+            }
 
 
 
-            if (chkBxBeltDirectDriven.Checked) gear = (float)1.0;
+            if (chkBxBeltDirectDriven.Checked) gear = (float) 1.0;
             else
             {
-                gear = (float)(numUpDnBeltMotorTeethCount.Value / numUpDnBeltTeethCount.Value);
+                gear = (float) (numUpDnBeltMotorTeethCount.Value/numUpDnBeltTeethCount.Value);
             }
 
 
             var stepsPerMM =
-                (int) (stepsPerRevolution*(microStep/(pitch*(double) numUpDnBeltPulleyTeethCount.Value)) ) * gear;
+                (int) (stepsPerRevolution*(microStep/(pitch*(double) numUpDnBeltPulleyTeethCount.Value)))*gear;
 
             fastColoredTextBoxBeltStepsPerMM.Text = $"{stepsPerMM} steps/mm";
         }
@@ -2069,7 +2204,7 @@ namespace Marlin3DprinterTool
             int oldStepsPerMM = (int) numUpDnExtruderOldFirmware.Value;
             int meassuredExtrudedLength = (int) numUpDnExtruderMeassuredExtrusion.Value;
 
-            var stepsPerMM = extrudedLength * oldStepsPerMM / meassuredExtrudedLength;
+            var stepsPerMM = extrudedLength*oldStepsPerMM/meassuredExtrudedLength;
 
 
             fastColoredTextBoxExtruderStepsPerMM.Text = $"{stepsPerMM} steps/mm";
@@ -2144,52 +2279,186 @@ namespace Marlin3DprinterTool
 
         private void btnAssociateStlViewer_Click(object sender, EventArgs e)
         {
-            string stlViewerExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterStlViewer.exe");
-            //SetAssociation(".stl", "Marlin3DprinterTool_STLviewer", stlViewerExe, "STL 3D model file");
-            FileAssociation.Associate(".stl","Marlin3DprinterToolSTLviewer","MarlinSTLviewer","Marlin3DprinterTool.ico",stlViewerExe);
+           
+
+            string stlViewerExe = Path.GetDirectoryName(Application.ExecutablePath);
+
+            if (stlViewerExe != null)
+            {
+                stlViewerExe = Path.Combine(stlViewerExe,"Marlin3DprinterStlViewer.exe");
+
+                FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer","Marlin3DprinterTool.ico", stlViewerExe);
+            }
         }
 
 
-        
-        
+
+
 
         private void btnInstallStlServer_Click(object sender, EventArgs e)
         {
+            
+            
+
             string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            if (!File.Exists(stlViewerThumbnail)) return;
 
-            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-            foreach (ServerEntry serverEntry in serverEntries)
+            if (!string.IsNullOrEmpty(stlViewerThumbnail))
             {
 
-                SharpShell.ServerRegistration.ServerRegistrationManager.InstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
-                SharpShell.ServerRegistration.ServerRegistrationManager.RegisterServer(serverEntry.Server, RegistrationType.OS64Bit);
+                if (!File.Exists(stlViewerThumbnail)) return;
+
+                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+                foreach (ServerEntry serverEntry in serverEntries)
+                {
+
+                    SharpShell.ServerRegistration.ServerRegistrationManager.InstallServer(serverEntry.Server,chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
+                    SharpShell.ServerRegistration.ServerRegistrationManager.RegisterServer(serverEntry.Server,chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+                    UpdateServerStatus(serverEntry);
+
+
+
+                }
             }
 
             ExplorerManager.RestartExplorer();
             // Tell explorer the file association has been changed
             SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
 
+
         }
 
-        
+        private void UpdateServerStatus()
+        {
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+
+            if (!string.IsNullOrEmpty(stlViewerThumbnail))
+            {
+
+                if (!File.Exists(stlViewerThumbnail)) return;
+
+                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+                foreach (ServerEntry serverEntry in serverEntries)
+                {
+                    UpdateServerStatus(serverEntry);
+                }
+            }
+
+        }
+
+        private void UpdateServerStatus(ServerEntry serverEntry)
+        {
+            if (serverEntry != null)
+            {
+                textBoxServerName.Text = serverEntry.ServerName;
+                textBoxServerType.Text = serverEntry.ServerType.ToString();
+                textBoxServerCLSID.Text = serverEntry.ClassId.ToString();
+                textBoxServerSecurity.Text = serverEntry.GetSecurityStatus();
+                textBoxAssemblyPath.Text = serverEntry.ServerPath;
+
+                if (serverEntry.IsInvalid)
+                {
+                    //  Clear other data for invalid servers.
+                    textBoxAssociations.Text = string.Empty;
+                    ledServer32.Color = Color.Gray;
+                    ledServer64.Color = Color.Gray;
+                    ledRegister32.Color = Color.Gray;
+                    ledRegister64.Color = Color.Gray;
+                }
+                else
+                {
+                    //  Get the specified associations.
+                    var associationType = COMServerAssociationAttribute.GetAssociationType(serverEntry.Server.GetType());
+                    var associations = COMServerAssociationAttribute.GetAssociations(serverEntry.Server.GetType());
+                    textBoxAssociations.Text = associationType.ToString() + " " + string.Join(", ", associations);
+
+                    //  Now use the server registration manager to get the registration info
+                    //  for the different operating system architectures.
+                    var info32 = SharpShell.ServerRegistration.ServerRegistrationManager.GetServerRegistrationInfo(serverEntry.Server.ServerClsid,
+                                                                                     RegistrationType.OS32Bit);
+                    var info64 = SharpShell.ServerRegistration.ServerRegistrationManager.GetServerRegistrationInfo(serverEntry.Server.ServerClsid,
+                                                                                     RegistrationType.OS64Bit);
+
+                    //  By default, our installation info is going all led gray.
+                    ledServer32.Color = Color.Gray;
+                    ledServer64.Color = Color.Gray;
+                    ledRegister32.Color = Color.Gray;
+                    ledRegister64.Color = Color.Gray;
+
+                    //  Do we have 32 bit registration info?
+                    if (info32 != null)
+                    {
+                        //  Do we have a codebase?
+                        if (!string.IsNullOrEmpty(info32.CodeBase))
+                        {
+                            //textBox32BitServer.Text = info32.CodeBase;
+                            ledServer32.Color = Color.Chartreuse;
+                        }
+                        else if (!string.IsNullOrEmpty(info32.Assembly))
+                            //textBox32BitServer.Text = info32.Assembly + " (GAC)";
+                            ledServer32.Color = Color.Chartreuse;
+
+                        //  Set the registration info.
+                        if (info32.IsApproved)
+                        {
+                            //textBox32BitServerRegistration.Text = "Registered";
+                            ledRegister32.Color = Color.Chartreuse;
+                        }
+                            
+                    }
+
+                    //  Do we have 64 bit registration info?
+                    if (info64 != null)
+                    {
+                        //  Do we have a codebase?
+                        if (!string.IsNullOrEmpty(info64.CodeBase))
+                        {
+                            //textBox64BitServer.Text = info64.CodeBase;
+                            ledServer64.Color = Color.Chartreuse;
+                        }
+                        else if (!string.IsNullOrEmpty(info64.Assembly))
+                        {
+                            //textBox64BitServer.Text = info64.Assembly + " (GAC)";
+                            ledServer64.Color = Color.Chartreuse;
+                        }
+
+                        //  Set the registration info.
+                        if (info64.IsApproved)
+                        {
+                            //textBox64BitServerRegistration.Text = "Registered";
+                            ledRegister64.Color = Color.Chartreuse;
+                        }
+                    }
+                }
+            }
+        }
 
         private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
         {
             string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-            if (!File.Exists(stlViewerThumbnail)) return;
 
-            IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-            foreach (ServerEntry serverEntry in serverEntries)
+            if (!string.IsNullOrEmpty(stlViewerThumbnail))
             {
-                SharpShell.ServerRegistration.ServerRegistrationManager.UnregisterServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-                SharpShell.ServerRegistration.ServerRegistrationManager.UninstallServer(serverEntry.Server, chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+
+                if (!File.Exists(stlViewerThumbnail)) return;
+
+                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+
+                foreach (ServerEntry serverEntry in serverEntries)
+                {
+                    SharpShell.ServerRegistration.ServerRegistrationManager.UnregisterServer(serverEntry.Server,
+                        chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+                    SharpShell.ServerRegistration.ServerRegistrationManager.UninstallServer(serverEntry.Server,
+                        chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
+                    UpdateServerStatus(serverEntry);
+                }
             }
             ExplorerManager.RestartExplorer();
             // Tell explorer the file association has been changed
             SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+
+
         }
 
         private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
@@ -2197,12 +2466,59 @@ namespace Marlin3DprinterTool
             ExplorerManager.RestartExplorer();
         }
 
-        
+
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
-    }
 
+        private void btnTroubleShootStl_Click_1(object sender, EventArgs e)
+        {
+            FrmRTFdocumentation stlTroubleshoot = new FrmRTFdocumentation {Filename = "STL thumbnail debug.rtf"};
+            stlTroubleshoot.ShowDialog();
+        }
+
+        private void btnResetAndCleanExistingThumbnails_Click(object sender, EventArgs e)
+        {
+            RunCMD("cmd.exe","/C ie4uinit.exe -ClearIconCache");
+            //RunCMD("cmd.exe","/C taskkill /IM explorer.exe /F");
+            //RunCMD("explorer.exe","");
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+            MessageBox.Show(@"Reset and Clear of STL Thumbnails DONE!", @"STL Thumbnails" + Environment.NewLine + Environment.NewLine + @"You have to reboot ");
+        }
+
+        private void RunCMD(string command,string argument)
+        {
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            
+            startInfo.FileName = command;
+            startInfo.Arguments = argument;
+            process.StartInfo = startInfo;
+            
+            process.Start();
+            process.WaitForExit(5000);
+            
+        }
+
+        private void btnColorStl_Click(object sender, EventArgs e)
+        {
+            System.Drawing.ColorConverter exitingColor = new ColorConverter();
+            exitingColor.ConvertFrom(_configuration.STLcolor);
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = (Color) exitingColor.ConvertFrom(_configuration.STLcolor);
+            colorDialog.AllowFullOpen = false;
+            colorDialog.AnyColor = false;
+            colorDialog.ShowHelp = true;
+            colorDialog.FullOpen = false;
+            colorDialog.ShowDialog();
+            _configuration.STLcolor = colorDialog.Color.IsNamedColor ? colorDialog.Color.Name : $"#{colorDialog.Color.Name}";
+
+            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", _configuration.STLcolor);
+            //string color = (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool","Color","Brown");
+            //MessageBox.Show(color);
+        }
+    }
 
     /// <summary>
     /// Combobox with Text-Value Keypair. 
@@ -2253,21 +2569,29 @@ namespace Marlin3DprinterTool
         public static void Associate(string extension,
                string progID, string description, string icon, string application)
         {
-            Registry.ClassesRoot.CreateSubKey(extension).SetValue("", progID);
-            if (progID != null && progID.Length > 0)
+            RegistryKey registryKey = Registry.ClassesRoot.CreateSubKey(extension);
+            registryKey?.SetValue("", progID);
+
+
+            if (string.IsNullOrEmpty(progID)) return;
+            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progID))
             {
-                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progID))
+                if (description != null)
                 {
-                    if (description != null)
-                        key.SetValue("", description);
-                    if (icon != null)
-                        key.CreateSubKey("DefaultIcon").SetValue("", ToShortPathName(icon));
-                    if (application != null)
-                        key.CreateSubKey(@"Shell\Open\Command").SetValue("",
-                            ToShortPathName(application) + " \"%1\"");
+                    key?.SetValue("", description);
                 }
-                SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+                if (icon != null)
+                {
+                    var subKey = key?.CreateSubKey("DefaultIcon");
+                    subKey?.SetValue("", ToShortPathName(icon));
+                }
+                if (application != null)
+                {
+                    var subKey = key?.CreateSubKey(@"Shell\Open\Command");
+                    subKey?.SetValue("",ToShortPathName(application) + " \"%1\"");
+                }
             }
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
         }
 
         /// <summary>
@@ -2290,15 +2614,12 @@ namespace Marlin3DprinterTool
         {
             StringBuilder s = new StringBuilder(1000);
             uint iSize = (uint)s.Capacity;
-            uint iRet = GetShortPathName(longName, s, iSize);
+            GetShortPathName(longName, s, iSize);
             return s.ToString();
         }
 
         //    // Tell explorer the file association has been changed
         //    SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-
-        //}
-
         [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
     }

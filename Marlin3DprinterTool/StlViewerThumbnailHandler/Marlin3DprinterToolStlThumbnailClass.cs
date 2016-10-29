@@ -8,11 +8,15 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
+using MarlinComunicationHelper;
+using Microsoft.Win32;
 using SharpShell.Attributes;
 using SharpShell.SharpThumbnailHandler;
 using Brush = System.Windows.Media.Brush;
+using Color = System.Windows.Media.Color;
+using ColorConverter = System.Windows.Media.ColorConverter;
 using Image = System.Drawing.Image;
-
+using Size = System.Windows.Size;
 
 namespace Marlin3DprinterToolStlThumbnail
 {
@@ -36,6 +40,9 @@ namespace Marlin3DprinterToolStlThumbnail
     [COMServerAssociation(AssociationType.FileExtension, ".stl")]
     public class Marlin3DprinterToolStlThumbnailClass : SharpThumbnailHandler
     {
+
+        //Configuration configuration = new Configuration();
+
         /// <summary>
         /// Creates a thumbnail for a 3D object (.STL)
         /// 
@@ -48,26 +55,35 @@ namespace Marlin3DprinterToolStlThumbnail
         protected override Bitmap GetThumbnailImage(uint width) // Implemented abstract function in the base class
         {
             MemoryStream memStream = new MemoryStream();
+            
 
-          
+
             Thread thread = new Thread(() =>
             {
                 try
                 {
-                     
-                       
+
+
+
+                    string color = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", "Blue");
                     var stlReader = new StLReader();
-                    stlReader.DefaultMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Blue));
+                    stlReader.DefaultMaterial = new DiffuseMaterial(
+                    new SolidColorBrush((Color) ColorConverter.ConvertFromString(color)));
+                    
+
+                    
+                    //stlReader.DefaultMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Blue));
                     var model = stlReader.Read(SelectedItemStream);
 
 
+                    
                     //...create UI controls...
 
                     Viewport3D viewport = new Viewport3D();
                     
 
                     // viewport.Measure(new System.Windows.Size(320, 240));
-                    viewport.Measure(new System.Windows.Size(width, width));
+                    viewport.Measure(new Size(width, width));
                     // viewport.Arrange(new Rect(0, 0, 320, 240));
                     viewport.Arrange(new Rect(0, 0, width, width));
 
@@ -75,7 +91,7 @@ namespace Marlin3DprinterToolStlThumbnail
                     
                     viewport.Children.Add(root);
 
-
+                    
                     var camera = new PerspectiveCamera();
                     camera.Position = new Point3D(2, 16, 20);
                     camera.LookDirection = new Vector3D(-2, -16, -20);
@@ -92,14 +108,16 @@ namespace Marlin3DprinterToolStlThumbnail
 
                     
 
-                    CameraHelper.ZoomExtents(camera, viewport);
+                    camera.ZoomExtents(viewport);
 
-                    Brush background = null;
-                    BitmapExporter exporter = new BitmapExporter();
-                    exporter.OversamplingMultiplier = 2;
-                    exporter.Background = background;
+                    Brush background = new SolidColorBrush(Colors.Transparent);
+                    BitmapExporter exporter = new BitmapExporter
+                    {
+                        OversamplingMultiplier = 2,
+                        Background = background
+                    };
 
-                        
+
                     exporter.Export(viewport, memStream);
 
                 }
@@ -121,6 +139,12 @@ namespace Marlin3DprinterToolStlThumbnail
             Bitmap thumbnailBitmap = (Bitmap) Image.FromStream(memStream);
 
             return thumbnailBitmap;
+        }
+        static object GetRegistryValue(string fullPath, object defaultValue)
+        {
+            string keyName = Path.GetDirectoryName(fullPath);
+            string valueName = Path.GetFileName(fullPath);
+            return Registry.GetValue(keyName, valueName, defaultValue);
         }
     }
 }
