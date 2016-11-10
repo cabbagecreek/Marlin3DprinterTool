@@ -158,14 +158,12 @@ namespace Marlin3DprinterTool
             this.btnMeshLevel = new System.Windows.Forms.Button();
             this.numUpDownNumberOfRepetitions = new System.Windows.Forms.NumericUpDown();
             this.lblNumberOfRepetitions = new System.Windows.Forms.Label();
-            this.nChartControlSurface = new Nevron.Chart.WinForm.NChartControl();
             this.lblYpoints = new System.Windows.Forms.Label();
             this.lblXpoints = new System.Windows.Forms.Label();
             this.btnScanSurface = new System.Windows.Forms.Button();
             this.numUpDownYpoints = new System.Windows.Forms.NumericUpDown();
             this.numUpDownXpoints = new System.Windows.Forms.NumericUpDown();
             this.tabPagePID = new System.Windows.Forms.TabPage();
-            this.txtBxPIDresponce = new System.Windows.Forms.TextBox();
             this.grpBxHeatbedPID = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.txtBxKdBed = new System.Windows.Forms.TextBox();
@@ -275,9 +273,9 @@ namespace Marlin3DprinterTool
             this.cmbBxLeadScrewMotorStepAngle = new System.Windows.Forms.ComboBox();
             this.lblLeadScrewMotorStepAngle = new System.Windows.Forms.Label();
             this.tabPageStlViewer = new System.Windows.Forms.TabPage();
+            this.grpBxInstallingStlThumbnailServer = new System.Windows.Forms.GroupBox();
             this.grpBxAssociateStlViewer = new System.Windows.Forms.GroupBox();
             this.btnAssociateStlViewer = new System.Windows.Forms.Button();
-            this.grpBxInstallingStlThumbnailServer = new System.Windows.Forms.GroupBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.textBoxAssociations = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -332,6 +330,7 @@ namespace Marlin3DprinterTool
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnEmergency = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
+            this.fastColoredTextBoxPidResponce = new FastColoredTextBoxNS.FastColoredTextBox();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -426,14 +425,15 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).BeginInit();
             this.tabPageStlViewer.SuspendLayout();
-            this.grpBxAssociateStlViewer.SuspendLayout();
             this.grpBxInstallingStlThumbnailServer.SuspendLayout();
+            this.grpBxAssociateStlViewer.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.grpBxServe32.SuspendLayout();
             this.grpBxServe64.SuspendLayout();
             this.grpBxNavigation.SuspendLayout();
             this.lblStepperDriverPulley.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxPidResponce)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl3DprinterTool
@@ -1719,7 +1719,6 @@ namespace Marlin3DprinterTool
             this.tabPageScanSurface.Controls.Add(this.btnMeshLevel);
             this.tabPageScanSurface.Controls.Add(this.numUpDownNumberOfRepetitions);
             this.tabPageScanSurface.Controls.Add(this.lblNumberOfRepetitions);
-            this.tabPageScanSurface.Controls.Add(this.nChartControlSurface);
             this.tabPageScanSurface.Controls.Add(this.lblYpoints);
             this.tabPageScanSurface.Controls.Add(this.lblXpoints);
             this.tabPageScanSurface.Controls.Add(this.btnScanSurface);
@@ -1773,18 +1772,6 @@ namespace Marlin3DprinterTool
             this.lblNumberOfRepetitions.Size = new System.Drawing.Size(115, 13);
             this.lblNumberOfRepetitions.TabIndex = 18;
             this.lblNumberOfRepetitions.Text = "Number of Repetitions:";
-            // 
-            // nChartControlSurface
-            // 
-            this.nChartControlSurface.AutoRefresh = false;
-            this.nChartControlSurface.BackColor = System.Drawing.SystemColors.Control;
-            this.nChartControlSurface.InputKeys = new System.Windows.Forms.Keys[0];
-            this.nChartControlSurface.Location = new System.Drawing.Point(6, 53);
-            this.nChartControlSurface.Name = "nChartControlSurface";
-            this.nChartControlSurface.Size = new System.Drawing.Size(784, 574);
-            this.nChartControlSurface.State = ((Nevron.Chart.WinForm.NState)(resources.GetObject("nChartControlSurface.State")));
-            this.nChartControlSurface.TabIndex = 17;
-            this.nChartControlSurface.Text = "Surface Scan";
             // 
             // lblYpoints
             // 
@@ -1860,7 +1847,7 @@ namespace Marlin3DprinterTool
             // 
             // tabPagePID
             // 
-            this.tabPagePID.Controls.Add(this.txtBxPIDresponce);
+            this.tabPagePID.Controls.Add(this.fastColoredTextBoxPidResponce);
             this.tabPagePID.Controls.Add(this.grpBxHeatbedPID);
             this.tabPagePID.Controls.Add(this.grpBxExtruderPID);
             this.tabPagePID.Location = new System.Drawing.Point(4, 22);
@@ -1869,15 +1856,6 @@ namespace Marlin3DprinterTool
             this.tabPagePID.TabIndex = 10;
             this.tabPagePID.Text = "PID";
             this.tabPagePID.UseVisualStyleBackColor = true;
-            // 
-            // txtBxPIDresponce
-            // 
-            this.txtBxPIDresponce.Location = new System.Drawing.Point(9, 400);
-            this.txtBxPIDresponce.Multiline = true;
-            this.txtBxPIDresponce.Name = "txtBxPIDresponce";
-            this.txtBxPIDresponce.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBxPIDresponce.Size = new System.Drawing.Size(558, 211);
-            this.txtBxPIDresponce.TabIndex = 6;
             // 
             // grpBxHeatbedPID
             // 
@@ -3358,26 +3336,6 @@ namespace Marlin3DprinterTool
             this.tabPageStlViewer.Text = "STL viewer";
             this.tabPageStlViewer.UseVisualStyleBackColor = true;
             // 
-            // grpBxAssociateStlViewer
-            // 
-            this.grpBxAssociateStlViewer.Controls.Add(this.btnAssociateStlViewer);
-            this.grpBxAssociateStlViewer.Location = new System.Drawing.Point(553, 160);
-            this.grpBxAssociateStlViewer.Name = "grpBxAssociateStlViewer";
-            this.grpBxAssociateStlViewer.Size = new System.Drawing.Size(217, 56);
-            this.grpBxAssociateStlViewer.TabIndex = 5;
-            this.grpBxAssociateStlViewer.TabStop = false;
-            this.grpBxAssociateStlViewer.Text = "Associate STL viewer";
-            // 
-            // btnAssociateStlViewer
-            // 
-            this.btnAssociateStlViewer.Location = new System.Drawing.Point(6, 19);
-            this.btnAssociateStlViewer.Name = "btnAssociateStlViewer";
-            this.btnAssociateStlViewer.Size = new System.Drawing.Size(205, 23);
-            this.btnAssociateStlViewer.TabIndex = 5;
-            this.btnAssociateStlViewer.Text = "STL Viewer prefered STL viewer";
-            this.btnAssociateStlViewer.UseVisualStyleBackColor = true;
-            this.btnAssociateStlViewer.Click += new System.EventHandler(this.btnAssociateStlViewer_Click);
-            // 
             // grpBxInstallingStlThumbnailServer
             // 
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.grpBxAssociateStlViewer);
@@ -3397,6 +3355,26 @@ namespace Marlin3DprinterTool
             this.grpBxInstallingStlThumbnailServer.TabIndex = 4;
             this.grpBxInstallingStlThumbnailServer.TabStop = false;
             this.grpBxInstallingStlThumbnailServer.Text = "Installing the STL thumbnail Shell Extension";
+            // 
+            // grpBxAssociateStlViewer
+            // 
+            this.grpBxAssociateStlViewer.Controls.Add(this.btnAssociateStlViewer);
+            this.grpBxAssociateStlViewer.Location = new System.Drawing.Point(553, 160);
+            this.grpBxAssociateStlViewer.Name = "grpBxAssociateStlViewer";
+            this.grpBxAssociateStlViewer.Size = new System.Drawing.Size(217, 56);
+            this.grpBxAssociateStlViewer.TabIndex = 5;
+            this.grpBxAssociateStlViewer.TabStop = false;
+            this.grpBxAssociateStlViewer.Text = "Associate STL viewer";
+            // 
+            // btnAssociateStlViewer
+            // 
+            this.btnAssociateStlViewer.Location = new System.Drawing.Point(6, 19);
+            this.btnAssociateStlViewer.Name = "btnAssociateStlViewer";
+            this.btnAssociateStlViewer.Size = new System.Drawing.Size(205, 23);
+            this.btnAssociateStlViewer.TabIndex = 5;
+            this.btnAssociateStlViewer.Text = "STL Viewer prefered STL viewer";
+            this.btnAssociateStlViewer.UseVisualStyleBackColor = true;
+            this.btnAssociateStlViewer.Click += new System.EventHandler(this.btnAssociateStlViewer_Click);
             // 
             // groupBox11
             // 
@@ -4032,6 +4010,37 @@ namespace Marlin3DprinterTool
             this.btnFirmware.UseVisualStyleBackColor = true;
             this.btnFirmware.Click += new System.EventHandler(this.btnFirmware_Click);
             // 
+            // fastColoredTextBoxPidResponce
+            // 
+            this.fastColoredTextBoxPidResponce.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBoxPidResponce.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+            this.fastColoredTextBoxPidResponce.BackBrush = null;
+            this.fastColoredTextBoxPidResponce.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.fastColoredTextBoxPidResponce.CharHeight = 14;
+            this.fastColoredTextBoxPidResponce.CharWidth = 8;
+            this.fastColoredTextBoxPidResponce.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBoxPidResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBoxPidResponce.IsReplaceMode = false;
+            this.fastColoredTextBoxPidResponce.Location = new System.Drawing.Point(3, 400);
+            this.fastColoredTextBoxPidResponce.Name = "fastColoredTextBoxPidResponce";
+            this.fastColoredTextBoxPidResponce.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBoxPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBoxPidResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxPidResponce.ServiceColors")));
+            this.fastColoredTextBoxPidResponce.ShowLineNumbers = false;
+            this.fastColoredTextBoxPidResponce.Size = new System.Drawing.Size(780, 211);
+            this.fastColoredTextBoxPidResponce.TabIndex = 16;
+            this.fastColoredTextBoxPidResponce.Zoom = 100;
+            // 
             // FrmMarlin3DprinterTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4109,7 +4118,6 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownYpoints)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownXpoints)).EndInit();
             this.tabPagePID.ResumeLayout(false);
-            this.tabPagePID.PerformLayout();
             this.grpBxHeatbedPID.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
@@ -4177,9 +4185,9 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).EndInit();
             this.tabPageStlViewer.ResumeLayout(false);
-            this.grpBxAssociateStlViewer.ResumeLayout(false);
             this.grpBxInstallingStlThumbnailServer.ResumeLayout(false);
             this.grpBxInstallingStlThumbnailServer.PerformLayout();
+            this.grpBxAssociateStlViewer.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.grpBxServe32.ResumeLayout(false);
@@ -4189,6 +4197,7 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.ResumeLayout(false);
             this.lblStepperDriverPulley.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxPidResponce)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4342,7 +4351,6 @@ namespace Marlin3DprinterTool
         private TabPage tabPagePID;
         private GroupBox grpBxHeatbedPID;
         private GroupBox grpBxExtruderPID;
-        private Nevron.Chart.WinForm.NChartControl nChartControlSurface;
         private NumericUpDown numUpDownNumberOfRepetitions;
         private Label lblNumberOfRepetitions;
         private LedBulb ledXmin;
@@ -4366,7 +4374,6 @@ namespace Marlin3DprinterTool
         private GroupBox grpBxPidExtruderCykles;
         private NumericUpDown numUpDownPidExtruderCykles;
         private TrackBar trkBarPidExtruderCykles;
-        private TextBox txtBxPIDresponce;
         private Button btnCalculateBedPid;
         private GroupBox groupBox8;
         private NumericUpDown numUpDownPidBedCykles;
@@ -4485,6 +4492,7 @@ namespace Marlin3DprinterTool
         private Label label5;
         private Label label6;
         private Label label7;
+        private FastColoredTextBox fastColoredTextBoxPidResponce;
     }
 }
 

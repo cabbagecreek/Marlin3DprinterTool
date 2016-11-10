@@ -88,7 +88,7 @@ namespace MarlinComunicationHelper
         {
             PopulateGui();
             fastColoredTextMarlinCommunication.DescriptionFile = "MarlinCommunication.xml";
-
+            
             
           
             

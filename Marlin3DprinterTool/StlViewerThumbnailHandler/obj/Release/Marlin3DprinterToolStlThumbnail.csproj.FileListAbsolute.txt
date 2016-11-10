@@ -4,6 +4,7 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlV
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\MarlinCommunication.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\Marlin3DprinterToolStlThumbnail.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\Marlin3DprinterToolStlThumbnail.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\HelixToolkit.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\HelixToolkit.Wpf.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\MarlinComunicationHelper.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\SharpShell.dll
@@ -12,11 +13,14 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlV
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\MarlinEditor.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\TabStrip.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\MarlinComunicationHelper.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\HelixToolkit.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\HelixToolkit.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\HelixToolkit.Wpf.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\HelixToolkit.Wpf.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\SharpShell.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\SharpShell.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\FastColoredTextBox.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\ZylSerialPort.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Release\MarlinEditor.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\Release\Marlin3DprinterToolStlThumbnail.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\Release\Marlin3DprinterToolStlThumbnail.dll

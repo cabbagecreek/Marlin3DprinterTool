@@ -217,12 +217,32 @@ namespace Marlin3DprinterTool
             else
             {
                 fastColoredTextBox.Clear();
+                string textLines = "";
+
                 foreach (string responce in responces)
                 {
-                    fastColoredTextBox.Lines.Add(responce);
+                    textLines += responce + Environment.NewLine;
                 }
-               
-               
+                fastColoredTextBox.Text = textLines;
+
+
+            }
+        }
+        /// <summary>
+        /// Scroll to row in FCTB
+        /// </summary>
+        /// <param name="fastColoredTextBox"></param>
+        /// <param name="row"></param>
+        public void ScrollTo(FastColoredTextBox fastColoredTextBox, int row)
+        {
+            if (fastColoredTextBox.InvokeRequired)
+            {
+                ScrollToCallback d = ScrollTo;
+                _frm3DprinterTool.Invoke(d, fastColoredTextBox, row);
+            }
+            else
+            {
+                fastColoredTextBox.Navigate(Math.Min(fastColoredTextBox.LinesCount, row));
             }
         }
 
@@ -353,6 +373,8 @@ namespace Marlin3DprinterTool
         private delegate int TabControl3DprinterToolSelectedIndexCallback(TabControl tabControl);
 
         private delegate void TabPageEnableCallback(TabPage tabPage, bool enable);
+
+        private delegate void ScrollToCallback(FastColoredTextBox marlinSyntaxTextBox, int row);
 
         //!Delegate
     }

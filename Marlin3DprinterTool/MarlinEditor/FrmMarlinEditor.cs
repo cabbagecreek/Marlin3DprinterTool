@@ -788,6 +788,11 @@ namespace MarlinEditor
         {
             FrmMarlinEditorSetup setup = new FrmMarlinEditorSetup();
             setup.ShowDialog();
+            string fileName = Path.Combine(_configuration.CurrentFirmware, "configuration.h");
+            if (File.Exists(fileName))
+            {
+                CreateTab(fileName);
+            }
 
         }
     }
