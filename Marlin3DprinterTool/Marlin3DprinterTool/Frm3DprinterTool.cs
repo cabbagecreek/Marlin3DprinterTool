@@ -42,6 +42,7 @@ namespace Marlin3DprinterTool
         {
             InitializeComponent();
             DeligateAndInvoke = new DeligateAndInvoke(this);
+            
         }
 
         /// <summary>
@@ -61,6 +62,7 @@ namespace Marlin3DprinterTool
             PopulateComboBoxes();
             PopulateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
+            fastColoredTextBoxPidResponce.DescriptionFile = "MarlinCommunication.xml";
 
         }
 
@@ -941,7 +943,7 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
-            txtBxPIDresponce.Text = "";
+            fastColoredTextBoxPidResponce.Text = "";
 
             chartTemperature.Series["Extruder"].Points.Clear();
             chartTemperature.Series["SetExtruder"].Points.Clear();
@@ -1036,7 +1038,7 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateBedPid_Click(object sender, EventArgs e)
         {
-            txtBxPIDresponce.Text = "";
+            fastColoredTextBoxPidResponce.Text = "";
             _com.SendCommand($"M303 E-1 S{numUpDownPidBedTemp.Value} C{numUpDownPidBedCykles.Value}");
         }
 
@@ -1189,12 +1191,9 @@ namespace Marlin3DprinterTool
                 if (!string.IsNullOrEmpty(line)) linesList.Add(line);
             }
 
-            var pidResponce = "";
+            
 
-            foreach (var line in linesList)
-            {
-                pidResponce += line + Environment.NewLine;
-            }
+           
 
 
 
@@ -1248,9 +1247,9 @@ namespace Marlin3DprinterTool
 
 
 
-
-
-            DeligateAndInvoke.DelegateText(txtBxPIDresponce, pidResponce);
+            
+            DeligateAndInvoke.FastColoredTextBox(fastColoredTextBoxPidResponce, linesList);
+            DeligateAndInvoke.ScrollTo(fastColoredTextBoxPidResponce,linesList.Count);
         }
 
         private void _com_M304Responce(object sender, ResponceData responce)
