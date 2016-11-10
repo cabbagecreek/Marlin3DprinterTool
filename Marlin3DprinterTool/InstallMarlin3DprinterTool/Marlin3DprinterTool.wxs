@@ -118,14 +118,14 @@
 
 
 
-  <Fragment>
-    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
-      <Component Id="marlin3dprintertool.exe" Guid="{A2AF9ACC-1E11-4A1C-8DC4-FA022907E0BB}">
-        <File Id="Marlin3DprinterTool.exe" Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe"
-              KeyPath="yes" Checksum="yes" />
-      </Component>
-    </DirectoryRef>
-  </Fragment>
+  <!-- Fragment-->
+    <!-- DirectoryRef Id="APPLICATIONROOTDIRECTORY"-->
+      <!-- Component Id="marlin3dprintertool.exe" Guid="{A2AF9ACC-1E11-4A1C-8DC4-FA022907E0BB}"-->
+        <!-- File Id="Marlin3DprinterTool.exe" Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe" KeyPath="yes" Checksum="yes" /-->
+      <!-- /Component-->
+    <!-- /DirectoryRef-->
+  <!-- /Fragment -->
+  
 
 
 
@@ -176,26 +176,9 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\FastColoredTextBox.dll" />
       </Component>
 
-      <!-- Nevron.Chart.dll -->
-      <Component Id="Nevron.Chart.dll" Guid="{09DB1B2F-7B23-4D43-BBEB-C2F014CBF63C}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.dll" />
-      </Component>
+     
 
-      <!--Nevron.Chart.WinForm.dll -->
-      <Component Id="Nevron.Chart.WinForm.dll" Guid="{055A136B-CB0D-4BB3-97B3-D132B0B9A5AB}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.WinForm.dll" />
-      </Component>
-
-
-      <!--Nevron.Presentation.dll -->
-      <Component Id="Nevron.Presentation.dll" Guid="{C6E377FB-40C9-49F9-95B3-F7F152EC481B}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Presentation.dll" />
-      </Component>
-
-      <!--Nevron.System.dll -->
-      <Component Id="Nevron.System.dll" Guid="{64A57590-8CF7-4085-94D0-17F658FEB5BB}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.System.dll" />
-      </Component>
+      
 
       <!--TabStrip.dll -->
       <Component Id="TabStrip.dll" Guid="{64EEE10E-C60C-4DBF-9B5F-387AD08B4CA0}">
@@ -218,13 +201,7 @@
       <Component Id="SharpShell.dll" Guid="{BE48F854-BD58-4FC7-AFED-CBCF6AEDA3EE}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\SharpShell.dll" />
       </Component>
-
-
-      <!--srm.exe -->
-      <Component Id="srm.exe" Guid="{8B7ACC6D-535D-4701-B645-8FFDE3E4F1ED}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\srm.exe" />
-      </Component>
-
+    
       <!--ServerManager.exe -->
       <Component Id="ServerManager.exe" Guid="{6594131E-6F30-41CD-9764-2347DA78AE20}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\ServerManager.exe" />

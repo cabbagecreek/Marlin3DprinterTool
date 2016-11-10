@@ -43,6 +43,10 @@
             this.grpBxNewFirmware = new System.Windows.Forms.GroupBox();
             this.fctbNewFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.contextMenuStripChangeConfigTypeFile = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.configurationhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aonfigurationadvhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boardhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpBxOldFirmware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).BeginInit();
             this.grpBxNewFirmware.SuspendLayout();
@@ -51,6 +55,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.contextMenuStripChangeConfigTypeFile.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBxOldFirmware
@@ -93,6 +98,7 @@
             this.fctbCurrentFirmware.BookmarkColor = System.Drawing.Color.Magenta;
             this.fctbCurrentFirmware.CharHeight = 14;
             this.fctbCurrentFirmware.CharWidth = 8;
+            this.fctbCurrentFirmware.ContextMenuStrip = this.contextMenuStripChangeConfigTypeFile;
             this.fctbCurrentFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
             this.fctbCurrentFirmware.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbCurrentFirmware.DescriptionFile = "C:\\Users\\Johnnyboy\\Documents\\GitHub\\Marlin3DprinterTool\\Marlin3DprinterTool\\Marli" +
@@ -231,6 +237,7 @@
             this.fctbNewFirmware.BackBrush = null;
             this.fctbNewFirmware.CharHeight = 14;
             this.fctbNewFirmware.CharWidth = 8;
+            this.fctbNewFirmware.ContextMenuStrip = this.contextMenuStripChangeConfigTypeFile;
             this.fctbNewFirmware.CurrentLineColor = System.Drawing.Color.Turquoise;
             this.fctbNewFirmware.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbNewFirmware.DescriptionFile = "C:\\Users\\Johnnyboy\\Documents\\GitHub\\Marlin3DprinterTool\\Marlin3DprinterTool\\Marli" +
@@ -268,6 +275,33 @@
             this.splitContainer1.SplitterDistance = 501;
             this.splitContainer1.TabIndex = 30;
             // 
+            // contextMenuStripChangeConfigTypeFile
+            // 
+            this.contextMenuStripChangeConfigTypeFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurationhToolStripMenuItem,
+            this.aonfigurationadvhToolStripMenuItem,
+            this.boardhToolStripMenuItem});
+            this.contextMenuStripChangeConfigTypeFile.Name = "contextMenuStripChangeConfigTypeFile";
+            this.contextMenuStripChangeConfigTypeFile.Size = new System.Drawing.Size(183, 70);
+            // 
+            // configurationhToolStripMenuItem
+            // 
+            this.configurationhToolStripMenuItem.Name = "configurationhToolStripMenuItem";
+            this.configurationhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.configurationhToolStripMenuItem.Text = "Configuration.h";
+            // 
+            // aonfigurationadvhToolStripMenuItem
+            // 
+            this.aonfigurationadvhToolStripMenuItem.Name = "aonfigurationadvhToolStripMenuItem";
+            this.aonfigurationadvhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.aonfigurationadvhToolStripMenuItem.Text = "Configuration_adv.h";
+            // 
+            // boardhToolStripMenuItem
+            // 
+            this.boardhToolStripMenuItem.Name = "boardhToolStripMenuItem";
+            this.boardhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.boardhToolStripMenuItem.Text = "Board.h";
+            // 
             // FrmFirmware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,6 +323,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStripChangeConfigTypeFile.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -308,5 +343,9 @@
         private System.Windows.Forms.GroupBox grpBxNewFirmware;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private FastColoredTextBoxNS.FastColoredTextBox fctbNewFirmware;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripChangeConfigTypeFile;
+        private System.Windows.Forms.ToolStripMenuItem configurationhToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aonfigurationadvhToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem boardhToolStripMenuItem;
     }
 }

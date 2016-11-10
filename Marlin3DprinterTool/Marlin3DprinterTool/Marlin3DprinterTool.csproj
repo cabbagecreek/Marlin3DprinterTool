@@ -39,7 +39,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Debug\Marlin3DprinterTool.XML</DocumentationFile>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,24 +87,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apex.WinForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=98d06957926c086d, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\Apex.WinForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FastColoredTextBox, Version=2.16.11.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
-      <HintPath>..\packages\FCTB.2.16.11.0\lib\FastColoredTextBox.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nevron.Chart, Version=16.5.16.12, Culture=neutral, PublicKeyToken=2961c51bb98125d2">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nevron.Chart.WinForm, Version=16.5.16.12, Culture=neutral, PublicKeyToken=c9bd8998e981e4ee">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nevron.Presentation, Version=16.5.16.12, Culture=neutral, PublicKeyToken=6656c5d1103e75cc">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nevron.System, Version=16.5.16.12, Culture=neutral, PublicKeyToken=6a987feae5e496fd">
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ServerManager, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
@@ -114,9 +98,6 @@
     <Reference Include="SharpShell, Version=2.2.0.0, Culture=neutral, PublicKeyToken=f14dc899472fe6fb, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\SharpShell.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="srm">
-      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\srm.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -137,7 +118,6 @@
     <EmbeddedResource Include="Frm3DprinterTool.resx">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>

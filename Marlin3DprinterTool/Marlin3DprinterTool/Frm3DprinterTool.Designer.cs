@@ -158,7 +158,6 @@ namespace Marlin3DprinterTool
             this.btnMeshLevel = new System.Windows.Forms.Button();
             this.numUpDownNumberOfRepetitions = new System.Windows.Forms.NumericUpDown();
             this.lblNumberOfRepetitions = new System.Windows.Forms.Label();
-            this.nChartControlSurface = new Nevron.Chart.WinForm.NChartControl();
             this.lblYpoints = new System.Windows.Forms.Label();
             this.lblXpoints = new System.Windows.Forms.Label();
             this.btnScanSurface = new System.Windows.Forms.Button();
@@ -275,9 +274,9 @@ namespace Marlin3DprinterTool
             this.cmbBxLeadScrewMotorStepAngle = new System.Windows.Forms.ComboBox();
             this.lblLeadScrewMotorStepAngle = new System.Windows.Forms.Label();
             this.tabPageStlViewer = new System.Windows.Forms.TabPage();
+            this.grpBxInstallingStlThumbnailServer = new System.Windows.Forms.GroupBox();
             this.grpBxAssociateStlViewer = new System.Windows.Forms.GroupBox();
             this.btnAssociateStlViewer = new System.Windows.Forms.Button();
-            this.grpBxInstallingStlThumbnailServer = new System.Windows.Forms.GroupBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.textBoxAssociations = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -426,8 +425,8 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).BeginInit();
             this.tabPageStlViewer.SuspendLayout();
-            this.grpBxAssociateStlViewer.SuspendLayout();
             this.grpBxInstallingStlThumbnailServer.SuspendLayout();
+            this.grpBxAssociateStlViewer.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.grpBxServe32.SuspendLayout();
             this.grpBxServe64.SuspendLayout();
@@ -1719,7 +1718,6 @@ namespace Marlin3DprinterTool
             this.tabPageScanSurface.Controls.Add(this.btnMeshLevel);
             this.tabPageScanSurface.Controls.Add(this.numUpDownNumberOfRepetitions);
             this.tabPageScanSurface.Controls.Add(this.lblNumberOfRepetitions);
-            this.tabPageScanSurface.Controls.Add(this.nChartControlSurface);
             this.tabPageScanSurface.Controls.Add(this.lblYpoints);
             this.tabPageScanSurface.Controls.Add(this.lblXpoints);
             this.tabPageScanSurface.Controls.Add(this.btnScanSurface);
@@ -1773,18 +1771,6 @@ namespace Marlin3DprinterTool
             this.lblNumberOfRepetitions.Size = new System.Drawing.Size(115, 13);
             this.lblNumberOfRepetitions.TabIndex = 18;
             this.lblNumberOfRepetitions.Text = "Number of Repetitions:";
-            // 
-            // nChartControlSurface
-            // 
-            this.nChartControlSurface.AutoRefresh = false;
-            this.nChartControlSurface.BackColor = System.Drawing.SystemColors.Control;
-            this.nChartControlSurface.InputKeys = new System.Windows.Forms.Keys[0];
-            this.nChartControlSurface.Location = new System.Drawing.Point(6, 53);
-            this.nChartControlSurface.Name = "nChartControlSurface";
-            this.nChartControlSurface.Size = new System.Drawing.Size(784, 574);
-            this.nChartControlSurface.State = ((Nevron.Chart.WinForm.NState)(resources.GetObject("nChartControlSurface.State")));
-            this.nChartControlSurface.TabIndex = 17;
-            this.nChartControlSurface.Text = "Surface Scan";
             // 
             // lblYpoints
             // 
@@ -3358,26 +3344,6 @@ namespace Marlin3DprinterTool
             this.tabPageStlViewer.Text = "STL viewer";
             this.tabPageStlViewer.UseVisualStyleBackColor = true;
             // 
-            // grpBxAssociateStlViewer
-            // 
-            this.grpBxAssociateStlViewer.Controls.Add(this.btnAssociateStlViewer);
-            this.grpBxAssociateStlViewer.Location = new System.Drawing.Point(553, 160);
-            this.grpBxAssociateStlViewer.Name = "grpBxAssociateStlViewer";
-            this.grpBxAssociateStlViewer.Size = new System.Drawing.Size(217, 56);
-            this.grpBxAssociateStlViewer.TabIndex = 5;
-            this.grpBxAssociateStlViewer.TabStop = false;
-            this.grpBxAssociateStlViewer.Text = "Associate STL viewer";
-            // 
-            // btnAssociateStlViewer
-            // 
-            this.btnAssociateStlViewer.Location = new System.Drawing.Point(6, 19);
-            this.btnAssociateStlViewer.Name = "btnAssociateStlViewer";
-            this.btnAssociateStlViewer.Size = new System.Drawing.Size(205, 23);
-            this.btnAssociateStlViewer.TabIndex = 5;
-            this.btnAssociateStlViewer.Text = "STL Viewer prefered STL viewer";
-            this.btnAssociateStlViewer.UseVisualStyleBackColor = true;
-            this.btnAssociateStlViewer.Click += new System.EventHandler(this.btnAssociateStlViewer_Click);
-            // 
             // grpBxInstallingStlThumbnailServer
             // 
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.grpBxAssociateStlViewer);
@@ -3397,6 +3363,26 @@ namespace Marlin3DprinterTool
             this.grpBxInstallingStlThumbnailServer.TabIndex = 4;
             this.grpBxInstallingStlThumbnailServer.TabStop = false;
             this.grpBxInstallingStlThumbnailServer.Text = "Installing the STL thumbnail Shell Extension";
+            // 
+            // grpBxAssociateStlViewer
+            // 
+            this.grpBxAssociateStlViewer.Controls.Add(this.btnAssociateStlViewer);
+            this.grpBxAssociateStlViewer.Location = new System.Drawing.Point(553, 160);
+            this.grpBxAssociateStlViewer.Name = "grpBxAssociateStlViewer";
+            this.grpBxAssociateStlViewer.Size = new System.Drawing.Size(217, 56);
+            this.grpBxAssociateStlViewer.TabIndex = 5;
+            this.grpBxAssociateStlViewer.TabStop = false;
+            this.grpBxAssociateStlViewer.Text = "Associate STL viewer";
+            // 
+            // btnAssociateStlViewer
+            // 
+            this.btnAssociateStlViewer.Location = new System.Drawing.Point(6, 19);
+            this.btnAssociateStlViewer.Name = "btnAssociateStlViewer";
+            this.btnAssociateStlViewer.Size = new System.Drawing.Size(205, 23);
+            this.btnAssociateStlViewer.TabIndex = 5;
+            this.btnAssociateStlViewer.Text = "STL Viewer prefered STL viewer";
+            this.btnAssociateStlViewer.UseVisualStyleBackColor = true;
+            this.btnAssociateStlViewer.Click += new System.EventHandler(this.btnAssociateStlViewer_Click);
             // 
             // groupBox11
             // 
@@ -4177,9 +4163,9 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewTeethCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnLeadScrewMotorTeethCount)).EndInit();
             this.tabPageStlViewer.ResumeLayout(false);
-            this.grpBxAssociateStlViewer.ResumeLayout(false);
             this.grpBxInstallingStlThumbnailServer.ResumeLayout(false);
             this.grpBxInstallingStlThumbnailServer.PerformLayout();
+            this.grpBxAssociateStlViewer.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.grpBxServe32.ResumeLayout(false);
@@ -4342,7 +4328,6 @@ namespace Marlin3DprinterTool
         private TabPage tabPagePID;
         private GroupBox grpBxHeatbedPID;
         private GroupBox grpBxExtruderPID;
-        private Nevron.Chart.WinForm.NChartControl nChartControlSurface;
         private NumericUpDown numUpDownNumberOfRepetitions;
         private Label lblNumberOfRepetitions;
         private LedBulb ledXmin;

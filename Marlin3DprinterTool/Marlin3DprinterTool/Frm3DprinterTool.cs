@@ -6,15 +6,13 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
 using MarlinDocumentation;
 using MarlinEditor;
 using Microsoft.Win32;
-using Nevron;
-using Nevron.Chart;
-using Nevron.Chart.Windows;
 using ServerManager;
 using SharpShell.Attributes;
 using SharpShell.Diagnostics;
@@ -375,8 +373,9 @@ namespace Marlin3DprinterTool
 
         private void btnProbeTheBed_Click(object sender, EventArgs e)
         {
-            nChartControlSurface.Charts[0].Series.Clear();
-            nChartControlSurface.Refresh();
+            //TODO: nChartControlSurface
+            //nChartControlSurface.Charts[0].Series.Clear();
+            //nChartControlSurface.Refresh();
 
             List<Point> probePointsList = new List<Point>();
             if (_configuration.BedType == "4point")
@@ -870,8 +869,9 @@ namespace Marlin3DprinterTool
 
         private void btnScanSurface_Click(object sender, EventArgs e)
         {
-            nChartControlSurface.Charts[0].Series.Clear();
-            nChartControlSurface.Refresh();
+            //TODO: nChartControlSurface
+            //nChartControlSurface.Charts[0].Series.Clear();
+            //nChartControlSurface.Refresh();
 
             ScanSurface((int) numUpDownXpoints.Value, (int) numUpDownYpoints.Value,
                 (int) numUpDownNumberOfRepetitions.Value);
@@ -1439,37 +1439,7 @@ namespace Marlin3DprinterTool
                 case 4: // SurfaceScan
                     CreateSurfaceChart();
 
-                    //TODO: tabort
-                    //NLicense license = new NLicense("001800d6-4511-4600-6a35-050c5793dd94");
-                    //NLicenseManager.Instance.SetLicense(license);
-                    //NLicenseManager.Instance.LockLicense = true;
-
-                    //NChart chart = nChartControlSurface.Charts[0];
-                    //chart.Enable3D = true;
-                    //chart.Width = 60;
-                    //chart.Height = 50;
-                    //chart.Depth = 60;
-                    //nChartControlSurface.Legends.Clear();
-
-
-                    //NTriangulatedSurfaceSeries surface = new NTriangulatedSurfaceSeries { SmoothPalette = true };
-
-                    //if (_com.ProbeResponceList != null)
-                    //{
-                    //    foreach (Position position in _com.ProbeResponceList)
-                    //    {
-                    //        surface.XValues.Add(position.X);
-                    //        surface.Values.Add(position.Z);
-                    //        surface.ZValues.Add(position.Y);
-                    //    }
-
-                    //    chart.Series.Add(surface);
-
-                    //    nChartControlSurface.Controller.Tools.Add(new NPanelSelectorTool());
-                    //    nChartControlSurface.Controller.Tools.Add(new NTrackballTool());
-                    //}
-
-                    //nChartControlSurface.Refresh();
+                    
 
                     break;
             }
@@ -1477,36 +1447,37 @@ namespace Marlin3DprinterTool
 
         private void CreateSurfaceChart()
         {
-            var license = new NLicense("001800d6-4511-4600-6a35-050c5793dd94");
-            NLicenseManager.Instance.SetLicense(license);
-            NLicenseManager.Instance.LockLicense = true;
+            //TODO: nChartControlSurface
+            //var license = new NLicense("001800d6-4511-4600-6a35-050c5793dd94");
+            //NLicenseManager.Instance.SetLicense(license);
+            //NLicenseManager.Instance.LockLicense = true;
 
-            var chart = nChartControlSurface.Charts[0];
-            chart.Enable3D = true;
-            chart.Width = 60;
-            chart.Height = 50;
-            chart.Depth = 60;
-            nChartControlSurface.Legends.Clear();
+            //var chart = nChartControlSurface.Charts[0];
+            //chart.Enable3D = true;
+            //chart.Width = 60;
+            //chart.Height = 50;
+            //chart.Depth = 60;
+            //nChartControlSurface.Legends.Clear();
 
 
-            var surface = new NTriangulatedSurfaceSeries {SmoothPalette = true};
+            //var surface = new NTriangulatedSurfaceSeries {SmoothPalette = true};
 
-            if (_com.ProbeResponceList != null)
-            {
-                foreach (var position in _com.ProbeResponceList)
-                {
-                    surface.XValues.Add(position.X);
-                    surface.Values.Add(position.Z);
-                    surface.ZValues.Add(position.Y);
-                }
+            //if (_com.ProbeResponceList != null)
+            //{
+            //    foreach (var position in _com.ProbeResponceList)
+            //    {
+            //        surface.XValues.Add(position.X);
+            //        surface.Values.Add(position.Z);
+            //        surface.ZValues.Add(position.Y);
+            //    }
 
-                chart.Series.Add(surface);
+            //    chart.Series.Add(surface);
 
-                nChartControlSurface.Controller.Tools.Add(new NPanelSelectorTool());
-                nChartControlSurface.Controller.Tools.Add(new NTrackballTool());
-            }
+            //    nChartControlSurface.Controller.Tools.Add(new NPanelSelectorTool());
+            //    nChartControlSurface.Controller.Tools.Add(new NTrackballTool());
+            //}
 
-            nChartControlSurface.Refresh();
+            //nChartControlSurface.Refresh();
         }
 
 
@@ -2288,6 +2259,8 @@ namespace Marlin3DprinterTool
                 stlViewerExe = Path.Combine(stlViewerExe,"Marlin3DprinterStlViewer.exe");
 
                 FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer","Marlin3DprinterTool.ico", stlViewerExe);
+                MessageBox.Show(@"STL viewer is now the prefered stl-application", @"Assign STL Viewer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
         }
 
@@ -2463,7 +2436,16 @@ namespace Marlin3DprinterTool
 
         private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show(@"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
+                            @"Explorer will be forced to restart"
+                , @"Restarting Explorer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Cancel) return;
+
             ExplorerManager.RestartExplorer();
+
+            MessageBox.Show(@"Restart of Explorer DONE!",@"Restart of Explorer",MessageBoxButtons.OK,MessageBoxIcon.Information);
+
         }
 
 
@@ -2479,11 +2461,31 @@ namespace Marlin3DprinterTool
 
         private void btnResetAndCleanExistingThumbnails_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show(@"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
+                            @"This is a more BRUTAL method of reseting the File Explorer Thumbnails"
+                , @"Forced Delete of Thumbnail cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Cancel) return;
+
+
+
             RunCMD("cmd.exe","/C ie4uinit.exe -ClearIconCache");
-            //RunCMD("cmd.exe","/C taskkill /IM explorer.exe /F");
-            //RunCMD("explorer.exe","");
+            RunCMD(@"cmd.exe",@"/C taskkill /f /im explorer.exe");
+            Thread.Sleep(2000);
+            RunCMD("cmd.exe",
+                $@"/C DEL /F /S /Q /A {Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Microsoft\Windows\Explorer\thumbcache_*.db"
+                );
+            Thread.Sleep(2000);
+            RunCMD("cmd.exe", "/C ie4uinit.exe -ClearIconCache");
+
+            Process Appli = new Process();
+            Appli.StartInfo.FileName = Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe");
+            Appli.StartInfo.UseShellExecute = true;
+            Appli.StartInfo.RedirectStandardOutput = false;
+            Appli.Start();
+
             SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-            MessageBox.Show(@"Reset and Clear of STL Thumbnails DONE!", @"STL Thumbnails" + Environment.NewLine + Environment.NewLine + @"You have to reboot ");
+            MessageBox.Show(@"Forced Delete of Thumbnail Cache and Restart of Explorer is DONE!", @"Restart of Explorer", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void RunCMD(string command,string argument)

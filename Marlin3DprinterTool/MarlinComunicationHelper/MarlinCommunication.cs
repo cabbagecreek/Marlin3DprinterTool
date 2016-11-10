@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using MarlinEditor;
-using ZylSerialPort;
+using ZylSoft.Serial;
 
 namespace MarlinComunicationHelper
 {
@@ -63,6 +63,7 @@ namespace MarlinComunicationHelper
 
         public void Connect()
         {
+            
             if (_serialPort.ConnectedTo.ToString() == "None")
             {
                 try
@@ -73,14 +74,14 @@ namespace MarlinComunicationHelper
                     _serialPort.Received += _serialPort_Received;
 
 
-                    _serialPort.CustomBaudRate = Convert.ToInt32(BaudRate);
-                    _serialPort.BaudRate = SerialPort.SerialBaudRate.brCustom;
+                    _serialPort.CustomBaudRate = Convert.ToUInt32(BaudRate);
+                    _serialPort.BaudRate =  SerialBaudRate.Custom;
 
 
                     // 8 batabits No parity 1 Stop Bit
-                    _serialPort.DataWidth = SerialPort.SerialDataWidth.dw8Bits;
-                    _serialPort.ParityBits = SerialPort.SerialParityBits.pbNone;
-                    _serialPort.StopBits = SerialPort.SerialStopBits.sb1Bit;
+                    _serialPort.DataWidth = SerialDataWidth.Dw8Bits;
+                    _serialPort.ParityBits = SerialParityBits.None;
+                    _serialPort.StopBits = SerialStopBits.Sb1Bit;
 
 
                     _serialPort.Open();
@@ -100,8 +101,8 @@ namespace MarlinComunicationHelper
         private void _serialPort_Received(object sender, DataEventArgs e)
         {
             // Read all bytes in the buffer
-            _dataReceived += SerialPort.ASCIIByteArrayToString(e.Buffer);
-
+            _dataReceived += SerialPort.AsciiByteArrayToString(e.Buffer);
+            
             if (Showform != null)
             {
                 _showcom.AddReceived = _dataReceived;
@@ -161,8 +162,8 @@ namespace MarlinComunicationHelper
         {
 
             
-
-            if (IsPortOpen == false) _serialPort.SendASCIIString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
+            //TODO: _serialPort.SendAsciiStringLine()
+            if (IsPortOpen == false) _serialPort.SendAsciiString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
             IsPortOpen = true;
 
             // Return if The _dataReceived not contains ok\n
@@ -638,7 +639,8 @@ namespace MarlinComunicationHelper
         {
             if (IsPortOpen)
             {
-                if (Kill) _serialPort.SendASCIIString("M112" + Environment.NewLine);
+                //TODO: _serialPort.SendAsciiStringLine()
+                if (Kill) _serialPort.SendAsciiString("M112" + Environment.NewLine);
 
                 if (Showform != null)
                 {
@@ -651,7 +653,8 @@ namespace MarlinComunicationHelper
 
 
                 // Send the command
-                _serialPort.SendASCIIString(command + Environment.NewLine);
+                //TODO: _serialPort.SendAsciiStringLine()
+                _serialPort.SendAsciiString(command + Environment.NewLine);
             }
         }
 
