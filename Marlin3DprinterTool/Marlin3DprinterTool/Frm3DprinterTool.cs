@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
@@ -14,9 +14,8 @@ using MarlinDocumentation;
 using MarlinEditor;
 using Microsoft.Win32;
 using ServerManager;
-using SharpShell.Attributes;
-using SharpShell.Diagnostics;
-using SharpShell.ServerRegistration;
+using SharpShellServerManager;
+using SharpShell;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
 
@@ -41,14 +40,14 @@ namespace Marlin3DprinterTool
         public FrmMarlin3DprinterTool()
         {
             InitializeComponent();
-            DeligateAndInvoke = new DeligateAndInvoke(this);
-            
+            DeligateAndInvoke = new DelegateAndInvoke(this);
+
         }
 
         /// <summary>
         ///     All deligates, Callback and Invoke is in separate class
         /// </summary>
-        private DeligateAndInvoke DeligateAndInvoke { get; }
+        private DelegateAndInvoke DeligateAndInvoke { get; }
 
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
@@ -58,11 +57,12 @@ namespace Marlin3DprinterTool
 #else
             DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
 #endif
-            
+
             PopulateComboBoxes();
             PopulateConfig();
-            fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
-            fastColoredTextBoxPidResponce.DescriptionFile = "MarlinCommunication.xml";
+            fctbM48Responce.DescriptionFile = "Marlincommunication.xml";
+            fctbPidResponce.DescriptionFile = "MarlinCommunication.xml";
+            fctbInit.DescriptionFile = "MarlinCommunication.xml";
 
         }
 
@@ -487,7 +487,7 @@ namespace Marlin3DprinterTool
                     //TODO: Multiple probe on point = numberOfRepetitions
                     //for (int repetition = 0; repetition < numberOfRepetitions; repetition++)
                     //{
-                        // probePointsList.Add(new Point(x,y));    
+                    // probePointsList.Add(new Point(x,y));    
                     //}
                     probePointsList.Add(new Point(x, y));
                 }
@@ -943,7 +943,7 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
-            fastColoredTextBoxPidResponce.Text = "";
+            fctbPidResponce.Text = "";
 
             chartTemperature.Series["Extruder"].Points.Clear();
             chartTemperature.Series["SetExtruder"].Points.Clear();
@@ -1038,7 +1038,7 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateBedPid_Click(object sender, EventArgs e)
         {
-            fastColoredTextBoxPidResponce.Text = "";
+            fctbPidResponce.Text = "";
             _com.SendCommand($"M303 E-1 S{numUpDownPidBedTemp.Value} C{numUpDownPidBedCykles.Value}");
         }
 
@@ -1191,9 +1191,9 @@ namespace Marlin3DprinterTool
                 if (!string.IsNullOrEmpty(line)) linesList.Add(line);
             }
 
-            
 
-           
+
+
 
 
 
@@ -1247,9 +1247,9 @@ namespace Marlin3DprinterTool
 
 
 
-            
-            DeligateAndInvoke.FastColoredTextBox(fastColoredTextBoxPidResponce, linesList);
-            DeligateAndInvoke.ScrollTo(fastColoredTextBoxPidResponce,linesList.Count);
+
+            DeligateAndInvoke.FastColoredTextBox(fctbPidResponce, linesList);
+            DeligateAndInvoke.ScrollTo(fctbPidResponce, linesList.Count);
         }
 
         private void _com_M304Responce(object sender, ResponceData responce)
@@ -1318,12 +1318,24 @@ namespace Marlin3DprinterTool
             _temperatureStopwatch.Reset();
             _temperatureStopwatch.Start();
 
-            MessageBox.Show(e.Data.Replace("\n", Environment.NewLine), @"Marlin Init", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+
+
+            string initText = "";
+            string[] initRows = e.Data.Split('\n');
+            foreach (string row in initRows)
+            {
+                initText += row.Replace("echo:", "").Trim() + Environment.NewLine;
+            }
+
+            DeligateAndInvoke.FastColoredTextBox(fctbInit, initText);
+
+            DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool, tabPageParameters);
 
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
             if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
+
+
 
 
 
@@ -1438,7 +1450,7 @@ namespace Marlin3DprinterTool
                 case 4: // SurfaceScan
                     CreateSurfaceChart();
 
-                    
+
 
                     break;
             }
@@ -1542,7 +1554,7 @@ namespace Marlin3DprinterTool
             //            ok
 
 
-            DeligateAndInvoke.FastColoredTextBox(fastColoredTextBoxM48Responce, responce.ResponsRowList);
+            DeligateAndInvoke.FastColoredTextBox(fctbM48Responce, responce.ResponsRowList);
         }
 
         #endregion
@@ -2249,16 +2261,18 @@ namespace Marlin3DprinterTool
 
         private void btnAssociateStlViewer_Click(object sender, EventArgs e)
         {
-           
+
 
             string stlViewerExe = Path.GetDirectoryName(Application.ExecutablePath);
 
             if (stlViewerExe != null)
             {
-                stlViewerExe = Path.Combine(stlViewerExe,"Marlin3DprinterStlViewer.exe");
+                stlViewerExe = Path.Combine(stlViewerExe, "Marlin3DprinterStlViewer.exe");
 
-                FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer","Marlin3DprinterTool.ico", stlViewerExe);
-                MessageBox.Show(@"STL viewer is now the prefered stl-application", @"Assign STL Viewer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer",
+                    "Marlin3DprinterTool.ico", stlViewerExe);
+                MessageBox.Show(@"STL viewer is now the prefered stl-application", @"Assign STL Viewer",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }
@@ -2269,67 +2283,34 @@ namespace Marlin3DprinterTool
 
         private void btnInstallStlServer_Click(object sender, EventArgs e)
         {
-            
-            
-
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-
-            if (!string.IsNullOrEmpty(stlViewerThumbnail))
-            {
-
-                if (!File.Exists(stlViewerThumbnail)) return;
-
-                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-                foreach (ServerEntry serverEntry in serverEntries)
-                {
-
-                    SharpShell.ServerRegistration.ServerRegistrationManager.InstallServer(serverEntry.Server,chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit, true);
-                    SharpShell.ServerRegistration.ServerRegistrationManager.RegisterServer(serverEntry.Server,chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-                    UpdateServerStatus(serverEntry);
-
-
-
-                }
-            }
-
-            ExplorerManager.RestartExplorer();
-            // Tell explorer the file association has been changed
-            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-
-
+            bool osIs32Bit = chkBx32BitOS.Checked;
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
+                "Marlin3DprinterToolStlThumbnail.dll");
+            SharpShellServerManagerClass.InstallServer(stlViewerThumbnail, osIs32Bit);
+            UpdateServerStatus();
         }
 
         private void UpdateServerStatus()
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
 
-            if (!string.IsNullOrEmpty(stlViewerThumbnail))
+
+
+
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
+                "Marlin3DprinterToolStlThumbnail.dll");
+            //TODO: SharpShellServerManagerClass.Serverentries
+            IEnumerable<ServerEntry> serverEntries = SharpShellServerManagerClass.UpdateServerStatus(stlViewerThumbnail);
+
+            foreach (ServerEntry serverEntry in serverEntries)
             {
-
-                if (!File.Exists(stlViewerThumbnail)) return;
-
-                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-                foreach (ServerEntry serverEntry in serverEntries)
-                {
-                    UpdateServerStatus(serverEntry);
-                }
-            }
-
-        }
-
-        private void UpdateServerStatus(ServerEntry serverEntry)
-        {
-            if (serverEntry != null)
-            {
-                textBoxServerName.Text = serverEntry.ServerName;
-                textBoxServerType.Text = serverEntry.ServerType.ToString();
-                textBoxServerCLSID.Text = serverEntry.ClassId.ToString();
-                textBoxServerSecurity.Text = serverEntry.GetSecurityStatus();
-                textBoxAssemblyPath.Text = serverEntry.ServerPath;
-
-                if (serverEntry.IsInvalid)
+                SharpShellServerManagerClass.ServerInfo serverinfo =
+                    SharpShellServerManagerClass.GetServerinfo(serverEntry);
+                textBoxServerName.Text = serverinfo.ServerName;
+                textBoxServerType.Text = serverinfo.ServerType;
+                textBoxServerCLSID.Text = serverinfo.ClassId;
+                textBoxServerSecurity.Text = serverinfo.SecurityStatus;
+                textBoxAssemblyPath.Text = serverinfo.ServerPath;
+                if (serverinfo.IsInvalid)
                 {
                     //  Clear other data for invalid servers.
                     textBoxAssociations.Text = string.Empty;
@@ -2340,17 +2321,10 @@ namespace Marlin3DprinterTool
                 }
                 else
                 {
-                    //  Get the specified associations.
-                    var associationType = COMServerAssociationAttribute.GetAssociationType(serverEntry.Server.GetType());
-                    var associations = COMServerAssociationAttribute.GetAssociations(serverEntry.Server.GetType());
-                    textBoxAssociations.Text = associationType.ToString() + " " + string.Join(", ", associations);
 
-                    //  Now use the server registration manager to get the registration info
-                    //  for the different operating system architectures.
-                    var info32 = SharpShell.ServerRegistration.ServerRegistrationManager.GetServerRegistrationInfo(serverEntry.Server.ServerClsid,
-                                                                                     RegistrationType.OS32Bit);
-                    var info64 = SharpShell.ServerRegistration.ServerRegistrationManager.GetServerRegistrationInfo(serverEntry.Server.ServerClsid,
-                                                                                     RegistrationType.OS64Bit);
+                    textBoxAssociations.Text = serverinfo.Association;
+
+
 
                     //  By default, our installation info is going all led gray.
                     ledServer32.Color = Color.Gray;
@@ -2359,98 +2333,84 @@ namespace Marlin3DprinterTool
                     ledRegister64.Color = Color.Gray;
 
                     //  Do we have 32 bit registration info?
-                    if (info32 != null)
+                    if (serverinfo.Info32 != null)
                     {
                         //  Do we have a codebase?
-                        if (!string.IsNullOrEmpty(info32.CodeBase))
+                        if (!string.IsNullOrEmpty(serverinfo.Info32.CodeBase))
                         {
                             //textBox32BitServer.Text = info32.CodeBase;
                             ledServer32.Color = Color.Chartreuse;
                         }
-                        else if (!string.IsNullOrEmpty(info32.Assembly))
+                        else if (!string.IsNullOrEmpty(serverinfo.Info32.Assembly))
                             //textBox32BitServer.Text = info32.Assembly + " (GAC)";
                             ledServer32.Color = Color.Chartreuse;
 
                         //  Set the registration info.
-                        if (info32.IsApproved)
+                        if (serverinfo.Info32.IsApproved)
                         {
                             //textBox32BitServerRegistration.Text = "Registered";
                             ledRegister32.Color = Color.Chartreuse;
                         }
-                            
+
                     }
 
                     //  Do we have 64 bit registration info?
-                    if (info64 != null)
+                    if (serverinfo.Info64 != null)
                     {
                         //  Do we have a codebase?
-                        if (!string.IsNullOrEmpty(info64.CodeBase))
+                        if (!string.IsNullOrEmpty(serverinfo.Info64.CodeBase))
                         {
                             //textBox64BitServer.Text = info64.CodeBase;
                             ledServer64.Color = Color.Chartreuse;
                         }
-                        else if (!string.IsNullOrEmpty(info64.Assembly))
+                        else if (!string.IsNullOrEmpty(serverinfo.Info64.Assembly))
                         {
                             //textBox64BitServer.Text = info64.Assembly + " (GAC)";
                             ledServer64.Color = Color.Chartreuse;
                         }
 
                         //  Set the registration info.
-                        if (info64.IsApproved)
+                        if (serverinfo.Info64.IsApproved)
                         {
                             //textBox64BitServerRegistration.Text = "Registered";
                             ledRegister64.Color = Color.Chartreuse;
                         }
                     }
                 }
+
             }
+
         }
+
 
         private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
-
-            if (!string.IsNullOrEmpty(stlViewerThumbnail))
-            {
-
-                if (!File.Exists(stlViewerThumbnail)) return;
-
-                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
-
-                foreach (ServerEntry serverEntry in serverEntries)
-                {
-                    SharpShell.ServerRegistration.ServerRegistrationManager.UnregisterServer(serverEntry.Server,
-                        chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-                    SharpShell.ServerRegistration.ServerRegistrationManager.UninstallServer(serverEntry.Server,
-                        chkBx32BitOS.Checked ? RegistrationType.OS32Bit : RegistrationType.OS64Bit);
-                    UpdateServerStatus(serverEntry);
-                }
-            }
-            ExplorerManager.RestartExplorer();
-            // Tell explorer the file association has been changed
-            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-
-
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
+                "Marlin3DprinterToolStlThumbnail.dll");
+            bool osIs32Bit = chkBx32BitOS.Checked;
+            SharpShellServerManagerClass.Unregister(stlViewerThumbnail, osIs32Bit);
+            UpdateServerStatus();
         }
 
         private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(@"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
-                            @"Explorer will be forced to restart"
-                , @"Restarting Explorer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button2);
+            DialogResult result =
+                MessageBox.Show(
+                    @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
+                    @"Explorer will be forced to restart"
+                    , @"Restarting Explorer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Cancel) return;
 
-            ExplorerManager.RestartExplorer();
+            SharpShellServerManagerClass.RestartExplorer();
 
-            MessageBox.Show(@"Restart of Explorer DONE!",@"Restart of Explorer",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show(@"Restart of Explorer DONE!", @"Restart of Explorer", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
 
         }
 
 
 
-        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
         private void btnTroubleShootStl_Click_1(object sender, EventArgs e)
         {
@@ -2460,51 +2420,23 @@ namespace Marlin3DprinterTool
 
         private void btnResetAndCleanExistingThumbnails_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(@"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
-                            @"This is a more BRUTAL method of reseting the File Explorer Thumbnails"
-                , @"Forced Delete of Thumbnail cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button2);
+            DialogResult result =
+                MessageBox.Show(
+                    @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
+                    @"This is a more BRUTAL method of reseting the File Explorer Thumbnails"
+                    , @"Forced Delete of Thumbnail cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Cancel) return;
 
 
-
-            RunCMD("cmd.exe","/C ie4uinit.exe -ClearIconCache");
-            RunCMD(@"cmd.exe",@"/C taskkill /f /im explorer.exe");
-            Thread.Sleep(2000);
-            RunCMD("cmd.exe",
-                $@"/C DEL /F /S /Q /A {Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Microsoft\Windows\Explorer\thumbcache_*.db"
-                );
-            Thread.Sleep(2000);
-            RunCMD("cmd.exe", "/C ie4uinit.exe -ClearIconCache");
-
-            Process Appli = new Process();
-            Appli.StartInfo.FileName = Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe");
-            Appli.StartInfo.UseShellExecute = true;
-            Appli.StartInfo.RedirectStandardOutput = false;
-            Appli.Start();
-
-            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-            MessageBox.Show(@"Forced Delete of Thumbnail Cache and Restart of Explorer is DONE!", @"Restart of Explorer", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void RunCMD(string command,string argument)
-        {
-            Process process = new Process();
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            
-            startInfo.FileName = command;
-            startInfo.Arguments = argument;
-            process.StartInfo = startInfo;
-            
-            process.Start();
-            process.WaitForExit(5000);
-            
+            SharpShellServerManagerClass.ResetAndCleanExistingThumbnails();
+            MessageBox.Show(@"Forced Delete of Thumbnail Cache and Restart of Explorer is DONE!", @"Restart of Explorer",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnColorStl_Click(object sender, EventArgs e)
         {
-            System.Drawing.ColorConverter exitingColor = new ColorConverter();
+            ColorConverter exitingColor = new ColorConverter();
             exitingColor.ConvertFrom(_configuration.STLcolor);
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.Color = (Color) exitingColor.ConvertFrom(_configuration.STLcolor);
@@ -2513,11 +2445,260 @@ namespace Marlin3DprinterTool
             colorDialog.ShowHelp = true;
             colorDialog.FullOpen = false;
             colorDialog.ShowDialog();
-            _configuration.STLcolor = colorDialog.Color.IsNamedColor ? colorDialog.Color.Name : $"#{colorDialog.Color.Name}";
+            _configuration.STLcolor = colorDialog.Color.IsNamedColor
+                ? colorDialog.Color.Name
+                : $"#{colorDialog.Color.Name}";
 
             Registry.SetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", _configuration.STLcolor);
             //string color = (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool","Color","Brown");
             //MessageBox.Show(color);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string initText = "";
+            string[] initRows = fctbInit.Lines.ToArray();
+            foreach (string row in initRows)
+            {
+                initText += row.Replace("echo:", "").Trim() + Environment.NewLine;
+            }
+
+            DeligateAndInvoke.FastColoredTextBox(fctbInit, initText);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ParseInit();
+
+        }
+
+        private void ParseInit()
+        {
+            foreach (string line in fctbInit.Lines)
+            {
+                string linePattern = "";
+                Match rowMatch = null;
+
+                linePattern = @"M92\s*X[0-9]*\.[0-9]*\s*Y[0-9]*\.[0-9]*\s*Z[0-9]*\.[0-9]*\sE[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    txtBxStepsPerUnitX.Text =
+                        Regex.Match(line, @"(?:X)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxStepsPerUnitY.Text =
+                        Regex.Match(line, @"(?:Y)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxStepsPerUnitZ.Text =
+                        Regex.Match(line, @"(?:Z)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxStepsPerUnitE.Text =
+                        Regex.Match(line, @"(?:E)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                }
+
+                linePattern = @"M203\s*X[0-9]*\.[0-9]*\s*Y[0-9]*\.[0-9]*\s*Z[0-9]*\.[0-9]*\sE[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    txtBxMaxFeedRateX.Text =
+                        Regex.Match(line, @"(?:X)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMaxFeedRateY.Text =
+                        Regex.Match(line, @"(?:Y)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMaxFeedRateZ.Text =
+                        Regex.Match(line, @"(?:Z)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMaxFeedRateE.Text =
+                        Regex.Match(line, @"(?:E)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                }
+
+                linePattern = @"M201\s*X[0-9]*\s*Y[0-9]*\s*Z[0-9]*\sE[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    // Only integers
+                    txtBxMaxAccelationX.Text =
+                        Regex.Match(line, @"(?:X)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMaxAccelationY.Text =
+                        Regex.Match(line, @"(?:Y)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMaxAccelationZ.Text =
+                        Regex.Match(line, @"(?:Z)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMaxAccelationE.Text =
+                        Regex.Match(line, @"(?:E)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                }
+
+                linePattern = @"M204\s*P[0-9]*\.[0-9]*\s*R[0-9]*\.[0-9]*\s*T[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    // Only integers
+                    txtBxAccelerationPrint.Text =
+                        Regex.Match(line, @"(?:P)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxAccelerationRetract.Text =
+                        Regex.Match(line, @"(?:R)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxAccelerationTravel.Text =
+                        Regex.Match(line, @"(?:T)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+
+                }
+
+                linePattern = @"M206\s*X[0-9]*\.[0-9]*\s*Y[0-9]*\.[0-9]*\s*Z[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    txtBxHomeOffsetX.Text =
+                        Regex.Match(line, @"(?:X)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxHomeOffsetY.Text =
+                        Regex.Match(line, @"(?:Y)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxHomeOffsetZ.Text =
+                        Regex.Match(line, @"(?:Z)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+
+                }
+
+
+                linePattern = @"M301\s*P[0-9]*\.[0-9]*\s*I[0-9]*\.[0-9]*\s*D[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    txtBxPidExtruderKp.Text =
+                        Regex.Match(line, @"(?:P)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxPidExtruderKi.Text =
+                        Regex.Match(line, @"(?:I)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxPidExtruderKd.Text =
+                        Regex.Match(line, @"(?:D)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+
+                }
+
+                linePattern = @"M304\s*P[0-9]*\.[0-9]*\s*I[0-9]*\.[0-9]*\s*D[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    txtBxBedKp.Text =
+                        Regex.Match(line, @"(?:P)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxBedKi.Text =
+                        Regex.Match(line, @"(?:I)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxBedKd.Text =
+                        Regex.Match(line, @"(?:D)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+
+                }
+
+
+
+                linePattern = @"M420\s*S[0-9]*\s*X[0-9]*\s*Y[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    txtBxMeshBedLevelPointX.Text =
+                        Regex.Match(line, @"(?:X)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    txtBxMeshBedLevelPointY.Text =
+                        Regex.Match(line, @"(?:Y)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                }
+
+
+            }
+        }
+
+        private void btnM92paremeters_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            string command = "M92";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitX.Text)) command += $" X{txtBxStepsPerUnitX.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitY.Text)) command += $" Y{txtBxStepsPerUnitY.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitZ.Text)) command += $" Y{txtBxStepsPerUnitZ.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitE.Text)) command += $" Y{txtBxStepsPerUnitE.Text}";
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+
+
+        }
+
+        private void fctbInit_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            ParseInit();
+        }
+
+        private void btnM203parameters_Click(object sender, EventArgs e)
+        {
+
+            List<string> commands = new List<string>();
+            string command = "M92";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitX.Text)) command += $" X{txtBxStepsPerUnitX.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitY.Text)) command += $" Y{txtBxStepsPerUnitY.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitZ.Text)) command += $" Y{txtBxStepsPerUnitZ.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitE.Text)) command += $" Y{txtBxStepsPerUnitE.Text}";
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+        }
+
+        private void btnM201paremeters_Click(object sender, EventArgs e)
+        {
+
+            List<string> commands = new List<string>();
+            string command = "M201";
+            if (!string.IsNullOrEmpty(txtBxMaxAccelationX.Text)) command += $" X{txtBxMaxAccelationX.Text}";
+            if (!string.IsNullOrEmpty(txtBxMaxAccelationY.Text)) command += $" Y{txtBxMaxAccelationY.Text}";
+            if (!string.IsNullOrEmpty(txtBxMaxAccelationZ.Text)) command += $" Y{txtBxMaxAccelationZ.Text}";
+            if (!string.IsNullOrEmpty(txtBxMaxAccelationE.Text)) command += $" Y{txtBxMaxAccelationE.Text}";
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+
+
+        }
+
+        private void btnM204paremeters_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            string command = "M204";
+            if (!string.IsNullOrEmpty(txtBxAccelerationPrint.Text)) command += $" P{txtBxAccelerationPrint.Text}";
+            if (!string.IsNullOrEmpty(txtBxAccelerationRetract.Text)) command += $" R{txtBxAccelerationRetract.Text}";
+            if (!string.IsNullOrEmpty(txtBxAccelerationTravel.Text)) command += $" Y{txtBxAccelerationTravel.Text}";
+
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+        }
+
+        private void btnHomeOffsetParameters_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            string command = "M206";
+            if (!string.IsNullOrEmpty(txtBxHomeOffsetX.Text)) command += $" P{txtBxHomeOffsetX.Text}";
+            if (!string.IsNullOrEmpty(txtBxHomeOffsetX.Text)) command += $" R{txtBxHomeOffsetY.Text}";
+            if (!string.IsNullOrEmpty(txtBxHomeOffsetX.Text)) command += $" Y{txtBxHomeOffsetZ.Text}";
+
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+
+        }
+
+        private void btnPidExtruderParameters_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            string command = "M301";
+            if (!string.IsNullOrEmpty(txtBxPidExtruderKp.Text)) command += $" P{txtBxPidExtruderKp.Text}";
+            if (!string.IsNullOrEmpty(txtBxPidExtruderKi.Text)) command += $" I{txtBxPidExtruderKi.Text}";
+            if (!string.IsNullOrEmpty(txtBxPidExtruderKd.Text)) command += $" D{txtBxPidExtruderKd.Text}";
+
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+        }
+
+        private void btnPidBedParameters_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+            string command = "M304";
+            if (!string.IsNullOrEmpty(txtBxBedKp.Text)) command += $" P{txtBxBedKp.Text}";
+            if (!string.IsNullOrEmpty(txtBxBedKi.Text)) command += $" I{txtBxBedKi.Text}";
+            if (!string.IsNullOrEmpty(txtBxBedKd.Text)) command += $" D{txtBxBedKd.Text}";
+
+            commands.Add(command);
+            commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
+            _com.SendCommand(commands);
+
+        }
+
+        private void btnShowMeshInSurfaceChart_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Feature not available (yet)");
         }
     }
 
@@ -2624,4 +2805,6 @@ namespace Marlin3DprinterTool
         [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
     }
+
+        
 }

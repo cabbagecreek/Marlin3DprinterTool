@@ -4,86 +4,99 @@
         <name>Marlin3DprinterTool</name>
     </assembly>
     <members>
-        <member name="T:Marlin3DprinterTool.DeligateAndInvoke">
+        <member name="T:Marlin3DprinterTool.DelegateAndInvoke">
             <summary>
                 All delegates And Invokes thats needed because the cross-threding created by Asyncon Serial communication
             </summary>
         </member>
-        <member name="F:Marlin3DprinterTool.DeligateAndInvoke._frm3DprinterTool">
+        <member name="F:Marlin3DprinterTool.DelegateAndInvoke._frm3DprinterTool">
             <summary>
             </summary>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.#ctor(Marlin3DprinterTool.FrmMarlin3DprinterTool)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.#ctor(Marlin3DprinterTool.FrmMarlin3DprinterTool)">
             <summary>
             </summary>
             <param name="frm3DprinterTool"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateVisible(System.Windows.Forms.Control,System.Boolean)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateVisible(System.Windows.Forms.Control,System.Boolean)">
             <summary>
             </summary>
             <param name="control"></param>
             <param name="visible"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateKompassControll(MarlinComunicationHelper.KompassControll,MarlinComunicationHelper.MarlinCommunication)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateKompassControll(MarlinComunicationHelper.KompassControll,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             </summary>
             <param name="kompass"></param>
             <param name="marlin"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateVerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateVerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             </summary>
             <param name="verticalJogControl"></param>
             <param name="marlin"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateEnabled(System.Windows.Forms.Control,System.Boolean)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateEnabled(System.Windows.Forms.Control,System.Boolean)">
             <summary>
             </summary>
             <param name="control"></param>
             <param name="enabled"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateBackgroundImage(System.Windows.Forms.Control,System.Drawing.Image)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateBackgroundImage(System.Windows.Forms.Control,System.Drawing.Image)">
             <summary>
             </summary>
             <param name="control"></param>
             <param name="image"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DisableTabs(System.Windows.Forms.TabControl,System.Boolean)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DisableTabs(System.Windows.Forms.TabControl,System.Boolean)">
             <summary>
             </summary>
             <param name="tabControl"></param>
             <param name="enable"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(System.Windows.Forms.TabControl)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(System.Windows.Forms.TabControl)">
             <summary>
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.TextBoxAdd(System.Windows.Forms.TextBox,System.String)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.TextBoxAdd(System.Windows.Forms.TextBox,System.String)">
             <summary>
             </summary>
             <param name="textbox"></param>
             <param name="text"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.DelegateText(System.Windows.Forms.Control,System.String)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateText(System.Windows.Forms.Control,System.String)">
             <summary>
             </summary>
             <param name="control"></param>
             <param name="text"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.MultiTextLines(System.Windows.Forms.TextBox,System.Collections.Generic.List{System.String})">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.MultiTextLines(System.Windows.Forms.TextBox,System.Collections.Generic.List{System.String})">
             <summary>
             </summary>
             <param name="textBox"></param>
             <param name="responce"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.FastColoredTextBox(FastColoredTextBoxNS.FastColoredTextBox,System.Collections.Generic.List{System.String})">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.FastColoredTextBox(FastColoredTextBoxNS.FastColoredTextBox,System.Collections.Generic.List{System.String})">
             <summary>
             </summary>
             <param name="fastColoredTextBox"></param>
             <param name="responces"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.SetExtruderTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.FastColoredTextBox(FastColoredTextBoxNS.FastColoredTextBox,System.String)">
+            <summary>
+            </summary>
+            <param name="fastColoredTextBox"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.ScrollTo(FastColoredTextBoxNS.FastColoredTextBox,System.Int32)">
+            <summary>
+            Scroll to row in FCTB
+            </summary>
+            <param name="fastColoredTextBox"></param>
+            <param name="row"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SetExtruderTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
             <summary>
             </summary>
             <param name="chart"></param>
@@ -91,7 +104,7 @@
             <param name="extruderTemp"></param>
             <param name="setExtruderTemp"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.SetBedTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SetBedTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
             <summary>
             </summary>
             <param name="chart"></param>
@@ -99,12 +112,19 @@
             <param name="bedTemp"></param>
             <param name="setBedTemp"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.TabPageEnable(System.Windows.Forms.TabPage,System.Boolean)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.TabPageEnable(System.Windows.Forms.TabPage,System.Boolean)">
             <summary>
             
             </summary>
             <param name="tabPage"></param>
             <param name="enable"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SelectTabcontrol(System.Windows.Forms.TabControl,System.Windows.Forms.TabPage)">
+            <summary>
+            Select a tab
+            </summary>
+            <param name="tabControl3DprinterTool"></param>
+            <param name="tabPage"></param>
         </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>

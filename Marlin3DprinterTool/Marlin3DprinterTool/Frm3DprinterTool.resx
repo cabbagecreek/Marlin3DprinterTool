@@ -131,7 +131,7 @@ The positions for the adjusters is choosen so its possible to adjust the bed hei
 
 On some printers the bedcorners and the adjusters are the same.</value>
   </data>
-  <data name="fastColoredTextBoxM48Responce.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="fctbM48Responce.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yMS4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWZiOGFhMTJiOTk0ZWY2MWIMAwAAAFFTeXN0
@@ -149,7 +149,7 @@ On some printers the bedcorners and the adjusters are the same.</value>
         CgAAAAAAAAAAjQABAAH4/////P///woAAAAAAAAAAKQAAQAB9/////z///8KAAAAAAAAAACWAAEACw==
 </value>
   </data>
-  <data name="fastColoredTextBoxPidResponce.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="fctbPidResponce.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yMS4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWZiOGFhMTJiOTk0ZWY2MWIMAwAAAFFTeXN0
@@ -219,6 +219,72 @@ On some printers the bedcorners and the adjusters are the same.</value>
         YXdpbmcuQ29sb3IEAAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcDAAAACgAAAAAA
         AAAAlgABAAH7/////P///woAAAAAAAAAAKQAAQAB+v////z///8KAAAAAAAAAACWAAEAAfn////8////
         CgAAAAAAAAAAjQABAAH4/////P///woAAAAAAAAAAKQAAQAB9/////z///8KAAAAAAAAAACWAAEACw==
+</value>
+  </data>
+  <data name="fctbInit.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yMS4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWZiOGFhMTJiOTk0ZWY2MWIMAwAAAFFTeXN0
+        ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2Vu
+        PWIwM2Y1ZjdmMTFkNTBhM2EFAQAAACJGYXN0Q29sb3JlZFRleHRCb3hOUy5TZXJ2aWNlQ29sb3JzBgAA
+        ACg8Q29sbGFwc2VNYXJrZXJGb3JlQ29sb3I+a19fQmFja2luZ0ZpZWxkKDxDb2xsYXBzZU1hcmtlckJh
+        Y2tDb2xvcj5rX19CYWNraW5nRmllbGQqPENvbGxhcHNlTWFya2VyQm9yZGVyQ29sb3I+a19fQmFja2lu
+        Z0ZpZWxkJjxFeHBhbmRNYXJrZXJGb3JlQ29sb3I+a19fQmFja2luZ0ZpZWxkJjxFeHBhbmRNYXJrZXJC
+        YWNrQ29sb3I+a19fQmFja2luZ0ZpZWxkKDxFeHBhbmRNYXJrZXJCb3JkZXJDb2xvcj5rX19CYWNraW5n
+        RmllbGQEBAQEBAQUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAFFN5c3RlbS5EcmF3aW5nLkNvbG9yAwAA
+        ABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAFFN5c3RlbS5E
+        cmF3aW5nLkNvbG9yAwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAACAAAABfz///8UU3lzdGVtLkRy
+        YXdpbmcuQ29sb3IEAAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcDAAAACgAAAAAA
+        AAAAlgABAAH7/////P///woAAAAAAAAAAKQAAQAB+v////z///8KAAAAAAAAAACWAAEAAfn////8////
+        CgAAAAAAAAAAjQABAAH4/////P///woAAAAAAAAAAKQAAQAB9/////z///8KAAAAAAAAAACWAAEACw==
+</value>
+  </data>
+  <data name="fctbInit.Text" xml:space="preserve">
+    <value>start
+echo: External Reset
+Marlin 1.1.0-RC7
+echo: Last Updated: 2016-07-26 12:00 | Author: (none, default config)
+Compiled: Nov  6 2016
+echo: Free Memory: 3199  PlannerBufferBytes: 1232
+echo:V24 stored settings retrieved (398 bytes)
+echo:Steps per unit:
+echo:  M92 X80.00 Y180.00 Z3200.00 E182.10
+echo:Maximum feedrates (mm/s):
+echo:  M203 X150.00 Y150.00 Z6.00 E25.00
+echo:Maximum Acceleration (mm/s2):
+echo:  M201 X750 Y750 Z100 E5000
+echo:Accelerations: P=printing, R=retract and T=travel
+echo:  M204 P750.00 R5000.00 T750.00
+echo:Advanced variables: S=Min feedrate (mm/s), T=Min travel feedrate (mm/s), B=minimum segment time (ms), X=maximum XY jerk (mm/s),  Z=maximum Z jerk (mm/s),  E=maximum E jerk (mm/s)
+echo:  M205 S0.00 T0.00 B20000 X8.00 Z0.40 E5.00
+echo:Home offset (mm)
+echo:  M206 X0.00 Y0.00 Z0.00
+Mesh bed leveling:
+echo:  M420 S1 X3 Y3
+echo:  G29 S3 X1 Y1 Z13.85001
+echo:  G29 S3 X2 Y1 Z14.32500
+echo:  G29 S3 X3 Y1 Z14.65001
+echo:  G29 S3 X1 Y2 Z14.27501
+echo:  G29 S3 X2 Y2 Z14.85000
+echo:  G29 S3 X3 Y2 Z15.22500
+echo:  G29 S3 X1 Y3 Z14.55002
+echo:  G29 S3 X2 Y3 Z15.15000
+echo:  G29 S3 X3 Y3 Z15.52501
+echo:Material heatup parameters:
+echo:  M145 S0 H180 B70 F0
+echo:  M145 S1 H240 B110 F0
+echo:PID settings:
+echo:  M301 P24.45 I1.93 D77.50
+echo:  M304 P336.00 I61.00 D462.40
+echo:Filament settings: Disabled
+echo:  M200 D3.00
+echo:  M200 D0
+echo:Z-Probe Offset (mm):
+echo:  M851 Z-1.20
+echo:SD card ok
+X:0.00 Y:0.00 Z:0.00 E:0.00 Count X: 0 Y:0 Z:0
+ok
+echo:SD card ok
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

@@ -29,7 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,10 +39,10 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Debug\Marlin3DprinterTool.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -87,6 +87,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Apex.WinForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=98d06957926c086d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\Apex.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
@@ -99,6 +103,9 @@
       <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\SharpShell.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="srm">
+      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\srm.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -106,7 +113,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeligateAndInvoke.cs" />
+    <Compile Include="DelegateAndInvoke.cs" />
     <Compile Include="Frm3DprinterTool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +170,10 @@
     <ProjectReference Include="..\MarlinEditor\MarlinEditor.csproj">
       <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
       <Name>MarlinEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpShellServerManager\SharpShellServerManager.csproj">
+      <Project>{6db2edfd-193e-4e96-aae6-72f0d45fb5cd}</Project>
+      <Name>SharpShellServerManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\StlViewerThumbnailHandler\Marlin3DprinterToolStlThumbnail.csproj">
       <Project>{fea2a7bd-0a8e-48c2-969a-dd3ef6f3dcfc}</Project>
