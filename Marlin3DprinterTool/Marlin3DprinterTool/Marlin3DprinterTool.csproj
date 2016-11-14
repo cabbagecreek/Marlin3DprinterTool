@@ -87,6 +87,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Apex.WinForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=98d06957926c086d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\Apex.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
@@ -96,7 +100,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpShell, Version=2.2.0.0, Culture=neutral, PublicKeyToken=f14dc899472fe6fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\SharpShell.dll</HintPath>
+      <HintPath>..\packages\SharpShell.2.2.0.0\lib\net40\SharpShell.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -117,6 +121,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Frm3DprinterTool.resx">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

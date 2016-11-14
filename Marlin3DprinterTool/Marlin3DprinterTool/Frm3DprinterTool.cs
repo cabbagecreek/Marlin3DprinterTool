@@ -63,6 +63,7 @@ namespace Marlin3DprinterTool
             PopulateConfig();
             fastColoredTextBoxM48Responce.DescriptionFile = "Marlincommunication.xml";
             fastColoredTextBoxPidResponce.DescriptionFile = "MarlinCommunication.xml";
+            fctbInit.DescriptionFile = "MarlinCommunication.xml";
 
         }
 
@@ -129,7 +130,18 @@ namespace Marlin3DprinterTool
             //TODO:
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
 
-            UpdateServerStatus();
+
+            try
+            {
+                UpdateServerStatus();
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+
+            
 
             switch (selectedTab)
             {
@@ -151,7 +163,7 @@ namespace Marlin3DprinterTool
                     UpdateZmaintDescription();
                     break;
                 case 9:
-                    UpdateServerStatus();
+                    //UpdateServerStatus();
                     break;
             }
 
@@ -1321,6 +1333,17 @@ namespace Marlin3DprinterTool
             MessageBox.Show(e.Data.Replace("\n", Environment.NewLine), @"Marlin Init", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
+            string initText = "";
+            string[] initRows = e.Data.Split('\n');
+            foreach (string row in initRows)
+            {
+                initText += row.Replace("echo:", "").Trim() + Environment.NewLine;
+            }
+
+
+            //fctbInit.Text = initText;
+            DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool, tabPageParameters);
+
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
             if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
@@ -2302,20 +2325,20 @@ namespace Marlin3DprinterTool
 
         private void UpdateServerStatus()
         {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
+            //string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Marlin3DprinterToolStlThumbnail.dll");
 
-            if (!string.IsNullOrEmpty(stlViewerThumbnail))
-            {
+            //if (!string.IsNullOrEmpty(stlViewerThumbnail))
+            //{
 
-                if (!File.Exists(stlViewerThumbnail)) return;
+            //    if (!File.Exists(stlViewerThumbnail)) return;
 
-                IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
+            //    IEnumerable<ServerEntry> serverEntries = ServerManagerApi.LoadServers(stlViewerThumbnail);
 
-                foreach (ServerEntry serverEntry in serverEntries)
-                {
-                    UpdateServerStatus(serverEntry);
-                }
-            }
+            //    foreach (ServerEntry serverEntry in serverEntries)
+            //    {
+            //        UpdateServerStatus(serverEntry);
+            //    }
+            //}
 
         }
 

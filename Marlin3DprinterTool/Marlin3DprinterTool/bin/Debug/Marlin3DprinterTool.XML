@@ -83,6 +83,13 @@
             <param name="fastColoredTextBox"></param>
             <param name="responces"></param>
         </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.ScrollTo(FastColoredTextBoxNS.FastColoredTextBox,System.Int32)">
+            <summary>
+            Scroll to row in FCTB
+            </summary>
+            <param name="fastColoredTextBox"></param>
+            <param name="row"></param>
+        </member>
         <member name="M:Marlin3DprinterTool.DeligateAndInvoke.SetExtruderTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
             <summary>
             </summary>
@@ -105,6 +112,13 @@
             </summary>
             <param name="tabPage"></param>
             <param name="enable"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DeligateAndInvoke.SelectTabcontrol(System.Windows.Forms.TabControl,System.Windows.Forms.TabPage)">
+            <summary>
+            Select a tab
+            </summary>
+            <param name="tabControl3DprinterTool"></param>
+            <param name="tabPage"></param>
         </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>

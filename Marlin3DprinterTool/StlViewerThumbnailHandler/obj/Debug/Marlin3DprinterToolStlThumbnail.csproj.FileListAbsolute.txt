@@ -25,3 +25,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlV
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\Debug\Marlin3DprinterToolStlThumbnail.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\Debug\Marlin3DprinterToolStlThumbnail.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\Debug\Marlin3DprinterToolStlThumbnail.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Debug\Apex.WinForms.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Debug\ServerManager.exe
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\Debug\ServerManager.pdb

@@ -342,7 +342,25 @@ namespace Marlin3DprinterTool
             }
         }
 
-       
+        private delegate void SelectTabcontrolCallback(TabControl tabControl3DprinterTool, TabPage tabPage);
+        /// <summary>
+        /// Select a tab
+        /// </summary>
+        /// <param name="tabControl3DprinterTool"></param>
+        /// <param name="tabPage"></param>
+        public void SelectTabcontrol(TabControl tabControl3DprinterTool, TabPage tabPage)
+        {
+            if (tabControl3DprinterTool.InvokeRequired)
+            {
+                SelectTabcontrolCallback d = SelectTabcontrol;
+                _frm3DprinterTool.Invoke(d, tabControl3DprinterTool, tabPage);
+            }
+            else
+            {
+                tabControl3DprinterTool.SelectedTab = tabPage;
+
+            }
+        }
 
         // Delegate
         private delegate void DelegateVerticalJogControlCallback(
@@ -377,5 +395,7 @@ namespace Marlin3DprinterTool
         private delegate void ScrollToCallback(FastColoredTextBox marlinSyntaxTextBox, int row);
 
         //!Delegate
+       
+        
     }
 }
