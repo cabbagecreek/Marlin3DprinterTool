@@ -1,6 +1,7 @@
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\bin\Release\MarlinDocumentation.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\bin\Release\MarlinDocumentation.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\bin\Release\MarlinDocumentation.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\Release\MarlinDocumentation.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\Release\MarlinDocumentation.FrmHtlmDocumentation.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\Release\MarlinDocumentation.FrmRTFdocumentation.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\Release\MarlinDocumentation.Properties.Resources.resources

@@ -29,7 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,10 +39,10 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Debug\Marlin3DprinterTool.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -77,7 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\Marlin3DprinterTool.XML</DocumentationFile>
+    <DocumentationFile>bin\x86\Release\Marlin3DprinterTool.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>pdbonly</DebugType>
@@ -91,6 +91,21 @@
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nevron.Chart">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.Chart.WinForm">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.GraphicsGL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.Presentation">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.System">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ServerManager, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\ServerManager.exe</HintPath>
       <Private>True</Private>
@@ -101,23 +116,36 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeligateAndInvoke.cs" />
+    <Compile Include="DelegateAndInvoke.cs" />
     <Compile Include="Frm3DprinterTool.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm3DprinterTool.Designer.cs">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetup.Designer.cs">
+      <DependentUpon>FrmSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Frm3DprinterTool.resx">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetup.resx">
+      <DependentUpon>FrmSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -164,6 +192,10 @@
       <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
       <Name>MarlinEditor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SharpShellServerManager\SharpShellServerManager.csproj">
+      <Project>{6db2edfd-193e-4e96-aae6-72f0d45fb5cd}</Project>
+      <Name>SharpShellServerManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StlViewerThumbnailHandler\Marlin3DprinterToolStlThumbnail.csproj">
       <Project>{fea2a7bd-0a8e-48c2-969a-dd3ef6f3dcfc}</Project>
       <Name>Marlin3DprinterToolStlThumbnail</Name>
@@ -195,6 +227,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+    <None Include="Resources\Setting.png" />
     <None Include="Resources\traffic_light.png" />
   </ItemGroup>
   <ItemGroup>
