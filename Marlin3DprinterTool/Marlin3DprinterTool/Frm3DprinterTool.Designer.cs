@@ -132,10 +132,6 @@ namespace Marlin3DprinterTool
             this.grpAutoBedLevel = new System.Windows.Forms.GroupBox();
             this.btnAutoBedLevel = new System.Windows.Forms.Button();
             this.txtBxAutoBedLevelResponce = new System.Windows.Forms.TextBox();
-            this.picBxUpperLeftAdjuster = new System.Windows.Forms.PictureBox();
-            this.picBxUpperRightAdjuster = new System.Windows.Forms.PictureBox();
-            this.picBxLowerRightAdjuster = new System.Windows.Forms.PictureBox();
-            this.picBxLowerLeftAdjuster = new System.Windows.Forms.PictureBox();
             this.panelAdjust3 = new System.Windows.Forms.Panel();
             this.picBxTurn3 = new System.Windows.Forms.PictureBox();
             this.lblAdjustValue3 = new System.Windows.Forms.Label();
@@ -154,7 +150,12 @@ namespace Marlin3DprinterTool
             this.lblTurn1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnProbeTheBed = new System.Windows.Forms.Button();
+            this.picBxUpperLeftAdjuster = new System.Windows.Forms.PictureBox();
+            this.picBxUpperRightAdjuster = new System.Windows.Forms.PictureBox();
+            this.picBxLowerRightAdjuster = new System.Windows.Forms.PictureBox();
+            this.picBxLowerLeftAdjuster = new System.Windows.Forms.PictureBox();
             this.tabPageScanSurface = new System.Windows.Forms.TabPage();
+            this.nChartControlSurface = new Nevron.Chart.WinForm.NChartControl();
             this.btnMeshLevel = new System.Windows.Forms.Button();
             this.numUpDownNumberOfRepetitions = new System.Windows.Forms.NumericUpDown();
             this.lblNumberOfRepetitions = new System.Windows.Forms.Label();
@@ -309,12 +310,14 @@ namespace Marlin3DprinterTool
             this.btnUnInstallStlServer = new System.Windows.Forms.Button();
             this.btnInstallStlServer = new System.Windows.Forms.Button();
             this.tabPageParameters = new System.Windows.Forms.TabPage();
+            this.btnM501ReadEeprom = new System.Windows.Forms.Button();
             this.grpMeshBedLevel = new System.Windows.Forms.GroupBox();
             this.btnShowMeshInSurfaceChart = new System.Windows.Forms.Button();
             this.txtBxMeshBedLevelPointY = new System.Windows.Forms.TextBox();
             this.txtBxMeshBedLevelPointX = new System.Windows.Forms.TextBox();
             this.lblMeshBedLevelPointY = new System.Windows.Forms.Label();
             this.lblMeshBedLevelPointX = new System.Windows.Forms.Label();
+            this.btnM500SaveEeprom = new System.Windows.Forms.Button();
             this.grpPidBed = new System.Windows.Forms.GroupBox();
             this.btnPidBedParameters = new System.Windows.Forms.Button();
             this.lblBedKd = new System.Windows.Forms.Label();
@@ -377,12 +380,8 @@ namespace Marlin3DprinterTool
             this.txtBxStepsPerUnitY = new System.Windows.Forms.TextBox();
             this.txtBxStepsPerUnitX = new System.Windows.Forms.TextBox();
             this.lblStepsPerUnitX = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.fctbInit = new FastColoredTextBoxNS.FastColoredTextBox();
             this.grpBxNavigation = new System.Windows.Forms.GroupBox();
-            this.btnM501ReadEeprom = new System.Windows.Forms.Button();
-            this.btnM500SaveEeprom = new System.Windows.Forms.Button();
             this.btnRetractZprobe = new System.Windows.Forms.Button();
             this.kompassControllConfigBed = new MarlinComunicationHelper.KompassControll();
             this.grpBxBed = new System.Windows.Forms.Button();
@@ -399,10 +398,11 @@ namespace Marlin3DprinterTool
             this.cmbBxBaud = new System.Windows.Forms.ComboBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.toolTip3DprinterTool = new System.Windows.Forms.ToolTip(this.components);
-            this.btnPayPal = new System.Windows.Forms.Button();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnEmergency = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
+            this.btnPayPal = new System.Windows.Forms.Button();
+            this.btnSetup = new System.Windows.Forms.Button();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -428,10 +428,6 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnM48Repetitions)).BeginInit();
             this.tabPageBedLevel.SuspendLayout();
             this.grpAutoBedLevel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperLeftAdjuster)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperRightAdjuster)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerRightAdjuster)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerLeftAdjuster)).BeginInit();
             this.panelAdjust3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBxTurn3)).BeginInit();
             this.panelAdjust2.SuspendLayout();
@@ -441,6 +437,10 @@ namespace Marlin3DprinterTool
             this.panelAdjust1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBxTurn1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperLeftAdjuster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperRightAdjuster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerRightAdjuster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerLeftAdjuster)).BeginInit();
             this.tabPageScanSurface.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownNumberOfRepetitions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownYpoints)).BeginInit();
@@ -709,7 +709,7 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurationBed.Controls.Add(this.richTextBox2);
             this.tabPageConfigurationBed.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfigurationBed.Name = "tabPageConfigurationBed";
-            this.tabPageConfigurationBed.Size = new System.Drawing.Size(874, 727);
+            this.tabPageConfigurationBed.Size = new System.Drawing.Size(874, 657);
             this.tabPageConfigurationBed.TabIndex = 4;
             this.tabPageConfigurationBed.Text = "Configuration Bed";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurationBed, "Navigate and save positions for other features to use");
@@ -1110,7 +1110,7 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurateZprobe.Controls.Add(this.grpBxTestZprobe);
             this.tabPageConfigurateZprobe.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfigurateZprobe.Name = "tabPageConfigurateZprobe";
-            this.tabPageConfigurateZprobe.Size = new System.Drawing.Size(874, 727);
+            this.tabPageConfigurateZprobe.Size = new System.Drawing.Size(874, 657);
             this.tabPageConfigurateZprobe.TabIndex = 6;
             this.tabPageConfigurateZprobe.Text = "Configurate Z-probe";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurateZprobe, "Configuration and Test of the Z-probe");
@@ -1529,18 +1529,18 @@ namespace Marlin3DprinterTool
             // tabPageBedLevel
             // 
             this.tabPageBedLevel.Controls.Add(this.grpAutoBedLevel);
-            this.tabPageBedLevel.Controls.Add(this.picBxUpperLeftAdjuster);
-            this.tabPageBedLevel.Controls.Add(this.picBxUpperRightAdjuster);
-            this.tabPageBedLevel.Controls.Add(this.picBxLowerRightAdjuster);
-            this.tabPageBedLevel.Controls.Add(this.picBxLowerLeftAdjuster);
             this.tabPageBedLevel.Controls.Add(this.panelAdjust3);
             this.tabPageBedLevel.Controls.Add(this.panelAdjust2);
             this.tabPageBedLevel.Controls.Add(this.panelAdjust4);
             this.tabPageBedLevel.Controls.Add(this.panelAdjust1);
             this.tabPageBedLevel.Controls.Add(this.panel2);
+            this.tabPageBedLevel.Controls.Add(this.picBxUpperLeftAdjuster);
+            this.tabPageBedLevel.Controls.Add(this.picBxUpperRightAdjuster);
+            this.tabPageBedLevel.Controls.Add(this.picBxLowerRightAdjuster);
+            this.tabPageBedLevel.Controls.Add(this.picBxLowerLeftAdjuster);
             this.tabPageBedLevel.Location = new System.Drawing.Point(4, 22);
             this.tabPageBedLevel.Name = "tabPageBedLevel";
-            this.tabPageBedLevel.Size = new System.Drawing.Size(874, 727);
+            this.tabPageBedLevel.Size = new System.Drawing.Size(874, 657);
             this.tabPageBedLevel.TabIndex = 5;
             this.tabPageBedLevel.Text = "Bed Level";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageBedLevel, "Help for level the building surface");
@@ -1574,46 +1574,6 @@ namespace Marlin3DprinterTool
             this.txtBxAutoBedLevelResponce.Name = "txtBxAutoBedLevelResponce";
             this.txtBxAutoBedLevelResponce.Size = new System.Drawing.Size(429, 165);
             this.txtBxAutoBedLevelResponce.TabIndex = 0;
-            // 
-            // picBxUpperLeftAdjuster
-            // 
-            this.picBxUpperLeftAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
-            this.picBxUpperLeftAdjuster.Location = new System.Drawing.Point(126, 42);
-            this.picBxUpperLeftAdjuster.Name = "picBxUpperLeftAdjuster";
-            this.picBxUpperLeftAdjuster.Size = new System.Drawing.Size(32, 32);
-            this.picBxUpperLeftAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBxUpperLeftAdjuster.TabIndex = 48;
-            this.picBxUpperLeftAdjuster.TabStop = false;
-            // 
-            // picBxUpperRightAdjuster
-            // 
-            this.picBxUpperRightAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
-            this.picBxUpperRightAdjuster.Location = new System.Drawing.Point(624, 42);
-            this.picBxUpperRightAdjuster.Name = "picBxUpperRightAdjuster";
-            this.picBxUpperRightAdjuster.Size = new System.Drawing.Size(32, 32);
-            this.picBxUpperRightAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBxUpperRightAdjuster.TabIndex = 47;
-            this.picBxUpperRightAdjuster.TabStop = false;
-            // 
-            // picBxLowerRightAdjuster
-            // 
-            this.picBxLowerRightAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
-            this.picBxLowerRightAdjuster.Location = new System.Drawing.Point(624, 238);
-            this.picBxLowerRightAdjuster.Name = "picBxLowerRightAdjuster";
-            this.picBxLowerRightAdjuster.Size = new System.Drawing.Size(32, 32);
-            this.picBxLowerRightAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBxLowerRightAdjuster.TabIndex = 46;
-            this.picBxLowerRightAdjuster.TabStop = false;
-            // 
-            // picBxLowerLeftAdjuster
-            // 
-            this.picBxLowerLeftAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
-            this.picBxLowerLeftAdjuster.Location = new System.Drawing.Point(126, 238);
-            this.picBxLowerLeftAdjuster.Name = "picBxLowerLeftAdjuster";
-            this.picBxLowerLeftAdjuster.Size = new System.Drawing.Size(32, 32);
-            this.picBxLowerLeftAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBxLowerLeftAdjuster.TabIndex = 45;
-            this.picBxLowerLeftAdjuster.TabStop = false;
             // 
             // panelAdjust3
             // 
@@ -1798,8 +1758,49 @@ namespace Marlin3DprinterTool
             this.btnProbeTheBed.UseVisualStyleBackColor = true;
             this.btnProbeTheBed.Click += new System.EventHandler(this.btnProbeTheBed_Click);
             // 
+            // picBxUpperLeftAdjuster
+            // 
+            this.picBxUpperLeftAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
+            this.picBxUpperLeftAdjuster.Location = new System.Drawing.Point(126, 42);
+            this.picBxUpperLeftAdjuster.Name = "picBxUpperLeftAdjuster";
+            this.picBxUpperLeftAdjuster.Size = new System.Drawing.Size(32, 32);
+            this.picBxUpperLeftAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBxUpperLeftAdjuster.TabIndex = 48;
+            this.picBxUpperLeftAdjuster.TabStop = false;
+            // 
+            // picBxUpperRightAdjuster
+            // 
+            this.picBxUpperRightAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
+            this.picBxUpperRightAdjuster.Location = new System.Drawing.Point(624, 42);
+            this.picBxUpperRightAdjuster.Name = "picBxUpperRightAdjuster";
+            this.picBxUpperRightAdjuster.Size = new System.Drawing.Size(32, 32);
+            this.picBxUpperRightAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBxUpperRightAdjuster.TabIndex = 47;
+            this.picBxUpperRightAdjuster.TabStop = false;
+            // 
+            // picBxLowerRightAdjuster
+            // 
+            this.picBxLowerRightAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
+            this.picBxLowerRightAdjuster.Location = new System.Drawing.Point(624, 238);
+            this.picBxLowerRightAdjuster.Name = "picBxLowerRightAdjuster";
+            this.picBxLowerRightAdjuster.Size = new System.Drawing.Size(32, 32);
+            this.picBxLowerRightAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBxLowerRightAdjuster.TabIndex = 46;
+            this.picBxLowerRightAdjuster.TabStop = false;
+            // 
+            // picBxLowerLeftAdjuster
+            // 
+            this.picBxLowerLeftAdjuster.Image = global::Marlin3DprinterTool.Properties.Resources.adjuster;
+            this.picBxLowerLeftAdjuster.Location = new System.Drawing.Point(126, 238);
+            this.picBxLowerLeftAdjuster.Name = "picBxLowerLeftAdjuster";
+            this.picBxLowerLeftAdjuster.Size = new System.Drawing.Size(32, 32);
+            this.picBxLowerLeftAdjuster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBxLowerLeftAdjuster.TabIndex = 45;
+            this.picBxLowerLeftAdjuster.TabStop = false;
+            // 
             // tabPageScanSurface
             // 
+            this.tabPageScanSurface.Controls.Add(this.nChartControlSurface);
             this.tabPageScanSurface.Controls.Add(this.btnMeshLevel);
             this.tabPageScanSurface.Controls.Add(this.numUpDownNumberOfRepetitions);
             this.tabPageScanSurface.Controls.Add(this.lblNumberOfRepetitions);
@@ -1810,11 +1811,23 @@ namespace Marlin3DprinterTool
             this.tabPageScanSurface.Controls.Add(this.numUpDownXpoints);
             this.tabPageScanSurface.Location = new System.Drawing.Point(4, 22);
             this.tabPageScanSurface.Name = "tabPageScanSurface";
-            this.tabPageScanSurface.Size = new System.Drawing.Size(874, 727);
+            this.tabPageScanSurface.Size = new System.Drawing.Size(874, 657);
             this.tabPageScanSurface.TabIndex = 9;
             this.tabPageScanSurface.Text = "Scan buildsurface";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageScanSurface, "Scan the building surface");
             this.tabPageScanSurface.UseVisualStyleBackColor = true;
+            // 
+            // nChartControlSurface
+            // 
+            this.nChartControlSurface.AutoRefresh = false;
+            this.nChartControlSurface.BackColor = System.Drawing.SystemColors.Control;
+            this.nChartControlSurface.InputKeys = new System.Windows.Forms.Keys[0];
+            this.nChartControlSurface.Location = new System.Drawing.Point(19, 64);
+            this.nChartControlSurface.Name = "nChartControlSurface";
+            this.nChartControlSurface.Size = new System.Drawing.Size(814, 578);
+            this.nChartControlSurface.State = ((Nevron.Chart.WinForm.NState)(resources.GetObject("nChartControlSurface.State")));
+            this.nChartControlSurface.TabIndex = 21;
+            this.nChartControlSurface.Text = "nChartControl1";
             // 
             // btnMeshLevel
             // 
@@ -1936,7 +1949,7 @@ namespace Marlin3DprinterTool
             this.tabPagePID.Controls.Add(this.grpBxExtruderPID);
             this.tabPagePID.Location = new System.Drawing.Point(4, 22);
             this.tabPagePID.Name = "tabPagePID";
-            this.tabPagePID.Size = new System.Drawing.Size(874, 727);
+            this.tabPagePID.Size = new System.Drawing.Size(874, 657);
             this.tabPagePID.TabIndex = 10;
             this.tabPagePID.Text = "PID";
             this.tabPagePID.UseVisualStyleBackColor = true;
@@ -1963,7 +1976,7 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbPidResponce.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.fctbPidResponce.IsReplaceMode = false;
-            this.fctbPidResponce.Location = new System.Drawing.Point(0, 481);
+            this.fctbPidResponce.Location = new System.Drawing.Point(0, 411);
             this.fctbPidResponce.Name = "fctbPidResponce";
             this.fctbPidResponce.Paddings = new System.Windows.Forms.Padding(0);
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
@@ -2385,7 +2398,7 @@ namespace Marlin3DprinterTool
             this.tabPageExtruderCalibration.Controls.Add(this.grpBxTestExtrude);
             this.tabPageExtruderCalibration.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtruderCalibration.Name = "tabPageExtruderCalibration";
-            this.tabPageExtruderCalibration.Size = new System.Drawing.Size(874, 727);
+            this.tabPageExtruderCalibration.Size = new System.Drawing.Size(874, 657);
             this.tabPageExtruderCalibration.TabIndex = 2;
             this.tabPageExtruderCalibration.Text = "Extruder Calibration";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageExtruderCalibration, "Extruder calibration");
@@ -2627,7 +2640,7 @@ namespace Marlin3DprinterTool
             this.tabPageZMaintenance.Controls.Add(this.grpBxZMaintenance);
             this.tabPageZMaintenance.Location = new System.Drawing.Point(4, 22);
             this.tabPageZMaintenance.Name = "tabPageZMaintenance";
-            this.tabPageZMaintenance.Size = new System.Drawing.Size(874, 727);
+            this.tabPageZMaintenance.Size = new System.Drawing.Size(874, 657);
             this.tabPageZMaintenance.TabIndex = 7;
             this.tabPageZMaintenance.Text = "Z  Maintenance";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageZMaintenance, "Move Z up and down for oiling and check for binding(s)");
@@ -2756,7 +2769,7 @@ namespace Marlin3DprinterTool
             this.tabPageCalculations.Controls.Add(this.grpBxLeadScrew);
             this.tabPageCalculations.Location = new System.Drawing.Point(4, 22);
             this.tabPageCalculations.Name = "tabPageCalculations";
-            this.tabPageCalculations.Size = new System.Drawing.Size(874, 727);
+            this.tabPageCalculations.Size = new System.Drawing.Size(874, 657);
             this.tabPageCalculations.TabIndex = 11;
             this.tabPageCalculations.Text = "Calculations";
             this.tabPageCalculations.UseVisualStyleBackColor = true;
@@ -3447,7 +3460,7 @@ namespace Marlin3DprinterTool
             this.tabPageStlViewer.Controls.Add(this.grpBxInstallingStlThumbnailServer);
             this.tabPageStlViewer.Location = new System.Drawing.Point(4, 22);
             this.tabPageStlViewer.Name = "tabPageStlViewer";
-            this.tabPageStlViewer.Size = new System.Drawing.Size(874, 727);
+            this.tabPageStlViewer.Size = new System.Drawing.Size(874, 657);
             this.tabPageStlViewer.TabIndex = 12;
             this.tabPageStlViewer.Text = "STL viewer";
             this.tabPageStlViewer.UseVisualStyleBackColor = true;
@@ -3823,15 +3836,24 @@ namespace Marlin3DprinterTool
             this.tabPageParameters.Controls.Add(this.grpBxMaxAccelation);
             this.tabPageParameters.Controls.Add(this.grpBxMaxFeedrate);
             this.tabPageParameters.Controls.Add(this.grpBxStepsPerUnit);
-            this.tabPageParameters.Controls.Add(this.button2);
-            this.tabPageParameters.Controls.Add(this.button1);
             this.tabPageParameters.Controls.Add(this.fctbInit);
             this.tabPageParameters.Location = new System.Drawing.Point(4, 22);
             this.tabPageParameters.Name = "tabPageParameters";
-            this.tabPageParameters.Size = new System.Drawing.Size(874, 727);
+            this.tabPageParameters.Size = new System.Drawing.Size(874, 657);
             this.tabPageParameters.TabIndex = 13;
             this.tabPageParameters.Text = "Parameters";
             this.tabPageParameters.UseVisualStyleBackColor = true;
+            // 
+            // btnM501ReadEeprom
+            // 
+            this.btnM501ReadEeprom.Location = new System.Drawing.Point(648, 393);
+            this.btnM501ReadEeprom.Name = "btnM501ReadEeprom";
+            this.btnM501ReadEeprom.Size = new System.Drawing.Size(94, 23);
+            this.btnM501ReadEeprom.TabIndex = 30;
+            this.btnM501ReadEeprom.Text = "Read EEPROM";
+            this.toolTip3DprinterTool.SetToolTip(this.btnM501ReadEeprom, "Home Z");
+            this.btnM501ReadEeprom.UseVisualStyleBackColor = true;
+            this.btnM501ReadEeprom.Click += new System.EventHandler(this.btnM501ReadEeprom_Click);
             // 
             // grpMeshBedLevel
             // 
@@ -3888,6 +3910,17 @@ namespace Marlin3DprinterTool
             this.lblMeshBedLevelPointX.Size = new System.Drawing.Size(49, 13);
             this.lblMeshBedLevelPointX.TabIndex = 0;
             this.lblMeshBedLevelPointX.Text = "Points X:";
+            // 
+            // btnM500SaveEeprom
+            // 
+            this.btnM500SaveEeprom.Location = new System.Drawing.Point(649, 422);
+            this.btnM500SaveEeprom.Name = "btnM500SaveEeprom";
+            this.btnM500SaveEeprom.Size = new System.Drawing.Size(97, 23);
+            this.btnM500SaveEeprom.TabIndex = 29;
+            this.btnM500SaveEeprom.Text = "Save EEPROM";
+            this.toolTip3DprinterTool.SetToolTip(this.btnM500SaveEeprom, "Home Z");
+            this.btnM500SaveEeprom.UseVisualStyleBackColor = true;
+            this.btnM500SaveEeprom.Click += new System.EventHandler(this.btnM500SaveEeprom_Click);
             // 
             // grpPidBed
             // 
@@ -4461,26 +4494,6 @@ namespace Marlin3DprinterTool
             this.lblStepsPerUnitX.TabIndex = 0;
             this.lblStepsPerUnitX.Text = "X:";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(395, 412);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(395, 361);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // fctbInit
             // 
             this.fctbInit.AutoCompleteBracketsList = new char[] {
@@ -4494,7 +4507,7 @@ namespace Marlin3DprinterTool
         '\"',
         '\'',
         '\''};
-            this.fctbInit.AutoScrollMinSize = new System.Drawing.Size(1466, 644);
+            this.fctbInit.AutoScrollMinSize = new System.Drawing.Size(2, 14);
             this.fctbInit.BackBrush = null;
             this.fctbInit.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.fctbInit.CharHeight = 14;
@@ -4511,7 +4524,6 @@ namespace Marlin3DprinterTool
             this.fctbInit.ShowLineNumbers = false;
             this.fctbInit.Size = new System.Drawing.Size(342, 619);
             this.fctbInit.TabIndex = 0;
-            this.fctbInit.Text = resources.GetString("fctbInit.Text");
             this.fctbInit.Zoom = 100;
             this.fctbInit.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fctbInit_TextChanged);
             // 
@@ -4533,28 +4545,6 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.Text = "Navigation";
             this.toolTip3DprinterTool.SetToolTip(this.grpBxNavigation, "Navigation for saving positions");
             this.grpBxNavigation.Visible = false;
-            // 
-            // btnM501ReadEeprom
-            // 
-            this.btnM501ReadEeprom.Location = new System.Drawing.Point(648, 393);
-            this.btnM501ReadEeprom.Name = "btnM501ReadEeprom";
-            this.btnM501ReadEeprom.Size = new System.Drawing.Size(94, 23);
-            this.btnM501ReadEeprom.TabIndex = 30;
-            this.btnM501ReadEeprom.Text = "Read EEPROM";
-            this.toolTip3DprinterTool.SetToolTip(this.btnM501ReadEeprom, "Home Z");
-            this.btnM501ReadEeprom.UseVisualStyleBackColor = true;
-            this.btnM501ReadEeprom.Click += new System.EventHandler(this.btnM501ReadEeprom_Click);
-            // 
-            // btnM500SaveEeprom
-            // 
-            this.btnM500SaveEeprom.Location = new System.Drawing.Point(649, 422);
-            this.btnM500SaveEeprom.Name = "btnM500SaveEeprom";
-            this.btnM500SaveEeprom.Size = new System.Drawing.Size(97, 23);
-            this.btnM500SaveEeprom.TabIndex = 29;
-            this.btnM500SaveEeprom.Text = "Save EEPROM";
-            this.toolTip3DprinterTool.SetToolTip(this.btnM500SaveEeprom, "Home Z");
-            this.btnM500SaveEeprom.UseVisualStyleBackColor = true;
-            this.btnM500SaveEeprom.Click += new System.EventHandler(this.btnM500SaveEeprom_Click);
             // 
             // btnRetractZprobe
             // 
@@ -4678,7 +4668,7 @@ namespace Marlin3DprinterTool
             this.lblStepperDriverPulley.Controls.Add(this.btnConnect);
             this.lblStepperDriverPulley.Location = new System.Drawing.Point(12, 12);
             this.lblStepperDriverPulley.Name = "lblStepperDriverPulley";
-            this.lblStepperDriverPulley.Size = new System.Drawing.Size(361, 50);
+            this.lblStepperDriverPulley.Size = new System.Drawing.Size(374, 50);
             this.lblStepperDriverPulley.TabIndex = 1;
             this.lblStepperDriverPulley.TabStop = false;
             this.lblStepperDriverPulley.Text = "Communication";
@@ -4745,18 +4735,6 @@ namespace Marlin3DprinterTool
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // btnPayPal
-            // 
-            this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPayPal.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Donate;
-            this.btnPayPal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPayPal.Location = new System.Drawing.Point(1233, 3);
-            this.btnPayPal.Name = "btnPayPal";
-            this.btnPayPal.Size = new System.Drawing.Size(147, 96);
-            this.btnPayPal.TabIndex = 17;
-            this.btnPayPal.UseVisualStyleBackColor = true;
-            this.btnPayPal.Click += new System.EventHandler(this.btnPayPal_Click);
             // 
             // chartTemperature
             // 
@@ -4832,11 +4810,36 @@ namespace Marlin3DprinterTool
             this.btnFirmware.UseVisualStyleBackColor = true;
             this.btnFirmware.Click += new System.EventHandler(this.btnFirmware_Click);
             // 
+            // btnPayPal
+            // 
+            this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayPal.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Donate;
+            this.btnPayPal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPayPal.Location = new System.Drawing.Point(1233, 3);
+            this.btnPayPal.Name = "btnPayPal";
+            this.btnPayPal.Size = new System.Drawing.Size(147, 96);
+            this.btnPayPal.TabIndex = 17;
+            this.btnPayPal.UseVisualStyleBackColor = true;
+            this.btnPayPal.Click += new System.EventHandler(this.btnPayPal_Click);
+            // 
+            // btnSetup
+            // 
+            this.btnSetup.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Setting;
+            this.btnSetup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSetup.Location = new System.Drawing.Point(392, 26);
+            this.btnSetup.Name = "btnSetup";
+            this.btnSetup.Size = new System.Drawing.Size(41, 32);
+            this.btnSetup.TabIndex = 22;
+            this.btnSetup.Text = " ";
+            this.btnSetup.UseVisualStyleBackColor = true;
+            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            // 
             // FrmMarlin3DprinterTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1384, 762);
+            this.Controls.Add(this.btnSetup);
             this.Controls.Add(this.btnPayPal);
             this.Controls.Add(this.btnFirmware);
             this.Controls.Add(this.btnEmergency);
@@ -4886,10 +4889,6 @@ namespace Marlin3DprinterTool
             this.tabPageBedLevel.ResumeLayout(false);
             this.grpAutoBedLevel.ResumeLayout(false);
             this.grpAutoBedLevel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperLeftAdjuster)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperRightAdjuster)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerRightAdjuster)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerLeftAdjuster)).EndInit();
             this.panelAdjust3.ResumeLayout(false);
             this.panelAdjust3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBxTurn3)).EndInit();
@@ -4903,6 +4902,10 @@ namespace Marlin3DprinterTool
             this.panelAdjust1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBxTurn1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperLeftAdjuster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxUpperRightAdjuster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerRightAdjuster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBxLowerLeftAdjuster)).EndInit();
             this.tabPageScanSurface.ResumeLayout(false);
             this.tabPageScanSurface.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownNumberOfRepetitions)).EndInit();
@@ -5304,7 +5307,6 @@ namespace Marlin3DprinterTool
         private FastColoredTextBox fctbPidResponce;
         private TabPage tabPageParameters;
         private FastColoredTextBox fctbInit;
-        private Button button1;
         private GroupBox grpBxStepsPerUnit;
         private Label lblStepsPerUnitE;
         private Label lblStepsPerUnitZ;
@@ -5314,7 +5316,6 @@ namespace Marlin3DprinterTool
         private TextBox txtBxStepsPerUnitY;
         private TextBox txtBxStepsPerUnitX;
         private Label lblStepsPerUnitX;
-        private Button button2;
         private Button btnM92paremeters;
         private GroupBox grpBxMaxFeedrate;
         private Button btnM203parameters;
@@ -5374,6 +5375,8 @@ namespace Marlin3DprinterTool
         private TextBox txtBxMeshBedLevelPointX;
         private Label lblMeshBedLevelPointY;
         private Label lblMeshBedLevelPointX;
+        private Button btnSetup;
+        private Nevron.Chart.WinForm.NChartControl nChartControlSurface;
     }
 }
 

@@ -77,7 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\Marlin3DprinterTool.XML</DocumentationFile>
+    <DocumentationFile>bin\x86\Release\Marlin3DprinterTool.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>pdbonly</DebugType>
@@ -87,12 +87,23 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apex.WinForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=98d06957926c086d, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\Apex.WinForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.Chart">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.Chart.WinForm">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.GraphicsGL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.Presentation">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nevron.System">
       <Private>True</Private>
     </Reference>
     <Reference Include="ServerManager, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
@@ -103,14 +114,14 @@
       <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\SharpShell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="srm">
-      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\srm.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DelegateAndInvoke.cs" />
@@ -120,11 +131,21 @@
     <Compile Include="Frm3DprinterTool.Designer.cs">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetup.Designer.cs">
+      <DependentUpon>FrmSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Frm3DprinterTool.resx">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetup.resx">
+      <DependentUpon>FrmSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -206,6 +227,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+    <None Include="Resources\Setting.png" />
     <None Include="Resources\traffic_light.png" />
   </ItemGroup>
   <ItemGroup>

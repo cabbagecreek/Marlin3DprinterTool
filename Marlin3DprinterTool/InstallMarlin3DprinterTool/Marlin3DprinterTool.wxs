@@ -192,6 +192,45 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Apex.WinForms.dll" />
       </Component>
 
+      
+
+      <!--SharpShellServerManager.dll -->
+      <Component Id="SharpShellServerManager.dll" Guid="{CCD0BB1B-020F-4632-B26D-DB435028748F}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\SharpShellServerManager.dll" />
+      </Component>
+
+      <!--Nevron.Chart.dll -->
+      <Component Id="Nevron.Chart.dll" Guid="{313987B0-78A0-4435-AED8-C770C1C3D7A4}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.dll" />
+      </Component>
+
+      <!--Nevron.Chart.WinForm.dll -->
+      <Component Id="Nevron.Chart.WinForm.dll" Guid="{47863E48-B1F2-4B29-AC09-056C37DD6038}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.WinForm.dll" />
+      </Component>
+
+
+       <!--Nevron.GraphicsGL.dll -->
+      <Component Id="Nevron.GraphicsGL.dll" Guid="{A0C64696-6443-484C-AE55-1CC12E4F4994}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.GraphicsGL.dll" />
+      </Component>
+      
+      
+      <!--Nevron.Presentation.dll -->
+      <Component Id="Nevron.Presentation.dll" Guid="{96A39F3A-163B-42A3-BA16-B8C30BA98F3B}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Presentation.dll" />
+      </Component>
+      
+      <!--Nevron.System.dll -->
+      <Component Id="Nevron.System.dll" Guid="{20BB020E-85A5-4048-A20E-F9BC81AE90A7}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.System.dll" />
+      </Component>
+      
+        
+      
+      
+
+
       <!--HelixToolkit.Wpf.dll -->
       <Component Id="HelixToolkit.Wpf.dll" Guid="{8AF5F26B-E1FF-4194-B5FD-66D2FE9A14CC}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\HelixToolkit.Wpf.dll" />

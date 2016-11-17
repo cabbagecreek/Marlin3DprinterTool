@@ -84,6 +84,15 @@ namespace MarlinComunicationHelper
                     _serialPort.StopBits = SerialStopBits.Sb1Bit;
 
 
+                    // Activate a true licence
+                    Configuration config = new Configuration();
+
+                    if (!string.IsNullOrEmpty(Configuration.Decrypt(config.LicenseKey)))
+                    {
+
+                        _serialPort.UnlockKey = "FA3450FEA2344897EFC34325BA391072";
+                    }
+
                     _serialPort.Open();
                 }
                 catch (Exception serialOpenException)
@@ -430,6 +439,16 @@ namespace MarlinComunicationHelper
         }
 
         public decimal ZprobeOffset { get; set; }
+        public string StepsPerUnitX { get; set; }
+        public string StepsPerUnitY { get; set; }
+        public string StepsPerUnitZ { get; set; }
+        public string StepsPerUnitE { get; set; }
+        public string PidExtruderKp { get; set; }
+        public string PidExtruderKi { get; set; }
+        public string PidExtruderKd { get; set; }
+        public string PidBedKp { get; set; }
+        public string PidBedKi { get; set; }
+        public string PidBedKd { get; set; }
 
         private void ParseTemperatures()
         {
@@ -921,6 +940,38 @@ namespace MarlinComunicationHelper
         }
 
         #endregion
+
+        public void SaveMeshPoints(double x, double y, double z)
+        {
+            List<Position> newPositions = new List<Position>();
+
+            if (MeshPoints != null)
+            {
+                foreach (Position position in MeshPoints)
+                {
+                    newPositions.Add(position);
+                }
+            }
+
+            //find if meshpont with x and y is available
+            for (int index = 0; index < newPositions.Count; index++)
+            {
+                Position position = newPositions[index];
+                if (Math.Abs(position.X - x) < 0.1 && Math.Abs(position.Y - y) < 0.1)
+                {
+                    newPositions[index].Z = z;
+                    MeshPoints = newPositions;
+                    return;
+                }
+            }
+           
+            // If not add
+            newPositions.Add(new Position() {X=x,Y=y,Z=z} );
+            MeshPoints = newPositions;
+        }
+
+        public List<Position> MeshPoints { get; set; } 
+
     }
 
 

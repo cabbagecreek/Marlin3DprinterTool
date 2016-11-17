@@ -13,9 +13,11 @@ using MarlinComunicationHelper;
 using MarlinDocumentation;
 using MarlinEditor;
 using Microsoft.Win32;
+using Nevron;
+using Nevron.Chart;
+using Nevron.Chart.Windows;
 using ServerManager;
 using SharpShellServerManager;
-using SharpShell;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
 
@@ -375,9 +377,9 @@ namespace Marlin3DprinterTool
 
         private void btnProbeTheBed_Click(object sender, EventArgs e)
         {
-            //TODO: nChartControlSurface
-            //nChartControlSurface.Charts[0].Series.Clear();
-            //nChartControlSurface.Refresh();
+            
+            nChartControlSurface.Charts[0].Series.Clear();
+            nChartControlSurface.Refresh();
 
             List<Point> probePointsList = new List<Point>();
             if (_configuration.BedType == "4point")
@@ -871,9 +873,9 @@ namespace Marlin3DprinterTool
 
         private void btnScanSurface_Click(object sender, EventArgs e)
         {
-            //TODO: nChartControlSurface
-            //nChartControlSurface.Charts[0].Series.Clear();
-            //nChartControlSurface.Refresh();
+            
+            nChartControlSurface.Charts[0].Series.Clear();
+            nChartControlSurface.Refresh();
 
             ScanSurface((int) numUpDownXpoints.Value, (int) numUpDownYpoints.Value,
                 (int) numUpDownNumberOfRepetitions.Value);
@@ -1266,7 +1268,8 @@ namespace Marlin3DprinterTool
 
         private void _com_M501Responce(object sender, ResponceData responce)
         {
-            MessageBox.Show(responce.Data, @"Data in EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(responce.Data, @"Data in EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ShowInitAndM501(responce.Data);
         }
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
@@ -1319,9 +1322,18 @@ namespace Marlin3DprinterTool
             _temperatureStopwatch.Start();
 
 
+            ShowInitAndM501(e.Data);
 
+            
+
+            var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+        }
+
+        private void ShowInitAndM501(string data)
+        {
             string initText = "";
-            string[] initRows = e.Data.Split('\n');
+            string[] initRows = data.Split('\n');
             foreach (string row in initRows)
             {
                 initText += row.Replace("echo:", "").Trim() + Environment.NewLine;
@@ -1331,11 +1343,8 @@ namespace Marlin3DprinterTool
 
             DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool, tabPageParameters);
 
-            var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
-            if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+            
         }
-
-
 
 
 
@@ -1445,10 +1454,10 @@ namespace Marlin3DprinterTool
                             if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString();
                         }
                     }
-                    CreateSurfaceChart();
+                    CreateSurfaceChart(_com.ProbeResponceList);
                     break;
                 case 4: // SurfaceScan
-                    CreateSurfaceChart();
+                    CreateSurfaceChart(_com.ProbeResponceList);
 
 
 
@@ -1456,39 +1465,39 @@ namespace Marlin3DprinterTool
             }
         }
 
-        private void CreateSurfaceChart()
+        private void CreateSurfaceChart(List<Position> positions )
         {
-            //TODO: nChartControlSurface
-            //var license = new NLicense("001800d6-4511-4600-6a35-050c5793dd94");
-            //NLicenseManager.Instance.SetLicense(license);
-            //NLicenseManager.Instance.LockLicense = true;
 
-            //var chart = nChartControlSurface.Charts[0];
-            //chart.Enable3D = true;
-            //chart.Width = 60;
-            //chart.Height = 50;
-            //chart.Depth = 60;
-            //nChartControlSurface.Legends.Clear();
+            var license = new NLicense("001800d6-4511-4600-6a35-050c5793dd94");
+            NLicenseManager.Instance.SetLicense(license);
+            NLicenseManager.Instance.LockLicense = true;
+
+            var chart = nChartControlSurface.Charts[0];
+            chart.Enable3D = true;
+            chart.Width = 60;
+            chart.Height = 50;
+            chart.Depth = 60;
+            nChartControlSurface.Legends.Clear();
 
 
-            //var surface = new NTriangulatedSurfaceSeries {SmoothPalette = true};
+            var surface = new NTriangulatedSurfaceSeries { SmoothPalette = true };
 
-            //if (_com.ProbeResponceList != null)
-            //{
-            //    foreach (var position in _com.ProbeResponceList)
-            //    {
-            //        surface.XValues.Add(position.X);
-            //        surface.Values.Add(position.Z);
-            //        surface.ZValues.Add(position.Y);
-            //    }
+            if (positions != null)
+            {
+                foreach (var position in positions)
+                {
+                    surface.XValues.Add(position.X);
+                    surface.Values.Add(position.Z);
+                    surface.ZValues.Add(position.Y);
+                }
 
-            //    chart.Series.Add(surface);
+                chart.Series.Add(surface);
 
-            //    nChartControlSurface.Controller.Tools.Add(new NPanelSelectorTool());
-            //    nChartControlSurface.Controller.Tools.Add(new NTrackballTool());
-            //}
+                nChartControlSurface.Controller.Tools.Add(new NPanelSelectorTool());
+                nChartControlSurface.Controller.Tools.Add(new NTrackballTool());
+            }
 
-            //nChartControlSurface.Refresh();
+            nChartControlSurface.Refresh();
         }
 
 
@@ -2491,7 +2500,16 @@ namespace Marlin3DprinterTool
                         Regex.Match(line, @"(?:Z)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     txtBxStepsPerUnitE.Text =
                         Regex.Match(line, @"(?:E)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+
+                    _com.StepsPerUnitX = txtBxStepsPerUnitX.Text;
+                    _com.StepsPerUnitY = txtBxStepsPerUnitY.Text;
+                    _com.StepsPerUnitZ = txtBxStepsPerUnitZ.Text;
+                    _com.StepsPerUnitE = txtBxStepsPerUnitE.Text;
+
+
                 }
+
+                
 
                 linePattern = @"M203\s*X[0-9]*\.[0-9]*\s*Y[0-9]*\.[0-9]*\s*Z[0-9]*\.[0-9]*\sE[0-9]*\.[0-9]*";
                 rowMatch = Regex.Match(line, linePattern);
@@ -2561,6 +2579,10 @@ namespace Marlin3DprinterTool
                     txtBxPidExtruderKd.Text =
                         Regex.Match(line, @"(?:D)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
 
+                    _com.PidExtruderKp = txtBxPidExtruderKp.Text;
+                    _com.PidExtruderKi = txtBxPidExtruderKi.Text;
+                    _com.PidExtruderKd = txtBxPidExtruderKd.Text;
+
                 }
 
                 linePattern = @"M304\s*P[0-9]*\.[0-9]*\s*I[0-9]*\.[0-9]*\s*D[0-9]*\.[0-9]*";
@@ -2573,6 +2595,9 @@ namespace Marlin3DprinterTool
                         Regex.Match(line, @"(?:I)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     txtBxBedKd.Text =
                         Regex.Match(line, @"(?:D)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    _com.PidBedKp = txtBxBedKp.Text;
+                    _com.PidBedKi = txtBxBedKi.Text;
+                    _com.PidBedKd = txtBxBedKd.Text;
 
                 }
 
@@ -2586,6 +2611,20 @@ namespace Marlin3DprinterTool
                         Regex.Match(line, @"(?:X)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     txtBxMeshBedLevelPointY.Text =
                         Regex.Match(line, @"(?:Y)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                }
+
+                // G29 S3 X1 Y1 Z13.85001
+                linePattern = @"G29\s*S3\s*X[0-9]\s*Y[0-9]\s*Z[0-9]*\.[0-9]*";
+                rowMatch = Regex.Match(line, linePattern);
+                if (rowMatch.Success)
+                {
+                    string x = Regex.Match(line, @"(?:X)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value + ",0";
+                    string y = Regex.Match(line, @"(?:Y)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value + ",0";
+                    string z = Regex.Match(line, @"(?:Z)([-]*[0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value . Replace(".",",");
+
+
+
+                    _com.SaveMeshPoints( Convert.ToDouble(x) , Convert.ToDouble(y) ,Convert.ToDouble(z));
                 }
 
 
@@ -2698,7 +2737,41 @@ namespace Marlin3DprinterTool
 
         private void btnShowMeshInSurfaceChart_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Feature not available (yet)");
+            
+
+            var xMin = (int)Convert.ToDecimal(_configuration.LowerLeftAdjuster.X);
+            var xMax = (int)Convert.ToDecimal(_configuration.LowerRightAdjuster.X);
+            var xStep = (xMax - xMin) / (Convert.ToUInt16( txtBxMeshBedLevelPointX.Text) - 1);
+
+            var yMin = (int)Convert.ToDecimal(_configuration.LowerLeftAdjuster.Y);
+            var yMax = (int)Convert.ToDecimal(_configuration.UpperLeftAdjuster.Y);
+            var yStep = (yMax - yMin) / (Convert.ToUInt16(txtBxMeshBedLevelPointY.Text) - 1);
+
+
+
+            List<Position> positions = new List<Position>();
+
+       
+
+            foreach (Position meshPoint in _com.MeshPoints)
+            {
+                int x = (int) (xMin + ((meshPoint.X - 1.0) * xStep));
+                int y = (int)(yMin + ((meshPoint.Y - 1.0) * yStep));
+                positions.Add(new Position { X = x, Y = y, Z = meshPoint.Z });
+            }
+
+
+            
+
+            CreateSurfaceChart(positions);
+
+           DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool,tabPageScanSurface);
+        }
+
+        private void btnSetup_Click(object sender, EventArgs e)
+        {
+            FrmSetup setup = new FrmSetup();
+            setup.ShowDialog();
         }
     }
 

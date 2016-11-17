@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 
@@ -405,7 +407,54 @@ namespace MarlinComunicationHelper
             }
         }
 
-       
+        public string LicenseKey
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/LicenseKey");
+                if (xmlNode == null) return "";
+
+
+                return xmlNode.GetAttribute("key");
+                
+            }
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/LicenseKey");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, "LicenseKey");
+                }
+                xmlNode?.SetAttribute("key", value);
+                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+            }
+        }
+
+        public static string Decrypt(string text)
+        {
+            try
+            {
+                byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+                byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+                SymmetricAlgorithm algorithm = DES.Create();
+                ICryptoTransform transform = algorithm.CreateDecryptor(key, iv);
+                byte[] inputbuffer = Convert.FromBase64String(text);
+                byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
+                return Encoding.Unicode.GetString(outputBuffer);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+            
+        }
+
+
 
         private Position GetPosition(string tag)
         {
