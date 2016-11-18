@@ -9,3 +9,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Shar
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\x86\Release\SharpShell.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\obj\x86\Release\SharpShellServerManager.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\obj\x86\Release\SharpShellServerManager.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\obj\x86\Release\SharpShellServerManager.csprojResolveAssemblyReference.cache
