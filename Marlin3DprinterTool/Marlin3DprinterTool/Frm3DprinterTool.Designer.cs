@@ -880,7 +880,7 @@ namespace Marlin3DprinterTool
             this.btnMoveUpperLeftAdjuster.Name = "btnMoveUpperLeftAdjuster";
             this.btnMoveUpperLeftAdjuster.Size = new System.Drawing.Size(32, 32);
             this.btnMoveUpperLeftAdjuster.TabIndex = 8;
-            this.toolTip3DprinterTool.SetToolTip(this.btnMoveUpperLeftAdjuster, "Move to \"Lower Left Adjustment\"");
+            this.toolTip3DprinterTool.SetToolTip(this.btnMoveUpperLeftAdjuster, "Move to \"Upper Left Adjustment\"");
             this.btnMoveUpperLeftAdjuster.UseVisualStyleBackColor = true;
             this.btnMoveUpperLeftAdjuster.Click += new System.EventHandler(this.btnMoveUpperLeftAdjuster_Click);
             // 
@@ -892,7 +892,7 @@ namespace Marlin3DprinterTool
             this.btnMoveUpperRightAdjuster.Name = "btnMoveUpperRightAdjuster";
             this.btnMoveUpperRightAdjuster.Size = new System.Drawing.Size(32, 32);
             this.btnMoveUpperRightAdjuster.TabIndex = 7;
-            this.toolTip3DprinterTool.SetToolTip(this.btnMoveUpperRightAdjuster, "Move to \"Lower Left Adjustment\"");
+            this.toolTip3DprinterTool.SetToolTip(this.btnMoveUpperRightAdjuster, "Move to \"Upper Right Adjustment\"");
             this.btnMoveUpperRightAdjuster.UseVisualStyleBackColor = true;
             this.btnMoveUpperRightAdjuster.Click += new System.EventHandler(this.btnMoveUpperRightAdjuster_Click);
             // 
@@ -904,7 +904,7 @@ namespace Marlin3DprinterTool
             this.btnMoveLowerRightAdjuster.Name = "btnMoveLowerRightAdjuster";
             this.btnMoveLowerRightAdjuster.Size = new System.Drawing.Size(32, 32);
             this.btnMoveLowerRightAdjuster.TabIndex = 6;
-            this.toolTip3DprinterTool.SetToolTip(this.btnMoveLowerRightAdjuster, "Move to \"Lower Left Adjustment\"");
+            this.toolTip3DprinterTool.SetToolTip(this.btnMoveLowerRightAdjuster, "Move to \"Lower Right Adjustment\"");
             this.btnMoveLowerRightAdjuster.UseVisualStyleBackColor = true;
             this.btnMoveLowerRightAdjuster.Click += new System.EventHandler(this.btnMoveLowerRightAdjuster_Click);
             // 
