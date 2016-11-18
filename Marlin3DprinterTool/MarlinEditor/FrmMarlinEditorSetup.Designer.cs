@@ -76,6 +76,7 @@
             this.txtBxDirectoryCurrentFirmware.Name = "txtBxDirectoryCurrentFirmware";
             this.txtBxDirectoryCurrentFirmware.Size = new System.Drawing.Size(825, 20);
             this.txtBxDirectoryCurrentFirmware.TabIndex = 1;
+            this.txtBxDirectoryCurrentFirmware.TextChanged += new System.EventHandler(this.txtBxDirectoryCurrentFirmware_TextChanged);
             // 
             // lblDirectoryCurrentFirmware
             // 
@@ -106,7 +107,7 @@
             this.btnDirectoryNewFirmware.TabIndex = 5;
             this.btnDirectoryNewFirmware.Text = "...";
             this.btnDirectoryNewFirmware.UseVisualStyleBackColor = true;
-            this.btnDirectoryNewFirmware.Click += new System.EventHandler(this.button1_Click);
+            this.btnDirectoryNewFirmware.Click += new System.EventHandler(this.btnDirectoryNewFirmware_Click);
             // 
             // txtBxDirectoryNewFirmware
             // 
