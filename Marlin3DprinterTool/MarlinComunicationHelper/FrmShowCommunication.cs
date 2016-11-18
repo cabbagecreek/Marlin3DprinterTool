@@ -81,6 +81,11 @@ namespace MarlinComunicationHelper
 
         private void btnCopyToClipBoard_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(fastColoredTextMarlinCommunication.Text))
+            {
+                MessageBox.Show(@"There is nothing to copy to Clipboard!");
+                return;
+            }
             Clipboard.SetText(fastColoredTextMarlinCommunication.Text);
         }
 

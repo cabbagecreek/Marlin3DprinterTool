@@ -39,20 +39,23 @@ namespace MarlinEditor
         {
             bool marlinIsFound = false;
             bool configIsFound = false;
+
+            if (string.IsNullOrEmpty(directory))  return "";
             
             string[] allFilesInDirectory = Directory.GetFiles(directory);
             foreach (string file in allFilesInDirectory)
             {
                 FileInfo fileInfo = new FileInfo(file);
-                if (fileInfo.Name == "Marlin.ino")
+                if (fileInfo.Name.ToLower() == "marlin.ino")
                 {
                     marlinIsFound = true;
                 }
-                if (fileInfo.Name == "configuration.h")
+                if (fileInfo.Name.ToLower() == "configuration.h")
                 {
                     configIsFound = true;
                 }
             }
+            
 
             if (marlinIsFound && configIsFound) return directory;
 
@@ -73,13 +76,13 @@ namespace MarlinEditor
         private string CheckIfDirectoryContainsArduino(string directory)
         {
             bool arduinoExeIsFound = false;
-            
 
+            if (string.IsNullOrEmpty(directory)) return "";
             string[] allFilesInDirectory = Directory.GetFiles(directory);
             foreach (string file in allFilesInDirectory)
             {
                 FileInfo fileInfo = new FileInfo(file);
-                if (fileInfo.Name == "arduino.exe")
+                if (fileInfo.Name.ToLower() == "arduino.exe")
                 {
                     arduinoExeIsFound = true;
                 }

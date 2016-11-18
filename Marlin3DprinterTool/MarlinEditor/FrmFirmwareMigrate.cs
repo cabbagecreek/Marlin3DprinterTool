@@ -316,6 +316,11 @@ namespace MarlinEditor
 
         private void btnExtruderFirmwareCopyToClipboard_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(fctbNewFirmware.Text))
+            {
+                MessageBox.Show(@"There is nothing to copy to Clipboard");
+                return;
+            }
             Clipboard.SetText(fctbNewFirmware.Text);
         }
 
