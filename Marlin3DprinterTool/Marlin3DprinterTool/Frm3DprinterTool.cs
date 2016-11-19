@@ -679,7 +679,6 @@ namespace Marlin3DprinterTool
 
             lblCalculatedZProbeOffset.Visible = true;
             txtBxCalculatedZProbeOffset.Visible = false;
-            btnZpromeFirmwareUpdate.Visible = false;
             btnZpromeEepromUpdate.Visible = false;
 
             _com.ProbeResponceList = new List<Position>(); //Clear the proberesponcelist fron old probing
@@ -965,7 +964,6 @@ namespace Marlin3DprinterTool
             btnZprobeHeightNext.Visible = false;
             lblCalculatedZProbeOffset.Visible = false;
             txtBxCalculatedZProbeOffset.Visible = false;
-            btnZpromeFirmwareUpdate.Visible = false;
             btnZpromeEepromUpdate.Visible = false;
 
             kompassControllConfigBed.Visible = false;
@@ -986,7 +984,7 @@ namespace Marlin3DprinterTool
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result != DialogResult.Cancel)
             {
-                var commands = new List<string> {"G28 Z", "M114", "G92 Z0", "M114"};
+                var commands = new List<string> {"M851 Z0","G28 Z", "M114"};
                 _com.SendCommand(commands);
             }
             if (result == DialogResult.Cancel) return;
@@ -1000,7 +998,6 @@ namespace Marlin3DprinterTool
             btnZprobeHeightNext.Visible = true;
             lblCalculatedZProbeOffset.Visible = false;
             txtBxCalculatedZProbeOffset.Visible = false;
-            btnZpromeFirmwareUpdate.Visible = false;
             btnZpromeEepromUpdate.Visible = false;
         }
 
@@ -1281,7 +1278,6 @@ namespace Marlin3DprinterTool
             if (lblCalculatedZProbeOffset.Visible)
             {
                 DeligateAndInvoke.DelegateVisible(txtBxCalculatedZProbeOffset, true);
-                DeligateAndInvoke.DelegateVisible(btnZpromeFirmwareUpdate, true);
                 DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate, true);
                 foreach (var position in probePositions)
                 {
@@ -1824,8 +1820,11 @@ namespace Marlin3DprinterTool
         {
             List<string> commands = new List<string>
             {
-                $"M851 Z-{txtBxCalculatedZProbeOffset.Text.Replace(',', '.')}",
-                "M500"
+                $"M851 Z{txtBxCalculatedZProbeOffset.Text.Replace(',', '.')}",
+                "M500", // Save parameter in EEPROM
+                "M501" // Read parameters from EEPROM
+
+
             };
             _com.SendCommand(commands);
 
