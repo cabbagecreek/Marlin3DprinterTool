@@ -105,7 +105,7 @@ namespace MarlinComunicationHelper
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
                 if (xmlNode == null) return false;
 
-                return xmlNode.GetAttribute("value") == "true";
+                return xmlNode.GetAttribute("value").ToLower() == "true";
             }
             set
             {
@@ -116,7 +116,7 @@ namespace MarlinComunicationHelper
                 {
                     xmlNode = (XmlElement)CreateMissingXmlNode(xml, "NeverClear");
                 }
-                xmlNode?.SetAttribute("value", value.ToString());
+                xmlNode?.SetAttribute("value", value.ToString()); // boolian.ToString = True/False
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
         }
@@ -168,7 +168,7 @@ namespace MarlinComunicationHelper
                 {
                     xmlNode = (XmlElement)CreateMissingXmlNode(xml, "ZmaxTravel");
                 }
-                xmlNode?.SetAttribute("zmax", value.ToString()); // if (xmlNodeZmax != null)
+                xmlNode?.SetAttribute("zmax", value.ToString()); // if (xmlNodeZmax != null) Int = no need for decimal 
                 xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
             }
         }
@@ -344,7 +344,7 @@ namespace MarlinComunicationHelper
                 {
                     var gcode = value[order];
                     var newRow = xml.CreateElement("Row");
-                    newRow.SetAttribute("order", order.ToString());
+                    newRow.SetAttribute("order", order.ToString()); // Int = no need for decimal
                     newRow.InnerXml = gcode;
                     gcodeAssistZprobeEngare?.AppendChild(newRow);
                 }
@@ -398,7 +398,7 @@ namespace MarlinComunicationHelper
                 {
                     var gcode = value[order];
                     var newRow = xml.CreateElement("Row");
-                    newRow.SetAttribute("order", order.ToString());
+                    newRow.SetAttribute("order", order.ToString()); // Int = no need for decimal
                     newRow.InnerXml = gcode;
                     gcodeAssistZprobeRelease?.AppendChild(newRow);
                 }
@@ -493,8 +493,8 @@ namespace MarlinComunicationHelper
 
             if (xmlNodePosition != null)
             {
-                xmlNodePosition.SetAttribute("x", position.X.ToString(CultureInfo.CreateSpecificCulture("en-GB")));
-                xmlNodePosition.SetAttribute("y", position.Y.ToString(CultureInfo.CreateSpecificCulture("en-GB")));
+                xmlNodePosition.SetAttribute("x", position.X.ToString(CultureInfo.InvariantCulture).Replace(',','.') ); // Allways decimal point
+                xmlNodePosition.SetAttribute("y", position.Y.ToString(CultureInfo.InvariantCulture).Replace(',', '.')); // Allways decimal point
             }
 
             xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));

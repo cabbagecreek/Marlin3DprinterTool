@@ -64,7 +64,7 @@ namespace MarlinComunicationHelper
         public void Connect()
         {
             
-            if (_serialPort.ConnectedTo.ToString() == "None")
+            if (_serialPort.ConnectedTo.ToString() == "None") 
             {
                 try
                 {

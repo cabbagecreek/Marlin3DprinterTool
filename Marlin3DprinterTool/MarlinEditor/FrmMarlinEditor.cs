@@ -740,7 +740,9 @@ namespace MarlinEditor
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
             if (CurrentFastColoredTextBox != null)
+            {
                 CurrentFastColoredTextBox.Zoom = int.Parse((sender as ToolStripItem).Tag.ToString());
+            }
         }
 
         private void toolStripArduinoIDE_Click(object sender, EventArgs e)

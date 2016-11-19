@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -166,10 +167,10 @@ namespace Marlin3DprinterTool
             _currectPosition.Y = currentPosition.Ydouble;
             _currectPosition.Z = currentPosition.Zdouble;
 
-
-            DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, _currectPosition.Z.ToString());
-            DeligateAndInvoke.DelegateText(txtBxCurrentPositionXConfigBed, _currectPosition.X.ToString());
-            DeligateAndInvoke.DelegateText(txtBxCurrentPositionYConfigBed, _currectPosition.Y.ToString());
+            // allways with decimalpoints
+            DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, _currectPosition.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
+            DeligateAndInvoke.DelegateText(txtBxCurrentPositionXConfigBed, _currectPosition.X.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+            DeligateAndInvoke.DelegateText(txtBxCurrentPositionYConfigBed, _currectPosition.Y.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
         }
 
 
@@ -1284,7 +1285,8 @@ namespace Marlin3DprinterTool
                 DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate, true);
                 foreach (var position in probePositions)
                 {
-                    DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, position.Z.ToString());
+                    // Allways decimalpoint
+                    DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, position.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
                 }
             }
             //! Z-ProbeHeight
@@ -1403,7 +1405,7 @@ namespace Marlin3DprinterTool
                                 (Math.Abs(_configuration.LowerLeftAdjuster.Y - probeResponce.Y) < 35))
                             {
                                 DeligateAndInvoke.DelegateText(lblTurn1, @"No adjustments");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue1, probeResponce.Z.ToString());
+                                DeligateAndInvoke.DelegateText(lblAdjustValue1, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
                                 _fix = probeResponce.Z;
                             }
 
@@ -1415,7 +1417,7 @@ namespace Marlin3DprinterTool
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
                                 DeligateAndInvoke.DelegateText(lblTurn2,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue2, probeResponce.Z.ToString());
+                                DeligateAndInvoke.DelegateText(lblAdjustValue2, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
                             }
 
 
@@ -1427,7 +1429,7 @@ namespace Marlin3DprinterTool
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
                                 DeligateAndInvoke.DelegateText(lblTurn3,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue3, probeResponce.Z.ToString());
+                                DeligateAndInvoke.DelegateText(lblAdjustValue3, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
                             }
 
                             //Upper Left Adjuster
@@ -1438,7 +1440,7 @@ namespace Marlin3DprinterTool
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
                                 DeligateAndInvoke.DelegateText(lblTurn4,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue4, probeResponce.Z.ToString());
+                                DeligateAndInvoke.DelegateText(lblAdjustValue4, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
                             }
                         }
 
@@ -1448,10 +1450,10 @@ namespace Marlin3DprinterTool
 
                         foreach (var probePoint in _com.ProbeResponceList)
                         {
-                            if (zMin == null) zMin = probePoint.Z.ToString();
-                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString();
-                            if (zMax == null) zMax = probePoint.Z.ToString();
-                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString();
+                            if (zMin == null) zMin = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
+                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
+                            if (zMax == null) zMax = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
+                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
                         }
                     }
                     CreateSurfaceChart(_com.ProbeResponceList);
@@ -2199,7 +2201,7 @@ namespace Marlin3DprinterTool
 
 
             fastColoredTextBoxExtruderStepsPerMM.Text = $"{stepsPerMM} steps/mm";
-            fastColoredTextBoxExtruderStepsPerMM.Tag = stepsPerMM.ToString();
+            fastColoredTextBoxExtruderStepsPerMM.Tag = stepsPerMM.ToString(CultureInfo.InvariantCulture).Replace(',','.');
         }
 
         private void btnExtruderOldFirmware_Click(object sender, EventArgs e)
@@ -2807,6 +2809,9 @@ namespace Marlin3DprinterTool
         }
     }
 
+
+
+    //TODO:: Move to Class for STL thumbnails
     /// <summary>
     /// 
     /// </summary>

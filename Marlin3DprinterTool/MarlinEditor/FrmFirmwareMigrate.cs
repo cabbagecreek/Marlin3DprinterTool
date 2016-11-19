@@ -91,7 +91,10 @@ namespace MarlinEditor
             HighlightInvisibleChars(fctbNewFirmware.Range);
 
             cmbBxFirmwareFeatures.Items.Clear();
-            cmbBxFirmwareFeatures.Items.AddRange(FindFirmwareFeatures().ToArray());
+            foreach (string feature in FindFirmwareFeatures())
+            {
+                cmbBxFirmwareFeatures.Items.Add(feature);
+            }
             cmbBxFirmwareFeatures.Text = cmbBxFirmwareFeatures.Items[1].ToString();
 
 
