@@ -176,10 +176,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Marlin3DprinterStlViewer\Marlin3DprinterStlViewer.csproj">
-      <Project>{cb7cdea2-d23a-4761-b7e8-e42e31cbf686}</Project>
-      <Name>Marlin3DprinterStlViewer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
       <Name>MarlinComunicationHelper</Name>
@@ -195,10 +191,6 @@
     <ProjectReference Include="..\SharpShellServerManager\SharpShellServerManager.csproj">
       <Project>{6db2edfd-193e-4e96-aae6-72f0d45fb5cd}</Project>
       <Name>SharpShellServerManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StlViewerThumbnailHandler\Marlin3DprinterToolStlThumbnail.csproj">
-      <Project>{fea2a7bd-0a8e-48c2-969a-dd3ef6f3dcfc}</Project>
-      <Name>Marlin3DprinterToolStlThumbnail</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

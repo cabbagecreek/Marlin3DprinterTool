@@ -15,7 +15,7 @@ namespace Marlin3DprinterTool
     {
         /// <summary>
         /// </summary>
-        private readonly FrmMarlin3DprinterTool _frm3DprinterTool;
+        private static FrmMarlin3DprinterTool _frm3DprinterTool;
 
 
         /// <summary>
@@ -347,24 +347,7 @@ namespace Marlin3DprinterTool
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tabPage"></param>
-        /// <param name="enable"></param>
-        public void TabPageEnable(TabPage tabPage, bool enable)
-        {
-            if (tabPage.InvokeRequired)
-            {
-                TabPageEnableCallback d = TabPageEnable;
-                _frm3DprinterTool.Invoke(d, tabPage, enable);
-            }
-            else
-            {
-                ((Control)tabPage).Enabled = false;
-               
-            }
-        }
+        
 
         /// <summary>
         /// Select a tab
@@ -383,6 +366,26 @@ namespace Marlin3DprinterTool
                 tabControl3DprinterTool.SelectedTab = tabPage;
 
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tabControl3DprinterTool"></param>
+        /// <returns></returns>
+        public static TabPage GetSelectedTab(TabControl tabControl3DprinterTool)
+        {
+            if (tabControl3DprinterTool.InvokeRequired)
+            {
+                GetSelectedTabCallback d = GetSelectedTab;
+                _frm3DprinterTool.Invoke(d, tabControl3DprinterTool);
+            }
+            else
+            {
+                return tabControl3DprinterTool.SelectedTab;
+
+            }
+            return null;
         }
 
         // Delegate
@@ -420,8 +423,10 @@ namespace Marlin3DprinterTool
         private delegate void ScrollToCallback(FastColoredTextBox marlinSyntaxTextBox, int row);
 
         private delegate void SelectTabcontrolCallback(TabControl tabControl3DprinterTool, TabPage tabPage);
-        
+
+        private delegate TabPage GetSelectedTabCallback(TabControl tabControl);
 
         //!Delegate
+
     }
 }

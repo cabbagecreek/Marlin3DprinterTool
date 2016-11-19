@@ -162,7 +162,7 @@
 
       <!-- Marlin3DprinterToolStlThumbnail.dll -->
       <Component Id="Marlin3DprinterToolStlThumbnail.dll" Guid="{9B2C32B1-35EB-4B18-9A5C-8BC268506BA1}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolStlThumbnail.dll" />
+        <File Source="$(var.Marlin3DprinterToolStlThumbnail.TargetDir)\Marlin3DprinterToolStlThumbnail.dll" />
       </Component>
 
 
@@ -233,7 +233,7 @@
 
       <!--HelixToolkit.Wpf.dll -->
       <Component Id="HelixToolkit.Wpf.dll" Guid="{8AF5F26B-E1FF-4194-B5FD-66D2FE9A14CC}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\HelixToolkit.Wpf.dll" />
+        <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\HelixToolkit.Wpf.dll" />
       </Component>
 
       <!--SharpShell.dll -->
@@ -248,7 +248,7 @@
 
       <!--STL thumbnail debug.rtf -->
       <Component Id="STL_thumbnail_debug.rtf" Guid="{7EF35A7B-43A5-4D33-B232-B79E352A1C01}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\STL thumbnail debug.rtf" />
+        <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\STL thumbnail debug.rtf" />
       </Component>
 
     </ComponentGroup>
@@ -277,7 +277,7 @@
 
       <!-- Marlin3DprinterStlViewer.exe -->
       <Component Id="Marlin3DprinterStlViewer.exe" Guid="{73837F95-9A75-4B4F-B4C0-D64DE447A422}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterStlViewer.exe" />
+        <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\Marlin3DprinterStlViewer.exe" />
       </Component>
 
 

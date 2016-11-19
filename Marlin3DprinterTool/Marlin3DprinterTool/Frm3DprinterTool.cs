@@ -1354,6 +1354,9 @@ namespace Marlin3DprinterTool
         {
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
 
+            //TabPage SelectedTabPage = DelegateAndInvoke.GetSelectedTab(tabControl3DprinterTool);
+
+            //if (SelectedTabPage == null) return;
 
             switch (selectedTab)
             {
@@ -1450,10 +1453,10 @@ namespace Marlin3DprinterTool
 
                         foreach (var probePoint in _com.ProbeResponceList)
                         {
-                            if (zMin == null) zMin = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
-                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
-                            if (zMax == null) zMax = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
-                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.');
+                            if (zMin == null) zMin = probePoint.Z.ToString();
+                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString();
+                            if (zMax == null) zMax = probePoint.Z.ToString();
+                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString();
                         }
                     }
                     CreateSurfaceChart(_com.ProbeResponceList);
@@ -2312,83 +2315,86 @@ namespace Marlin3DprinterTool
             //TODO: SharpShellServerManagerClass.Serverentries
             IEnumerable<ServerEntry> serverEntries = SharpShellServerManagerClass.UpdateServerStatus(stlViewerThumbnail);
 
-            foreach (ServerEntry serverEntry in serverEntries)
+            if (serverEntries != null)
             {
-                SharpShellServerManagerClass.ServerInfo serverinfo =
-                    SharpShellServerManagerClass.GetServerinfo(serverEntry);
-                textBoxServerName.Text = serverinfo.ServerName;
-                textBoxServerType.Text = serverinfo.ServerType;
-                textBoxServerCLSID.Text = serverinfo.ClassId;
-                textBoxServerSecurity.Text = serverinfo.SecurityStatus;
-                textBoxAssemblyPath.Text = serverinfo.ServerPath;
-                if (serverinfo.IsInvalid)
+                foreach (ServerEntry serverEntry in serverEntries)
                 {
-                    //  Clear other data for invalid servers.
-                    textBoxAssociations.Text = string.Empty;
-                    ledServer32.Color = Color.Gray;
-                    ledServer64.Color = Color.Gray;
-                    ledRegister32.Color = Color.Gray;
-                    ledRegister64.Color = Color.Gray;
-                }
-                else
-                {
-
-                    textBoxAssociations.Text = serverinfo.Association;
-
-
-
-                    //  By default, our installation info is going all led gray.
-                    ledServer32.Color = Color.Gray;
-                    ledServer64.Color = Color.Gray;
-                    ledRegister32.Color = Color.Gray;
-                    ledRegister64.Color = Color.Gray;
-
-                    //  Do we have 32 bit registration info?
-                    if (serverinfo.Info32 != null)
+                    SharpShellServerManagerClass.ServerInfo serverinfo =
+                        SharpShellServerManagerClass.GetServerinfo(serverEntry);
+                    textBoxServerName.Text = serverinfo.ServerName;
+                    textBoxServerType.Text = serverinfo.ServerType;
+                    textBoxServerCLSID.Text = serverinfo.ClassId;
+                    textBoxServerSecurity.Text = serverinfo.SecurityStatus;
+                    textBoxAssemblyPath.Text = serverinfo.ServerPath;
+                    if (serverinfo.IsInvalid)
                     {
-                        //  Do we have a codebase?
-                        if (!string.IsNullOrEmpty(serverinfo.Info32.CodeBase))
-                        {
-                            //textBox32BitServer.Text = info32.CodeBase;
-                            ledServer32.Color = Color.Chartreuse;
-                        }
-                        else if (!string.IsNullOrEmpty(serverinfo.Info32.Assembly))
-                            //textBox32BitServer.Text = info32.Assembly + " (GAC)";
-                            ledServer32.Color = Color.Chartreuse;
+                        //  Clear other data for invalid servers.
+                        textBoxAssociations.Text = string.Empty;
+                        ledServer32.Color = Color.Gray;
+                        ledServer64.Color = Color.Gray;
+                        ledRegister32.Color = Color.Gray;
+                        ledRegister64.Color = Color.Gray;
+                    }
+                    else
+                    {
 
-                        //  Set the registration info.
-                        if (serverinfo.Info32.IsApproved)
+                        textBoxAssociations.Text = serverinfo.Association;
+
+
+
+                        //  By default, our installation info is going all led gray.
+                        ledServer32.Color = Color.Gray;
+                        ledServer64.Color = Color.Gray;
+                        ledRegister32.Color = Color.Gray;
+                        ledRegister64.Color = Color.Gray;
+
+                        //  Do we have 32 bit registration info?
+                        if (serverinfo.Info32 != null)
                         {
-                            //textBox32BitServerRegistration.Text = "Registered";
-                            ledRegister32.Color = Color.Chartreuse;
+                            //  Do we have a codebase?
+                            if (!string.IsNullOrEmpty(serverinfo.Info32.CodeBase))
+                            {
+                                //textBox32BitServer.Text = info32.CodeBase;
+                                ledServer32.Color = Color.Chartreuse;
+                            }
+                            else if (!string.IsNullOrEmpty(serverinfo.Info32.Assembly))
+                                //textBox32BitServer.Text = info32.Assembly + " (GAC)";
+                                ledServer32.Color = Color.Chartreuse;
+
+                            //  Set the registration info.
+                            if (serverinfo.Info32.IsApproved)
+                            {
+                                //textBox32BitServerRegistration.Text = "Registered";
+                                ledRegister32.Color = Color.Chartreuse;
+                            }
+
                         }
 
+                        //  Do we have 64 bit registration info?
+                        if (serverinfo.Info64 != null)
+                        {
+                            //  Do we have a codebase?
+                            if (!string.IsNullOrEmpty(serverinfo.Info64.CodeBase))
+                            {
+                                //textBox64BitServer.Text = info64.CodeBase;
+                                ledServer64.Color = Color.Chartreuse;
+                            }
+                            else if (!string.IsNullOrEmpty(serverinfo.Info64.Assembly))
+                            {
+                                //textBox64BitServer.Text = info64.Assembly + " (GAC)";
+                                ledServer64.Color = Color.Chartreuse;
+                            }
+
+                            //  Set the registration info.
+                            if (serverinfo.Info64.IsApproved)
+                            {
+                                //textBox64BitServerRegistration.Text = "Registered";
+                                ledRegister64.Color = Color.Chartreuse;
+                            }
+                        }
                     }
 
-                    //  Do we have 64 bit registration info?
-                    if (serverinfo.Info64 != null)
-                    {
-                        //  Do we have a codebase?
-                        if (!string.IsNullOrEmpty(serverinfo.Info64.CodeBase))
-                        {
-                            //textBox64BitServer.Text = info64.CodeBase;
-                            ledServer64.Color = Color.Chartreuse;
-                        }
-                        else if (!string.IsNullOrEmpty(serverinfo.Info64.Assembly))
-                        {
-                            //textBox64BitServer.Text = info64.Assembly + " (GAC)";
-                            ledServer64.Color = Color.Chartreuse;
-                        }
-
-                        //  Set the registration info.
-                        if (serverinfo.Info64.IsApproved)
-                        {
-                            //textBox64BitServerRegistration.Text = "Registered";
-                            ledRegister64.Color = Color.Chartreuse;
-                        }
-                    }
                 }
-
             }
 
         }
@@ -2425,6 +2431,7 @@ namespace Marlin3DprinterTool
 
         private void btnTroubleShootStl_Click_1(object sender, EventArgs e)
         {
+
             FrmRTFdocumentation stlTroubleshoot = new FrmRTFdocumentation {Filename = "STL thumbnail debug.rtf"};
             stlTroubleshoot.ShowDialog();
         }

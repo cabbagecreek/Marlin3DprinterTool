@@ -112,19 +112,19 @@
             <param name="bedTemp"></param>
             <param name="setBedTemp"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.TabPageEnable(System.Windows.Forms.TabPage,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="tabPage"></param>
-            <param name="enable"></param>
-        </member>
         <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SelectTabcontrol(System.Windows.Forms.TabControl,System.Windows.Forms.TabPage)">
             <summary>
             Select a tab
             </summary>
             <param name="tabControl3DprinterTool"></param>
             <param name="tabPage"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.GetSelectedTab(System.Windows.Forms.TabControl)">
+            <summary>
+            
+            </summary>
+            <param name="tabControl3DprinterTool"></param>
+            <returns></returns>
         </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>
