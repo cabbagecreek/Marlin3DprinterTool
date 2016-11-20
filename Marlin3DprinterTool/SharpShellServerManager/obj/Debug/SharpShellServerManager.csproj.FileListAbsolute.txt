@@ -1,0 +1,12 @@
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\SharpShellServerManager.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\SharpShellServerManager.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\Apex.WinForms.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\ServerManager.exe
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\SharpShell.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\srm.exe
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\ServerManager.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\SharpShell.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\bin\Debug\SharpShell.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\obj\Debug\SharpShellServerManager.csprojResolveAssemblyReference.cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\obj\Debug\SharpShellServerManager.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\SharpShellServerManager\obj\Debug\SharpShellServerManager.pdb

@@ -105,7 +105,7 @@ namespace MarlinComunicationHelper
         private void MoveAxis(double amount)
         {
             var commands = new List<string>();
-            var value = amount.ToString().Replace(",", ".");
+            var value = amount.ToString().Replace(",", "."); // Allways decimal point
 
             switch (StepperMotor)
             {

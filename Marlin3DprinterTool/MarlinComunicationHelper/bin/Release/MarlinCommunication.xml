@@ -12,9 +12,15 @@
   <rule style="Receive" >\\bReceive\\b</rule>
 
 
+  <style name="commands" color="Red" />
+  <rule style="commands">[M,G][0-9]{1,3}</rule>
+  <rule style="commands">SD card ok</rule>
+
   <!-- numbers -->
   <style name="Numbers" color="Green" fontStyle="Bold,Italic" />
   <rule style="Numbers">[0-9]*[.|,][0-9]*</rule>
+  <rule style="Numbers">[0-9]*</rule>
+  
 
    
   
@@ -60,5 +66,7 @@
   <rule style="FinishedPID">PID\s*Autotune\s*finished!\s*[A-Z,a-z,\s,.]*</rule>
   <rule style="FinishedPID">#define\s*DEFAULT_[A-Z,a-z,0-9]*</rule>
 
+  
+  
 
 </doc>

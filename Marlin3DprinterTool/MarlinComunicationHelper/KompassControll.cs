@@ -19,7 +19,7 @@ namespace MarlinComunicationHelper
         private void MoveAxis(string stepperMotor, double amount)
         {
             var commands = new List<string>();
-            var value = amount.ToString().Replace(",", ".");
+            var value = amount.ToString().Replace(",", "."); //Allways decimalpoint
 
             commands.Add("G91");
             commands.Add($"G1 {stepperMotor}{value}");

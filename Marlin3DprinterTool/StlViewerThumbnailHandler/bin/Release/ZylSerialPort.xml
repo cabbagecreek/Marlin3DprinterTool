@@ -16,6 +16,13 @@
             post change requests back using Invoke (or BeginInvoke to avoid deadlock), which will do the work on the proper thread. 
             </remarks>
         </member>
+        <member name="P:ZylSoft.Serial.SerialPort.UnlockKey">
+            <summary>
+            It is used to protect your software after deployment.
+            You will have to set it to the correct value, before opening the port.
+            You will find the key in your software package.
+            </summary>
+        </member>
         <member name="F:ZylSoft.Serial.SerialPort._synchronizeVariable">
             <summary>
             Required designer variable.
@@ -52,6 +59,19 @@
         <member name="E:ZylSoft.Serial.SerialPort.LineStatusChanged">
             <summary>
             Occures when the line status of the serial port is changed.
+            </summary>
+        </member>
+        <member name="E:ZylSoft.Serial.SerialPort.Idle">
+            <summary>
+            If the elapsed time from the last receive is higher than IdleInterval (milliseconds), Idle event occures.
+            If IdleTinerval is 0, this event will never occure.
+            It works only for AutoReceive = true.
+            </summary>
+        </member>
+        <member name="E:ZylSoft.Serial.SerialPort.Resumed">
+            <summary>
+            Occures when the receiver is idle and data is received.
+            It works only for AutoReceive = true.
             </summary>
         </member>
         <member name="P:ZylSoft.Serial.SerialPort.Port">
@@ -278,12 +298,12 @@
         <member name="P:ZylSoft.Serial.SerialPort.MaxLineLength">
             <summary>
             The maximum length of a line, when ReadStringLine or ReadStringUpToEndChars methods are used in synchronous mode (AutoReceive = false).
-            If maximum length is reached, the methods return with empty string. If this value is 0, there is no maximum length. The default value is 1000.
+            If maximum length is reached, the methods return with empty string. If this value is 0, there is no maximum length. The default value is 0.
             </summary>
         </member>
         <member name="P:ZylSoft.Serial.SerialPort.AutoReceive">
             <summary>
-            Set this property to true, if you want to receive the incoming data automatically in the OnReceived event. 
+            Set this property to true, if you want to receive the incoming data automatically in the Received event. 
             Otherwise you have to use ReadBuffer method to get the received data.
             The default value is true.
             </summary>
@@ -291,7 +311,7 @@
         <member name="P:ZylSoft.Serial.SerialPort.MinCheckDisconnectedInterval">
             <summary>
             The minimum time interval in milliseconds, for which the port availability is checked. For time critical usage it's recommended to set it to a higher value.
-            Default value is 50.
+            Default value is 25.
             </summary>
         </member>
         <member name="P:ZylSoft.Serial.SerialPort.IsFaulted">
@@ -301,6 +321,30 @@
             <example>
             When you unplug an USB device which communicates on a virtual serial port.
             </example>
+        </member>
+        <member name="P:ZylSoft.Serial.SerialPort.LastDataReceived">
+            <summary>
+            Last data received from the serial port.
+            </summary>
+        </member>
+        <member name="P:ZylSoft.Serial.SerialPort.LastTimeReceived">
+            <summary>
+            Last date-time when data received from the serial port.
+            </summary>
+        </member>
+        <member name="P:ZylSoft.Serial.SerialPort.IdleInterval">
+            <summary>
+            Idle time interval in milliseconds.
+            If the elapsed time from the last receive is higher than IdleInterval, Idle event occures.
+            If IdleInterval is 0, Idle event never occures.
+            It works only for AutoReceive = true.
+            </summary>
+        </member>
+        <member name="P:ZylSoft.Serial.SerialPort.IsIdle">
+            <summary>
+            True if Idle occured, until Resumed.
+            It works only for AutoReceive = true.
+            </summary>
         </member>
         <member name="M:ZylSoft.Serial.SerialPort.#ctor(System.ComponentModel.IContainer)">
             <summary>
@@ -599,6 +643,42 @@
             receive the event.
             </remarks>
         </member>
+        <member name="M:ZylSoft.Serial.SerialPort.OnIdle(System.EventArgs)">
+            <summary>
+            Raises the Idle event.
+            </summary>		
+            <param name="e">
+            An EventArgs that contains the event data. 
+            </param>
+            <remarks>
+            Raising an event invokes the event handler through a delegate. 
+            The OnIdle method also allows derived classes to handle the event without 
+            attaching a delegate. This is the preferred technique for handling the event 
+            in a derived class.
+            Notes to Inheritors:  When overriding OnIdle in a derived class, be sure to 
+            call the base class's OnIdle method so that registered delegates 
+            receive the event.
+            It works only for AutoReceive = true.
+            </remarks>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.OnResumed(System.EventArgs)">
+            <summary>
+            Raises the Resumed event.
+            </summary>		
+            <param name="e">
+            An EventArgs that contains the event data. 
+            </param>
+            <remarks>
+            Raising an event invokes the event handler through a delegate. 
+            The OnResumed method also allows derived classes to handle the event without 
+            attaching a delegate. This is the preferred technique for handling the event 
+            in a derived class.
+            Notes to Inheritors:  When overriding OnResumed in a derived class, be sure to 
+            call the base class's OnResumed method so that registered delegates 
+            receive the event.
+            It works only for AutoReceive = true.
+            </remarks>
+        </member>
         <member name="M:ZylSoft.Serial.SerialPort.Open">
             <summary>
             Opens the serial port.
@@ -642,7 +722,7 @@
             Output buffer.
             </param>
             <returns>
-            True, if succeeded.
+            true, if succeeded.
             </returns>
         </member>
         <member name="M:ZylSoft.Serial.SerialPort.SetTimeouts(System.IntPtr)">
@@ -653,7 +733,7 @@
             Com device handle.
             </param>
             <returns>
-            True, if succeeded.
+            true, if succeeded.
             </returns>
         </member>
         <member name="M:ZylSoft.Serial.SerialPort.ClearInputBuffer">
@@ -661,7 +741,7 @@
             Clears input buffer.
             </summary>
             <returns>
-            True, if succeeded.
+            true, if succeeded.
             </returns>
         </member>
         <member name="M:ZylSoft.Serial.SerialPort.ClearOutputBuffer">
@@ -669,7 +749,7 @@
             Clears output buffer.
             </summary>
             <returns>
-            True, if succeeded.
+            true, if succeeded.
             </returns>
         </member>
         <member name="M:ZylSoft.Serial.SerialPort.GetLineStatus(System.IntPtr)">
@@ -869,7 +949,7 @@
             Returns empty string, if there is no data in the buffer or AutoReceive is true.
             </returns>
         </member>
-        <member name="M:ZylSoft.Serial.SerialPort.ReadStringUpToEndChars(System.String)">
+        <member name="M:ZylSoft.Serial.SerialPort.ReadStringUpToEndChars(System.String,System.Int32)">
             <summary>
             Reads the serial port up to the first occurence of endChars sequence.
             It works only if AutoReceive property is false.
@@ -877,11 +957,47 @@
             <param name="endChars">
             Terminator characters.
             </param>
+            <param name="timeoutSeconds">
+            If the timeoutSeconds interval elapses and no endChars are found, the method will return with empty string (anti-blocking protection).
+            </param>
             <returns>
             Returns the contents of the input buffer up to the first occurrence of a endChars sequence, but endChars are not included in the result.
             </returns>
         </member>
-        <member name="M:ZylSoft.Serial.SerialPort.ReadBytes(System.Int32)">
+        <member name="M:ZylSoft.Serial.SerialPort.ReadStringUpToEndChars(System.Collections.ObjectModel.Collection{System.String},System.String@,System.Int32)">
+            <summary>
+            Reads the serial port up to the first occurence of one of the endChars sequences of the endCharsList collection.
+            It works only if AutoReceive property is false.
+            </summary>
+            <param name="endCharsList">
+            Collection of terminator characters sequence.
+            </param>
+            <param name="partialResult">
+            partialResult is empty string, if endChars sequence was found, otherwise contains the discarded data.
+            </param>
+            <param name="timeoutSeconds">
+            If the timeoutSeconds interval elapses and no endChars are found, the method will return with empty string (anti-blocking protection).
+            </param>
+            <returns>
+            Returns the contents of the input buffer up to the first occurrence of a endChars sequence, but endChars are not included in the result.
+            </returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.ReadStringUpToEndChars(System.Collections.ObjectModel.Collection{System.String},System.Int32)">
+            <summary>
+            Reads the serial port up to the first occurence of one of the endChars sequences of the endCharsList collection.
+            It works only if AutoReceive property is false.
+            </summary>
+            <param name="endCharsList">
+            Collection of terminator characters sequence.
+            </param>       
+            <param name="timeoutSeconds">
+            If the timeoutSeconds interval elapses and no endChars are found, the method will return with empty string (anti-blocking protection).
+            </param>
+            <returns>
+            Returns the contents of the input buffer up to the first occurrence of a endChars sequence, but endChars are not included in the result.
+            </returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.ReadBytes(System.Int32,System.Int32)">
             <summary>
             Reads numberOfBytes bytes from the serial port.
             It works only if AutoReceive property is false.
@@ -889,15 +1005,21 @@
             <param name="numberOfBytes">
             The number of bytes to read.
             </param>
+            <param name="timeoutSeconds">
+            If the timeoutSeconds interval elapses and and cannot read enough bytes (numberOfBytes), the method will return what it read till then, less bytes.
+            </param>
             <returns>
             Returns numberOfBytes bytes from the serial port and discard them.
             </returns>
         </member>
-        <member name="M:ZylSoft.Serial.SerialPort.ReadLine">
+        <member name="M:ZylSoft.Serial.SerialPort.ReadLine(System.Int32)">
             <summary>
             Reads the serial port up to the first occurence of NewLine sequence.
             It works only if AutoReceive property is false.
             </summary>
+            <param name="timeoutSeconds">
+            If the timeoutSeconds interval elapses and no endChars are found, the method will return with empty string (anti-blocking protection).
+            </param>
             <returns>
             Returns the contents of the input buffer up to the first occurrence of a NewLine, but NewLine is not included in the result.
             </returns>
@@ -1246,6 +1368,46 @@
             Existing serial ports of the system in an array of strings.
             </returns>
         </member>
+        <member name="M:ZylSoft.Serial.SerialPort.GetCommPortPath(System.String)">
+            <summary>
+            Returns the OS level name of the port. E.g.: \Device\PCISerial1
+            </summary>
+            <param name="port">
+            The serial port.
+            </param>
+            <returns>OS name of the port.</returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.GetCommPortPath(ZylSoft.Serial.SerialCommPort)">
+            <summary>
+            Returns the OS level name of the port. E.g.: \Device\PCISerial1
+            </summary>
+            <param name="port">
+            The serial port.
+            </param>
+            <returns>OS level name of the port.</returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.GetCommPortType(System.String)">
+            <summary>
+            Returns the type of the serial port.
+            </summary>
+            <param name="port">
+            Serial port.
+            </param>
+            <returns>
+            Type of the serial port.
+            </returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.GetCommPortType(ZylSoft.Serial.SerialCommPort)">
+            <summary>
+            Returns the type of the serial port.
+            </summary>
+            <param name="port">
+            Serial port.
+            </param>
+            <returns>
+            Type of the serial port.
+            </returns>
+        </member>
         <member name="M:ZylSoft.Serial.SerialPort.ReplaceControlCharacters(System.String)">
             <summary>
             Replaces control characters with readable text.
@@ -1256,6 +1418,30 @@
             <returns>
             Readable text.
             </returns>        
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.Echo">
+            <summary>
+            Sends the last received buffer back.
+            </summary>
+            <returns>
+            Returns the last received buffer, which was sent back to the port. If failed, returns null.
+            </returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.RandomDataGenerator(System.Int32)">
+            <summary>
+            Generates random data in string format (chars between 0 - 255).
+            </summary>
+            <param name="size">
+            The size of random data.
+            </param>
+            <returns>
+            Random data.
+            </returns>
+        </member>
+        <member name="M:ZylSoft.Serial.SerialPort.InitSyncCommunicationParams">
+            <summary>
+            Inits internal params.
+            </summary>
         </member>
         <member name="M:ZylSoft.Serial.SerialPort.InitializeComponent">
             <summary>
@@ -1284,7 +1470,7 @@
             <summary>
             Logger class.
             Used for exception logging.
-            ExceptionLogFile = Application.LocalUserAppDataPath + "\\zylserialnetlog.txt"
+            ExceptionLogFile = Application.LocalUserAppDataPath + "\\zylserialnetlog.log"
             </summary>
         </member>
         <member name="F:ZylSoft.Serial.Logger.Active">
@@ -2779,6 +2965,36 @@
         <member name="F:ZylSoft.Serial.SerialBaudRate.Custom">
             <summary>
             CustomBaudRate will be used.
+            </summary>
+        </member>
+        <member name="T:ZylSoft.Serial.SerialCommPortType">
+            <summary>
+            Serial port type enumeration.
+            </summary>
+        </member>
+        <member name="F:ZylSoft.Serial.SerialCommPortType.Serial">
+            <summary>
+            Serial.
+            </summary>
+        </member>
+        <member name="F:ZylSoft.Serial.SerialCommPortType.Usb">
+            <summary>
+            USB.
+            </summary>
+        </member>
+        <member name="F:ZylSoft.Serial.SerialCommPortType.Bluetooth">
+            <summary>
+            Bluetooth.
+            </summary>
+        </member>
+        <member name="F:ZylSoft.Serial.SerialCommPortType.Virtual">
+            <summary>
+            Virtual serial port.
+            </summary>
+        </member>
+        <member name="F:ZylSoft.Serial.SerialCommPortType.Unknown">
+            <summary>
+            Unknown type.
             </summary>
         </member>
         <member name="T:ZylSoft.Serial.SerialStopBits">
