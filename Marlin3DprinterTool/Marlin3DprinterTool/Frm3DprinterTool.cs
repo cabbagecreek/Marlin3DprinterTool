@@ -1477,9 +1477,9 @@ namespace Marlin3DprinterTool
 
             var chart = nChartControlSurface.Charts[0];
             chart.Enable3D = true;
-            chart.Width = 60;
-            chart.Height = 50;
-            chart.Depth = 60;
+            chart.Width = 80;
+            chart.Height = 80;
+            chart.Depth = 80;
             nChartControlSurface.Legends.Clear();
 
 
@@ -1736,14 +1736,8 @@ namespace Marlin3DprinterTool
 
         private void btnMeshLevel_Click(object sender, EventArgs e)
         {
-            //TODO: get existing mash level data
-            // G29 S0 = show Mesh Level Data
-
-            // G29 S3 Xn Yn Zn Set value to meshpoint
-
-            // G29 Zn Set Z offset
-
-            // Save to EEPROM M50x
+            nChartControlSurface.Charts[0].Series.Clear();
+            nChartControlSurface.Refresh();
 
 
         }
