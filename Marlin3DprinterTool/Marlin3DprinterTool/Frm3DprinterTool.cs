@@ -2801,6 +2801,20 @@ namespace Marlin3DprinterTool
         {
             _configuration.ZextraDistance = txtBxZextraDistance.Text;
         }
+
+        private void btnGetAllMeshPoints_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+
+            commands.Add("G29");
+            commands.Add("G29 S1");
+            for (int i = 1; i < 3*3; i++)
+            {
+                commands.Add("G29 S2");
+            }
+            _com.SendCommand(commands);
+
+        }
     }
 
     /// <summary>
