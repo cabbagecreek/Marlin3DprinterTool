@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -437,10 +438,14 @@ namespace Marlin3DprinterTool
         {
             var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
+            switch (result)
             {
-                var conf = new Configuration();
-                _com.SendCommand(conf.GcodeAssistZprobeEngage);
+                case DialogResult.Cancel:
+                    return;
+                case DialogResult.OK:
+                    var conf = new Configuration();
+                    _com.SendCommand(conf.GcodeAssistZprobeEngage);
+                    break;
             }
 
             var commands = new List<string> {"M420 S0", "G28 Y", "G28 X", "G28 Z"};
@@ -975,19 +980,27 @@ namespace Marlin3DprinterTool
 
             var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
+            switch (result)
             {
-                var conf = new Configuration();
-                _com.SendCommand(conf.GcodeAssistZprobeEngage);
+                case DialogResult.Cancel:
+                    return;
+                case DialogResult.OK:
+                    var conf = new Configuration();
+                    _com.SendCommand(conf.GcodeAssistZprobeEngage);
+                    break;
             }
 
             if (result == DialogResult.Cancel) return;
             result = MessageBox.Show(@"Home the Z-probe?", @"Homing the Z-probe",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (result != DialogResult.Cancel)
+            switch (result)
             {
-                var commands = new List<string> {"M851 Z0","G28 Z", "M114"};
-                _com.SendCommand(commands);
+                case DialogResult.Cancel:
+                    return;
+                case DialogResult.OK:
+                    var commands = new List<string> {"M851 Z0","G28 Z", "M114"};
+                    _com.SendCommand(commands);
+                    break;
             }
             if (result == DialogResult.Cancel) return;
 
