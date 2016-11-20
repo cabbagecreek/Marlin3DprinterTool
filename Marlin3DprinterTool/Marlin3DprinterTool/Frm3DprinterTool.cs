@@ -494,12 +494,12 @@ namespace Marlin3DprinterTool
             {
                 for (var x = xMin; x <= xMax; x += xStep)
                 {
-                    //TODO: Multiple probe on point = numberOfRepetitions
-                    //for (int repetition = 0; repetition < numberOfRepetitions; repetition++)
-                    //{
-                    // probePointsList.Add(new Point(x,y));    
-                    //}
-                    probePointsList.Add(new Point(x, y));
+                    
+                    for (int repetition = 0; repetition < numberOfRepetitions; repetition++)
+                    {
+                        probePointsList.Add(new Point(x,y));    
+                    }
+                    // probePointsList.Add(new Point(x, y));
                 }
             }
 
