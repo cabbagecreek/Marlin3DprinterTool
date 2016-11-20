@@ -83,6 +83,7 @@ namespace Marlin3DprinterTool
             txtBxArduinoIDE.Text = _configuration.ArduinoIde;
             trkBrZmaxTravel.Value = _configuration.ZmaxTravel;
             numUpDnZmaxTravel.Value = _configuration.ZmaxTravel;
+            txtBxZextraDistance.Text = _configuration.ZextraDistance;
 
 
             for (var i = 0; i < chkListBxAdjustment.Items.Count; i++)
@@ -450,19 +451,20 @@ namespace Marlin3DprinterTool
 
             foreach (Point probePoint in probePointsList)
             {
+                
                 // move to X&Y
-                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F8000");
+                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} F8000");
                 //commands.Add("G1 Z40");
 
                 for (var i = 0; i < numberOfRepetitions; i++)
                 {
                     // probe the point
                     commands.Add("G30 S-1");
-                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z40.0 F6000");
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} F6000");
                 }
             }
 
-            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z40.0 F5000");
+            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} F5000");
             _com.SendCommand(commands);
         }
 
@@ -668,7 +670,7 @@ namespace Marlin3DprinterTool
             btnHomeY.Visible = true;
             grpBxBed.Visible = true;
 
-            var commands = new List<string> {"G92 Z0", "M114", "G1 Z50"};
+            var commands = new List<string> {"G92 Z0", "M114", $"G1 Z{_configuration.ZextraDistance}"};
             _com.SendCommand(commands);
 
             var result = MessageBox.Show(@"Remove the paper under the nozzle and continue.",
@@ -902,7 +904,7 @@ namespace Marlin3DprinterTool
 
 
             extrudeCalibration.Add("G92 E0");
-            extrudeCalibration.Add($"G1 E{numUpDnExtrude.Value}F20");
+            extrudeCalibration.Add($"G1 E{numUpDnExtrude.Value} F20");
             _com.SendCommand(extrudeCalibration);
         }
 
@@ -2225,7 +2227,13 @@ namespace Marlin3DprinterTool
         {
             // TODO: Set Extruder two???? 
             // Send M92 E420.5 
-            _com.SendCommand($"M92 E{fastColoredTextBoxExtruderStepsPerMM.Tag}");
+
+            List<string> commands = new List<string>();
+            commands.Add($"M92 E{fastColoredTextBoxExtruderStepsPerMM.Tag}");
+            commands.Add("M500");
+            commands.Add("M501");
+            _com.SendCommand(commands);
+
         }
 
         private void numUpDnFeedRateMMperMinute_ValueChanged(object sender, EventArgs e)
@@ -2780,6 +2788,11 @@ namespace Marlin3DprinterTool
         {
             FrmSetup setup = new FrmSetup();
             setup.ShowDialog();
+        }
+
+        private void txtBxZextraDistance_TextChanged(object sender, EventArgs e)
+        {
+            _configuration.ZextraDistance = txtBxZextraDistance.Text;
         }
     }
 

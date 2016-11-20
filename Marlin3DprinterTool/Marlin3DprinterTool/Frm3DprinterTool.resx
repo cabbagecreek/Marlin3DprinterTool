@@ -131,6 +131,10 @@ The positions for the adjusters is choosen so its possible to adjust the bed hei
 
 On some printers the bedcorners and the adjusters are the same.</value>
   </data>
+  <data name="txtBxZextraDistanceInstruct.Text" xml:space="preserve">
+    <value>When doing Z-probing and moving this is the extra distance from the bed. This can be set to 2-3mm when everything is working. For initial testing set this to 50mm. Reducing this will speed up the process using the Z-probe
+</value>
+  </data>
   <data name="fctbM48Responce.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yMS4w

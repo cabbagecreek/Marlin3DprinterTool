@@ -235,9 +235,7 @@ namespace Marlin3DprinterTool
             this.lblFeedRateMMperSecund = new System.Windows.Forms.Label();
             this.numUpDnFeedRateMMperSecund = new System.Windows.Forms.NumericUpDown();
             this.grpBxExtruderCalculation = new System.Windows.Forms.GroupBox();
-            this.btnExtruderUpdateStepsPerMMinFirmware = new System.Windows.Forms.Button();
             this.btnExtruderUpdateStepsPerMMinEEPROM = new System.Windows.Forms.Button();
-            this.btnExtruderOldFirmware = new System.Windows.Forms.Button();
             this.lblExtruderOldFirmware = new System.Windows.Forms.Label();
             this.numUpDnExtruderOldFirmware = new System.Windows.Forms.NumericUpDown();
             this.numUpDnExtruderMeassuredExtrusion = new System.Windows.Forms.NumericUpDown();
@@ -402,6 +400,10 @@ namespace Marlin3DprinterTool
             this.btnFirmware = new System.Windows.Forms.Button();
             this.btnPayPal = new System.Windows.Forms.Button();
             this.btnSetup = new System.Windows.Forms.Button();
+            this.grpBxZextraDistance = new System.Windows.Forms.GroupBox();
+            this.txtBxZextraDistanceInstruct = new System.Windows.Forms.TextBox();
+            this.txtBxZextraDistance = new System.Windows.Forms.TextBox();
+            this.lblZextraDistance = new System.Windows.Forms.Label();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -515,6 +517,7 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.SuspendLayout();
             this.lblStepperDriverPulley.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
+            this.grpBxZextraDistance.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl3DprinterTool
@@ -1103,6 +1106,7 @@ namespace Marlin3DprinterTool
             // 
             // tabPageConfigurateZprobe
             // 
+            this.tabPageConfigurateZprobe.Controls.Add(this.grpBxZextraDistance);
             this.tabPageConfigurateZprobe.Controls.Add(this.grpBxZprobeHeight);
             this.tabPageConfigurateZprobe.Controls.Add(this.grpZprobeConfigMax);
             this.tabPageConfigurateZprobe.Controls.Add(this.groupBox3);
@@ -1126,14 +1130,14 @@ namespace Marlin3DprinterTool
             this.grpBxZprobeHeight.Controls.Add(this.lblCalculatedZProbeOffset);
             this.grpBxZprobeHeight.Location = new System.Drawing.Point(400, 238);
             this.grpBxZprobeHeight.Name = "grpBxZprobeHeight";
-            this.grpBxZprobeHeight.Size = new System.Drawing.Size(382, 290);
+            this.grpBxZprobeHeight.Size = new System.Drawing.Size(382, 213);
             this.grpBxZprobeHeight.TabIndex = 53;
             this.grpBxZprobeHeight.TabStop = false;
             this.grpBxZprobeHeight.Text = "Z Probe Offset";
             // 
             // btnZpromeEepromUpdate
             // 
-            this.btnZpromeEepromUpdate.Location = new System.Drawing.Point(10, 223);
+            this.btnZpromeEepromUpdate.Location = new System.Drawing.Point(6, 180);
             this.btnZpromeEepromUpdate.Name = "btnZpromeEepromUpdate";
             this.btnZpromeEepromUpdate.Size = new System.Drawing.Size(366, 23);
             this.btnZpromeEepromUpdate.TabIndex = 32;
@@ -1435,6 +1439,7 @@ namespace Marlin3DprinterTool
             this.grpBxTestZprobe.Controls.Add(this.lblM48Repetition);
             this.grpBxTestZprobe.Controls.Add(this.btnM48Repetition);
             this.grpBxTestZprobe.Controls.Add(this.numUpDnM48Repetitions);
+            this.grpBxTestZprobe.Enabled = false;
             this.grpBxTestZprobe.Location = new System.Drawing.Point(13, 237);
             this.grpBxTestZprobe.Name = "grpBxTestZprobe";
             this.grpBxTestZprobe.Size = new System.Drawing.Size(380, 390);
@@ -2855,9 +2860,7 @@ namespace Marlin3DprinterTool
             // 
             // grpBxExtruderCalculation
             // 
-            this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderUpdateStepsPerMMinFirmware);
             this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderUpdateStepsPerMMinEEPROM);
-            this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderOldFirmware);
             this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderOldFirmware);
             this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderOldFirmware);
             this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderMeassuredExtrusion);
@@ -2872,18 +2875,6 @@ namespace Marlin3DprinterTool
             this.grpBxExtruderCalculation.TabStop = false;
             this.grpBxExtruderCalculation.Text = "Extruder";
             // 
-            // btnExtruderUpdateStepsPerMMinFirmware
-            // 
-            this.btnExtruderUpdateStepsPerMMinFirmware.Location = new System.Drawing.Point(9, 265);
-            this.btnExtruderUpdateStepsPerMMinFirmware.Name = "btnExtruderUpdateStepsPerMMinFirmware";
-            this.btnExtruderUpdateStepsPerMMinFirmware.Size = new System.Drawing.Size(174, 26);
-            this.btnExtruderUpdateStepsPerMMinFirmware.TabIndex = 31;
-            this.btnExtruderUpdateStepsPerMMinFirmware.Text = "Update current Firmware";
-            this.toolTip3DprinterTool.SetToolTip(this.btnExtruderUpdateStepsPerMMinFirmware, "Update the current Firmwarefile (configuration.h) with the calculated steps per m" +
-        "m");
-            this.btnExtruderUpdateStepsPerMMinFirmware.UseVisualStyleBackColor = true;
-            this.btnExtruderUpdateStepsPerMMinFirmware.Click += new System.EventHandler(this.btnExtruderUpdateStepsPerMMinFirmware_Click);
-            // 
             // btnExtruderUpdateStepsPerMMinEEPROM
             // 
             this.btnExtruderUpdateStepsPerMMinEEPROM.Location = new System.Drawing.Point(9, 216);
@@ -2894,17 +2885,6 @@ namespace Marlin3DprinterTool
             this.toolTip3DprinterTool.SetToolTip(this.btnExtruderUpdateStepsPerMMinEEPROM, "Updates the EEPROM with the calculated value for Steps per mm");
             this.btnExtruderUpdateStepsPerMMinEEPROM.UseVisualStyleBackColor = true;
             this.btnExtruderUpdateStepsPerMMinEEPROM.Click += new System.EventHandler(this.btnExtruderUpdateStepsPerMMinEEPROM_Click);
-            // 
-            // btnExtruderOldFirmware
-            // 
-            this.btnExtruderOldFirmware.Location = new System.Drawing.Point(115, 139);
-            this.btnExtruderOldFirmware.Name = "btnExtruderOldFirmware";
-            this.btnExtruderOldFirmware.Size = new System.Drawing.Size(68, 23);
-            this.btnExtruderOldFirmware.TabIndex = 29;
-            this.btnExtruderOldFirmware.Text = "Ask printer";
-            this.toolTip3DprinterTool.SetToolTip(this.btnExtruderOldFirmware, "Sends a M501 and parse the result to get current Firmware Steps per mm");
-            this.btnExtruderOldFirmware.UseVisualStyleBackColor = true;
-            this.btnExtruderOldFirmware.Click += new System.EventHandler(this.btnExtruderOldFirmware_Click);
             // 
             // lblExtruderOldFirmware
             // 
@@ -4774,7 +4754,7 @@ namespace Marlin3DprinterTool
             this.chartTemperature.Series.Add(series4);
             this.chartTemperature.Size = new System.Drawing.Size(544, 331);
             this.chartTemperature.TabIndex = 21;
-            this.chartTemperature.Text = "chart1";
+            this.chartTemperature.Text = "Z Extra Distance";
             this.chartTemperature.Visible = false;
             // 
             // btnEmergency
@@ -4822,6 +4802,45 @@ namespace Marlin3DprinterTool
             this.btnSetup.Text = " ";
             this.btnSetup.UseVisualStyleBackColor = true;
             this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            // 
+            // grpBxZextraDistance
+            // 
+            this.grpBxZextraDistance.Controls.Add(this.lblZextraDistance);
+            this.grpBxZextraDistance.Controls.Add(this.txtBxZextraDistance);
+            this.grpBxZextraDistance.Controls.Add(this.txtBxZextraDistanceInstruct);
+            this.grpBxZextraDistance.Location = new System.Drawing.Point(399, 458);
+            this.grpBxZextraDistance.Name = "grpBxZextraDistance";
+            this.grpBxZextraDistance.Size = new System.Drawing.Size(383, 163);
+            this.grpBxZextraDistance.TabIndex = 54;
+            this.grpBxZextraDistance.TabStop = false;
+            this.grpBxZextraDistance.Text = "Z Extra Distance";
+            // 
+            // txtBxZextraDistanceInstruct
+            // 
+            this.txtBxZextraDistanceInstruct.Location = new System.Drawing.Point(17, 28);
+            this.txtBxZextraDistanceInstruct.Multiline = true;
+            this.txtBxZextraDistanceInstruct.Name = "txtBxZextraDistanceInstruct";
+            this.txtBxZextraDistanceInstruct.ReadOnly = true;
+            this.txtBxZextraDistanceInstruct.Size = new System.Drawing.Size(355, 53);
+            this.txtBxZextraDistanceInstruct.TabIndex = 0;
+            this.txtBxZextraDistanceInstruct.Text = resources.GetString("txtBxZextraDistanceInstruct.Text");
+            // 
+            // txtBxZextraDistance
+            // 
+            this.txtBxZextraDistance.Location = new System.Drawing.Point(223, 87);
+            this.txtBxZextraDistance.Name = "txtBxZextraDistance";
+            this.txtBxZextraDistance.Size = new System.Drawing.Size(72, 20);
+            this.txtBxZextraDistance.TabIndex = 1;
+            this.txtBxZextraDistance.TextChanged += new System.EventHandler(this.txtBxZextraDistance_TextChanged);
+            // 
+            // lblZextraDistance
+            // 
+            this.lblZextraDistance.AutoSize = true;
+            this.lblZextraDistance.Location = new System.Drawing.Point(15, 90);
+            this.lblZextraDistance.Name = "lblZextraDistance";
+            this.lblZextraDistance.Size = new System.Drawing.Size(202, 13);
+            this.lblZextraDistance.TabIndex = 2;
+            this.lblZextraDistance.Text = "Extra distanze when travel using Z-probe:";
             // 
             // FrmMarlin3DprinterTool
             // 
@@ -4999,6 +5018,8 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.ResumeLayout(false);
             this.lblStepperDriverPulley.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
+            this.grpBxZextraDistance.ResumeLayout(false);
+            this.grpBxZextraDistance.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -5240,9 +5261,7 @@ namespace Marlin3DprinterTool
         private ComboBox cmbBxBeltMotorStepAngle;
         private Label lblBeltMotorStepAngle;
         private GroupBox grpBxExtruderCalculation;
-        private Button btnExtruderUpdateStepsPerMMinFirmware;
         private Button btnExtruderUpdateStepsPerMMinEEPROM;
-        private Button btnExtruderOldFirmware;
         private Label lblExtruderOldFirmware;
         private NumericUpDown numUpDnExtruderOldFirmware;
         private NumericUpDown numUpDnExtruderMeassuredExtrusion;
@@ -5365,6 +5384,10 @@ namespace Marlin3DprinterTool
         private Label lblMeshBedLevelPointX;
         private Button btnSetup;
         private Nevron.Chart.WinForm.NChartControl nChartControlSurface;
+        private GroupBox grpBxZextraDistance;
+        private Label lblZextraDistance;
+        private TextBox txtBxZextraDistance;
+        private TextBox txtBxZextraDistanceInstruct;
     }
 }
 
