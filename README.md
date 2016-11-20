@@ -21,7 +21,7 @@ The main features are:
 
 # Installing
 
-the installer can be found at https://github.com/cabbagecreek/Marlin3DprinterTool/blob/master/Marlin3DprinterTool/InstallMarlin3DprinterTool/bin/Release/Marlin3DprinterTool.msi
+the installer can be found at https://github.com/cabbagecreek/Marlin3DprinterTool/releases/tag/v0.1-beta
 
 1. Press download
 2. Run the MSI
