@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
@@ -19,7 +18,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/STLviewer");
                 if (xmlNode == null) return "Blue";
                 return xmlNode.GetAttribute("color");
@@ -27,39 +26,86 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/STLviewer");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "STLviewer");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "STLviewer");
                 }
 
                 xmlNode?.SetAttribute("color", value);
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
             }
 
         }
 
-        private static XmlNode CreateMissingXmlNode(XmlDocument xml, string tag)
+        private static XmlNode CreateMissingXmlNode(XmlDocument xml, XmlNode parentNode, string tag)
         {
             XmlNode xmlNode = xml.CreateElement(tag);
-            XmlNode configurationXmlNode = xml.DocumentElement;
-            if (configurationXmlNode != null)
-            {
-                configurationXmlNode.AppendChild(xmlNode);
-                xmlNode = (XmlElement) xml.SelectSingleNode($"/configuration/{tag}");
-                return xmlNode;
-            }
-            return null;
+
+            parentNode.AppendChild(xmlNode);
+            return xmlNode;
+            
         }
+
+        public void SetInitMeshpoint(int x, int y, double z)
+        {
+            var xml = new XmlDocument();
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+            XmlNode meshpointsXmlNode = xml.SelectSingleNode("/configuration/InitMeshPoints");
+            if (meshpointsXmlNode == null)
+            {
+                meshpointsXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "InitMeshPoints");
+            }
+
+
+            bool meshpointFound = false;
+
+            XmlNodeList meshpointXmlNodeList = xml.SelectNodes("/configuration/InitMeshPoints/MeshPoint");
+            
+            if (meshpointXmlNodeList != null)
+            {
+                foreach (XmlElement meshPointXmlElement in meshpointXmlNodeList)
+                {
+                    if (
+                        Convert.ToInt16(meshPointXmlElement.Attributes["X"].Value) == x &&
+                        Convert.ToInt16(meshPointXmlElement.Attributes["Y"].Value) == y
+                        )
+                    {
+                        meshpointFound = true;
+                        meshPointXmlElement.SetAttribute("Z", z.ToString().Replace(',', '.'));
+                        break;
+                    }
+
+                }
+
+            }
+            if (meshpointFound == false)
+            {
+                XmlElement meshpointXmlNode = (XmlElement) CreateMissingXmlNode(xml, meshpointsXmlNode, "MeshPoint");
+                meshpointXmlNode.SetAttribute("X", x.ToString());
+                meshpointXmlNode.SetAttribute("Y", y.ToString());
+                meshpointXmlNode.SetAttribute("Z", z.ToString().Replace(',','.'));
+            }
+                
+            
+            xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+        }
+
+
+       
+
+        
 
         public string BedType
         {
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/bed");
                 if (xmlNode == null) return "4point";
 
@@ -69,15 +115,15 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/bed");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "bed");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "bed");
                 }
                 // 4point, 3pointLeft, 3pointRight
                 xmlNode?.SetAttribute("bedtype", value);
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -102,7 +148,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
                 if (xmlNode == null) return false;
 
@@ -111,14 +157,14 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/NeverClear");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "NeverClear");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "NeverClear");
                 }
                 xmlNode?.SetAttribute("value", value.ToString()); // boolian.ToString = True/False
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -128,7 +174,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/Adjuster");
                 if (xmlNode == null) return "M3";
 
@@ -137,14 +183,14 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/Adjuster");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "Adjuster");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "Adjuster");
                 }
                 xmlNode?.SetAttribute("type", value); //(xmlNodeAdjuster != null)
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -154,7 +200,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ZmaxTravel");
                 if (xmlNode == null) return 300;
 
@@ -163,14 +209,14 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ZmaxTravel");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "ZmaxTravel");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "ZmaxTravel");
                 }
                 xmlNode?.SetAttribute("zmax", value.ToString()); // if (xmlNodeZmax != null) Int = no need for decimal 
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -181,7 +227,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/comport");
                 if (xmlNode == null) return "";
 
@@ -190,14 +236,14 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/comport");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "comport");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "comport");
                 }
                 xmlNode?.SetAttribute("port", value);
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
             }
         }
@@ -207,7 +253,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/comport");
                 if (xmlNode == null) return "";
 
@@ -216,14 +262,14 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/baudrate");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "baudrate");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "baudrate");
                 }
                 xmlNode?.SetAttribute("baudrate", value);
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
             }
         }
@@ -233,7 +279,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
                 if (xmlNode == null) return "";
 
@@ -242,14 +288,14 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ArduinoIDE");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "ArduinoIDE");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "ArduinoIDE");
                 }
                 xmlNode?.SetAttribute("directory", value);
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -309,7 +355,7 @@ namespace MarlinComunicationHelper
                 var returnList = new List<string>();
 
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
                 var nav = xml.CreateNavigator();
 
@@ -327,7 +373,7 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
                 var gcodeAssistZprobeEngare = xml.SelectSingleNode("/configuration/GcodeAssistZprobeEngage");
 
@@ -351,7 +397,7 @@ namespace MarlinComunicationHelper
                     gcodeAssistZprobeEngare?.AppendChild(newRow);
                 }
 
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -362,7 +408,7 @@ namespace MarlinComunicationHelper
                 var returnList = new List<string>();
 
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
                 var nav = xml.CreateNavigator();
 
@@ -382,7 +428,7 @@ namespace MarlinComunicationHelper
                 //List<string> returnList = new List<string>();
 
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
                 var gcodeAssistZprobeRelease = xml.SelectSingleNode("/configuration/GcodeAssistZprobeRelease");
 
@@ -405,7 +451,7 @@ namespace MarlinComunicationHelper
                     gcodeAssistZprobeRelease?.AppendChild(newRow);
                 }
 
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
@@ -414,7 +460,7 @@ namespace MarlinComunicationHelper
             get
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/LicenseKey");
                 if (xmlNode == null) return "";
 
@@ -425,44 +471,175 @@ namespace MarlinComunicationHelper
             set
             {
                 var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/LicenseKey");
                 if (xmlNode == null)
                 {
-                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, "LicenseKey");
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "LicenseKey");
                 }
                 xmlNode?.SetAttribute("key", value);
-                xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
 
         public string ZextraDistance
         {
-        get 
-        {
-            var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-            var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ZextraDistance");
-            if (xmlNode == null) return "50";  // Default is 50
-
-            return xmlNode.GetAttribute("safedistance");
-        }
-
-        set 
-        {
-            var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-            var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/ZextraDistance");
-            if (xmlNode == null)
+            get 
             {
-                xmlNode = (XmlElement) CreateMissingXmlNode(xml, "ZextraDistance");
-            }
-            xmlNode?.SetAttribute("safedistance", value);
-            xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
-        }
-    }
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return "50";  // Default is 50
 
-    public static string Decrypt(string text)
+                return xmlNode.GetAttribute("safedistance");
+            }
+
+            set 
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                if (!value.Contains(".")) value = value + ".00";
+                xmlNode?.SetAttribute("safedistance", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+
+        public string ZprobeXoffset
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return "to the left of the nozzle";  // to the left of the nozzle
+
+                return xmlNode.GetAttribute("Xoffset");
+            }
+
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                xmlNode?.SetAttribute("Xoffset", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+        public string ZprobeXoffsetValue
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return "0";  // Default is 0
+
+                return xmlNode.GetAttribute("X");
+            }
+
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                xmlNode?.SetAttribute("X", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+
+        public string ZprobeZoffsetValue
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return "0";  // Default is 0
+
+                return xmlNode.GetAttribute("Z");
+            }
+
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                xmlNode?.SetAttribute("Z", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+
+
+
+        public string ZprobeYoffset
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return "behind the nozzle";  // Default is 50
+
+                return xmlNode.GetAttribute("Yoffset");
+            }
+
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                xmlNode?.SetAttribute("Yoffset", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+        public string ZprobeYoffsetValue
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return "10";  // Default is 10
+
+                return xmlNode.GetAttribute("Y");
+            }
+
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                xmlNode?.SetAttribute("Y", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+
+        public static string Decrypt(string text)
         {
             try
             {
@@ -487,7 +664,7 @@ namespace MarlinComunicationHelper
         private Position GetPosition(string tag)
         {
             var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             var xmlNodePosition = (XmlElement) xml.SelectSingleNode($"/configuration/{tag}");
             if (xmlNodePosition == null) return null;
             try
@@ -512,11 +689,11 @@ namespace MarlinComunicationHelper
         private void SetPosition(Position position, string tag)
         {
             var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             var xmlNodePosition = (XmlElement) xml.SelectSingleNode($"/configuration/{tag}");
             if (xmlNodePosition == null)
             {
-                xmlNodePosition = (XmlElement)CreateMissingXmlNode(xml, tag);
+                xmlNodePosition = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, tag);
             }
 
             if (xmlNodePosition != null)
@@ -525,8 +702,102 @@ namespace MarlinComunicationHelper
                 xmlNodePosition.SetAttribute("y", position.Y.ToString(CultureInfo.InvariantCulture).Replace(',', '.')); // Allways decimal point
             }
 
-            xml.Save(GetConfigurationFile(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml")));
+            xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
         }
+
+        public List<Position> GetMeshpoints()
+        {
+            List<Position> meshPoints = new List<Position>();
+            var xml = new XmlDocument();
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+            XmlNodeList meshPointXmlNodeList = xml.SelectNodes("/configuration/MeassuredMeshPoints/MeshPoint");
+            foreach (XmlNode meshpoint in meshPointXmlNodeList)
+            {
+                double x = Convert.ToDouble(meshpoint.Attributes["X"].Value.Replace('.',','));
+                double y = Convert.ToDouble(meshpoint.Attributes["Y"].Value.Replace('.', ','));
+                double z = Convert.ToDouble(meshpoint.Attributes["Z"].Value.Replace('.', ','));
+
+                meshPoints.Add(new Position { X= x, Y=y, Z=z});
+            }
+
+
+            return meshPoints;
+        }
+
+        public void SetMeassuredMeshpoint(double x, double y, double z)
+        {
+            var xml = new XmlDocument();
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+            XmlNode meshpointsXmlNode = xml.SelectSingleNode("/configuration/MeassuredMeshPoints");
+            if (meshpointsXmlNode == null)
+            {
+                meshpointsXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "MeassuredMeshPoints");
+            }
+
+
+            bool meshpointFound = false;
+
+            XmlNodeList meshpointXmlNodeList = xml.SelectNodes("/configuration/MeassuredMeshPoints/MeshPoint");
+
+            if (meshpointXmlNodeList != null)
+            {
+                foreach (XmlElement meshPointXmlElement in meshpointXmlNodeList)
+                {
+                    if (
+                        Math.Abs(Convert.ToInt16(meshPointXmlElement.Attributes["X"].Value) - x) < 20 &&
+                        Math.Abs(Convert.ToInt16(meshPointXmlElement.Attributes["Y"].Value) - y) < 20
+                        )
+                    {
+                        meshpointFound = true;
+                        meshPointXmlElement.SetAttribute("Z", z.ToString().Replace(',', '.'));
+                        break;
+                    }
+
+                }
+
+            }
+            if (meshpointFound == false)
+            {
+                XmlElement meshpointXmlNode = (XmlElement)CreateMissingXmlNode(xml, meshpointsXmlNode, "MeshPoint");
+                meshpointXmlNode.SetAttribute("X", x.ToString());
+                meshpointXmlNode.SetAttribute("Y", y.ToString());
+                meshpointXmlNode.SetAttribute("Z", z.ToString().Replace(',', '.'));
+            }
+
+
+            xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+        }
+
+        public void DeleteMeshPoints()
+        {
+            var xml = new XmlDocument();
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+            XmlNode meshpointsXmlNode = xml.SelectSingleNode("/configuration/InitMeshPoints");
+            if (meshpointsXmlNode == null) 
+            {
+                meshpointsXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "InitMeshPoints");
+            }
+
+            meshpointsXmlNode.RemoveAll();
+
+            XmlNode meassuredMeshXmlNode = xml.SelectSingleNode("/configuration/MeassuredMeshPoints");
+            if (meassuredMeshXmlNode == null)
+            {
+                meassuredMeshXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "MeassuredMeshPoints");
+            }
+
+            meassuredMeshXmlNode.RemoveAll();
+
+
+
+
+
+            xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+        }
+
     }
 
     public class Position

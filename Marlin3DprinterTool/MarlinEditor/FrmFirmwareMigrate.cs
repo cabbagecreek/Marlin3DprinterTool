@@ -5,7 +5,6 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using FastColoredTextBoxNS;
 
 namespace MarlinEditor
@@ -14,11 +13,27 @@ namespace MarlinEditor
     {
         private static FrmFirmware _instanceOfFrmFirmware;
         private readonly Style _invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
-        
 
+
+
+        private string _configurationFile ;
+        /// <summary>
+        /// Type of configuration file. If blank = "Configuration.h"
+        /// </summary>
+        private string ConfigurationFilename
+        {
+            get {
+                return string.IsNullOrEmpty(_configurationFile) ? "Configuration.h" : _configurationFile;
+            }
+            set { _configurationFile = value; }
+            
+        }
+        
         public FrmFirmware()
         {
             InitializeComponent();
+            
+
         }
 
         public static FrmFirmware InstanceFrmFirmware
@@ -61,12 +76,34 @@ namespace MarlinEditor
         private void FrmFirmware_Load(object sender, EventArgs e)
         {
 
+            LoadFiles();
+
+           
+
+        }
+
+        private void ResizedFrame()
+        {
+            Configuration configuration = new Configuration();
+            string lastchar = "";
+            int numberOfCharacters = grpBxOldFirmware.Width / 7;
+            lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
+            grpBxOldFirmware.Text = $"Current Firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
+            lastchar = Path.Combine(configuration.NewFirmware, ConfigurationFilename);
+            grpBxNewFirmware.Text = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
+
+            this.Text = $"Marlin Firmware migration ({ ConfigurationFilename })";
+        }
+
+
+        private void LoadFiles()
+        {
             Configuration configuration = new Configuration();
 
 
-            //TODO: Show current and new Firmware filenames in grpbox
-            grpBxOldFirmware.Text = Path.Combine(configuration.CurrentFirmware, @"configuration.h");
-            grpBxNewFirmware.Text = Path.Combine(configuration.NewFirmware, @"configuration.h");
+            ResizedFrame();
+
+
 
             fctbCurrentFirmware.DescriptionFile = "ArduinoSyntax.xml";
             fctbCurrentFirmware.Language = Language.Custom;
@@ -75,16 +112,16 @@ namespace MarlinEditor
 
 
 
-            fixCrLFproblems(Path.Combine(configuration.CurrentFirmware, @"configuration.h"));
-            fixCrLFproblems(Path.Combine(configuration.NewFirmware, @"configuration.h"));
+            fixCrLFproblems(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename));
+            fixCrLFproblems(Path.Combine(configuration.NewFirmware, ConfigurationFilename));
 
 
 
-            if (File.Exists(Path.Combine(configuration.CurrentFirmware, @"configuration.h"))) fctbCurrentFirmware.OpenFile(Path.Combine(configuration.CurrentFirmware, @"configuration.h"),Encoding.UTF8);
-            fctbCurrentFirmware.Tag = Path.Combine(configuration.CurrentFirmware, @"configuration.h");
+            if (File.Exists(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename))) fctbCurrentFirmware.OpenFile(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename), Encoding.UTF8);
+            fctbCurrentFirmware.Tag = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
 
-            if (File.Exists(Path.Combine(configuration.NewFirmware, @"configuration.h"))) fctbNewFirmware.OpenFile(Path.Combine(configuration.NewFirmware, @"configuration.h"), Encoding.UTF8);
-            fctbNewFirmware.Tag = Path.Combine(configuration.NewFirmware, @"configuration.h");
+            if (File.Exists(Path.Combine(configuration.NewFirmware, ConfigurationFilename))) fctbNewFirmware.OpenFile(Path.Combine(configuration.NewFirmware, ConfigurationFilename), Encoding.UTF8);
+            fctbNewFirmware.Tag = Path.Combine(configuration.NewFirmware, ConfigurationFilename);
 
 
             HighlightInvisibleChars(fctbCurrentFirmware.Range);
@@ -98,19 +135,31 @@ namespace MarlinEditor
             cmbBxFirmwareFeatures.Text = cmbBxFirmwareFeatures.Items[1].ToString();
 
 
-           
 
+            btnUpdateExtruderInFirmware.Text = $"Update and Save Firmware ({ConfigurationFilename})";
+
+           
         }
 
         private void fixCrLFproblems(string filename)
         {
-            string allText = File.ReadAllText(filename, Encoding.UTF8);
+            try
+            {
+                string allText = File.ReadAllText(filename, Encoding.UTF8);
 
-            allText = allText.Replace("\r\n", "\n");
-            allText = allText.Replace("\n", "\r\n");
-            allText = allText.Replace("\r\n", "\n");
+                allText = allText.Replace("\r\n", "\n");
+                allText = allText.Replace("\n", "\r\n");
+                allText = allText.Replace("\r\n", "\n");
 
-            File.WriteAllText(filename,allText);
+                File.WriteAllText(filename, allText);
+
+            }
+            catch (Exception writException)
+            {
+                MessageBox.Show(@"Cant correct CR/LF on file!" + Environment.NewLine + writException.Message, @"Correcting CR/LF");
+                throw;
+            }
+            
 
 
 
@@ -319,26 +368,42 @@ namespace MarlinEditor
 
         private void btnExtruderFirmwareCopyToClipboard_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(fctbNewFirmware.Text))
-            {
-                MessageBox.Show(@"There is nothing to copy to Clipboard");
-                return;
-            }
             Clipboard.SetText(fctbNewFirmware.Text);
         }
 
         private void btnUpdateExtruderInFirmware_Click(object sender, EventArgs e)
         {
+            SaveTheUpdatedFile();
+            
 
-            Configuration configuration = new Configuration();
-            if (File.Exists(Path.Combine(configuration.NewFirmware, "configuration.h")))
+        }
+
+        private void SaveTheUpdatedFile()
+        {
+            try
             {
-                fctbNewFirmware.SaveToFile(Path.Combine(configuration.NewFirmware, "configuration.h"),Encoding.UTF8);
+                Configuration configuration = new Configuration();
+                if (File.Exists(Path.Combine(configuration.NewFirmware, ConfigurationFilename)))
+                {
+                    string lastchar = "";
+                    lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
+                    lastchar = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - 40))} )";
+
+                    fctbNewFirmware.SaveToFile(Path.Combine(configuration.NewFirmware, ConfigurationFilename), Encoding.UTF8);
+                    MessageBox.Show(@"File saved!", lastchar);
+                }
+
+            }
+            catch (Exception fileException)
+            {
+
+                MessageBox.Show(
+                    $"Cant save {ConfigurationFilename}! {Environment.NewLine} Reason: {fileException.Message}",
+                    @"File write error");
             }
 
         }
 
-        
 
         private void btnOpenArduinoIde_Click(object sender, EventArgs e)
         {
@@ -408,6 +473,57 @@ namespace MarlinEditor
         {
             //show invisible chars
             HighlightInvisibleChars(e.ChangedRange);
+        }
+
+        private void aonfigurationadvhToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurationFilename = @"Configuration_adv.h";
+            LoadFiles();
+
+        }
+
+        private void boardhToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurationFilename = @"Boards.h";
+            LoadFiles();
+        }
+
+        private void configurationhToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckIfNewFirmwareIsChanged();
+            ConfigurationFilename = @"Configuration.h";
+            LoadFiles();
+        }
+
+        private void CheckIfNewFirmwareIsChanged()
+        {
+            if (fctbNewFirmware.IsChanged)
+            {
+                DialogResult result =
+                    MessageBox.Show($"The file {ConfigurationFilename} is changed! " + Environment.NewLine +
+                        $"Do you want to save {ConfigurationFilename}?", "File is changed",MessageBoxButtons.YesNoCancel );
+                if (result == DialogResult.Cancel || result == DialogResult.No) return;
+                SaveTheUpdatedFile();
+
+            }
+        }
+
+        private void chooseFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuration configuration = new Configuration();
+            FileDialog fileDialog = new OpenFileDialog();
+            fileDialog.DefaultExt = "*.h";
+            fileDialog.InitialDirectory = configuration.CurrentFirmware;
+
+            fileDialog.ShowDialog();
+            FileInfo fileInfo = new FileInfo(fileDialog.FileName);
+            ConfigurationFilename = fileInfo.Name;
+            LoadFiles();
+        }
+
+        private void FrmFirmware_SizeChanged(object sender, EventArgs e)
+        {
+            ResizedFrame();
         }
     }
 
