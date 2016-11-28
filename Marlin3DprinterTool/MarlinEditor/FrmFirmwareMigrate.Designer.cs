@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFirmware));
             this.grpBxOldFirmware = new System.Windows.Forms.GroupBox();
             this.fctbCurrentFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.contextMenuStripChangeConfigTypeFile = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.configurationhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aonfigurationadvhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boardhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chooseFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblFeatureValue = new System.Windows.Forms.Label();
             this.lblFeature = new System.Windows.Forms.Label();
             this.txtBxCurrentFirmwareValue = new System.Windows.Forms.TextBox();
@@ -43,19 +48,16 @@
             this.grpBxNewFirmware = new System.Windows.Forms.GroupBox();
             this.fctbNewFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.contextMenuStripChangeConfigTypeFile = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.configurationhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aonfigurationadvhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boardhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpBxOldFirmware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).BeginInit();
+            this.contextMenuStripChangeConfigTypeFile.SuspendLayout();
             this.grpBxNewFirmware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbNewFirmware)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.contextMenuStripChangeConfigTypeFile.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBxOldFirmware
@@ -75,7 +77,7 @@
             this.grpBxOldFirmware.Size = new System.Drawing.Size(495, 456);
             this.grpBxOldFirmware.TabIndex = 28;
             this.grpBxOldFirmware.TabStop = false;
-            this.grpBxOldFirmware.Text = "Current Firmware (configuration.h)";
+            this.grpBxOldFirmware.Text = "Current Firmware (...)";
             // 
             // fctbCurrentFirmware
             // 
@@ -114,9 +116,48 @@
             this.fctbCurrentFirmware.ShowFoldingLines = true;
             this.fctbCurrentFirmware.Size = new System.Drawing.Size(489, 369);
             this.fctbCurrentFirmware.TabIndex = 48;
+            this.toolTip1.SetToolTip(this.fctbCurrentFirmware, "Right Click to change filetype");
             this.fctbCurrentFirmware.Zoom = 100;
             this.fctbCurrentFirmware.SelectionChanged += new System.EventHandler(this.fctbCurrentFirmware_SelectionChanged);
             this.fctbCurrentFirmware.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fctbCurrentFirmware_TextChangedDelayed);
+            // 
+            // contextMenuStripChangeConfigTypeFile
+            // 
+            this.contextMenuStripChangeConfigTypeFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurationhToolStripMenuItem,
+            this.aonfigurationadvhToolStripMenuItem,
+            this.boardhToolStripMenuItem,
+            this.chooseFileToolStripMenuItem});
+            this.contextMenuStripChangeConfigTypeFile.Name = "contextMenuStripChangeConfigTypeFile";
+            this.contextMenuStripChangeConfigTypeFile.Size = new System.Drawing.Size(183, 92);
+            // 
+            // configurationhToolStripMenuItem
+            // 
+            this.configurationhToolStripMenuItem.Name = "configurationhToolStripMenuItem";
+            this.configurationhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.configurationhToolStripMenuItem.Text = "Configuration.h";
+            this.configurationhToolStripMenuItem.Click += new System.EventHandler(this.configurationhToolStripMenuItem_Click);
+            // 
+            // aonfigurationadvhToolStripMenuItem
+            // 
+            this.aonfigurationadvhToolStripMenuItem.Name = "aonfigurationadvhToolStripMenuItem";
+            this.aonfigurationadvhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.aonfigurationadvhToolStripMenuItem.Text = "Configuration_adv.h";
+            this.aonfigurationadvhToolStripMenuItem.Click += new System.EventHandler(this.aonfigurationadvhToolStripMenuItem_Click);
+            // 
+            // boardhToolStripMenuItem
+            // 
+            this.boardhToolStripMenuItem.Name = "boardhToolStripMenuItem";
+            this.boardhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.boardhToolStripMenuItem.Text = "Board.h";
+            this.boardhToolStripMenuItem.Click += new System.EventHandler(this.boardhToolStripMenuItem_Click);
+            // 
+            // chooseFileToolStripMenuItem
+            // 
+            this.chooseFileToolStripMenuItem.Name = "chooseFileToolStripMenuItem";
+            this.chooseFileToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.chooseFileToolStripMenuItem.Text = "Choose file";
+            this.chooseFileToolStripMenuItem.Click += new System.EventHandler(this.chooseFileToolStripMenuItem_Click);
             // 
             // lblFeatureValue
             // 
@@ -184,7 +225,7 @@
             this.btnUpdateExtruderInFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnUpdateExtruderInFirmware.Location = new System.Drawing.Point(110, 397);
             this.btnUpdateExtruderInFirmware.Name = "btnUpdateExtruderInFirmware";
-            this.btnUpdateExtruderInFirmware.Size = new System.Drawing.Size(238, 23);
+            this.btnUpdateExtruderInFirmware.Size = new System.Drawing.Size(371, 23);
             this.btnUpdateExtruderInFirmware.TabIndex = 35;
             this.btnUpdateExtruderInFirmware.Text = "Update and Save Firmware (configuration.h)";
             this.btnUpdateExtruderInFirmware.UseVisualStyleBackColor = true;
@@ -215,7 +256,7 @@
             this.grpBxNewFirmware.Size = new System.Drawing.Size(497, 459);
             this.grpBxNewFirmware.TabIndex = 29;
             this.grpBxNewFirmware.TabStop = false;
-            this.grpBxNewFirmware.Text = "New Firmware  (configuration.h)";
+            this.grpBxNewFirmware.Text = "New Firmware  (...)";
             // 
             // fctbNewFirmware
             // 
@@ -275,33 +316,6 @@
             this.splitContainer1.SplitterDistance = 501;
             this.splitContainer1.TabIndex = 30;
             // 
-            // contextMenuStripChangeConfigTypeFile
-            // 
-            this.contextMenuStripChangeConfigTypeFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configurationhToolStripMenuItem,
-            this.aonfigurationadvhToolStripMenuItem,
-            this.boardhToolStripMenuItem});
-            this.contextMenuStripChangeConfigTypeFile.Name = "contextMenuStripChangeConfigTypeFile";
-            this.contextMenuStripChangeConfigTypeFile.Size = new System.Drawing.Size(183, 70);
-            // 
-            // configurationhToolStripMenuItem
-            // 
-            this.configurationhToolStripMenuItem.Name = "configurationhToolStripMenuItem";
-            this.configurationhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.configurationhToolStripMenuItem.Text = "Configuration.h";
-            // 
-            // aonfigurationadvhToolStripMenuItem
-            // 
-            this.aonfigurationadvhToolStripMenuItem.Name = "aonfigurationadvhToolStripMenuItem";
-            this.aonfigurationadvhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.aonfigurationadvhToolStripMenuItem.Text = "Configuration_adv.h";
-            // 
-            // boardhToolStripMenuItem
-            // 
-            this.boardhToolStripMenuItem.Name = "boardhToolStripMenuItem";
-            this.boardhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.boardhToolStripMenuItem.Text = "Board.h";
-            // 
             // FrmFirmware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,16 +328,17 @@
             this.Text = "Marlin Firmware";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFirmware_FormClosed);
             this.Load += new System.EventHandler(this.FrmFirmware_Load);
+            this.SizeChanged += new System.EventHandler(this.FrmFirmware_SizeChanged);
             this.grpBxOldFirmware.ResumeLayout(false);
             this.grpBxOldFirmware.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).EndInit();
+            this.contextMenuStripChangeConfigTypeFile.ResumeLayout(false);
             this.grpBxNewFirmware.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctbNewFirmware)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.contextMenuStripChangeConfigTypeFile.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -347,5 +362,7 @@
         private System.Windows.Forms.ToolStripMenuItem configurationhToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aonfigurationadvhToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem boardhToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chooseFileToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -10,11 +10,33 @@ namespace MarlinComunicationHelper
 {
     public sealed class MarlinCommunication
     {
+
+
+
+
+
+
         private readonly SerialPort _serialPort = new SerialPort();
         private List<string> _commands;
         private string _dataReceived;
         private FrmMarlinEditor _marlinEditor;
         private FrmShowCommunication _showcom;
+
+
+        public enum Feature
+        {
+            Done = 0,
+            EndStop = 1,
+            Bedlevel = 3,
+            SurfaceScan = 4,
+            AutoBedLevel = 7,
+            GetMeshBedPoints = 10,
+            MeassureMesh = 11,
+            AutomaticMeshBedLevel = 12
+        }
+
+
+
 
         /// <summary>
         ///     Kill the commandstream at next command
@@ -214,11 +236,34 @@ namespace MarlinComunicationHelper
             // Get all responces
             var responces = GetAllResponces();
 
+
+            // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:16000
+            foreach (string row in responces)
+            {
+                string positionPattern = @"X:[0-9]*\.[0-9]*\s*Y:[0-9]*\.[0-9]*\s*Z:[0-9]*\.[0-9]*\s*E:[0-9]*\.[0-9]*\s*Count\s*X:\s*";
+                Match positionMatch = Regex.Match(row, positionPattern);
+                if (positionMatch.Success)
+                {
+                    double x = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    double y = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    double z = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    ProbeResponceList.Add(new Position { X = x, Y = y, Z = z });
+                }
+
+            }
+
+
+
+
             // Create G29 responce Event
             var eventG29Resonce = new Responce(new List<string>());
             eventG29Resonce.ResponsRowList.AddRange(responces);
 
             OnG29Responce(eventG29Resonce);
+
+            
+
+
 
             //Delete the responce from the received bytes
             _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
@@ -249,15 +294,9 @@ namespace MarlinComunicationHelper
                         // (?: Z:\s[-] *[0 - 9] *.[0 - 9] *\s.*X:)([0 - 9] *.[0 - 9] *)
 
 
-                        xstring =
-                            Regex.Match(responce, @"(?:X:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[
-                                1].Value;
-                        ystring =
-                            Regex.Match(responce, @"(?:Y:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[
-                                1].Value;
-                        zstring =
-                            Regex.Match(responce, @"(?:Z:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[
-                                1].Value;
+                        xstring = Regex.Match(responce, @"(?:X:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                        ystring = Regex.Match(responce, @"(?:Y:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                        zstring = Regex.Match(responce, @"(?:Z:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     }
                     catch (Exception parsException)
                     {
@@ -265,9 +304,18 @@ namespace MarlinComunicationHelper
                     }
 
                     var probePosition = new Position();
-                    if (zstring != null) probePosition.Z = Convert.ToDouble(zstring.Replace(".", ","));
-                    if (ystring != null) probePosition.Y = Convert.ToDouble(ystring.Replace(".", ","));
-                    if (xstring != null) probePosition.X = Convert.ToDouble(xstring.Replace(".", ","));
+                    if (zstring != null)
+                    {
+                        probePosition.Z = Convert.ToDouble(zstring.Replace(".", ","));
+                    }
+                    if (ystring != null)
+                    {
+                        probePosition.Y = Convert.ToDouble(ystring.Replace(".", ","));
+                    }
+                    if (xstring != null)
+                    {
+                        probePosition.X = Convert.ToDouble(xstring.Replace(".", ","));
+                    }
                     ProbeResponceList.Add(probePosition);
                 }
             }
@@ -281,6 +329,80 @@ namespace MarlinComunicationHelper
             // ReadyForNextCommand          
             OnReadyForNextCommand(EventArgs.Empty);
         }
+
+        
+        /// <summary>
+        /// Add the the probeoffset to the position
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns>add the probe offset to the position</returns>
+        private Position AddProbeOffset(Position position)
+        {
+            Configuration configuration = new Configuration();
+            // to the left of the nozzle.
+            // to the right of the nozzle.
+            if (configuration.ZprobeXoffset == @"to the left of the nozzle.")
+            {
+                position.X = position.X + Convert.ToDouble(configuration.ZprobeXoffsetValue);
+            }
+            else
+            {
+                position.X = position.X - Convert.ToDouble(configuration.ZprobeXoffsetValue);
+            }
+
+
+
+            // behind the nozzle
+            // in front of the nozzle
+            if (configuration.ZprobeYoffset == @"in front of the nozzle")
+            {
+                position.Y = position.Y + Convert.ToDouble(configuration.ZprobeYoffsetValue);
+            }
+            else
+            {
+                position.Y = position.Y - Convert.ToDouble(configuration.ZprobeYoffsetValue);
+            }
+
+            return position;
+        }
+
+        /// <summary>
+        /// Add the the probeoffset to the position
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns>add the probe offset to the position</returns>
+        private Position DeleteProbeOffset(Position position)
+        {
+            Configuration configuration = new Configuration();
+            // to the left of the nozzle.
+            // to the right of the nozzle.
+            if (configuration.ZprobeXoffset == @"to the left of the nozzle.")
+            {
+                position.X = position.X - Convert.ToDouble(configuration.ZprobeXoffsetValue);
+            }
+            else
+            {
+                position.X = position.X + Convert.ToDouble(configuration.ZprobeXoffsetValue);
+            }
+
+
+
+            // behind the nozzle
+            // in front of the nozzle
+            if (configuration.ZprobeYoffset == @"in front of the nozzle")
+            {
+                position.Y = position.Y - Convert.ToDouble(configuration.ZprobeYoffsetValue);
+            }
+            else
+            {
+                position.Y = position.Y + Convert.ToDouble(configuration.ZprobeYoffsetValue);
+            }
+
+            return position;
+        }
+
+
+
 
         private void ParseM48()
         {
@@ -941,39 +1063,46 @@ namespace MarlinComunicationHelper
 
         #endregion
 
-        public void SaveMeshPoints(double x, double y, double z)
-        {
-            List<Position> newPositions = new List<Position>();
+        
+        //public void SaveMeshPoints(double x, double y, double z)
+        //{
 
-            if (MeshPoints != null)
-            {
-                foreach (Position position in MeshPoints)
-                {
-                    newPositions.Add(position);
-                }
-            }
+        //    // Save the Meshpoints to config //
 
-            //find if meshpont with x and y is available
-            for (int index = 0; index < newPositions.Count; index++)
-            {
-                Position position = newPositions[index];
-                if (Math.Abs(position.X - x) < 0.1 && Math.Abs(position.Y - y) < 0.1)
-                {
-                    newPositions[index].Z = z;
-                    MeshPoints = newPositions;
-                    return;
-                }
-            }
+
+        //    List<Position> newPositions = new List<Position>();
+
+        //    if (MeshPoints != null)
+        //    {
+        //        foreach (Position position in MeshPoints)
+        //        {
+        //            newPositions.Add(position);
+        //        }
+        //    }
+
+        //    //find if meshpont with x and y is available
+        //    for (int index = 0; index < newPositions.Count; index++)
+        //    {
+        //        Position position = newPositions[index];
+        //        if (Math.Abs(position.X - x) < 0.1 && Math.Abs(position.Y - y) < 0.1)
+        //        {
+        //            newPositions[index].Z = z;
+        //            MeshPoints = newPositions;
+        //            return;
+        //        }
+        //    }
            
-            // If not add
-            newPositions.Add(new Position() {X=x,Y=y,Z=z} );
-            MeshPoints = newPositions;
-        }
+        //    // If not add
+        //    newPositions.Add(new Position() {X=x,Y=y,Z=z} );
+        //    MeshPoints = newPositions;
+        //}
 
-        public List<Position> MeshPoints { get; set; } 
-
+        public List<Position> MeshPoints { get; set; }
+        public Feature Status { get; set; }
     }
 
+
+   
 
     /// <summary>
     ///     Endstop Argument

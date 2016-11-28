@@ -23,6 +23,7 @@ using SharpShellServerManager;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
 
+
 namespace Marlin3DprinterTool
 {
     /// <summary>
@@ -64,7 +65,6 @@ namespace Marlin3DprinterTool
 
             PopulateComboBoxes();
             PopulateConfig();
-            fctbM48Responce.DescriptionFile = "Marlincommunication.xml";
             fctbPidResponce.DescriptionFile = "MarlinCommunication.xml";
             fctbInit.DescriptionFile = "MarlinCommunication.xml";
 
@@ -85,6 +85,10 @@ namespace Marlin3DprinterTool
             trkBrZmaxTravel.Value = _configuration.ZmaxTravel;
             numUpDnZmaxTravel.Value = _configuration.ZmaxTravel;
             txtBxZextraDistance.Text = _configuration.ZextraDistance;
+            cmbBxZprobeXoffset.Text = _configuration.ZprobeXoffset;
+            txtBxZprobeXoffset.Text = _configuration.ZprobeXoffsetValue;
+            cmbBxZprobeYoffset.Text = _configuration.ZprobeYoffset;
+            txtBxZprobeYoffset.Text = _configuration.ZprobeYoffsetValue;
 
 
             for (var i = 0; i < chkListBxAdjustment.Items.Count; i++)
@@ -131,6 +135,7 @@ namespace Marlin3DprinterTool
 
         private void tabControl3DprinterTool_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             //TODO:
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
 
@@ -139,6 +144,7 @@ namespace Marlin3DprinterTool
             switch (selectedTab)
             {
                 case 0:
+                    _com.Status = MarlinCommunication.Feature.EndStop;
                     _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
                     break;
 
@@ -149,8 +155,10 @@ namespace Marlin3DprinterTool
 
                     break;
                 case 3:
+                    _com.Status = MarlinCommunication.Feature.Bedlevel;
                     break;
                 case 4:
+                    _com.Status = MarlinCommunication.Feature.SurfaceScan;
                     break;
                 case 7:
                     UpdateZmaintDescription();
@@ -190,6 +198,8 @@ namespace Marlin3DprinterTool
                 ledZmin.On = endstopStatus.Data[4].ToLower().Contains("triggered");
             if (endstopStatus.Data[5] != null)
                 ledZmax.On = endstopStatus.Data[5].ToLower().Contains("triggered");
+
+            //TODO: _com.status = Endstop
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
             if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
@@ -365,17 +375,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand(new List<string>(new[] {"G28 X", "M114"}));
         }
 
-        private void btnM48Repetition_Click(object sender, EventArgs e)
-        {
-            var commands = new List<string>
-            {
-                "G28 Y",
-                "G28 X",
-                "G28 Z",
-                $"M48 P{numUpDnM48Repetitions.Value} X{_configuration.SafeHome.X} Y{_configuration.SafeHome.Y} V4"
-            };
-            _com.SendCommand(commands);
-        }
+       
 
 
         private void btnProbeTheBed_Click(object sender, EventArgs e)
@@ -448,6 +448,8 @@ namespace Marlin3DprinterTool
                     break;
             }
 
+
+            //TODO: Why M420 S0????
             var commands = new List<string> {"M420 S0", "G28 Y", "G28 X", "G28 Z"};
 
             _probePoints.Clear();
@@ -464,7 +466,7 @@ namespace Marlin3DprinterTool
                 for (var i = 0; i < numberOfRepetitions; i++)
                 {
                     // probe the point
-                    commands.Add("G30 S-1");
+                    commands.Add("G30");
                     commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} F6000");
                 }
             }
@@ -560,6 +562,7 @@ namespace Marlin3DprinterTool
         private void btnAutoBedLevel_Click(object sender, EventArgs e)
         {
             var commands = new List<string> {"G28 Y", "G28 X", "G28 Z", "G29"};
+            _com.Status = MarlinCommunication.Feature.AutoBedLevel;
             _com.SendCommand(commands);
         }
 
@@ -690,7 +693,7 @@ namespace Marlin3DprinterTool
 
             _com.ProbeResponceList = new List<Position>(); //Clear the proberesponcelist fron old probing
 
-            _com.SendCommand("G30");
+            _com.SendCommand("G30 S-1");
         }
 
         #region Pupulating Form
@@ -1283,7 +1286,7 @@ namespace Marlin3DprinterTool
         {
             //MessageBox.Show(responce.Data, @"Data in EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ShowInitAndM501(responce.Data);
-        }
+        } 
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
         {
@@ -1338,7 +1341,7 @@ namespace Marlin3DprinterTool
             ShowInitAndM501(e.Data);
 
             
-
+            // _com.status endstop
             var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
             if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
@@ -1363,19 +1366,17 @@ namespace Marlin3DprinterTool
 
         private void _com_ReadyForNextCommand(object sender, EventArgs e)
         {
-            var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
-
-            //TabPage SelectedTabPage = DelegateAndInvoke.GetSelectedTab(tabControl3DprinterTool);
-
-            //if (SelectedTabPage == null) return;
-
-            switch (selectedTab)
+            
+            switch (_com.Status)
             {
-                case 0:
+                #region EndStop
+                case MarlinCommunication.Feature.EndStop:
                     _com.SendCommand("M119");
                     break;
-                case 3: // Bedlevel
+                #endregion
 
+                #region BedLevel
+                case MarlinCommunication.Feature.Bedlevel:
                     // Calculate the turns on each corner
                     if (_com.ProbeResponceList != null)
                     {
@@ -1393,68 +1394,68 @@ namespace Marlin3DprinterTool
 
                             if (chkListBxAdjustment.CheckedItems.Count != 0)
                             {
-                                if ((string) chkListBxAdjustment.CheckedItems[0] == "M3")
+                                if ((string)chkListBxAdjustment.CheckedItems[0] == "M3")
                                 {
                                     thread = 0.5;
                                 }
-                                else if ((string) chkListBxAdjustment.CheckedItems[0] == "M4")
+                                else if ((string)chkListBxAdjustment.CheckedItems[0] == "M4")
                                 {
                                     thread = 0.7;
                                 }
-                                else if ((string) chkListBxAdjustment.CheckedItems[0] == "M5")
+                                else if ((string)chkListBxAdjustment.CheckedItems[0] == "M5")
                                 {
                                     thread = 0.8;
                                 }
                             }
 
 
-                            var adjust = (_fix - probeResponce.Z)/thread;
+                            var adjust = (_fix - probeResponce.Z) / thread;
                             var sign = adjust <= 0 ? "+" : "-";
                             var turn = Math.Truncate(adjust);
                             var decimalpart = adjust - turn;
-                            var minutes = (int) (decimalpart*60);
+                            var minutes = (int)(decimalpart * 60);
 
                             //Lower Left Adjuster
-                            if ((Math.Abs(_configuration.LowerLeftAdjuster.X - probeResponce.X) < 35) &&
-                                (Math.Abs(_configuration.LowerLeftAdjuster.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(_configuration.LowerLeftAdjuster.X - probeResponce.X) < 50) &&
+                                (Math.Abs(_configuration.LowerLeftAdjuster.Y - probeResponce.Y) < 50))
                             {
                                 DeligateAndInvoke.DelegateText(lblTurn1, @"No adjustments");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue1, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
+                                DeligateAndInvoke.DelegateText(lblAdjustValue1, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                                 _fix = probeResponce.Z;
                             }
 
                             //Lower Right Adjuster
-                            if ((Math.Abs(_configuration.LowerRightAdjuster.X - probeResponce.X) < 35) &&
-                                (Math.Abs(_configuration.LowerRightAdjuster.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(_configuration.LowerRightAdjuster.X - probeResponce.X) < 50) &&
+                                (Math.Abs(_configuration.LowerRightAdjuster.Y - probeResponce.Y) < 50))
                             {
                                 DeligateAndInvoke.DelegateBackgroundImage(picBxTurn2,
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
                                 DeligateAndInvoke.DelegateText(lblTurn2,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue2, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
+                                DeligateAndInvoke.DelegateText(lblAdjustValue2, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                             }
 
 
                             //Upper Right Adjuster
-                            if ((Math.Abs(_configuration.UpperRightAdjuster.X - probeResponce.X) < 35) &&
-                                (Math.Abs(_configuration.UpperRightAdjuster.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(_configuration.UpperRightAdjuster.X - probeResponce.X) < 50) &&
+                                (Math.Abs(_configuration.UpperRightAdjuster.Y - probeResponce.Y) < 50))
                             {
                                 DeligateAndInvoke.DelegateBackgroundImage(picBxTurn3,
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
                                 DeligateAndInvoke.DelegateText(lblTurn3,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue3, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
+                                DeligateAndInvoke.DelegateText(lblAdjustValue3, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                             }
 
                             //Upper Left Adjuster
-                            if ((Math.Abs(_configuration.UpperLeftAdjuster.X - probeResponce.X) < 35) &&
-                                (Math.Abs(_configuration.UpperLeftAdjuster.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(_configuration.UpperLeftAdjuster.X - probeResponce.X) < 50) &&
+                                (Math.Abs(_configuration.UpperLeftAdjuster.Y - probeResponce.Y) < 50))
                             {
                                 DeligateAndInvoke.DelegateBackgroundImage(picBxTurn4,
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
                                 DeligateAndInvoke.DelegateText(lblTurn4,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue4, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
+                                DeligateAndInvoke.DelegateText(lblAdjustValue4, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                             }
                         }
 
@@ -1472,13 +1473,61 @@ namespace Marlin3DprinterTool
                     }
                     CreateSurfaceChart(_com.ProbeResponceList);
                     break;
-                case 4: // SurfaceScan
+                #endregion
+
+                #region SurfaceScan
+                case MarlinCommunication.Feature.SurfaceScan:
                     CreateSurfaceChart(_com.ProbeResponceList);
+                    break;
+                #endregion
+
+                case MarlinCommunication.Feature.AutomaticMeshBedLevel:
+                    GetAllMeshPoints();
+                    
+                    break;
+
+                case MarlinCommunication.Feature.GetMeshBedPoints:
+                    
+                    List<string> row = new List<string>();
+
+                    double zprogeRise = _com.ProbeResponceList[1].Z - _com.ProbeResponceList[0].Z;
+
+                    // Remove the first 2 ProbeResponce.. They are from the build in G28 hand G29 Start
+                    // In the two first proberesponce you can calculate the Z-probe rise.. 
+                    _com.ProbeResponceList.RemoveAt(0);
+                    _com.ProbeResponceList.RemoveAt(0);
+
+                    foreach (Position point in _com.ProbeResponceList)
+                    {
+                        _configuration.SetMeassuredMeshpoint(point.X, point.Y, 0);
+                        row.Add($"Getmeshbedpoints X:{point.X} Y:{point.Y} z:{point.Z}");
+                    }
+
+                    row.Add($"Z probe rise is {zprogeRise}");
+
+                    
+                    MeshMeassure();
+                    
 
 
 
                     break;
+                case MarlinCommunication.Feature.MeassureMesh:
+                    foreach (Position point in _com.ProbeResponceList)
+                    {
+                        _configuration.SetMeassuredMeshpoint(point.X, point.Y, point.Z);
+                    }
+                    CreateSurfaceChart(_com.ProbeResponceList);
+
+                    CalculateMesh();
+                    _com.Status = MarlinCommunication.Feature.Done;
+
+                    break;
+
             }
+
+
+           
         }
 
         private void CreateSurfaceChart(List<Position> positions )
@@ -1556,7 +1605,36 @@ namespace Marlin3DprinterTool
 
         private void _com_G29Responce(object sender, Responce responce)
         {
-            DeligateAndInvoke.MultiTextLines(txtBxAutoBedLevelResponce, responce.ResponsRowList);
+
+            if (_com.Status == MarlinCommunication.Feature.AutoBedLevel)
+            {
+
+                DeligateAndInvoke.MultiTextLines(txtBxAutoBedLevelResponce, responce.ResponsRowList);
+                return;
+            }
+
+
+
+
+            
+            // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:16000
+            foreach (string row in responce.ResponsRowList)
+            {
+                string positionPattern = @"X:[0-9]*\.[0-9]*\s*Y:[0-9]*\.[0-9]*\s*Z:[0-9]*\.[0-9]*\s*E:[0-9]*\.[0-9]*\s*Count\s*X:\s*";
+                Match positionMatch = Regex.Match(row, positionPattern);
+                if (positionMatch.Success)
+                {
+                    double x = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    double y = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    double z = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    _probePoints.Add(new Position { X = x, Y = y, Z = z });
+                }
+
+            }
+
+            
+
+
         }
 
 
@@ -1579,7 +1657,7 @@ namespace Marlin3DprinterTool
             //            ok
 
 
-            DeligateAndInvoke.FastColoredTextBox(fctbM48Responce, responce.ResponsRowList);
+            
         }
 
         #endregion
@@ -2486,23 +2564,8 @@ namespace Marlin3DprinterTool
             //MessageBox.Show(color);
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            string initText = "";
-            string[] initRows = fctbInit.Lines.ToArray();
-            foreach (string row in initRows)
-            {
-                initText += row.Replace("echo:", "").Trim() + Environment.NewLine;
-            }
+       
 
-            DeligateAndInvoke.FastColoredTextBox(fctbInit, initText);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ParseInit();
-
-        }
 
         private void ParseInit()
         {
@@ -2641,13 +2704,12 @@ namespace Marlin3DprinterTool
                 rowMatch = Regex.Match(line, linePattern);
                 if (rowMatch.Success)
                 {
-                    string x = Regex.Match(line, @"(?:X)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value + ",0";
-                    string y = Regex.Match(line, @"(?:Y)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value + ",0";
-                    string z = Regex.Match(line, @"(?:Z)([-]*[0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value . Replace(".",",");
+                    string x = Regex.Match(line, @"(?:X)([0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    string y = Regex.Match(line, @"(?:Y)([0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                    string z = Regex.Match(line, @"(?:Z)([0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
 
 
-
-                    _com.SaveMeshPoints( Convert.ToDouble(x) , Convert.ToDouble(y) ,Convert.ToDouble(z));
+                    _configuration.SetInitMeshpoint(Convert.ToInt16( x), Convert.ToInt16( y), Convert.ToDouble( z.Replace('.',',')));
                 }
 
 
@@ -2774,18 +2836,9 @@ namespace Marlin3DprinterTool
 
             List<Position> positions = new List<Position>();
 
-       
 
-            foreach (Position meshPoint in _com.MeshPoints)
-            {
-                int x = (int) (xMin + ((meshPoint.X - 1.0) * xStep));
-                int y = (int)(yMin + ((meshPoint.Y - 1.0) * yStep));
-                positions.Add(new Position { X = x, Y = y, Z = meshPoint.Z });
-            }
-
-
+            positions = _configuration.GetMeshpoints();
             
-
             CreateSurfaceChart(positions);
 
            DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool,tabPageScanSurface);
@@ -2804,16 +2857,216 @@ namespace Marlin3DprinterTool
 
         private void btnGetAllMeshPoints_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string>();
+            GetAllMeshPoints();
+            
 
-            commands.Add("G29");
+        }
+
+        private void GetAllMeshPoints()
+        {
+            int numberOfpoints;
+            try
+            {
+                numberOfpoints = Convert.ToInt16(txtBxMeshBedLevelPointX.Text) * Convert.ToInt16(txtBxMeshBedLevelPointY.Text);
+
+            }
+            catch
+            {
+                return;
+            }
+
+            _configuration.DeleteMeshPoints();
+
+
+            _com.ProbeResponceList = new List<Position>();
+            List<string> commands = new List<string>();
+            commands.Add("G28 Y");
+            commands.Add("G28 X");
+
             commands.Add("G29 S1");
-            for (int i = 1; i < 3*3; i++)
+            for (int i = 1; i < numberOfpoints; i++)
             {
                 commands.Add("G29 S2");
             }
+            _com.Status = MarlinCommunication.Feature.GetMeshBedPoints;
             _com.SendCommand(commands);
 
+        }
+
+        private void UpdateZprobeOffset()
+        {
+            _configuration.ZprobeXoffset = cmbBxZprobeXoffset.Text;
+            _configuration.ZprobeXoffsetValue = txtBxZprobeXoffset.Text;
+            _configuration.ZprobeYoffset = cmbBxZprobeYoffset.Text;
+            _configuration.ZprobeYoffsetValue = txtBxZprobeYoffset.Text;
+
+
+        }
+
+        
+
+        private void cmbBxZprobeXoffset_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        
+
+        private void cmbBxZprobeYoffset_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtBxZprobeYoffset_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtBxZprobeXoffset_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+
+        private void MeshMeassure()
+        {
+            _com.Status = MarlinCommunication.Feature.MeassureMesh;
+
+            _com.ProbeResponceList = new List<Position>();
+            List<string> commands = new List<string>();
+
+            List<Position> meshPoints = _configuration.GetMeshpoints();
+
+
+            commands.Add("G28 Y");
+            commands.Add("G28 X");
+            commands.Add("G28 Z");
+
+            foreach (Position probePoint in meshPoints)
+            {
+                // adjust probe to be over manual mesh point
+
+                double x;
+                double y;
+
+
+                x = probePoint.X - Convert.ToDouble(_configuration.ZprobeXoffsetValue);
+                y = probePoint.Y - Convert.ToDouble(_configuration.ZprobeYoffsetValue);
+
+                // move to X&Y
+                commands.Add($"G1 X{x}.0 Y{y}.0 Z{_configuration.ZextraDistance} F3000");
+                //commands.Add("G1 Z40");
+
+
+                // probe the point
+                commands.Add("G30 S-1");
+
+            }
+            
+            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} F5000");
+            _com.SendCommand(commands);
+        }
+
+        
+
+        private void CalculateMesh()
+        {
+            _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
+            List<Position> meshPoints = _configuration.GetMeshpoints();
+
+            // Sort all X and Y
+            List<int> xList = new List<int>();
+            List<int> yList = new List<int>();
+
+            foreach (Position probePoint in meshPoints)
+            {
+                if (!xList.Contains(Convert.ToInt16(probePoint.X))) xList.Add(Convert.ToInt16(probePoint.X));
+                if (!yList.Contains(Convert.ToInt16(probePoint.Y))) yList.Add(Convert.ToInt16(probePoint.Y));
+            }
+            xList.Sort();
+            yList.Sort();
+
+            // Find X1 Y1 and store the point
+            double firstProbe = 0;
+            foreach (Position meshPoint in meshPoints)
+            {
+                if ((xList[0] == (int)meshPoint.X) && (yList[0] == (int)meshPoint.Y))
+                {
+                    firstProbe = meshPoint.Z;
+                    break;
+                }
+            }
+
+
+
+
+            meshPoints = _configuration.GetMeshpoints();
+            for (int yi = 0; yi < yList.Count; yi++)
+
+            {
+                for (int xi = 0; xi < xList.Count; xi++)
+                {
+                    foreach (Position meshPoint in meshPoints)
+                    {
+                        if ((xList[xi] == (int)meshPoint.X) && (yList[yi] == (int)meshPoint.Y))
+                        {
+
+                            int Zlift = 5;
+                            double zoffset = 2.35;
+                            double newMeshPoint = (Zlift + firstProbe) + (zoffset - meshPoint.Z);
+                            string command = $"G29 S3 X{xi + 1} Y{yi + 1} Z{newMeshPoint.ToString().Replace(',', '.')}";
+                            _com.SendCommand(command);
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+
+        }
+
+        private void btnAutomaticMeshBedLevel_Click(object sender, EventArgs e)
+        {
+            lblAutomaticMeshBedLevel.Text = "Requirement Firmware";
+            DialogResult result;
+            result = MessageBox.Show(@"Is the manual Mesh Bed Level enabled in firmware?",@"Firmware",MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.No || result == DialogResult.Cancel) return;
+            progressBarAutomaticMeshBedLevel.Value = 5;
+
+            lblAutomaticMeshBedLevel.Text = "Requirement Manual MBL done (once)";
+            result = MessageBox.Show("Did the manual Mesh Bed Level  with \"paper-under-nozzle\" work?", @"Firmware", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.No || result == DialogResult.Cancel) return;
+            progressBarAutomaticMeshBedLevel.Value = 10;
+
+            lblAutomaticMeshBedLevel.Text = "Requirement One print with MBL";
+            result = MessageBox.Show("Have you done a print with MBL ?", @"Firmware", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.No || result == DialogResult.Cancel) return;
+            progressBarAutomaticMeshBedLevel.Value = 15;
+
+            lblAutomaticMeshBedLevel.Text = "Requirement Z-probe offset must be known";
+            result = MessageBox.Show("Have you configured the Z-PROBE_OFFSET using this tool?", @"Firmware", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.No || result == DialogResult.Cancel) return;
+            progressBarAutomaticMeshBedLevel.Value = 20;
+
+            lblAutomaticMeshBedLevel.Text = "Requirement X/Y-probe offset must be known";
+            result = MessageBox.Show("Have you described the probe position in relation to the 1st nozzle?", @"Firmware", MessageBoxButtons.YesNoCancel);
+            if (result == DialogResult.No || result == DialogResult.Cancel) return;
+            progressBarAutomaticMeshBedLevel.Value = 25;
+
+
+            UpdateZprobeOffset();
+
+
+
+            List<string> commands = new List<string>();
+            commands.Add("G28 Y");
+            commands.Add("G28 X");
+
+            _com.Status = MarlinCommunication.Feature.AutomaticMeshBedLevel;
+            _com.SendCommand(commands);
+
+            
         }
     }
 
