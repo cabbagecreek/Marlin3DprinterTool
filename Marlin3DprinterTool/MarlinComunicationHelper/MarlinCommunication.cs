@@ -94,7 +94,7 @@ namespace MarlinComunicationHelper
                     IsPortOpen = false;
                     _serialPort.Disconnected += _serialPort_Disconnected;
                     _serialPort.Connected += _serialPort_Connected;
-                    _serialPort.Received += _serialPort_Received;
+                    
 
 
                     _serialPort.CustomBaudRate = Convert.ToUInt32(BaudRate);
@@ -118,6 +118,32 @@ namespace MarlinComunicationHelper
                     }
 
                     _serialPort.Open();
+
+                    _serialPort.NewLine = "\n";
+                    _serialPort.AutoReceive = false;
+                    _serialPort.Open();
+
+                    _dataReceived = "";
+                    string rec = _serialPort.ReadLine(10);
+                    while (true)
+                    {
+                        DateTime lastreceived = _serialPort.LastTimeReceived;
+
+                        _dataReceived += rec + Environment.NewLine;
+
+                        TimeSpan timeDiff = DateTime.Now - lastreceived;
+                        if (timeDiff.Seconds >= 4) break;
+                        rec = _serialPort.ReadLine(4);
+                    }
+
+                    ParseInit();
+                    _serialPort.AutoReceive = true;
+                    _serialPort.Received += _serialPort_Received;
+
+
+
+
+
                 }
                 catch (Exception serialOpenException)
                 {
@@ -196,11 +222,11 @@ namespace MarlinComunicationHelper
 
             
             //TODO: _serialPort.SendAsciiStringLine()
-            if (IsPortOpen == false) _serialPort.SendAsciiString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
+            //if (IsPortOpen == false) _serialPort.SendAsciiString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
             IsPortOpen = true;
 
             // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
+            //if (WaitForOkAndNewLineToBeReceived() == false) return;
             //// Return if The _dataReceived not contains ok\n
             //if (WaitForInitToBeDone() == false) return;
 
