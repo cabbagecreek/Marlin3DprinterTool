@@ -186,22 +186,30 @@ namespace Marlin3DprinterTool
 
         private void _com_EndStopStatus(object sender, EndstopStatusList endstopStatus)
         {
-            if (endstopStatus.Data[0] != null)
-                ledXmin.On = endstopStatus.Data[0].ToLower().Contains("triggered");
-            if (endstopStatus.Data[1] != null)
-                ledXmax.On = endstopStatus.Data[1].ToLower().Contains("triggered");
-            if (endstopStatus.Data[2] != null)
-                ledYmin.On = endstopStatus.Data[2].ToLower().Contains("triggered");
-            if (endstopStatus.Data[3] != null)
-                ledYmax.On = endstopStatus.Data[3].ToLower().Contains("triggered");
-            if (endstopStatus.Data[4] != null)
-                ledZmin.On = endstopStatus.Data[4].ToLower().Contains("triggered");
-            if (endstopStatus.Data[5] != null)
-                ledZmax.On = endstopStatus.Data[5].ToLower().Contains("triggered");
+            ledXmin.On = _com.EndStopStatus.Xmin;
+            ledXmax.On = _com.EndStopStatus.Xmax;
+            ledYmin.On = _com.EndStopStatus.Ymin;
+            ledYmax.On = _com.EndStopStatus.Ymax;
+            ledZmin.On = _com.EndStopStatus.Zmin;
+            ledZmax.On = _com.EndStopStatus.Zmax;
+
+
+            //if (endstopStatus.Data[0] != null)
+            //    ledXmin.On = endstopStatus.Data[0].ToLower().Contains("triggered");
+            //if (endstopStatus.Data[1] != null)
+            //    ledXmax.On = endstopStatus.Data[1].ToLower().Contains("triggered");
+            //if (endstopStatus.Data[2] != null)
+            //    ledYmin.On = endstopStatus.Data[2].ToLower().Contains("triggered");
+            //if (endstopStatus.Data[3] != null)
+            //    ledYmax.On = endstopStatus.Data[3].ToLower().Contains("triggered");
+            //if (endstopStatus.Data[4] != null)
+            //    ledZmin.On = endstopStatus.Data[4].ToLower().Contains("triggered");
+            //if (endstopStatus.Data[5] != null)
+            //    ledZmax.On = endstopStatus.Data[5].ToLower().Contains("triggered");
 
             //TODO: _com.status = Endstop
-            var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
-            if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+            //var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
         #region
@@ -969,6 +977,7 @@ namespace Marlin3DprinterTool
 
         private void btnStartZprobeHeight_Click(object sender, EventArgs e)
         {
+            _com.Status = MarlinCommunication.Feature.EndStop;
             txtBxJogControlZprobeHeightHelp.Visible = false;
             verticalJogControlZprobeHeight.Visible = false;
             btnZprobeHeightNext.Visible = false;
@@ -1001,7 +1010,7 @@ namespace Marlin3DprinterTool
                 case DialogResult.Cancel:
                     return;
                 case DialogResult.OK:
-                    var commands = new List<string> {"M851 Z0","G28 Z", "M114"};
+                    var commands = new List<string> {"M851 Z0","G28", "M114"};
                     _com.SendCommand(commands);
                     break;
             }
@@ -1292,18 +1301,7 @@ namespace Marlin3DprinterTool
         {
 
 
-            // Z-ProbeHeight 
-            if (lblCalculatedZProbeOffset.Visible)
-            {
-                DeligateAndInvoke.DelegateVisible(txtBxCalculatedZProbeOffset, true);
-                DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate, true);
-                foreach (var position in probePositions)
-                {
-                    // Allways decimalpoint
-                    DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, position.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
-                }
-            }
-            //! Z-ProbeHeight
+            
         }
 
         private void _com_Init(object sender, ResponceData e)
@@ -1341,9 +1339,9 @@ namespace Marlin3DprinterTool
             ShowInitAndM501(e.Data);
 
             
-            // _com.status endstop
-            var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
-            if (selectedTab == 0) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+            // _com.status endstop TODO:
+            //var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
         private void ShowInitAndM501(string data)
@@ -1369,6 +1367,22 @@ namespace Marlin3DprinterTool
             
             switch (_com.Status)
             {
+                #region ZprobeHeight
+                case MarlinCommunication.Feature.ZprobeHeight:
+                    // Z-ProbeHeight 
+                    if (lblCalculatedZProbeOffset.Visible)
+                    {
+                        DeligateAndInvoke.DelegateVisible(txtBxCalculatedZProbeOffset, true);
+                        DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate, true);
+                        // Allways decimalpoint
+                        DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, _com.CurrentPosition.Zstring);
+                        
+                    }
+                    _com.Status = MarlinCommunication.Feature.Done;
+                    break;
+                    //! Z-ProbeHeight
+            #endregion
+
                 #region EndStop
                 case MarlinCommunication.Feature.EndStop:
                     _com.SendCommand("M119");
@@ -1472,15 +1486,18 @@ namespace Marlin3DprinterTool
                         }
                     }
                     CreateSurfaceChart(_com.ProbeResponceList);
+                    _com.Status = MarlinCommunication.Feature.Done;
                     break;
                 #endregion
 
                 #region SurfaceScan
                 case MarlinCommunication.Feature.SurfaceScan:
                     CreateSurfaceChart(_com.ProbeResponceList);
+                    _com.Status = MarlinCommunication.Feature.Done;
                     break;
                 #endregion
 
+                
                 case MarlinCommunication.Feature.AutomaticMeshBedLevel:
                     GetAllMeshPoints();
                     
@@ -1512,6 +1529,8 @@ namespace Marlin3DprinterTool
 
 
                     break;
+
+                #region MeassureMesh
                 case MarlinCommunication.Feature.MeassureMesh:
                     foreach (Position point in _com.ProbeResponceList)
                     {
@@ -1523,7 +1542,7 @@ namespace Marlin3DprinterTool
                     _com.Status = MarlinCommunication.Feature.Done;
 
                     break;
-
+                #endregion
             }
 
 
@@ -3068,7 +3087,19 @@ namespace Marlin3DprinterTool
 
             
         }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string>();
+
+            commands.Add("G28");
+            _com.SendCommand(commands);
+
+            _com.G30();
+
+        }
     }
+
 
     /// <summary>
     /// Combobox with Text-Value Keypair. 
