@@ -802,9 +802,67 @@ namespace MarlinComunicationHelper
 
     public class Position
     {
-        
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
+        private double x;
+        private double y;
+        private double z;
+        public double X
+        {
+            get { return x; }
+            set {x = value; }
+        }
+
+        public double Y
+        {
+            get { return y; }
+            set { y = value;}
+        }
+
+        public double Z
+        {
+            get { return z; }
+            set { z = value;}
+        }
+
+        /// <summary>
+        ///  Set and Get X position as string
+        /// </summary>
+        public string Xstring
+        {
+            get { return x.ToString(CultureInfo.InvariantCulture).Replace(',', '.'); } // Always decimalpoint
+            set { x = Convert.ToDouble(value.Replace('.', ',')); }
+        }
+
+        /// <summary>
+        ///  Set and Get Y position as string
+        /// </summary>
+        public string Ystring
+        {
+            get { return y.ToString(CultureInfo.InvariantCulture).Replace(',', '.'); } // Always decimalpoint
+            set { y = Convert.ToDouble(value.Replace('.', ',')); }
+        }
+
+        /// <summary>
+        ///  Set and Get Z position as string
+        /// </summary>
+        public string Zstring
+        {
+            get { return z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'); } // Always decimalpoint
+            set { z = Convert.ToDouble(value.Replace('.', ',')); }
+        }
     }
+
+
+    public class EndStop
+    {
+        public bool Xmin { get; set; }
+        public bool Xmax { get; set; }
+        public bool Ymin { get; set; }
+        public bool Ymax { get; set; }
+        public bool Zmin { get; set; }
+        public bool Zmax { get; set; }
+
+
+
+    }
+
 }
