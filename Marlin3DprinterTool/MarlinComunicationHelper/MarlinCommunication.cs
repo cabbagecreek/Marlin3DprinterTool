@@ -32,7 +32,8 @@ namespace MarlinComunicationHelper
             AutoBedLevel = 7,
             GetMeshBedPoints = 10,
             MeassureMesh = 11,
-            AutomaticMeshBedLevel = 12
+            AutomaticMeshBedLevel = 12,
+            ZprobeHeight = 13
         }
 
 
@@ -105,6 +106,7 @@ namespace MarlinComunicationHelper
                     _serialPort.ParityBits = SerialParityBits.None;
                     _serialPort.StopBits = SerialStopBits.Sb1Bit;
 
+                    CurrentPosition = new Position(); 
 
                     // Activate a true licence
                     Configuration config = new Configuration();
@@ -448,7 +450,11 @@ namespace MarlinComunicationHelper
                         Regex.Match(responce, @"(?:Z:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     //var estring = Regex.Match(responce, @"(?:E:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value; // Not Needed (yet)
                     var currentPosition = new CurrentPosition(xstring, ystring, zstring);
+                    CurrentPosition.Xstring = xstring;
+                    CurrentPosition.Ystring = ystring;
+                    CurrentPosition.Zstring = ystring;
                     OnM114GetCurrentPosition(currentPosition);
+
                 }
 
 
@@ -472,14 +478,28 @@ namespace MarlinComunicationHelper
             var endstopstatus = new string[6];
             foreach (var responce in responces)
             {
+                //TODO: Tabort
                 if (responce.Contains("x_min")) endstopstatus[0] = responce;
                 if (responce.Contains("x_max")) endstopstatus[1] = responce;
                 if (responce.Contains("y_min")) endstopstatus[2] = responce;
                 if (responce.Contains("y_max")) endstopstatus[3] = responce;
                 if (responce.Contains("z_min")) endstopstatus[4] = responce;
                 if (responce.Contains("z_max")) endstopstatus[5] = responce;
+                //TODO: !Tabort
+
+                if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
+                if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
+                if (responce.Contains("y_min")) EndStopStatus.Ymin = responce.ToLower().Contains("triggered");
+                if (responce.Contains("y_min")) EndStopStatus.Ymax = responce.ToLower().Contains("triggered");
+                if (responce.Contains("z_min")) EndStopStatus.Zmin = responce.ToLower().Contains("triggered");
+                if (responce.Contains("z_min")) EndStopStatus.Zmax = responce.ToLower().Contains("triggered");
+
+
+
             }
 
+
+            
 
             var eventEndstopStatusList = new EndstopStatusList(new List<string>());
             eventEndstopStatusList.Data.AddRange(endstopstatus);
@@ -938,13 +958,13 @@ namespace MarlinComunicationHelper
 
         /// <summary>
         ///     Eventhandler for M119 EndstopStatus
-        /// </summary>
+        /// </summary> TODO: EndstopStatusList -> EndstopStatus
         public event EventHandler<EndstopStatusList> M119EndStopStatus;
 
         /// <summary>
         ///     Report result of M119 EndstopStatus
         /// </summary>
-        /// <param name="endstopStatusList"></param>
+        /// <param name="endstopStatusList"></param> TODO: EndstopStatusList -> EndstopStatus
         private void OnM119EndStopStatus(EndstopStatusList endstopStatusList)
         {
             var handler = M119EndStopStatus;
@@ -1064,41 +1084,17 @@ namespace MarlinComunicationHelper
         #endregion
 
         
-        //public void SaveMeshPoints(double x, double y, double z)
-        //{
-
-        //    // Save the Meshpoints to config //
-
-
-        //    List<Position> newPositions = new List<Position>();
-
-        //    if (MeshPoints != null)
-        //    {
-        //        foreach (Position position in MeshPoints)
-        //        {
-        //            newPositions.Add(position);
-        //        }
-        //    }
-
-        //    //find if meshpont with x and y is available
-        //    for (int index = 0; index < newPositions.Count; index++)
-        //    {
-        //        Position position = newPositions[index];
-        //        if (Math.Abs(position.X - x) < 0.1 && Math.Abs(position.Y - y) < 0.1)
-        //        {
-        //            newPositions[index].Z = z;
-        //            MeshPoints = newPositions;
-        //            return;
-        //        }
-        //    }
-           
-        //    // If not add
-        //    newPositions.Add(new Position() {X=x,Y=y,Z=z} );
-        //    MeshPoints = newPositions;
-        //}
+        
 
         public List<Position> MeshPoints { get; set; }
         public Feature Status { get; set; }
+        public Position CurrentPosition { get; set; }
+        public EndStop EndStopStatus { get; set; }
+
+        public void G30()
+        {
+            
+        }
     }
 
 

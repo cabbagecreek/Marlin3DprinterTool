@@ -412,6 +412,7 @@ namespace Marlin3DprinterTool
             this.btnFirmware = new System.Windows.Forms.Button();
             this.btnPayPal = new System.Windows.Forms.Button();
             this.btnSetup = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -4552,6 +4553,7 @@ namespace Marlin3DprinterTool
             // 
             // tabPageMeshBedLevel
             // 
+            this.tabPageMeshBedLevel.Controls.Add(this.btnStart);
             this.tabPageMeshBedLevel.Controls.Add(this.lblAutomaticMeshBedLevel);
             this.tabPageMeshBedLevel.Controls.Add(this.progressBarAutomaticMeshBedLevel);
             this.tabPageMeshBedLevel.Controls.Add(this.btnAutomaticMeshBedLevel);
@@ -4895,6 +4897,16 @@ namespace Marlin3DprinterTool
             this.btnSetup.Text = " ";
             this.btnSetup.UseVisualStyleBackColor = true;
             this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(57, 338);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(158, 36);
+            this.btnStart.TabIndex = 17;
+            this.btnStart.Text = "button1";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // FrmMarlin3DprinterTool
             // 
@@ -5450,6 +5462,7 @@ namespace Marlin3DprinterTool
         private Button btnAutomaticMeshBedLevel;
         private Label lblAutomaticMeshBedLevel;
         private ProgressBar progressBarAutomaticMeshBedLevel;
+        private Button btnStart;
     }
 }
 
