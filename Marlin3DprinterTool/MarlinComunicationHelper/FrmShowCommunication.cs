@@ -9,6 +9,9 @@ namespace MarlinComunicationHelper
     {
         private static FrmShowCommunication _instanceOfFrmShowForm;
 
+
+        public MarlinCommunication Communication { get; set; }
+
         private FrmShowCommunication()
         {
             InitializeComponent();
@@ -29,21 +32,33 @@ namespace MarlinComunicationHelper
 
         public string AddReceived
         {
-            get { return fastColoredTextMarlinCommunication.Text; }
+            get { return fctbMarlinCommunication.Text; }
             set
             {
-                MarlinSyntaxTextBox(fastColoredTextMarlinCommunication, "Receive " + value + Environment.NewLine);
+                string text = value;
+                if (chkBxRemoveProcessing.Checked)
+                {
+                    text = text.Replace("busy: processing", "");
+                    text = text.Replace("echo:", "");
+                    text = text.Replace("  ", "");
+                    
+                }
+                if ((string.IsNullOrEmpty(text)) || (string.IsNullOrEmpty(text.Replace("\n","")))) return;
+
+                MarlinSyntaxTextBox(fctbMarlinCommunication, "Receive " + text + Environment.NewLine);
                 
             }
         }
 
-
+        /// <summary>
+        /// Add command thats been sent
+        /// </summary>
         public string AddSend
         {
-            get { return fastColoredTextMarlinCommunication.Text; }
+            get { return fctbMarlinCommunication.Text; }
             set
             {
-                MarlinSyntaxTextBox(fastColoredTextMarlinCommunication, "Send " + value + Environment.NewLine);
+                MarlinSyntaxTextBox(fctbMarlinCommunication, "Send " + value + Environment.NewLine);
             }
         }
 
@@ -69,8 +84,8 @@ namespace MarlinComunicationHelper
 
         private void btnClearResponces_Click(object sender, EventArgs e)
         {
-            fastColoredTextMarlinCommunication.Clear();
-            fastColoredTextMarlinCommunication.Text = @"Cleared";
+            fctbMarlinCommunication.Clear();
+            fctbMarlinCommunication.Text = @"Cleared";
         }
 
         private void chkBxNeverClear_CheckedChanged(object sender, EventArgs e)
@@ -81,18 +96,18 @@ namespace MarlinComunicationHelper
 
         private void btnCopyToClipBoard_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(fastColoredTextMarlinCommunication.Text))
+            if (string.IsNullOrEmpty(fctbMarlinCommunication.Text))
             {
                 MessageBox.Show(@"There is nothing to copy to Clipboard!");
                 return;
             }
-            Clipboard.SetText(fastColoredTextMarlinCommunication.Text);
+            Clipboard.SetText(fctbMarlinCommunication.Text);
         }
 
         private void FrmShowForm_Load(object sender, EventArgs e)
         {
             PopulateGui();
-            fastColoredTextMarlinCommunication.DescriptionFile = "MarlinCommunication.xml";
+            fctbMarlinCommunication.DescriptionFile = "MarlinCommunication.xml";
             
             
           
@@ -102,5 +117,14 @@ namespace MarlinComunicationHelper
        
 
         private delegate void MarlinSyntaxTextBoxCallback(FastColoredTextBox marlinSyntaxTextBox, string text);
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            Communication.SendCommand(cmbBxCommand.Text);
+            
+            // Add command to commandlist
+            if (cmbBxCommand.Items.Contains(cmbBxCommand.Text)) return;
+            cmbBxCommand.Items.Add(cmbBxCommand.Text);
+        }
     }
 }

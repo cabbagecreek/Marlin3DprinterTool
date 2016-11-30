@@ -3,40 +3,150 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using MarlinEditor;
 using ZylSoft.Serial;
 
 namespace MarlinComunicationHelper
 {
+    /// <summary>
+    /// Class that do all communication thru ZylSerial 
+    /// </summary>
     public sealed class MarlinCommunication
     {
-
-
-
-
-
 
         private readonly SerialPort _serialPort = new SerialPort();
         private List<string> _commands;
         private string _dataReceived;
-        private FrmMarlinEditor _marlinEditor;
         private FrmShowCommunication _showcom;
 
+        #region Properties
 
+        /// <summary>
+        /// Used to communicate the ongoing feature. 
+        /// Use done when the feature is finished
+        /// </summary>
         public enum Feature
         {
+            /// <summary>
+            /// Done = The feature is Done
+            /// </summary>
             Done = 0,
+            /// <summary>
+            /// The Feature is testing Endstops
+            /// </summary>
             EndStop = 1,
+            /// <summary>
+            /// Feature is trying to do a Bedlevel
+            /// </summary>
             Bedlevel = 3,
+            /// <summary>
+            /// Doing Surface Scan
+            /// </summary>
             SurfaceScan = 4,
+            /// <summary>
+            /// Process that do AutoBedLevel
+            /// </summary>
             AutoBedLevel = 7,
+            /// <summary>
+            /// Learning where the FW do the MBL points
+            /// </summary>
             GetMeshBedPoints = 10,
+            /// <summary>
+            /// Meassure the MBL points using the probe
+            /// </summary>
             MeassureMesh = 11,
+            /// <summary>
+            /// Do the process of Automatic MBL
+            /// </summary>
             AutomaticMeshBedLevel = 12,
-            ZprobeHeight = 13
+            /// <summary>
+            /// Calculating ZprobeHeight
+            /// </summary>
+            ZprobeHeight = 13,
+            /// <summary>
+            /// Search extra safety Lift of the probe
+            /// </summary>
+            SearchLift = 14
         }
+        
 
 
+        
+
+        /// <summary>
+        /// The ZprobeOffset that is found in M851
+        /// </summary>
+        public decimal ZprobeOffset { get; private set; }
+
+        /// <summary>
+        /// The Steps per Unit X that is found during INIT
+        /// </summary>
+        public string StepsPerUnitX { internal get; set; }
+
+        /// <summary>
+        /// The Steps per Unit Y that is found during INIT
+        /// </summary>
+        public string StepsPerUnitY { internal get; set; }
+
+        /// <summary>
+        /// The Steps per Unit Z that is found during INIT
+        /// </summary>
+        public string StepsPerUnitZ { internal get; set; }
+
+        /// <summary>
+        /// The Steps per Unit E that is found during INIT
+        /// </summary>
+        public string StepsPerUnitE { internal get; set; }
+
+        /// <summary>
+        /// The PidExtruder Kp that is found during INIT
+        /// </summary>
+        public string PidExtruderKp { internal get; set; }
+
+        /// <summary>
+        /// The PidExtruder Ki that is found during INIT
+        /// </summary>
+        public string PidExtruderKi { internal get; set; }
+
+        /// <summary>
+        /// The PidExtruder Kd that is found during INIT
+        /// </summary>
+        public string PidExtruderKd { internal get; set; }
+
+
+        /// <summary>
+        /// The PidBed Kp that is found during INIT
+        /// </summary>
+        public string PidBedKp { internal get; set; }
+
+        /// <summary>
+        /// The PidBed Ki that is found during INIT
+        /// </summary>
+        public string PidBedKi { internal get; set; }
+
+        /// <summary>
+        /// The PidBed Kd that is found during INIT
+        /// </summary>
+        public string PidBedKd { internal get; set; }
+
+        /// <summary>
+        /// The mean value of a M48
+        /// </summary>
+        public string ProbeM48MeanValue { get; internal set; }
+
+        /// <summary>
+        /// The feature that is processing
+        /// </summary>
+        public Feature Status { get; set; }
+
+        /// <summary>
+        /// The current position that are parsed from many GCODE
+        /// </summary>
+        public Position CurrentPosition { get; internal set; }
+
+        /// <summary>
+        /// The staus of all endstops
+        /// </summary>
+        public EndStop EndStopStatus { get; internal set; }
 
 
         /// <summary>
@@ -47,7 +157,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         ///     The Gcode without argument
         /// </summary>
-        public string Gcode { get; set; }
+        public string Gcode { internal get; set; }
 
         /// <summary>
         ///     Baudrate
@@ -59,10 +169,14 @@ namespace MarlinComunicationHelper
         /// </summary>
         public string Port
         {
-            get { return _serialPort.SerialCommPortToString(_serialPort.Port) ; }
+            get { return _serialPort.SerialCommPortToString(_serialPort.Port); }
             set { _serialPort.Port = SerialPort.StringToSerialCommPort(value); }
         }
 
+
+        /// <summary>
+        /// All the proberesponces from a features ( many G30 )
+        /// </summary>
         public List<Position> ProbeResponceList { get; set; }
 
         /// <summary>
@@ -70,9 +184,14 @@ namespace MarlinComunicationHelper
         /// </summary>
         public bool IsPortOpen { get; private set; }
 
+
+
+        /// <summary>
+        /// Show a form of the communication and allow send commands
+        /// </summary>
         public FrmShowCommunication Showform
         {
-            private get { return _showcom; }
+            get { return _showcom; }
             set
             {
                 _showcom = value;
@@ -82,86 +201,17 @@ namespace MarlinComunicationHelper
             }
         }
 
-       
-
-        public void Connect()
-        {
-            
-            if (_serialPort.ConnectedTo.ToString() == "None") 
-            {
-                try
-                {
-                    IsPortOpen = false;
-                    _serialPort.Disconnected += _serialPort_Disconnected;
-                    _serialPort.Connected += _serialPort_Connected;
-                    
-
-
-                    _serialPort.CustomBaudRate = Convert.ToUInt32(BaudRate);
-                    _serialPort.BaudRate =  SerialBaudRate.Custom;
-
-
-                    // 8 batabits No parity 1 Stop Bit
-                    _serialPort.DataWidth = SerialDataWidth.Dw8Bits;
-                    _serialPort.ParityBits = SerialParityBits.None;
-                    _serialPort.StopBits = SerialStopBits.Sb1Bit;
-
-                    CurrentPosition = new Position(); 
-
-                    // Activate a true licence
-                    Configuration config = new Configuration();
-
-                    if (!string.IsNullOrEmpty(Configuration.Decrypt(config.LicenseKey)))
-                    {
-
-                        _serialPort.UnlockKey = "FA3450FEA2344897EFC34325BA391072";
-                    }
-
-                    _serialPort.Open();
-
-                    _serialPort.NewLine = "\n";
-                    _serialPort.AutoReceive = false;
-                    _serialPort.Open();
-
-                    _dataReceived = "";
-                    string rec = _serialPort.ReadLine(10);
-                    while (true)
-                    {
-                        DateTime lastreceived = _serialPort.LastTimeReceived;
-
-                        _dataReceived += rec + Environment.NewLine;
-
-                        TimeSpan timeDiff = DateTime.Now - lastreceived;
-                        if (timeDiff.Seconds >= 4) break;
-                        rec = _serialPort.ReadLine(4);
-                    }
-
-                    ParseInit();
-                    _serialPort.AutoReceive = true;
-                    _serialPort.Received += _serialPort_Received;
+        #endregion
 
 
 
 
-
-                }
-                catch (Exception serialOpenException)
-                {
-                    MessageBox.Show($"The serialport {_serialPort.Port} can´t be opend!\n\n" +
-                                    $"({serialOpenException.Message})"
-                        , @"Cant open the Serial port", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-
-
-
+        #region Data Is Received 
         private void _serialPort_Received(object sender, DataEventArgs e)
         {
             // Read all bytes in the buffer
             _dataReceived += SerialPort.AsciiByteArrayToString(e.Buffer);
-            
+
             if (Showform != null)
             {
                 _showcom.AddReceived = _dataReceived;
@@ -171,6 +221,9 @@ namespace MarlinComunicationHelper
             {
                 case "INIT":
                     ParseInit();
+                    break;
+                case "G28":
+                    ParseG28();
                     break;
                 case "G29":
                     ParseG29();
@@ -217,24 +270,20 @@ namespace MarlinComunicationHelper
             }
         }
 
+        #endregion
+
+
+
+        #region Parse Received Data
+
         private void ParseInit()
         {
-
-            
-            //TODO: _serialPort.SendAsciiStringLine()
-            //if (IsPortOpen == false) _serialPort.SendAsciiString("M114" + Environment.NewLine); // Send M114 to get a ok/n 
             IsPortOpen = true;
-
-            // Return if The _dataReceived not contains ok\n
-            //if (WaitForOkAndNewLineToBeReceived() == false) return;
-            //// Return if The _dataReceived not contains ok\n
-            //if (WaitForInitToBeDone() == false) return;
 
             // Create INIT responce Event
             var responce = new ResponceData(_dataReceived);
 
             ParseM851();
-
 
 
             OnInit(responce);
@@ -247,11 +296,24 @@ namespace MarlinComunicationHelper
             OnReadyForNextCommand(EventArgs.Empty);
         }
 
-        private void ParseM851()
+        private void ParseG28()
         {
-            string M851pattern = @"(?<=M851\sZ)[-|.|0-9]*";
-            Match M851match = Regex.Match(_dataReceived, M851pattern);
-            if (M851match.Success) ZprobeOffset = Convert.ToDecimal(M851match.Value.Replace('.', ','));
+            // Return if The _dataReceived not contains ok\n
+            //if (WaitForOkAndNewLineToBeReceived() == false) return;
+
+
+            // Get all responces
+            //var responces = GetAllResponces();
+
+            //TODO: Get the current position???
+
+            //Delete the responce from the received bytes
+            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
+
+            // ReadyForNextCommand          
+            OnReadyForNextCommand(EventArgs.Empty);
+
+
         }
 
 
@@ -266,21 +328,22 @@ namespace MarlinComunicationHelper
 
 
             // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:16000
-            foreach (string row in responces)
+            foreach (var row in responces)
             {
-                string positionPattern = @"X:[0-9]*\.[0-9]*\s*Y:[0-9]*\.[0-9]*\s*Z:[0-9]*\.[0-9]*\s*E:[0-9]*\.[0-9]*\s*Count\s*X:\s*";
-                Match positionMatch = Regex.Match(row, positionPattern);
+                var positionPattern =
+                    @"X:[0-9]*\.[0-9]*\s*Y:[0-9]*\.[0-9]*\s*Z:[0-9]*\.[0-9]*\s*E:[0-9]*\.[0-9]*\s*Count\s*X:\s*";
+                var positionMatch = Regex.Match(row, positionPattern);
                 if (positionMatch.Success)
                 {
-                    double x = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    double y = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    double z = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    ProbeResponceList.Add(new Position { X = x, Y = y, Z = z });
+                    var x =
+                        (double) Convert.ToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    var y =
+                        (double) Convert.ToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    var z =
+                        (double) Convert.ToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    ProbeResponceList.Add(new Position {X = x, Y = y, Z = z});
                 }
-
             }
-
-
 
 
             // Create G29 responce Event
@@ -288,9 +351,6 @@ namespace MarlinComunicationHelper
             eventG29Resonce.ResponsRowList.AddRange(responces);
 
             OnG29Responce(eventG29Resonce);
-
-            
-
 
 
             //Delete the responce from the received bytes
@@ -322,9 +382,15 @@ namespace MarlinComunicationHelper
                         // (?: Z:\s[-] *[0 - 9] *.[0 - 9] *\s.*X:)([0 - 9] *.[0 - 9] *)
 
 
-                        xstring = Regex.Match(responce, @"(?:X:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
-                        ystring = Regex.Match(responce, @"(?:Y:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
-                        zstring = Regex.Match(responce, @"(?:Z:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                        xstring =
+                            Regex.Match(responce, @"(?:X:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[
+                                1].Value;
+                        ystring =
+                            Regex.Match(responce, @"(?:Y:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[
+                                1].Value;
+                        zstring =
+                            Regex.Match(responce, @"(?:Z:\s)([-]*[0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[
+                                1].Value;
                     }
                     catch (Exception parsException)
                     {
@@ -358,80 +424,6 @@ namespace MarlinComunicationHelper
             OnReadyForNextCommand(EventArgs.Empty);
         }
 
-        
-        /// <summary>
-        /// Add the the probeoffset to the position
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns>add the probe offset to the position</returns>
-        private Position AddProbeOffset(Position position)
-        {
-            Configuration configuration = new Configuration();
-            // to the left of the nozzle.
-            // to the right of the nozzle.
-            if (configuration.ZprobeXoffset == @"to the left of the nozzle.")
-            {
-                position.X = position.X + Convert.ToDouble(configuration.ZprobeXoffsetValue);
-            }
-            else
-            {
-                position.X = position.X - Convert.ToDouble(configuration.ZprobeXoffsetValue);
-            }
-
-
-
-            // behind the nozzle
-            // in front of the nozzle
-            if (configuration.ZprobeYoffset == @"in front of the nozzle")
-            {
-                position.Y = position.Y + Convert.ToDouble(configuration.ZprobeYoffsetValue);
-            }
-            else
-            {
-                position.Y = position.Y - Convert.ToDouble(configuration.ZprobeYoffsetValue);
-            }
-
-            return position;
-        }
-
-        /// <summary>
-        /// Add the the probeoffset to the position
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns>add the probe offset to the position</returns>
-        private Position DeleteProbeOffset(Position position)
-        {
-            Configuration configuration = new Configuration();
-            // to the left of the nozzle.
-            // to the right of the nozzle.
-            if (configuration.ZprobeXoffset == @"to the left of the nozzle.")
-            {
-                position.X = position.X - Convert.ToDouble(configuration.ZprobeXoffsetValue);
-            }
-            else
-            {
-                position.X = position.X + Convert.ToDouble(configuration.ZprobeXoffsetValue);
-            }
-
-
-
-            // behind the nozzle
-            // in front of the nozzle
-            if (configuration.ZprobeYoffset == @"in front of the nozzle")
-            {
-                position.Y = position.Y - Convert.ToDouble(configuration.ZprobeYoffsetValue);
-            }
-            else
-            {
-                position.Y = position.Y + Convert.ToDouble(configuration.ZprobeYoffsetValue);
-            }
-
-            return position;
-        }
-
-
-
-
         private void ParseM48()
         {
             // Return if The _dataReceived not contains ok\n
@@ -440,6 +432,38 @@ namespace MarlinComunicationHelper
             // Get all responces
             var responces = GetAllResponces();
 
+
+            //ok
+            //ok
+            //ok
+            //M48 Z - Probe Repeatability test.   Version 2.00
+            //Full support at: http://3dprintboard.com/forum.php
+            //Positioning probe for the test.
+            //1 of 4   z: 8.705000 mean: 8.705000   sigma: 0.000000
+            //2 of 4   z: 8.706875 mean: 8.705938   sigma: 0.000937
+            //3 of 4   z: 8.705313 mean: 8.705730   sigma: 0.000820
+            //4 of 4   z: 8.707813 mean: 8.706251   sigma: 0.001148
+            //Mean: 8.706251
+            //Standard Deviation: 0.001148
+            //            ok
+            //            echo:endstops hit:  Z:8.71
+            //            ok
+
+            // The M48 ends with a calculation of all probes test.
+            // The row begins with Mean: and then the calculated value 
+            // (?<=^Mean:\s*)([-,0-9]*\.[0-9]*)
+
+            try
+            {
+                var meanProbeValue =
+                    Regex.Match(_dataReceived, @"(?<=Mean:\s*)([-,0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
+                        .Value;
+                ProbeM48MeanValue = meanProbeValue;
+            }
+            catch (Exception parsException)
+            {
+                MessageBox.Show($"Error in parser of M48. Error: {parsException.Message}");
+            }
 
             // Create M48 responce Event
             var eventM48Resonce = new Responce(new List<string>());
@@ -453,7 +477,6 @@ namespace MarlinComunicationHelper
             // ReadyForNextCommand          
             OnReadyForNextCommand(EventArgs.Empty);
         }
-
 
         private void ParseM114()
         {
@@ -480,7 +503,6 @@ namespace MarlinComunicationHelper
                     CurrentPosition.Ystring = ystring;
                     CurrentPosition.Zstring = ystring;
                     OnM114GetCurrentPosition(currentPosition);
-
                 }
 
 
@@ -491,7 +513,6 @@ namespace MarlinComunicationHelper
             }
         }
 
-
         private void ParseM119()
         {
             // Return if The _dataReceived not contains ok\n
@@ -501,34 +522,20 @@ namespace MarlinComunicationHelper
             var responces = GetAllResponces();
 
 
-            var endstopstatus = new string[6];
+            
             foreach (var responce in responces)
             {
-                //TODO: Tabort
-                if (responce.Contains("x_min")) endstopstatus[0] = responce;
-                if (responce.Contains("x_max")) endstopstatus[1] = responce;
-                if (responce.Contains("y_min")) endstopstatus[2] = responce;
-                if (responce.Contains("y_max")) endstopstatus[3] = responce;
-                if (responce.Contains("z_min")) endstopstatus[4] = responce;
-                if (responce.Contains("z_max")) endstopstatus[5] = responce;
-                //TODO: !Tabort
-
                 if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
                 if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
                 if (responce.Contains("y_min")) EndStopStatus.Ymin = responce.ToLower().Contains("triggered");
-                if (responce.Contains("y_min")) EndStopStatus.Ymax = responce.ToLower().Contains("triggered");
+                if (responce.Contains("y_max")) EndStopStatus.Ymax = responce.ToLower().Contains("triggered");
                 if (responce.Contains("z_min")) EndStopStatus.Zmin = responce.ToLower().Contains("triggered");
-                if (responce.Contains("z_min")) EndStopStatus.Zmax = responce.ToLower().Contains("triggered");
-
-
-
+                if (responce.Contains("z_max")) EndStopStatus.Zmax = responce.ToLower().Contains("triggered");
             }
 
 
+            var eventEndstopStatusList = new EndstopStatus(EndStopStatus);
             
-
-            var eventEndstopStatusList = new EndstopStatusList(new List<string>());
-            eventEndstopStatusList.Data.AddRange(endstopstatus);
 
 
             OnM119EndStopStatus(eventEndstopStatusList);
@@ -585,7 +592,6 @@ namespace MarlinComunicationHelper
             var responceData = new ResponceData(_dataReceived);
             OnM500Responce(responceData);
 
-            
 
             OnReadyForNextCommand(EventArgs.Empty);
         }
@@ -600,39 +606,17 @@ namespace MarlinComunicationHelper
             var responceData = new ResponceData(_dataReceived);
 
             ParseM851();
-           
+
             OnM501Responce(responceData);
-            
+
             OnReadyForNextCommand(EventArgs.Empty);
         }
 
-        public decimal ZprobeOffset { get; set; }
-        public string StepsPerUnitX { get; set; }
-        public string StepsPerUnitY { get; set; }
-        public string StepsPerUnitZ { get; set; }
-        public string StepsPerUnitE { get; set; }
-        public string PidExtruderKp { get; set; }
-        public string PidExtruderKi { get; set; }
-        public string PidExtruderKd { get; set; }
-        public string PidBedKp { get; set; }
-        public string PidBedKi { get; set; }
-        public string PidBedKd { get; set; }
-
-        private void ParseTemperatures()
+        private void ParseM851()
         {
-            var pattern =
-                @"\sT:.[0-9]*.[0-9]*\s\/.[0-9]*.[0-9]*.\sB:.[0-9]*.[0-9]*.\s\/.[0-9]*.[0-9]*\s\@:.[0-9]*\sB\@:[0-9]*";
-
-            // Search for temperatures within _datareceived
-            foreach (Match m in Regex.Matches(_dataReceived, pattern))
-            {
-                var eventTemperatures = ParseTemperatures(m.Value);
-
-                OnTemperature(eventTemperatures);
-            }
-
-            //Remove temperatures from _dataReceived
-            _dataReceived = Regex.Replace(_dataReceived, pattern, "");
+            var m851Pattern = @"(?<=M851\sZ)[-|.|0-9]*";
+            var m851Match = Regex.Match(_dataReceived, m851Pattern);
+            if (m851Match.Success) ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
         }
 
         private void ParseDefault()
@@ -645,7 +629,6 @@ namespace MarlinComunicationHelper
 
             OnReadyForNextCommand(EventArgs.Empty);
         }
-
 
         private string[] GetAllResponces()
         {
@@ -667,20 +650,6 @@ namespace MarlinComunicationHelper
             {
                 return _dataReceived;
             }
-        }
-
-        private bool WaitForInitToBeDone()
-        {
-            // Remove: echo:busy: processing/n
-            while (_dataReceived.Contains("echo:busy: processing\n"))
-            {
-                _dataReceived = _dataReceived.Replace("echo:busy: processing\n", "");
-            }
-
-
-            //TODO: Find a better way to find the end of INIT
-            // Wait until INIT is not receiving any more bytes
-            return _dataReceived.Contains("M851");
         }
 
         private bool WaitForOkAndNewLineToBeReceived()
@@ -711,6 +680,29 @@ namespace MarlinComunicationHelper
             }
         }
 
+        #endregion
+
+
+        #region Parse Temperature / Event on Temperatures
+
+        private void ParseTemperatures()
+        {
+            var pattern =
+                @"\sT:.[0-9]*.[0-9]*\s\/.[0-9]*.[0-9]*.\sB:.[0-9]*.[0-9]*.\s\/.[0-9]*.[0-9]*\s\@:.[0-9]*\sB\@:[0-9]*";
+
+            // Search for temperatures within _datareceived
+            foreach (Match m in Regex.Matches(_dataReceived, pattern))
+            {
+                var eventTemperatures = ParseTemperatures(m.Value);
+
+                OnTemperature(eventTemperatures);
+            }
+
+            //Remove temperatures from _dataReceived
+            _dataReceived = Regex.Replace(_dataReceived, pattern, "");
+        }
+
+        
         private Temperatures ParseTemperatures(string temperatures)
         {
             //    // RECEIVED: ok T:195.2 / 195.0 B: 27.1 / 0.0 T0: 195.2 / 195.0 @:33 B@:0
@@ -774,6 +766,95 @@ namespace MarlinComunicationHelper
                 );
         }
 
+        /// <summary>
+        ///     Eventhandler for Tempertatures
+        /// </summary>
+        public event EventHandler<Temperatures> Temperatures;
+
+        private void OnTemperature(Temperatures temperatures)
+        {
+            var handler = Temperatures;
+            handler?.Invoke(this, temperatures);
+        }
+        #endregion
+
+        #region Connect / DisConnect Serialport
+
+
+        /// <summary>
+        /// Connect and get the INIT without events..
+        /// Timeout on first responce is 10s
+        /// The following has 4s (Test of SD is slow)
+        /// 
+        /// </summary>
+        public void Connect()
+        {
+            if (_serialPort.ConnectedTo.ToString() == "None")
+            {
+                try
+                {
+                    IsPortOpen = false;
+                    _serialPort.Disconnected += _serialPort_Disconnected;
+                    _serialPort.Connected += _serialPort_Connected;
+
+
+                    _serialPort.CustomBaudRate = Convert.ToUInt32(BaudRate);
+                    _serialPort.BaudRate = SerialBaudRate.Custom;
+
+
+                    // 8 batabits No parity 1 Stop Bit
+                    _serialPort.DataWidth = SerialDataWidth.Dw8Bits;
+                    _serialPort.ParityBits = SerialParityBits.None;
+                    _serialPort.StopBits = SerialStopBits.Sb1Bit;
+
+                    CurrentPosition = new Position();
+                    EndStopStatus = new EndStop();
+                    ProbeResponceList = new List<Position>();
+
+                    // Activate a true licence
+                    var config = new Configuration();
+
+                    if (!string.IsNullOrEmpty(Configuration.Decrypt(config.LicenseKey)))
+                    {
+                        _serialPort.UnlockKey = "FA3450FEA2344897EFC34325BA391072";
+                    }
+
+
+                    _serialPort.NewLine = "\n";
+                    _serialPort.AutoReceive = false;
+                    _serialPort.Open();
+
+                    _dataReceived = "";
+                    var rec = _serialPort.ReadLine(10); //TODO: Config of initial timeout
+                    while (true)
+                    {
+                        var lastreceived = _serialPort.LastTimeReceived;
+
+                        _dataReceived += rec + Environment.NewLine;
+
+                        var timeDiff = DateTime.Now - lastreceived;
+                        if (timeDiff.Seconds >= 4) break; //TODO: Config of timeout
+                        rec = _serialPort.ReadLine(4);
+                    }
+
+                    if (!_serialPort.IsConnected()) return;
+                    ParseInit();
+                    _serialPort.AutoReceive = true;
+                    _serialPort.Received += _serialPort_Received;
+                }
+                catch (Exception serialOpenException)
+                {
+                    MessageBox.Show($"The serialport {_serialPort.Port} can´t be opend!\n\n" +
+                                    $"({serialOpenException.Message})"
+                        , @"Cant open the Serial port", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Close the Comport and wait for it to be done
+        /// </summary>
         public void DisConnect()
         {
             if (IsPortOpen)
@@ -797,7 +878,6 @@ namespace MarlinComunicationHelper
 
         private void _serialPort_Connected(object sender, ConnectionEventArgs e)
         {
-            
             Gcode = "INIT";
 
             _serialPort.ClearInputBuffer();
@@ -807,21 +887,35 @@ namespace MarlinComunicationHelper
         }
 
 
+        /// <summary>
+        /// Get the existing Comports
+        /// </summary>
+        /// <returns></returns>
         public string[] GetExistingSerialPorts()
         {
             return SerialPort.GetExistingCommPortNames();
         }
 
+
+        /// <summary>
+        /// Clear the communication
+        /// </summary>
         public void ClearCommunication()
         {
             if (IsPortOpen)
             {
                 _serialPort.ClearInputBuffer();
                 _serialPort.ClearOutputBuffer();
-               
             }
-
         }
+        #endregion
+
+        #region SendCommand
+
+        /// <summary>
+        /// Send a single GCODE. Check for each command if Kill signal is received
+        /// </summary>
+        /// <param name="command"></param>
         public void SendCommand(string command)
         {
             if (IsPortOpen)
@@ -845,6 +939,10 @@ namespace MarlinComunicationHelper
             }
         }
 
+        /// <summary>
+        /// Send a list of commands . Each command uses SendCommand with the single GCODE
+        /// </summary>
+        /// <param name="commands"></param>
         public void SendCommand(List<string> commands)
         {
             _commands = commands;
@@ -853,6 +951,7 @@ namespace MarlinComunicationHelper
             _commands.RemoveAt(0);
             SendCommand(firstCommand);
         }
+        #endregion
 
 
         private double CalculateExtrusionSteps(int extrude, double oldSteps, int meassuredUsedFilament)
@@ -885,23 +984,12 @@ namespace MarlinComunicationHelper
             SendCommand(commands);
         }
 
-        #region Temperatures
-
-        /// <summary>
-        ///     Eventhandler for Tempertatures
-        /// </summary>
-        public event EventHandler<Temperatures> Temperatures;
-
-        private void OnTemperature(Temperatures temperatures)
-        {
-            var handler = Temperatures;
-            handler?.Invoke(this, temperatures);
-        }
-
-        #endregion
+        
 
         #region Connected
-
+        /// <summary>
+        /// Event when the ZylSerial is connected
+        /// </summary>
         public event EventHandler Connected;
 
         private void OnConnected(ConnectionEventArgs e)
@@ -910,6 +998,10 @@ namespace MarlinComunicationHelper
             handler?.Invoke(this, e);
         }
 
+
+        /// <summary>
+        /// Event when ZylSerial is disConnected
+        /// </summary>
         public event EventHandler DisConnected;
 
         private void OnDisConnect(ConnectionEventArgs e)
@@ -984,14 +1076,16 @@ namespace MarlinComunicationHelper
 
         /// <summary>
         ///     Eventhandler for M119 EndstopStatus
-        /// </summary> TODO: EndstopStatusList -> EndstopStatus
-        public event EventHandler<EndstopStatusList> M119EndStopStatus;
+        /// </summary>
+        /// TODO: EndstopStatusList -> EndstopStatus
+        public event EventHandler<EndstopStatus> M119EndStopStatus;
 
         /// <summary>
         ///     Report result of M119 EndstopStatus
         /// </summary>
-        /// <param name="endstopStatusList"></param> TODO: EndstopStatusList -> EndstopStatus
-        private void OnM119EndStopStatus(EndstopStatusList endstopStatusList)
+        /// <param name="endstopStatusList"></param>
+        /// TODO: EndstopStatusList -> EndstopStatus
+        private void OnM119EndStopStatus(EndstopStatus endstopStatusList)
         {
             var handler = M119EndStopStatus;
             handler?.Invoke(this, endstopStatusList);
@@ -1002,7 +1096,7 @@ namespace MarlinComunicationHelper
         #region M301Responce
 
         /// <summary>
-        ///     Eventhandler for M119 EndstopStatus
+        ///     Eventhandler for M301
         /// </summary>
         public event EventHandler<ResponceData> M301Responce;
 
@@ -1032,7 +1126,7 @@ namespace MarlinComunicationHelper
         #region M304Responce
 
         /// <summary>
-        ///     Eventhandler for M119 EndstopStatus
+        ///     Eventhandler for M304
         /// </summary>
         public event EventHandler<ResponceData> M304Responce;
 
@@ -1047,7 +1141,7 @@ namespace MarlinComunicationHelper
         #region M500Responce
 
         /// <summary>
-        ///     Eventhandler for M119 EndstopStatus
+        ///     Eventhandler for M500
         /// </summary>
         public event EventHandler<ResponceData> M500Responce;
 
@@ -1062,7 +1156,7 @@ namespace MarlinComunicationHelper
         #region M501Responce
 
         /// <summary>
-        ///     Eventhandler for M119 EndstopStatus
+        ///     Eventhandler for M501
         /// </summary>
         public event EventHandler<ResponceData> M501Responce;
 
@@ -1108,38 +1202,71 @@ namespace MarlinComunicationHelper
         }
 
         #endregion
-
-        
-        
-
-        public List<Position> MeshPoints { get; set; }
-        public Feature Status { get; set; }
-        public Position CurrentPosition { get; set; }
-        public EndStop EndStopStatus { get; set; }
-
-        public void G30()
-        {
-            
-        }
     }
 
 
-   
-
+    #region EndStop/EndstopStatus
     /// <summary>
     ///     Endstop Argument
     /// </summary>
-    public class EndstopStatusList : EventArgs
+    public class EndstopStatus : EventArgs
     {
-        public EndstopStatusList(List<string> data)
+        /// <summary>
+        /// Endstop Status
+        /// </summary>
+        /// <param name="endstop"></param>
+        public EndstopStatus(EndStop endstop)
         {
-            Data = data;
+            Status = endstop;
         }
 
-        public List<string> Data { get; }
+        /// <summary>
+        /// The status for all endstops
+        /// </summary>
+        private EndStop Status { get; }
     }
 
+    /// <summary>
+    /// Endstop with the status of all endstops
+    /// </summary>
+    public class EndStop
+    {
+        /// <summary>
+        /// status for Xmin
+        /// </summary>
+        public bool Xmin { get; set; }
 
+        /// <summary>
+        /// status for Xmax
+        /// </summary>
+        public bool Xmax { get; set; }
+
+        /// <summary>
+        /// status for Ymin
+        /// </summary>
+        public bool Ymin { get; set; }
+
+        /// <summary>
+        /// status for Ymax
+        /// </summary>
+        public bool Ymax { get; set; }
+
+        /// <summary>
+        /// status for Zmin
+        /// </summary>
+        public bool Zmin { get; set; }
+
+        /// <summary>
+        /// status for Zmax
+        /// </summary>
+        public bool Zmax { get; set; }
+
+
+
+    }
+    #endregion
+    
+    #region Temperature
     /// <summary>
     ///     Temperature
     /// </summary>
@@ -1164,8 +1291,9 @@ namespace MarlinComunicationHelper
         public double Extruder2 { get; }
         public double SetExtruder2 { get; }
     }
-
-
+    #endregion
+    
+    #region ResponceData / generic responce
     public class ResponceData : EventArgs
     {
         public ResponceData(string data)
@@ -1187,7 +1315,9 @@ namespace MarlinComunicationHelper
         public List<string> ResponsRowList { get; }
     }
 
+    #endregion
 
+    #region Current Position
     public class CurrentPosition : EventArgs
     {
         public CurrentPosition(string xposition, string yposition, string zposition)
@@ -1202,4 +1332,5 @@ namespace MarlinComunicationHelper
         public double Ydouble { get; }
         public double Zdouble { get; }
     }
+    #endregion
 }

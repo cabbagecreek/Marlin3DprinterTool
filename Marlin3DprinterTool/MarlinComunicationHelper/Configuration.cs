@@ -725,6 +725,26 @@ namespace MarlinComunicationHelper
             return meshPoints;
         }
 
+        public List<Position> GetTrueMeshpoints()
+        {
+            List<Position> meshPoints = new List<Position>();
+            var xml = new XmlDocument();
+            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+            XmlNodeList meshPointXmlNodeList = xml.SelectNodes("/configuration/TrueMeshPoints/MeshPoint");
+            foreach (XmlNode meshpoint in meshPointXmlNodeList)
+            {
+                double x = Convert.ToDouble(meshpoint.Attributes["X"].Value.Replace('.', ','));
+                double y = Convert.ToDouble(meshpoint.Attributes["Y"].Value.Replace('.', ','));
+                double z = Convert.ToDouble(meshpoint.Attributes["Z"].Value.Replace('.', ','));
+
+                meshPoints.Add(new Position { X = x, Y = y, Z = z });
+            }
+
+
+            return meshPoints;
+        }
+
         public void SetMeassuredMeshpoint(double x, double y, double z)
         {
             var xml = new XmlDocument();
@@ -852,17 +872,6 @@ namespace MarlinComunicationHelper
     }
 
 
-    public class EndStop
-    {
-        public bool Xmin { get; set; }
-        public bool Xmax { get; set; }
-        public bool Ymin { get; set; }
-        public bool Ymax { get; set; }
-        public bool Zmin { get; set; }
-        public bool Zmax { get; set; }
-
-
-
-    }
+    
 
 }
