@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Marlin3DprinterToolStlThumbnail</name>
+    </assembly>
+    <members>
+        <member name="T:Marlin3DprinterToolStlThumbnail.Marlin3DprinterToolStlThumbnailClass">
+            <summary>
+            Derived StlViewerThumbnailHandlerClass from SharpThumbnailHandler  (Nuget)
+            
+            
+            </summary>
+            ComVisible attribute to class. This because our class is a COM server and must be visible to other code trying to use it. 
+            Associate our extension with some the types of shell items we want to use it for. This is done with the COMServerAssociation attribute
+        </member>
+        <member name="M:Marlin3DprinterToolStlThumbnail.Marlin3DprinterToolStlThumbnailClass.GetThumbnailImage(System.UInt32)">
+            <summary>
+            Creates a thumbnail for a 3D object (.STL)
+            
+            The Stlfile is available in the SelectedItemStream property. 
+            
+            </summary>
+            <param name="width">With of the bitmap thats needs to be created. (Height is equal. The thumbnail cannot be higher than it is wide. )</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

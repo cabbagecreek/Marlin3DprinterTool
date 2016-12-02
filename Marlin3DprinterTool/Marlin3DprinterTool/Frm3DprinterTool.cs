@@ -52,7 +52,7 @@ namespace Marlin3DprinterTool
         /// <summary>
         ///     All deligates, Callback and Invoke is in separate class
         /// </summary>
-        private DelegateAndInvoke DeligateAndInvoke { get; }
+        private DelegateAndInvoke DeligateAndInvoke { set; get; }
 
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
@@ -149,9 +149,13 @@ namespace Marlin3DprinterTool
                     break;
 
                 case 1:
+                    //TODO:
+                    _com.Status = MarlinCommunication.Feature.Done;
 
                     break;
                 case 2:
+                    //TODO:
+                    _com.Status = MarlinCommunication.Feature.Done;
 
                     break;
                 case 3:
@@ -184,7 +188,7 @@ namespace Marlin3DprinterTool
         }
 
 
-        private void _com_EndStopStatus(object sender, EndstopStatusList endstopStatus)
+        private void _com_EndStopStatus(object sender, EndstopStatus endstopStatus)
         {
             ledXmin.On = _com.EndStopStatus.Xmin;
             ledXmax.On = _com.EndStopStatus.Xmax;
@@ -192,181 +196,11 @@ namespace Marlin3DprinterTool
             ledYmax.On = _com.EndStopStatus.Ymax;
             ledZmin.On = _com.EndStopStatus.Zmin;
             ledZmax.On = _com.EndStopStatus.Zmax;
-
-
-            //if (endstopStatus.Data[0] != null)
-            //    ledXmin.On = endstopStatus.Data[0].ToLower().Contains("triggered");
-            //if (endstopStatus.Data[1] != null)
-            //    ledXmax.On = endstopStatus.Data[1].ToLower().Contains("triggered");
-            //if (endstopStatus.Data[2] != null)
-            //    ledYmin.On = endstopStatus.Data[2].ToLower().Contains("triggered");
-            //if (endstopStatus.Data[3] != null)
-            //    ledYmax.On = endstopStatus.Data[3].ToLower().Contains("triggered");
-            //if (endstopStatus.Data[4] != null)
-            //    ledZmin.On = endstopStatus.Data[4].ToLower().Contains("triggered");
-            //if (endstopStatus.Data[5] != null)
-            //    ledZmax.On = endstopStatus.Data[5].ToLower().Contains("triggered");
-
-            //TODO: _com.status = Endstop
-            //var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            
             if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
-        #region
-
-        // TODO: ta bort
-        //private void ValidateConfig()
-        //{
-        //var config = new Configuration();
-
-
-        //Position position = config.UpperLeftCorner;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveUpperLeftCorner.BackColor = Color.Red;
-        //        btnMoveUpperLeftCorner.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveUpperLeftCorner.BackColor = Color.Green;
-        //        btnMoveUpperLeftCorner.Enabled = true;
-        //    }
-        //}
-
-        //position = config.UpperRightCorner;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveUpperRightCorner.BackColor = Color.Red;
-        //        btnMoveUpperRightCorner.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveUpperRightCorner.BackColor = Color.Green;
-        //        btnMoveUpperRightCorner.Enabled = true;
-        //    }
-        //}
-
-        //position = config.LowerRightCorner;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveLowerRightCorner.BackColor = Color.Red;
-        //        btnMoveLowerRightCorner.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveLowerRightCorner.BackColor = Color.Green;
-        //        btnMoveLowerRightCorner.Enabled = true;
-        //    }
-        //}
-
-        //position = config.LowerLeftCorner;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveLowerLeftCorner.BackColor = Color.Red;
-        //        btnMoveLowerLeftCorner.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveLowerLeftCorner.BackColor = Color.Green;
-        //        btnMoveLowerLeftCorner.Enabled = true;
-        //    }
-        //}
-
-        //position = config.UpperLeftAdjuster;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveUpperLeftAdjuster.BackColor = Color.Red;
-        //        btnMoveUpperLeftAdjuster.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveUpperLeftAdjuster.BackColor = Color.Green;
-        //        btnMoveUpperLeftAdjuster.Enabled = true;
-        //    }
-        //}
-
-        //position = config.UpperRightAdjuster;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveUpperRightAdjuster.BackColor = Color.Red;
-        //        btnMoveUpperRightAdjuster.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveUpperRightAdjuster.BackColor = Color.Green;
-        //        btnMoveUpperRightAdjuster.Enabled = true;
-        //    }
-        //}
-        //position = config.LowerRightAdjuster;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveLowerRightAdjuster.BackColor = Color.Red;
-        //        btnMoveLowerRightAdjuster.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveLowerRightAdjuster.BackColor = Color.Green;
-        //        btnMoveLowerRightAdjuster.Enabled = true;
-        //    }
-        //}
-
-        //position = config.LowerLeftAdjuster;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveLowerLeftAdjuster.BackColor = Color.Red;
-        //        btnMoveLowerLeftAdjuster.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveLowerLeftAdjuster.BackColor = Color.Green;
-        //        btnMoveLowerLeftAdjuster.Enabled = true;
-        //    }
-        //}
-
-        //position = config.SafeHome;
-        //if (position != null)
-        //{
-        //    if (position.X > 9000 && position.Y > 9000)
-        //    {
-        //        btnSaveSafeHome.BackColor = Color.Red;
-        //        btnMoveSafeHome.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnSaveSafeHome.BackColor = Color.Green;
-        //        btnMoveSafeHome.Enabled = true;
-        //    }
-        //}
-
-        //if (chkListBxAdjustment.CheckedItems.Count != 0)
-        //{
-        //    btnSaveAdjustment.BackColor = Color.Green;
-        //    chkListBxAdjustment.BackColor = Color.Green;
-        //}
-        //else
-        //{
-        //    btnSaveAdjustment.BackColor = Color.Red;
-        //    chkListBxAdjustment.BackColor = Color.Red;
-        //}
-        //}
-
-        #endregion
+        
 
         private void btnHomeZ_Click(object sender, EventArgs e)
         {
@@ -667,7 +501,9 @@ namespace Marlin3DprinterTool
 
         private void btnShowCommunication_Click_2(object sender, EventArgs e)
         {
+
             _com.Showform = FrmShowCommunication.InstanceFrmShowForm;
+            _com.Showform.Communication = _com;
         }
 
 
@@ -681,7 +517,7 @@ namespace Marlin3DprinterTool
             verticalJogControlZprobeHeight.VisibleZero = true;
             verticalJogControlZprobeHeight.Visible = false;
 
-            kompassControllConfigBed.Visible = true;
+            txtBxProbeLift.Visible = true;
             btnHomeX.Visible = true;
             btnHomeY.Visible = true;
             grpBxBed.Visible = true;
@@ -977,7 +813,7 @@ namespace Marlin3DprinterTool
 
         private void btnStartZprobeHeight_Click(object sender, EventArgs e)
         {
-            _com.Status = MarlinCommunication.Feature.EndStop;
+            _com.Status = MarlinCommunication.Feature.ZprobeHeight;
             txtBxJogControlZprobeHeightHelp.Visible = false;
             verticalJogControlZprobeHeight.Visible = false;
             btnZprobeHeightNext.Visible = false;
@@ -985,7 +821,7 @@ namespace Marlin3DprinterTool
             txtBxCalculatedZProbeOffset.Visible = false;
             btnZpromeEepromUpdate.Visible = false;
 
-            kompassControllConfigBed.Visible = false;
+            txtBxProbeLift.Visible = false;
             btnHomeX.Visible = false;
             btnHomeY.Visible = false;
             grpBxBed.Visible = false;
@@ -1010,11 +846,23 @@ namespace Marlin3DprinterTool
                 case DialogResult.Cancel:
                     return;
                 case DialogResult.OK:
-                    var commands = new List<string> {"M851 Z0","G28", "M114"};
+                    var commands = new List<string> {"G28", "M114"};
                     _com.SendCommand(commands);
                     break;
             }
             if (result == DialogResult.Cancel) return;
+
+
+            _com.G30();
+
+            // Set the Z position to Zero
+
+            _com.SendCommand("");vxvcbvbvcbv
+
+            // SAVE the position of the probe!!
+
+
+
 
 
             verticalJogControlZprobeHeight.BackColor = Color.Green;
@@ -1323,7 +1171,7 @@ namespace Marlin3DprinterTool
             DeligateAndInvoke.DelegateVisible(grpBxNavigation, true);
 
             //// Assign Marlincommunication
-            DeligateAndInvoke.DelegateKompassControll(kompassControllConfigBed, _com);
+            DeligateAndInvoke.DelegateKompassControll(txtBxProbeLift, _com);
             DeligateAndInvoke.DelegateVerticalJogControl(verticalJogControlZprobeHeight, _com);
 
 
@@ -1605,7 +1453,7 @@ namespace Marlin3DprinterTool
             grpBxNavigation.Visible = false;
 
             verticalJogControlZprobeHeight.MarlinCommunication = null;
-            kompassControllConfigBed.MarlinCommunication = null;
+            txtBxProbeLift.MarlinCommunication = null;
 
             // Show temperature Chart
             chartTemperature.Visible = true;
@@ -1659,24 +1507,13 @@ namespace Marlin3DprinterTool
 
         private void _com_M48ProbeStatus(object sender, Responce responce)
         {
-            //ok
-            //ok
-            //ok
-            //M48 Z - Probe Repeatability test.   Version 2.00
-            //Full support at: http://3dprintboard.com/forum.php
-            //Positioning probe for the test.
-            //1 of 4   z: 8.705000 mean: 8.705000   sigma: 0.000000
-            //2 of 4   z: 8.706875 mean: 8.705938   sigma: 0.000937
-            //3 of 4   z: 8.705313 mean: 8.705730   sigma: 0.000820
-            //4 of 4   z: 8.707813 mean: 8.706251   sigma: 0.001148
-            //Mean: 8.706251
-            //Standard Deviation: 0.001148
-            //            ok
-            //            echo:endstops hit:  Z:8.71
-            //            ok
-
-
             
+            
+           
+
+
+
+
         }
 
         #endregion
@@ -2718,18 +2555,7 @@ namespace Marlin3DprinterTool
                         Regex.Match(line, @"(?:Y)([-]*[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                 }
 
-                // G29 S3 X1 Y1 Z13.85001
-                linePattern = @"G29\s*S3\s*X[0-9]\s*Y[0-9]\s*Z[0-9]*\.[0-9]*";
-                rowMatch = Regex.Match(line, linePattern);
-                if (rowMatch.Success)
-                {
-                    string x = Regex.Match(line, @"(?:X)([0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
-                    string y = Regex.Match(line, @"(?:Y)([0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
-                    string z = Regex.Match(line, @"(?:Z)([0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
-
-
-                    _configuration.SetInitMeshpoint(Convert.ToInt16( x), Convert.ToInt16( y), Convert.ToDouble( z.Replace('.',',')));
-                }
+                
 
 
             }
@@ -3045,57 +2871,31 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void btnAutomaticMeshBedLevel_Click(object sender, EventArgs e)
+       
+
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            lblAutomaticMeshBedLevel.Text = "Requirement Firmware";
-            DialogResult result;
-            result = MessageBox.Show(@"Is the manual Mesh Bed Level enabled in firmware?",@"Firmware",MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 5;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement Manual MBL done (once)";
-            result = MessageBox.Show("Did the manual Mesh Bed Level  with \"paper-under-nozzle\" work?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 10;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement One print with MBL";
-            result = MessageBox.Show("Have you done a print with MBL ?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 15;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement Z-probe offset must be known";
-            result = MessageBox.Show("Have you configured the Z-PROBE_OFFSET using this tool?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 20;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement X/Y-probe offset must be known";
-            result = MessageBox.Show("Have you described the probe position in relation to the 1st nozzle?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 25;
 
 
-            UpdateZprobeOffset();
-
-
-
-            List<string> commands = new List<string>();
-            commands.Add("G28 Y");
-            commands.Add("G28 X");
-
-            _com.Status = MarlinCommunication.Feature.AutomaticMeshBedLevel;
-            _com.SendCommand(commands);
+            List<Position> trueMeshPoints =_configuration.GetTrueMeshpoints();
 
             
-        }
 
-        private void btnStart_Click(object sender, EventArgs e)
-        {
             List<string> commands = new List<string>();
 
-            commands.Add("G28");
+
+            foreach (Position position in trueMeshPoints)
+            {
+
+                
+                commands.Add($"G29 S3 X{position.X} Y{position.Y} Z{position.Zstring}");
+
+               
+            }
+            commands.Add("M500"); // save to eeprom
             _com.SendCommand(commands);
 
-            _com.G30();
 
         }
     }

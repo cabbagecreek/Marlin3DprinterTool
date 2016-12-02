@@ -315,6 +315,10 @@ namespace Marlin3DprinterTool
             this.btnUnInstallStlServer = new System.Windows.Forms.Button();
             this.btnInstallStlServer = new System.Windows.Forms.Button();
             this.tabPageParameters = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.btnM851 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.lblM851 = new System.Windows.Forms.Label();
             this.btnM501ReadEeprom = new System.Windows.Forms.Button();
             this.grpMeshBedLevel = new System.Windows.Forms.GroupBox();
             this.btnShowMeshInSurfaceChart = new System.Windows.Forms.Button();
@@ -386,13 +390,9 @@ namespace Marlin3DprinterTool
             this.txtBxStepsPerUnitX = new System.Windows.Forms.TextBox();
             this.lblStepsPerUnitX = new System.Windows.Forms.Label();
             this.fctbInit = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.tabPageMeshBedLevel = new System.Windows.Forms.TabPage();
-            this.lblAutomaticMeshBedLevel = new System.Windows.Forms.Label();
-            this.progressBarAutomaticMeshBedLevel = new System.Windows.Forms.ProgressBar();
-            this.btnAutomaticMeshBedLevel = new System.Windows.Forms.Button();
             this.grpBxNavigation = new System.Windows.Forms.GroupBox();
             this.btnRetractZprobe = new System.Windows.Forms.Button();
-            this.kompassControllConfigBed = new MarlinComunicationHelper.KompassControll();
+            this.txtBxProbeLift = new MarlinComunicationHelper.KompassControll();
             this.grpBxBed = new System.Windows.Forms.Button();
             this.btnHomeY = new System.Windows.Forms.Button();
             this.btnHomeX = new System.Windows.Forms.Button();
@@ -412,7 +412,6 @@ namespace Marlin3DprinterTool
             this.btnFirmware = new System.Windows.Forms.Button();
             this.btnPayPal = new System.Windows.Forms.Button();
             this.btnSetup = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -513,6 +512,7 @@ namespace Marlin3DprinterTool
             this.grpBxServe32.SuspendLayout();
             this.grpBxServe64.SuspendLayout();
             this.tabPageParameters.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.grpMeshBedLevel.SuspendLayout();
             this.grpPidBed.SuspendLayout();
             this.grpPidExtruder.SuspendLayout();
@@ -522,7 +522,6 @@ namespace Marlin3DprinterTool
             this.grpBxMaxFeedrate.SuspendLayout();
             this.grpBxStepsPerUnit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbInit)).BeginInit();
-            this.tabPageMeshBedLevel.SuspendLayout();
             this.grpBxNavigation.SuspendLayout();
             this.lblStepperDriverPulley.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
@@ -543,7 +542,6 @@ namespace Marlin3DprinterTool
             this.tabControl3DprinterTool.Controls.Add(this.tabPageCalculations);
             this.tabControl3DprinterTool.Controls.Add(this.tabPageStlViewer);
             this.tabControl3DprinterTool.Controls.Add(this.tabPageParameters);
-            this.tabControl3DprinterTool.Controls.Add(this.tabPageMeshBedLevel);
             this.tabControl3DprinterTool.Location = new System.Drawing.Point(14, 68);
             this.tabControl3DprinterTool.Multiline = true;
             this.tabControl3DprinterTool.Name = "tabControl3DprinterTool";
@@ -719,9 +717,9 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurationBed.Controls.Add(this.groupBox6);
             this.tabPageConfigurationBed.Controls.Add(this.grpPosition);
             this.tabPageConfigurationBed.Controls.Add(this.richTextBox2);
-            this.tabPageConfigurationBed.Location = new System.Drawing.Point(4, 40);
+            this.tabPageConfigurationBed.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfigurationBed.Name = "tabPageConfigurationBed";
-            this.tabPageConfigurationBed.Size = new System.Drawing.Size(808, 639);
+            this.tabPageConfigurationBed.Size = new System.Drawing.Size(808, 657);
             this.tabPageConfigurationBed.TabIndex = 4;
             this.tabPageConfigurationBed.Text = "Configuration Bed";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurationBed, "Navigate and save positions for other features to use");
@@ -1587,9 +1585,9 @@ namespace Marlin3DprinterTool
             this.tabPageBedLevel.Controls.Add(this.picBxUpperRightAdjuster);
             this.tabPageBedLevel.Controls.Add(this.picBxLowerRightAdjuster);
             this.tabPageBedLevel.Controls.Add(this.picBxLowerLeftAdjuster);
-            this.tabPageBedLevel.Location = new System.Drawing.Point(4, 40);
+            this.tabPageBedLevel.Location = new System.Drawing.Point(4, 22);
             this.tabPageBedLevel.Name = "tabPageBedLevel";
-            this.tabPageBedLevel.Size = new System.Drawing.Size(808, 639);
+            this.tabPageBedLevel.Size = new System.Drawing.Size(808, 657);
             this.tabPageBedLevel.TabIndex = 5;
             this.tabPageBedLevel.Text = "Bed Level";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageBedLevel, "Help for level the building surface");
@@ -1858,9 +1856,9 @@ namespace Marlin3DprinterTool
             this.tabPageScanSurface.Controls.Add(this.btnScanSurface);
             this.tabPageScanSurface.Controls.Add(this.numUpDownYpoints);
             this.tabPageScanSurface.Controls.Add(this.numUpDownXpoints);
-            this.tabPageScanSurface.Location = new System.Drawing.Point(4, 40);
+            this.tabPageScanSurface.Location = new System.Drawing.Point(4, 22);
             this.tabPageScanSurface.Name = "tabPageScanSurface";
-            this.tabPageScanSurface.Size = new System.Drawing.Size(808, 639);
+            this.tabPageScanSurface.Size = new System.Drawing.Size(808, 657);
             this.tabPageScanSurface.TabIndex = 9;
             this.tabPageScanSurface.Text = "Scan buildsurface";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageScanSurface, "Scan the building surface");
@@ -1996,9 +1994,9 @@ namespace Marlin3DprinterTool
             this.tabPagePID.Controls.Add(this.fctbPidResponce);
             this.tabPagePID.Controls.Add(this.grpBxHeatbedPID);
             this.tabPagePID.Controls.Add(this.grpBxExtruderPID);
-            this.tabPagePID.Location = new System.Drawing.Point(4, 40);
+            this.tabPagePID.Location = new System.Drawing.Point(4, 22);
             this.tabPagePID.Name = "tabPagePID";
-            this.tabPagePID.Size = new System.Drawing.Size(808, 639);
+            this.tabPagePID.Size = new System.Drawing.Size(808, 657);
             this.tabPagePID.TabIndex = 10;
             this.tabPagePID.Text = "PID";
             this.tabPagePID.UseVisualStyleBackColor = true;
@@ -2025,7 +2023,7 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbPidResponce.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.fctbPidResponce.IsReplaceMode = false;
-            this.fctbPidResponce.Location = new System.Drawing.Point(0, 393);
+            this.fctbPidResponce.Location = new System.Drawing.Point(0, 411);
             this.fctbPidResponce.Name = "fctbPidResponce";
             this.fctbPidResponce.Paddings = new System.Windows.Forms.Padding(0);
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
@@ -3850,6 +3848,7 @@ namespace Marlin3DprinterTool
             // 
             // tabPageParameters
             // 
+            this.tabPageParameters.Controls.Add(this.groupBox12);
             this.tabPageParameters.Controls.Add(this.btnM501ReadEeprom);
             this.tabPageParameters.Controls.Add(this.grpMeshBedLevel);
             this.tabPageParameters.Controls.Add(this.btnM500SaveEeprom);
@@ -3867,6 +3866,43 @@ namespace Marlin3DprinterTool
             this.tabPageParameters.TabIndex = 13;
             this.tabPageParameters.Text = "Parameters";
             this.tabPageParameters.UseVisualStyleBackColor = true;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.btnM851);
+            this.groupBox12.Controls.Add(this.textBox3);
+            this.groupBox12.Controls.Add(this.lblM851);
+            this.groupBox12.Location = new System.Drawing.Point(351, 355);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(93, 164);
+            this.groupBox12.TabIndex = 12;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Z-Probe";
+            // 
+            // btnM851
+            // 
+            this.btnM851.Location = new System.Drawing.Point(10, 129);
+            this.btnM851.Name = "btnM851";
+            this.btnM851.Size = new System.Drawing.Size(75, 23);
+            this.btnM851.TabIndex = 8;
+            this.btnM851.Text = "M851";
+            this.btnM851.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(47, 25);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(38, 20);
+            this.textBox3.TabIndex = 1;
+            // 
+            // lblM851
+            // 
+            this.lblM851.AutoSize = true;
+            this.lblM851.Location = new System.Drawing.Point(7, 28);
+            this.lblM851.Name = "lblM851";
+            this.lblM851.Size = new System.Drawing.Size(37, 13);
+            this.lblM851.TabIndex = 0;
+            this.lblM851.Text = "M851:";
             // 
             // btnM501ReadEeprom
             // 
@@ -4551,51 +4587,11 @@ namespace Marlin3DprinterTool
             this.fctbInit.Zoom = 100;
             this.fctbInit.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.fctbInit_TextChanged);
             // 
-            // tabPageMeshBedLevel
-            // 
-            this.tabPageMeshBedLevel.Controls.Add(this.btnStart);
-            this.tabPageMeshBedLevel.Controls.Add(this.lblAutomaticMeshBedLevel);
-            this.tabPageMeshBedLevel.Controls.Add(this.progressBarAutomaticMeshBedLevel);
-            this.tabPageMeshBedLevel.Controls.Add(this.btnAutomaticMeshBedLevel);
-            this.tabPageMeshBedLevel.Location = new System.Drawing.Point(4, 40);
-            this.tabPageMeshBedLevel.Name = "tabPageMeshBedLevel";
-            this.tabPageMeshBedLevel.Size = new System.Drawing.Size(808, 639);
-            this.tabPageMeshBedLevel.TabIndex = 14;
-            this.tabPageMeshBedLevel.Text = "Automatic MBL";
-            this.tabPageMeshBedLevel.UseVisualStyleBackColor = true;
-            // 
-            // lblAutomaticMeshBedLevel
-            // 
-            this.lblAutomaticMeshBedLevel.AutoSize = true;
-            this.lblAutomaticMeshBedLevel.Location = new System.Drawing.Point(149, 201);
-            this.lblAutomaticMeshBedLevel.Name = "lblAutomaticMeshBedLevel";
-            this.lblAutomaticMeshBedLevel.Size = new System.Drawing.Size(48, 13);
-            this.lblAutomaticMeshBedLevel.TabIndex = 16;
-            this.lblAutomaticMeshBedLevel.Text = "Progress";
-            // 
-            // progressBarAutomaticMeshBedLevel
-            // 
-            this.progressBarAutomaticMeshBedLevel.Location = new System.Drawing.Point(152, 217);
-            this.progressBarAutomaticMeshBedLevel.Name = "progressBarAutomaticMeshBedLevel";
-            this.progressBarAutomaticMeshBedLevel.Size = new System.Drawing.Size(263, 23);
-            this.progressBarAutomaticMeshBedLevel.TabIndex = 15;
-            // 
-            // btnAutomaticMeshBedLevel
-            // 
-            this.btnAutomaticMeshBedLevel.Enabled = false;
-            this.btnAutomaticMeshBedLevel.Location = new System.Drawing.Point(152, 33);
-            this.btnAutomaticMeshBedLevel.Name = "btnAutomaticMeshBedLevel";
-            this.btnAutomaticMeshBedLevel.Size = new System.Drawing.Size(263, 151);
-            this.btnAutomaticMeshBedLevel.TabIndex = 14;
-            this.btnAutomaticMeshBedLevel.Text = "Automatic Mesh Bed Level";
-            this.btnAutomaticMeshBedLevel.UseVisualStyleBackColor = true;
-            this.btnAutomaticMeshBedLevel.Click += new System.EventHandler(this.btnAutomaticMeshBedLevel_Click);
-            // 
             // grpBxNavigation
             // 
             this.grpBxNavigation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBxNavigation.Controls.Add(this.btnRetractZprobe);
-            this.grpBxNavigation.Controls.Add(this.kompassControllConfigBed);
+            this.grpBxNavigation.Controls.Add(this.txtBxProbeLift);
             this.grpBxNavigation.Controls.Add(this.grpBxBed);
             this.grpBxNavigation.Controls.Add(this.btnHomeY);
             this.grpBxNavigation.Controls.Add(this.btnHomeX);
@@ -4621,17 +4617,17 @@ namespace Marlin3DprinterTool
             this.btnRetractZprobe.UseVisualStyleBackColor = true;
             this.btnRetractZprobe.Click += new System.EventHandler(this.btnRetractZprobe_Click);
             // 
-            // kompassControllConfigBed
+            // txtBxProbeLift
             // 
-            this.kompassControllConfigBed.Location = new System.Drawing.Point(6, 15);
-            this.kompassControllConfigBed.MarlinCommunication = null;
-            this.kompassControllConfigBed.MaximumSize = new System.Drawing.Size(246, 246);
-            this.kompassControllConfigBed.MinimumSize = new System.Drawing.Size(246, 246);
-            this.kompassControllConfigBed.Name = "kompassControllConfigBed";
-            this.kompassControllConfigBed.SendCurrentPosition = true;
-            this.kompassControllConfigBed.Size = new System.Drawing.Size(246, 246);
-            this.kompassControllConfigBed.TabIndex = 4;
-            this.toolTip3DprinterTool.SetToolTip(this.kompassControllConfigBed, "Navigate the 3D printer in X and Y direction");
+            this.txtBxProbeLift.Location = new System.Drawing.Point(6, 15);
+            this.txtBxProbeLift.MarlinCommunication = null;
+            this.txtBxProbeLift.MaximumSize = new System.Drawing.Size(246, 246);
+            this.txtBxProbeLift.MinimumSize = new System.Drawing.Size(246, 246);
+            this.txtBxProbeLift.Name = "txtBxProbeLift";
+            this.txtBxProbeLift.SendCurrentPosition = true;
+            this.txtBxProbeLift.Size = new System.Drawing.Size(246, 246);
+            this.txtBxProbeLift.TabIndex = 4;
+            this.toolTip3DprinterTool.SetToolTip(this.txtBxProbeLift, "Navigate the 3D printer in X and Y direction");
             // 
             // grpBxBed
             // 
@@ -4898,16 +4894,6 @@ namespace Marlin3DprinterTool
             this.btnSetup.UseVisualStyleBackColor = true;
             this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
             // 
-            // btnStart
-            // 
-            this.btnStart.Location = new System.Drawing.Point(57, 338);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(158, 36);
-            this.btnStart.TabIndex = 17;
-            this.btnStart.Text = "button1";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
             // FrmMarlin3DprinterTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5064,6 +5050,8 @@ namespace Marlin3DprinterTool
             this.grpBxServe64.ResumeLayout(false);
             this.grpBxServe64.PerformLayout();
             this.tabPageParameters.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.grpMeshBedLevel.ResumeLayout(false);
             this.grpMeshBedLevel.PerformLayout();
             this.grpPidBed.ResumeLayout(false);
@@ -5081,8 +5069,6 @@ namespace Marlin3DprinterTool
             this.grpBxStepsPerUnit.ResumeLayout(false);
             this.grpBxStepsPerUnit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbInit)).EndInit();
-            this.tabPageMeshBedLevel.ResumeLayout(false);
-            this.tabPageMeshBedLevel.PerformLayout();
             this.grpBxNavigation.ResumeLayout(false);
             this.lblStepperDriverPulley.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
@@ -5216,7 +5202,7 @@ namespace Marlin3DprinterTool
         private RichTextBox richTextBox2;
         private RichTextBox richTextBox3;
         private VerticalJogControl verticalJogControlZprobeHeight;
-        private KompassControll kompassControllConfigBed;
+        private KompassControll txtBxProbeLift;
         private GroupBox groupBox5;
         private TextBox txtBxCurrentPositionYConfigBed;
         private Label lblCurrentPositionYConfigBed;
@@ -5449,7 +5435,6 @@ namespace Marlin3DprinterTool
         private Label lblZextraDistance;
         private TextBox txtBxZextraDistance;
         private TextBox txtBxZextraDistanceInstruct;
-        private TabPage tabPageMeshBedLevel;
         private GroupBox grpBxZprobeXoffset;
         private ComboBox cmbBxZprobeXoffset;
         private Label lblZprobeXoffsetmm;
@@ -5459,10 +5444,10 @@ namespace Marlin3DprinterTool
         private Label lblZprobeYoffset;
         private TextBox txtBxZprobeYoffset;
         private TextBox txtBxZprobeXoffset;
-        private Button btnAutomaticMeshBedLevel;
-        private Label lblAutomaticMeshBedLevel;
-        private ProgressBar progressBarAutomaticMeshBedLevel;
-        private Button btnStart;
+        private GroupBox groupBox12;
+        private Button btnM851;
+        private TextBox textBox3;
+        private Label lblM851;
     }
 }
 
