@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -1202,6 +1203,112 @@ namespace MarlinComunicationHelper
         }
 
         #endregion
+
+        #region Manually do the G30 command
+        /// <summary>
+        /// 
+        /// </summary>
+        public void G30()
+        {
+            // 
+            _serialPort.AutoReceive = false;
+            _serialPort.Received -= _serialPort_Received;
+
+            // G90 Absolute mode
+            // G91 Relative mode
+
+            List<string> lower04 = new List<string> { "G90", "G1 Z-0.4", "G91", "M119"};
+            List<string> lower02 = new List<string> { "G90", "G1 Z-0.2", "G91", "M119" };
+            List<string> lower01 = new List<string> { "G90", "G1 Z-0.1", "G91", "M119" };
+            List<string> rise04  = new List<string> { "G90", "G1 Z0.4", "G91", "M119" };
+            List<string> rise08  = new List<string> { "G90", "G1 Z0.8", "G91", "M119" };
+
+           
+            SendCommand(rise08); // Rise the probe 0.8 mm
+
+            // lower the probe in 0.4mm steps
+            while (!EndStopStatus.Zmin)
+            {
+                SendCommand(lower04);
+                _dataReceived = "";
+                var rec = _serialPort.ReadLine(10); //Time to lower the probe 0.4 mm
+                while (true)
+                {
+                    var lastreceived = _serialPort.LastTimeReceived;
+
+                    _dataReceived += rec + Environment.NewLine;
+
+                    var timeDiff = DateTime.Now - lastreceived;
+                    if (timeDiff.Seconds >= 4) break; //TODO: 
+                    rec = _serialPort.ReadLine(4);
+                    ParseM119();
+                }
+            }
+
+
+            SendCommand(rise04); // Rise the probe 0.4 mm
+
+            // lower the probe in 0.2mm steps
+            while (!EndStopStatus.Zmin)
+            {
+                SendCommand(lower02);
+                _dataReceived = "";
+                var rec = _serialPort.ReadLine(10); //Time to lower the probe 0.4 mm
+                while (true)
+                {
+                    var lastreceived = _serialPort.LastTimeReceived;
+
+                    _dataReceived += rec + Environment.NewLine;
+
+                    var timeDiff = DateTime.Now - lastreceived;
+                    if (timeDiff.Seconds >= 4) break; //TODO: 
+                    rec = _serialPort.ReadLine(4);
+                    ParseM119();
+                }
+            }
+
+            SendCommand(rise04); // Rise the probe 0.4 mm
+
+            // lower the probe in 0.1mm steps
+            while (!EndStopStatus.Zmin)
+            {
+                SendCommand(lower01);
+                _dataReceived = "";
+                var rec = _serialPort.ReadLine(10); //Time to lower the probe 0.4 mm
+                while (true)
+                {
+                    var lastreceived = _serialPort.LastTimeReceived;
+
+                    _dataReceived += rec + Environment.NewLine;
+
+                    var timeDiff = DateTime.Now - lastreceived;
+                    if (timeDiff.Seconds >= 4) break; //TODO: 
+                    rec = _serialPort.ReadLine(4);
+                    ParseM119();
+                }
+            }
+
+            _serialPort.AutoReceive = true;
+            _serialPort.Received += _serialPort_Received;
+
+            SendCommand("M114");
+        }
+
+        /// <summary>
+        /// Position the probe before Probing
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="rise"></param>
+        public void G30(int x, int y, int rise)
+        {
+            // Move to X and Y
+            List<string> commands = new List<string> { $"G1 X{x} Y{y}", "G90", $"G1 Z-{rise}", "G91", "M114" };
+            SendCommand(commands);
+
+        }
+        #endregion
+
     }
 
 

@@ -725,6 +725,11 @@ namespace MarlinComunicationHelper
             return meshPoints;
         }
 
+
+        /// <summary>
+        /// Get the stored "Reset" Meshpoint
+        /// </summary>
+        /// <returns></returns>
         public List<Position> GetTrueMeshpoints()
         {
             List<Position> meshPoints = new List<Position>();

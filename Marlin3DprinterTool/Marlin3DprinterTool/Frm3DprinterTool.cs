@@ -846,11 +846,23 @@ namespace Marlin3DprinterTool
                 case DialogResult.Cancel:
                     return;
                 case DialogResult.OK:
-                    var commands = new List<string> {"M851 Z0","G28", "M114"};
+                    var commands = new List<string> {"G28", "M114"};
                     _com.SendCommand(commands);
                     break;
             }
             if (result == DialogResult.Cancel) return;
+
+
+            _com.G30();
+
+            // Set the Z position to Zero
+
+            _com.SendCommand("");vxvcbvbvcbv
+
+            // SAVE the position of the probe!!
+
+
+
 
 
             verticalJogControlZprobeHeight.BackColor = Color.Green;
@@ -2859,48 +2871,7 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void btnAutomaticMeshBedLevel_Click(object sender, EventArgs e)
-        {
-            lblAutomaticMeshBedLevel.Text = "Requirement Firmware";
-            DialogResult result;
-            result = MessageBox.Show(@"Is the manual Mesh Bed Level enabled in firmware?",@"Firmware",MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 5;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement Manual MBL done (once)";
-            result = MessageBox.Show("Did the manual Mesh Bed Level  with \"paper-under-nozzle\" work?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 10;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement One print with MBL";
-            result = MessageBox.Show("Have you done a print with MBL ?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 15;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement Z-probe offset must be known";
-            result = MessageBox.Show("Have you configured the Z-PROBE_OFFSET using this tool?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 20;
-
-            lblAutomaticMeshBedLevel.Text = "Requirement X/Y-probe offset must be known";
-            result = MessageBox.Show("Have you described the probe position in relation to the 1st nozzle?", @"Firmware", MessageBoxButtons.YesNoCancel);
-            if (result == DialogResult.No || result == DialogResult.Cancel) return;
-            progressBarAutomaticMeshBedLevel.Value = 25;
-
-
-            UpdateZprobeOffset();
-
-
-
-            List<string> commands = new List<string>();
-            commands.Add("G28 Y");
-            commands.Add("G28 X");
-
-            _com.Status = MarlinCommunication.Feature.AutomaticMeshBedLevel;
-            _com.SendCommand(commands);
-
-            
-        }
+       
 
 
         private void button1_Click_1(object sender, EventArgs e)
