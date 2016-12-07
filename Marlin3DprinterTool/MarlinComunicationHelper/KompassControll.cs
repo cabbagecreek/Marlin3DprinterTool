@@ -4,15 +4,28 @@ using System.Windows.Forms;
 
 namespace MarlinComunicationHelper
 {
+    /// <summary>
+    /// User Control that shows a Marlin GCODE kompass for navigation
+    /// </summary>
     public partial class KompassControll : UserControl
     {
+        /// <summary>
+        /// Construktor
+        /// </summary>
         public KompassControll()
         {
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Get and set the Comminication used for the MarlinCommunicationHelper
+        /// </summary>
         public MarlinCommunication MarlinCommunication { get; set; }
 
+        /// <summary>
+        /// Bool if current position should be sent after each movement
+        /// </summary>
         public bool SendCurrentPosition { get; set; }
 
 

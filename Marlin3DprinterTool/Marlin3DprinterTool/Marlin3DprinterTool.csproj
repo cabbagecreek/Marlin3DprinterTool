@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>bin\Release\Marlin3DprinterTool.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Marlin3DprinterTool.ico</ApplicationIcon>
@@ -78,7 +78,7 @@
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <DocumentationFile>bin\x86\Release\Marlin3DprinterTool.XML</DocumentationFile>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -87,6 +87,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AGauge">
+      <HintPath>..\..\..\..\..\Desktop\Agauge\AGauge_Bin\AGauge.dll</HintPath>
+    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
@@ -219,6 +222,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+    <None Include="Resources\Work_in_progress.png" />
+    <None Include="Resources\dialGauge.jpg" />
     <None Include="Resources\Setting.png" />
     <None Include="Resources\traffic_light.png" />
   </ItemGroup>

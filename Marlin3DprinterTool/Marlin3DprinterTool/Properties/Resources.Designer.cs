@@ -93,6 +93,16 @@ namespace Marlin3DprinterTool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dialGauge {
+            get {
+                object obj = ResourceManager.GetObject("dialGauge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Donate {
             get {
                 object obj = ResourceManager.GetObject("Donate", resourceCulture);
@@ -126,6 +136,16 @@ namespace Marlin3DprinterTool.Properties {
         internal static System.Drawing.Bitmap Setting {
             get {
                 object obj = ResourceManager.GetObject("Setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Work_in_progress {
+            get {
+                object obj = ResourceManager.GetObject("Work_in_progress", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

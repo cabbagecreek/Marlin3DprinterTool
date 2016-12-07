@@ -5,22 +5,40 @@ using System.Windows.Forms;
 
 namespace MarlinComunicationHelper
 {
+    /// <summary>
+    /// User Control that shows vertical movement
+    /// Useage for Z and extruder movement
+    /// </summary>
     public partial class VerticalJogControl : UserControl
     {
         private bool _negativeButtonFirst;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public VerticalJogControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public MarlinCommunication MarlinCommunication { get; set; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public bool SendCurrentPosition { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ZeroPositionAfterEachMove { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool VisibleZero
         {
             get { return btnZero.Visible; }
@@ -31,7 +49,9 @@ namespace MarlinComunicationHelper
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Visible100Movement
         {
             get { return btnMinus100.Visible; }
@@ -42,6 +62,9 @@ namespace MarlinComunicationHelper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Visible10Movement
         {
             get { return btnMinus10.Visible; }
@@ -52,6 +75,9 @@ namespace MarlinComunicationHelper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool NegativeButtonsFirst
         {
             get { return _negativeButtonFirst; }
@@ -86,15 +112,23 @@ namespace MarlinComunicationHelper
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string StepperMotor { get; set; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string TextUnder
         {
             get { return lblUnder.Text; }
             set { lblUnder.Text = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string TextOver
         {
             get { return lblOver.Text; }

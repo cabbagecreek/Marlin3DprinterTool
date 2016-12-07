@@ -6,7 +6,7 @@
     <members>
         <member name="T:Marlin3DprinterTool.DelegateAndInvoke">
             <summary>
-                All delegates And Invokes thats needed because the cross-threding created by Asyncon Serial communication
+                All Delegates And Invokes thats needed because the cross-threding created by Asyncon Serial communication
             </summary>
         </member>
         <member name="F:Marlin3DprinterTool.DelegateAndInvoke._frm3DprinterTool">
@@ -133,9 +133,9 @@
         <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.#ctor">
             
         </member>
-        <member name="P:Marlin3DprinterTool.FrmMarlin3DprinterTool.DeligateAndInvoke">
+        <member name="P:Marlin3DprinterTool.FrmMarlin3DprinterTool.Delegate">
             <summary>
-                All deligates, Callback and Invoke is in separate class
+                All Delegates, Callback and Invoke is in separate class
             </summary>
         </member>
         <member name="F:Marlin3DprinterTool.FrmMarlin3DprinterTool.components">
@@ -267,6 +267,11 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.dialGauge">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
         <member name="P:Marlin3DprinterTool.Properties.Resources.Donate">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
@@ -283,6 +288,11 @@
             </summary>
         </member>
         <member name="P:Marlin3DprinterTool.Properties.Resources.Setting">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.Work_in_progress">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

@@ -9,7 +9,7 @@ using MarlinComunicationHelper;
 namespace Marlin3DprinterTool
 {
     /// <summary>
-    ///     All delegates And Invokes thats needed because the cross-threding created by Asyncon Serial communication
+    ///     All Delegates And Invokes thats needed because the cross-threding created by Asyncon Serial communication
     /// </summary>
     public class DelegateAndInvoke
     {
@@ -30,7 +30,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="control"></param>
         /// <param name="visible"></param>
-        public void DelegateVisible(Control control, bool visible)
+        public static void DelegateVisible(Control control, bool visible)
         {
             if (control.InvokeRequired)
             {
@@ -47,7 +47,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="kompass"></param>
         /// <param name="marlin"></param>
-        public void DelegateKompassControll(KompassControll kompass, MarlinCommunication marlin)
+        public static void DelegateKompassControll(KompassControll kompass, MarlinCommunication marlin)
         {
             if (kompass.InvokeRequired)
             {
@@ -66,7 +66,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="verticalJogControl"></param>
         /// <param name="marlin"></param>
-        public void DelegateVerticalJogControl(VerticalJogControl verticalJogControl, MarlinCommunication marlin)
+        public static void DelegateVerticalJogControl(VerticalJogControl verticalJogControl, MarlinCommunication marlin)
         {
             if (verticalJogControl.InvokeRequired)
             {
@@ -83,7 +83,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="control"></param>
         /// <param name="enabled"></param>
-        public void DelegateEnabled(Control control, bool enabled)
+        public static void DelegateEnabled(Control control, bool enabled)
         {
             if (control.InvokeRequired)
             {
@@ -100,7 +100,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="control"></param>
         /// <param name="image"></param>
-        public void DelegateBackgroundImage(Control control, Image image)
+        public static void DelegateBackgroundImage(Control control, Image image)
         {
             if (control.InvokeRequired)
             {
@@ -140,7 +140,7 @@ namespace Marlin3DprinterTool
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public int TabControl3DprinterToolSelectedIndex(TabControl tabControl)
+        public static int TabControl3DprinterToolSelectedIndex(TabControl tabControl)
         {
             if (tabControl.InvokeRequired)
             {
@@ -173,7 +173,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="control"></param>
         /// <param name="text"></param>
-        public void DelegateText(Control control, string text)
+        public static void DelegateText(Control control, string text)
         {
             if (control.InvokeRequired)
             {
@@ -190,7 +190,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="responce"></param>
-        public void MultiTextLines(TextBox textBox, List<string> responce)
+        public static void MultiTextLines(TextBox textBox, List<string> responce)
         {
             if (textBox.InvokeRequired)
             {
@@ -207,7 +207,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="fastColoredTextBox"></param>
         /// <param name="responces"></param>
-        public void FastColoredTextBox(FastColoredTextBox fastColoredTextBox, List<string> responces)
+        public static void FastColoredTextBox(FastColoredTextBox fastColoredTextBox, List<string> responces)
         {
             if (fastColoredTextBox.InvokeRequired)
             {
@@ -233,7 +233,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="fastColoredTextBox"></param>
         /// <param name="text"></param>
-        public void FastColoredTextBox(FastColoredTextBox fastColoredTextBox, string text)
+        public static void FastColoredTextBox(FastColoredTextBox fastColoredTextBox, string text)
         {
             if (fastColoredTextBox.InvokeRequired)
             {
@@ -257,7 +257,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="fastColoredTextBox"></param>
         /// <param name="row"></param>
-        public void ScrollTo(FastColoredTextBox fastColoredTextBox, int row)
+        public static void ScrollTo(FastColoredTextBox fastColoredTextBox, int row)
         {
             if (fastColoredTextBox.InvokeRequired)
             {
@@ -277,7 +277,7 @@ namespace Marlin3DprinterTool
         /// <param name="time"></param>
         /// <param name="extruderTemp"></param>
         /// <param name="setExtruderTemp"></param>
-        public void SetExtruderTemp(Chart chart, int time, int extruderTemp, int setExtruderTemp)
+        public static void SetExtruderTemp(Chart chart, int time, int extruderTemp, int setExtruderTemp)
         {
             if (chart.InvokeRequired)
             {
@@ -316,7 +316,7 @@ namespace Marlin3DprinterTool
         /// <param name="time"></param>
         /// <param name="bedTemp"></param>
         /// <param name="setBedTemp"></param>
-        public void SetBedTemp(Chart chart, int time, int bedTemp, int setBedTemp)
+        public static void SetBedTemp(Chart chart, int time, int bedTemp, int setBedTemp)
         {
             if (chart.InvokeRequired)
             {
@@ -354,7 +354,7 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="tabControl3DprinterTool"></param>
         /// <param name="tabPage"></param>
-        public void SelectTabcontrol(TabControl tabControl3DprinterTool, TabPage tabPage)
+        public static void SelectTabcontrol(TabControl tabControl3DprinterTool, TabPage tabPage)
         {
             if (tabControl3DprinterTool.InvokeRequired)
             {

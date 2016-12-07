@@ -121,10 +121,10 @@ namespace Marlin3DprinterToolStlThumbnail
                     exporter.Export(viewport, memStream);
 
                 }
-                catch (Exception treadException)
+                catch (Exception)
                 {
 
-                        
+                    //TODO: Empty Catch            
                 }
                             
                            

@@ -40,27 +40,29 @@ namespace Marlin3DprinterTool
         private MarlinCommunication _com = new MarlinCommunication();
         private double _fix;
 
+        private double _dockZprobePrecision = 0 ;
+        private bool _dockZprobeUpDown ;
 
         ///
         public FrmMarlin3DprinterTool()
         {
             InitializeComponent();
-            DeligateAndInvoke = new DelegateAndInvoke(this);
+            Delegate = new DelegateAndInvoke(this);
 
         }
 
         /// <summary>
-        ///     All deligates, Callback and Invoke is in separate class
+        ///     All Delegates, Callback and Invoke is in separate class
         /// </summary>
-        private DelegateAndInvoke DeligateAndInvoke { set; get; }
+        private DelegateAndInvoke Delegate { set; get; }
 
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
 #if DEBUG
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
+            DelegateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
 #else
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
+            Delegate.DisableTabs(tabControl3DprinterTool, false);
 #endif
 
             PopulateComboBoxes();
@@ -137,7 +139,7 @@ namespace Marlin3DprinterTool
         {
             
             //TODO:
-            var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            var selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
 
             UpdateServerStatus();
 
@@ -182,9 +184,10 @@ namespace Marlin3DprinterTool
             _currectPosition.Z = currentPosition.Zdouble;
 
             // allways with decimalpoints
-            DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, _currectPosition.Z.ToString(CultureInfo.InvariantCulture).Replace(',','.'));
-            DeligateAndInvoke.DelegateText(txtBxCurrentPositionXConfigBed, _currectPosition.X.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
-            DeligateAndInvoke.DelegateText(txtBxCurrentPositionYConfigBed, _currectPosition.Y.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+            //DelegateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, _currectPosition.Zstring); TODO: tabort
+            DelegateAndInvoke.DelegateText(txtBxCurrentPositionXConfigBed, _currectPosition.X.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+            DelegateAndInvoke.DelegateText(txtBxCurrentPositionYConfigBed, _currectPosition.Y.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+            DelegateAndInvoke.DelegateText(txtBxZprobePosition, _currectPosition.Zstring);
         }
 
 
@@ -507,38 +510,7 @@ namespace Marlin3DprinterTool
         }
 
 
-        private void btnZprobeHeightNext_Click(object sender, EventArgs e)
-        {
-
-            txtBxJogControlZprobeHeightHelp.Visible = false;
-            btnZprobeHeightNext.Visible = false;
-            verticalJogControlZprobeHeight.BackColor = SystemColors.Control;
-            verticalJogControlZprobeHeight.Visible100Movement = true;
-            verticalJogControlZprobeHeight.VisibleZero = true;
-            verticalJogControlZprobeHeight.Visible = false;
-
-            txtBxProbeLift.Visible = true;
-            btnHomeX.Visible = true;
-            btnHomeY.Visible = true;
-            grpBxBed.Visible = true;
-
-            var commands = new List<string> {"G92 Z0", "M114", $"G1 Z{_configuration.ZextraDistance}"};
-            _com.SendCommand(commands);
-
-            var result = MessageBox.Show(@"Remove the paper under the nozzle and continue.",
-                @"Removing the paper", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-            if (result == DialogResult.Cancel) return;
-
-
-            lblCalculatedZProbeOffset.Visible = true;
-            txtBxCalculatedZProbeOffset.Visible = false;
-            btnZpromeEepromUpdate.Visible = false;
-
-            _com.ProbeResponceList = new List<Position>(); //Clear the proberesponcelist fron old probing
-
-            _com.SendCommand("G30 S-1");
-        }
+        
 
         #region Pupulating Form
 
@@ -811,70 +783,7 @@ namespace Marlin3DprinterTool
             _com.SendCommand($"M303 E0 S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
         }
 
-        private void btnStartZprobeHeight_Click(object sender, EventArgs e)
-        {
-            _com.Status = MarlinCommunication.Feature.ZprobeHeight;
-            txtBxJogControlZprobeHeightHelp.Visible = false;
-            verticalJogControlZprobeHeight.Visible = false;
-            btnZprobeHeightNext.Visible = false;
-            lblCalculatedZProbeOffset.Visible = false;
-            txtBxCalculatedZProbeOffset.Visible = false;
-            btnZpromeEepromUpdate.Visible = false;
-
-            txtBxProbeLift.Visible = false;
-            btnHomeX.Visible = false;
-            btnHomeY.Visible = false;
-            grpBxBed.Visible = false;
-
-            var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            switch (result)
-            {
-                case DialogResult.Cancel:
-                    return;
-                case DialogResult.OK:
-                    var conf = new Configuration();
-                    _com.SendCommand(conf.GcodeAssistZprobeEngage);
-                    break;
-            }
-
-            if (result == DialogResult.Cancel) return;
-            result = MessageBox.Show(@"Home the Z-probe?", @"Homing the Z-probe",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            switch (result)
-            {
-                case DialogResult.Cancel:
-                    return;
-                case DialogResult.OK:
-                    var commands = new List<string> {"G28", "M114"};
-                    _com.SendCommand(commands);
-                    break;
-            }
-            if (result == DialogResult.Cancel) return;
-
-
-            _com.G30();
-
-            // Set the Z position to Zero
-
-            _com.SendCommand("");vxvcbvbvcbv
-
-            // SAVE the position of the probe!!
-
-
-
-
-
-            verticalJogControlZprobeHeight.BackColor = Color.Green;
-            verticalJogControlZprobeHeight.Visible100Movement = false;
-            verticalJogControlZprobeHeight.VisibleZero = false;
-            txtBxJogControlZprobeHeightHelp.Visible = true;
-            verticalJogControlZprobeHeight.Visible = true;
-            btnZprobeHeightNext.Visible = true;
-            lblCalculatedZProbeOffset.Visible = false;
-            txtBxCalculatedZProbeOffset.Visible = false;
-            btnZpromeEepromUpdate.Visible = false;
-        }
+       
 
         private void tabPageEndstop_Click(object sender, EventArgs e)
         {
@@ -992,11 +901,14 @@ namespace Marlin3DprinterTool
                     _com.M500Responce += _com_M500Responce;
                     _com.M501Responce += _com_M501Responce;
                     _com.ReadyForNextCommand += _com_ReadyForNextCommand;
+                    _com.CommandSequenceeDone += _com_CommandSequenceeDone;
 
                     _com.DisConnected += _com_DisConnected;
 
 
                     _com.Connect();
+
+                    
                 }
                 catch (Exception serialException)
                 {
@@ -1022,14 +934,64 @@ namespace Marlin3DprinterTool
             }
         }
 
+        private void _com_CommandSequenceeDone(object sender, EventArgs e)
+        {
+            if (_com.Status == MarlinCommunication.Feature.DockZprobe )
+            {
+                if (_com.EndStopStatus.Zmin == _dockZprobeUpDown)
+                {
+                    if (_dockZprobePrecision <= 0.05 && _dockZprobeUpDown)
+                    {
+                        
+                        DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
+                        _com.Status = MarlinCommunication.Feature.Done;
+                    }
+                    else
+                    {
+                        _dockZprobePrecision = _dockZprobePrecision / 2.0;
+                        _dockZprobeUpDown = !_dockZprobeUpDown;
+                    }  
+                }
 
+                if (_com.Status == MarlinCommunication.Feature.DockZprobe)
+                {
+                    List<string> lower = new List<string>
+                    {
+                        "G91",
+                        $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F1000",
+                        "G90",
+                        "M119",
+                        "M114"
+                    };
+                    List<string> riser = new List<string>
+                    {
+                        "G91",
+                        $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F1000",
+                        "G90",
+                        "M119",
+                        "M114"
+                    };
+
+                    
+                    if (_dockZprobeUpDown)
+                    {
+                        _com.SendCommand(lower);
+                    }
+                    else
+                    {
+                        _com.SendCommand(riser);
+
+                    }
+                }
+            }
+        }
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
         {
-            DeligateAndInvoke.SetExtruderTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
+            DelegateAndInvoke.SetExtruderTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
                 (int) temperatures.Extruder, (int) temperatures.SetExtruder);
 
-            DeligateAndInvoke.SetBedTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
+            DelegateAndInvoke.SetBedTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
                 (int) temperatures.Heatbed, (int) temperatures.SetHeatbed);
         }
 
@@ -1106,15 +1068,15 @@ namespace Marlin3DprinterTool
 
                 if (matchKp.Success)
                 {
-                    DeligateAndInvoke.DelegateText(txtBxKpExtruder, matchKp.Value);
+                    DelegateAndInvoke.DelegateText(txtBxKpExtruder, matchKp.Value);
                 }
                 if (matchKi.Success)
                 {
-                    DeligateAndInvoke.DelegateText(txtBxKiExtruder, matchKi.Value);
+                    DelegateAndInvoke.DelegateText(txtBxKiExtruder, matchKi.Value);
                 }
                 if (matchKd.Success)
                 {
-                    DeligateAndInvoke.DelegateText(txtBxKdExtruder, matchKd.Value);
+                    DelegateAndInvoke.DelegateText(txtBxKdExtruder, matchKd.Value);
                 }
 
 
@@ -1123,8 +1085,8 @@ namespace Marlin3DprinterTool
 
 
 
-            DeligateAndInvoke.FastColoredTextBox(fctbPidResponce, linesList);
-            DeligateAndInvoke.ScrollTo(fctbPidResponce, linesList.Count);
+            DelegateAndInvoke.FastColoredTextBox(fctbPidResponce, linesList);
+            DelegateAndInvoke.ScrollTo(fctbPidResponce, linesList.Count);
         }
 
         private void _com_M304Responce(object sender, ResponceData responce)
@@ -1155,28 +1117,28 @@ namespace Marlin3DprinterTool
         private void _com_Init(object sender, ResponceData e)
         {
             //Enable TAB
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
+            Delegate.DisableTabs(tabControl3DprinterTool, true);
 
 
             //Enable EmergencyStop
-            DeligateAndInvoke.DelegateBackgroundImage(btnEmergency, Resources.emargency_enabled);
-            DeligateAndInvoke.DelegateVisible(btnEmergency, true);
-            DeligateAndInvoke.DelegateEnabled(btnEmergency, true);
+            DelegateAndInvoke.DelegateBackgroundImage(btnEmergency, Resources.emargency_enabled);
+            DelegateAndInvoke.DelegateVisible(btnEmergency, true);
+            DelegateAndInvoke.DelegateEnabled(btnEmergency, true);
 
             // Enable/visible ShowCommunication
-            DeligateAndInvoke.DelegateVisible(btnShowCommunication, true);
-            DeligateAndInvoke.DelegateEnabled(btnShowCommunication, true);
+            DelegateAndInvoke.DelegateVisible(btnShowCommunication, true);
+            DelegateAndInvoke.DelegateEnabled(btnShowCommunication, true);
 
             // Show navigation
-            DeligateAndInvoke.DelegateVisible(grpBxNavigation, true);
+            DelegateAndInvoke.DelegateVisible(grpBxNavigation, true);
 
             //// Assign Marlincommunication
-            DeligateAndInvoke.DelegateKompassControll(txtBxProbeLift, _com);
-            DeligateAndInvoke.DelegateVerticalJogControl(verticalJogControlZprobeHeight, _com);
+            DelegateAndInvoke.DelegateKompassControll(txtBxProbeLift, _com);
+            DelegateAndInvoke.DelegateVerticalJogControl(verticalJogControlZprobeHeight, _com);
 
 
             // Show temperature Chart
-            DeligateAndInvoke.DelegateVisible(chartTemperature, true);
+            DelegateAndInvoke.DelegateVisible(chartTemperature, true);
 
 
             // Start the temperature stopwatch
@@ -1188,7 +1150,7 @@ namespace Marlin3DprinterTool
 
             
             // _com.status endstop TODO:
-            //var selectedTab = DeligateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            //var selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
             if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
@@ -1201,9 +1163,9 @@ namespace Marlin3DprinterTool
                 initText += row.Replace("echo:", "").Trim() + Environment.NewLine;
             }
 
-            DeligateAndInvoke.FastColoredTextBox(fctbInit, initText);
+            DelegateAndInvoke.FastColoredTextBox(fctbInit, initText);
 
-            DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool, tabPageParameters);
+            DelegateAndInvoke.SelectTabcontrol(tabControl3DprinterTool, tabPageParameters);
 
             
         }
@@ -1215,21 +1177,7 @@ namespace Marlin3DprinterTool
             
             switch (_com.Status)
             {
-                #region ZprobeHeight
-                case MarlinCommunication.Feature.ZprobeHeight:
-                    // Z-ProbeHeight 
-                    if (lblCalculatedZProbeOffset.Visible)
-                    {
-                        DeligateAndInvoke.DelegateVisible(txtBxCalculatedZProbeOffset, true);
-                        DeligateAndInvoke.DelegateVisible(btnZpromeEepromUpdate, true);
-                        // Allways decimalpoint
-                        DeligateAndInvoke.DelegateText(txtBxCalculatedZProbeOffset, _com.CurrentPosition.Zstring);
-                        
-                    }
-                    _com.Status = MarlinCommunication.Feature.Done;
-                    break;
-                    //! Z-ProbeHeight
-            #endregion
+                
 
                 #region EndStop
                 case MarlinCommunication.Feature.EndStop:
@@ -1281,8 +1229,8 @@ namespace Marlin3DprinterTool
                             if ((Math.Abs(_configuration.LowerLeftAdjuster.X - probeResponce.X) < 50) &&
                                 (Math.Abs(_configuration.LowerLeftAdjuster.Y - probeResponce.Y) < 50))
                             {
-                                DeligateAndInvoke.DelegateText(lblTurn1, @"No adjustments");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue1, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+                                DelegateAndInvoke.DelegateText(lblTurn1, @"No adjustments");
+                                DelegateAndInvoke.DelegateText(lblAdjustValue1, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                                 _fix = probeResponce.Z;
                             }
 
@@ -1290,11 +1238,11 @@ namespace Marlin3DprinterTool
                             if ((Math.Abs(_configuration.LowerRightAdjuster.X - probeResponce.X) < 50) &&
                                 (Math.Abs(_configuration.LowerRightAdjuster.Y - probeResponce.Y) < 50))
                             {
-                                DeligateAndInvoke.DelegateBackgroundImage(picBxTurn2,
+                                DelegateAndInvoke.DelegateBackgroundImage(picBxTurn2,
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                                DeligateAndInvoke.DelegateText(lblTurn2,
+                                DelegateAndInvoke.DelegateText(lblTurn2,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue2, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+                                DelegateAndInvoke.DelegateText(lblAdjustValue2, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                             }
 
 
@@ -1302,22 +1250,22 @@ namespace Marlin3DprinterTool
                             if ((Math.Abs(_configuration.UpperRightAdjuster.X - probeResponce.X) < 50) &&
                                 (Math.Abs(_configuration.UpperRightAdjuster.Y - probeResponce.Y) < 50))
                             {
-                                DeligateAndInvoke.DelegateBackgroundImage(picBxTurn3,
+                                DelegateAndInvoke.DelegateBackgroundImage(picBxTurn3,
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                                DeligateAndInvoke.DelegateText(lblTurn3,
+                                DelegateAndInvoke.DelegateText(lblTurn3,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue3, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+                                DelegateAndInvoke.DelegateText(lblAdjustValue3, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                             }
 
                             //Upper Left Adjuster
                             if ((Math.Abs(_configuration.UpperLeftAdjuster.X - probeResponce.X) < 50) &&
                                 (Math.Abs(_configuration.UpperLeftAdjuster.Y - probeResponce.Y) < 50))
                             {
-                                DeligateAndInvoke.DelegateBackgroundImage(picBxTurn4,
+                                DelegateAndInvoke.DelegateBackgroundImage(picBxTurn4,
                                     adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                                DeligateAndInvoke.DelegateText(lblTurn4,
+                                DelegateAndInvoke.DelegateText(lblTurn4,
                                     $"{sign} {Math.Abs(turn)}:{Math.Abs(minutes)} minutes");
-                                DeligateAndInvoke.DelegateText(lblAdjustValue4, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+                                DelegateAndInvoke.DelegateText(lblAdjustValue4, probeResponce.Z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
                             }
                         }
 
@@ -1438,7 +1386,7 @@ namespace Marlin3DprinterTool
             btnConnect.Text = @"Connect";
 
             //Disable TAB
-            DeligateAndInvoke.DisableTabs(tabControl3DprinterTool, false);
+            Delegate.DisableTabs(tabControl3DprinterTool, false);
 
             //Disable EmergencyStop
             btnEmergency.BackgroundImage = Resources.emargency_disabled;
@@ -1476,7 +1424,7 @@ namespace Marlin3DprinterTool
             if (_com.Status == MarlinCommunication.Feature.AutoBedLevel)
             {
 
-                DeligateAndInvoke.MultiTextLines(txtBxAutoBedLevelResponce, responce.ResponsRowList);
+                DelegateAndInvoke.MultiTextLines(txtBxAutoBedLevelResponce, responce.ResponsRowList);
                 return;
             }
 
@@ -1759,20 +1707,7 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void btnZpromeEepromUpdate_Click(object sender, EventArgs e)
-        {
-            List<string> commands = new List<string>
-            {
-                $"M851 Z{txtBxCalculatedZProbeOffset.Text.Replace(',', '.')}",
-                "M500", // Save parameter in EEPROM
-                "M501" // Read parameters from EEPROM
-
-
-            };
-            _com.SendCommand(commands);
-
-        }
-
+       
 
 
         private void RedesignBedAdjusters()
@@ -2686,7 +2621,7 @@ namespace Marlin3DprinterTool
             
             CreateSurfaceChart(positions);
 
-           DeligateAndInvoke.SelectTabcontrol(tabControl3DprinterTool,tabPageScanSurface);
+           DelegateAndInvoke.SelectTabcontrol(tabControl3DprinterTool,tabPageScanSurface);
         }
 
         private void btnSetup_Click(object sender, EventArgs e)
@@ -2897,6 +2832,85 @@ namespace Marlin3DprinterTool
             _com.SendCommand(commands);
 
 
+        }
+
+        private void btnDockZprobe_Click(object sender, EventArgs e)
+        {
+            
+            AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
+            if (probeRange != null) aGaugeProbe.GaugeRanges.Remove(probeRange);
+            _com.Status = MarlinCommunication.Feature.DockZprobe;
+
+
+            List<String> commands = new List<string> {"G28","G91", "G1 Z10","G90","M119", "M114"};
+            _dockZprobePrecision = 1.0;
+            _dockZprobeUpDown = true;
+
+            _com.SendCommand(commands);
+            
+
+        }
+
+        private void btnProbeUp_Click(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string> {"G91","G1 Z0.05 F500","G90","M114"};
+            
+
+            _com.SendCommand(commands);
+        }
+
+        private void btnProbeDown_Click_2(object sender, EventArgs e)
+        {
+            List<string> commands = new List<string> { "G91", "G1 Z-0.05 F500", "G90", "M114" };
+            
+
+            _com.SendCommand(commands);
+            
+        }
+
+        private void txtBxDockZprobe_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtBxDockZprobe.Text))
+            {
+                float dockedProbeHigh = (float) Convert.ToDecimal(txtBxDockZprobe.Text.Replace(".", ","));
+                float dockedProbeLow = (float) (dockedProbeHigh - 1);
+                AGaugeRange probeRange = new AGaugeRange(Color.Green, dockedProbeLow, dockedProbeHigh, 5, 80);
+                probeRange.Name = "Probe";
+                aGaugeProbe.GaugeRanges.Add(probeRange);
+
+            }
+        }
+
+       
+
+        private void txtBxZprobePosition_TextChanged(object sender, EventArgs e)
+        {
+            aGaugeProbe.Value = (float) Convert.ToDecimal(txtBxZprobePosition.Text.Replace(".", ","));
+            if (_com.EndStopStatus.Zmin)
+            {
+                AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
+                if (probeRange != null)
+                {
+                    
+                    probeRange.StartValue = (float)Convert.ToDouble(txtBxZprobePosition.Text.Replace(".", ","));
+                }
+                
+            }
+        }
+
+        private void ledZmin_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Calulating the Z-Probe offset. \n Take careof both MBL and ABL.\n Not implemented (yet)");
+        }
+
+        private void btnM851_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Update M851. \n Take careof both MBL and ABL.\n Not implemented (yet)");
         }
     }
 
