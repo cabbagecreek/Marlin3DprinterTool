@@ -251,6 +251,12 @@
         <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\STL thumbnail debug.rtf" />
       </Component>
 
+      <!--AGauge.dll -->
+      <Component Id="AGauge.dll" Guid="{EB7A295F-4EDF-4D7E-937F-A4A7EEF31222}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\AGauge.dll" />
+      </Component>
+      
+      
     </ComponentGroup>
 
   </Fragment>
