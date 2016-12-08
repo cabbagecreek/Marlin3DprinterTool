@@ -5,11 +5,19 @@ using FastColoredTextBoxNS;
 
 namespace MarlinComunicationHelper
 {
+    /// <summary>
+    /// Frame that shows the communication To and From the Marlin FW
+    /// Possible to Send commands and se the responce
+    /// </summary>
     public partial class FrmShowCommunication : Form
     {
         private static FrmShowCommunication _instanceOfFrmShowForm;
 
 
+        /// <summary>
+        /// The communication that is setup in the calling program
+        /// This is the communication that is monitored
+        /// </summary>
         public MarlinCommunication Communication { get; set; }
 
         private FrmShowCommunication()
@@ -17,6 +25,10 @@ namespace MarlinComunicationHelper
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Create Singleton for this window
+        /// </summary>
         public static FrmShowCommunication InstanceFrmShowForm
         {
             get
@@ -30,6 +42,10 @@ namespace MarlinComunicationHelper
         }
 
 
+
+        /// <summary>
+        /// Add a row with Received data from Marlin FW
+        /// </summary>
         public string AddReceived
         {
             get { return fctbMarlinCommunication.Text; }

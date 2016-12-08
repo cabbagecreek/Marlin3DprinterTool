@@ -29,7 +29,7 @@
   <NeverClear value="True" />
   <STLviewer color="Blue" />
   <baudrate baudrate="250000" />
-  <LicenseKey key="efXInRhvedmyuc+y3holjgQ6sgP1gZvnv1HfZq2bk3mrf/ofMVLfdwSCrjzSaFd74D5ZtztpFxS1iTmWn1HTr8YDVt7Q+HPaaoZ6M5T4KMX43NDcGlhR37Z217uCOqoFfQ0nC9X+tZyx2gWBUae8CANeW2in3FbNeBLbBB0PGfUkDWLQ8m4CqSi/EITqdJnU&#xD;&#xA;" />
+  <LicenseKey key="" />
   <ZextraDistance safedistance="10.00" />
   <ZprobeOffset Xoffset="to the left of the nozzle." X="0" Yoffset="behind the nozzle." Y="35" />
 </configuration>

@@ -21,6 +21,10 @@ namespace Marlin3DprinterStlViewer
         /// </summary>
         public string Filename { get; set; }
 
+
+        /// <summary>
+        /// Set and Get the color of the 3D model
+        /// </summary>
         public string ModelColor
         {
             get { return modellColor;}
@@ -34,7 +38,9 @@ namespace Marlin3DprinterStlViewer
 
 
 
-
+        /// <summary>
+        /// STL Viewer
+        /// </summary>
         public StlViewerWPF()
         {
             InitializeComponent();

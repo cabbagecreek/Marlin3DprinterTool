@@ -15,7 +15,9 @@ namespace MarlinComunicationHelper
     public class LedBulb : Control
     {
         #region Constructor
-
+        /// <summary>
+        /// The constructor for the LedBuld
+        /// </summary>
         public LedBulb()
         {
             SetStyle(ControlStyles.DoubleBuffer

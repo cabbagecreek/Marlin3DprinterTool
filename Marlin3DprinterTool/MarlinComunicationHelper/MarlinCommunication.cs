@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -66,7 +65,12 @@ namespace MarlinComunicationHelper
             /// <summary>
             /// Search extra safety Lift of the probe
             /// </summary>
-            SearchLift = 14
+            SearchLift = 14,
+            /// <summary>
+            /// Search for where the Probe touch the bed
+            /// </summary>
+            DockZprobe = 15
+            
         }
         
 
@@ -76,7 +80,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// The ZprobeOffset that is found in M851
         /// </summary>
-        public decimal ZprobeOffset { get; private set; }
+        private decimal ZprobeOffset { get; set; }
 
         /// <summary>
         /// The Steps per Unit X that is found during INIT
@@ -493,16 +497,16 @@ namespace MarlinComunicationHelper
                 if (responce.Contains("X:") && responce.Contains("Y:") && responce.Contains("Z:"))
                 {
                     var xstring =
-                        Regex.Match(responce, @"(?:X:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                        Regex.Match(responce, @"(?:X:)([-,0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     var ystring =
-                        Regex.Match(responce, @"(?:Y:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                        Regex.Match(responce, @"(?:Y:)([-,0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     var zstring =
-                        Regex.Match(responce, @"(?:Z:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                        Regex.Match(responce, @"(?:Z:)([-,0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
                     //var estring = Regex.Match(responce, @"(?:E:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value; // Not Needed (yet)
                     var currentPosition = new CurrentPosition(xstring, ystring, zstring);
                     CurrentPosition.Xstring = xstring;
                     CurrentPosition.Ystring = ystring;
-                    CurrentPosition.Zstring = ystring;
+                    CurrentPosition.Zstring = zstring;
                     OnM114GetCurrentPosition(currentPosition);
                 }
 
@@ -1014,7 +1018,9 @@ namespace MarlinComunicationHelper
         #endregion
 
         #region INIT
-
+        /// <summary>
+        /// Handle Init event that rise after startup of Marlin FW
+        /// </summary>
         public event EventHandler<ResponceData> Init;
 
         private void OnInit(ResponceData responce)
@@ -1026,10 +1032,15 @@ namespace MarlinComunicationHelper
         #endregion
 
         #region G29Responce
-
+        /// <summary>
+        /// Handle event that rise after G29
+        /// </summary>
         public event EventHandler<Responce> G29Responce;
 
-        public void OnG29Responce(Responce responce)
+        /// <summary>
+        /// Handle event that rise after G29
+        /// </summary>
+        private void OnG29Responce(Responce responce)
         {
             var handler = G29Responce;
             handler?.Invoke(this, responce);
@@ -1038,7 +1049,9 @@ namespace MarlinComunicationHelper
         #endregion
 
         #region G30ProbeResponce 
-
+        /// <summary>
+        /// Handle event that rise after G30
+        /// </summary>
         public event EventHandler<List<Position>> G30ProbeResponce;
 
         private void OnG30ProbeResponce(List<Position> probeResponce)
@@ -1050,9 +1063,14 @@ namespace MarlinComunicationHelper
         #endregion
 
         #region M48ProbeStatus
-
+        /// <summary>
+        /// Handle event that rise after M48
+        /// </summary>
         public event EventHandler<Responce> M48ProbeStatus;
 
+        /// <summary>
+        /// Handle event that rise after M48
+        /// </summary>
         private void OnM48ProbeStatus(Responce probeResponceList)
         {
             var handler = M48ProbeStatus;
@@ -1062,9 +1080,14 @@ namespace MarlinComunicationHelper
         #endregion
 
         #region M114 Get current position
-
+        /// <summary>
+        /// Handle event that rise after M114
+        /// </summary>
         public event EventHandler<CurrentPosition> M114GetCurrentPosition;
 
+        /// <summary>
+        /// Handle event that rise after M114
+        /// </summary>
         private void OnM114GetCurrentPosition(CurrentPosition currentPosition)
         {
             var handler = M114GetCurrentPosition;
@@ -1170,15 +1193,21 @@ namespace MarlinComunicationHelper
         #endregion
 
         #region ReadyForNextCommand
-
+        /// <summary>
+        /// Handle event that rise after each command
+        /// </summary>
         public event EventHandler ReadyForNextCommand;
 
+        /// <summary>
+        /// Handle event that rise after each command
+        /// </summary>
         private void OnReadyForNextCommand(EventArgs e)
         {
             var handler = ReadyForNextCommand;
 
             if ((_commands == null) || (_commands.Count == 0))
             {
+                OnCommandSequenceeDone(EventArgs.Empty);
                 handler?.Invoke(this, e);
             }
             else
@@ -1193,6 +1222,20 @@ namespace MarlinComunicationHelper
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler CommandSequenceeDone;
+
+        private void OnCommandSequenceeDone(EventArgs e)
+        {
+            var handler = CommandSequenceeDone;
+            handler?.Invoke(this, e);
+        }
+
+
+
         /// <summary>
         ///     Clear all data in the received buffer
         /// </summary>
@@ -1204,110 +1247,7 @@ namespace MarlinComunicationHelper
 
         #endregion
 
-        #region Manually do the G30 command
-        /// <summary>
-        /// 
-        /// </summary>
-        public void G30()
-        {
-            // 
-            _serialPort.AutoReceive = false;
-            _serialPort.Received -= _serialPort_Received;
-
-            // G90 Absolute mode
-            // G91 Relative mode
-
-            List<string> lower04 = new List<string> { "G90", "G1 Z-0.4", "G91", "M119"};
-            List<string> lower02 = new List<string> { "G90", "G1 Z-0.2", "G91", "M119" };
-            List<string> lower01 = new List<string> { "G90", "G1 Z-0.1", "G91", "M119" };
-            List<string> rise04  = new List<string> { "G90", "G1 Z0.4", "G91", "M119" };
-            List<string> rise08  = new List<string> { "G90", "G1 Z0.8", "G91", "M119" };
-
-           
-            SendCommand(rise08); // Rise the probe 0.8 mm
-
-            // lower the probe in 0.4mm steps
-            while (!EndStopStatus.Zmin)
-            {
-                SendCommand(lower04);
-                _dataReceived = "";
-                var rec = _serialPort.ReadLine(10); //Time to lower the probe 0.4 mm
-                while (true)
-                {
-                    var lastreceived = _serialPort.LastTimeReceived;
-
-                    _dataReceived += rec + Environment.NewLine;
-
-                    var timeDiff = DateTime.Now - lastreceived;
-                    if (timeDiff.Seconds >= 4) break; //TODO: 
-                    rec = _serialPort.ReadLine(4);
-                    ParseM119();
-                }
-            }
-
-
-            SendCommand(rise04); // Rise the probe 0.4 mm
-
-            // lower the probe in 0.2mm steps
-            while (!EndStopStatus.Zmin)
-            {
-                SendCommand(lower02);
-                _dataReceived = "";
-                var rec = _serialPort.ReadLine(10); //Time to lower the probe 0.4 mm
-                while (true)
-                {
-                    var lastreceived = _serialPort.LastTimeReceived;
-
-                    _dataReceived += rec + Environment.NewLine;
-
-                    var timeDiff = DateTime.Now - lastreceived;
-                    if (timeDiff.Seconds >= 4) break; //TODO: 
-                    rec = _serialPort.ReadLine(4);
-                    ParseM119();
-                }
-            }
-
-            SendCommand(rise04); // Rise the probe 0.4 mm
-
-            // lower the probe in 0.1mm steps
-            while (!EndStopStatus.Zmin)
-            {
-                SendCommand(lower01);
-                _dataReceived = "";
-                var rec = _serialPort.ReadLine(10); //Time to lower the probe 0.4 mm
-                while (true)
-                {
-                    var lastreceived = _serialPort.LastTimeReceived;
-
-                    _dataReceived += rec + Environment.NewLine;
-
-                    var timeDiff = DateTime.Now - lastreceived;
-                    if (timeDiff.Seconds >= 4) break; //TODO: 
-                    rec = _serialPort.ReadLine(4);
-                    ParseM119();
-                }
-            }
-
-            _serialPort.AutoReceive = true;
-            _serialPort.Received += _serialPort_Received;
-
-            SendCommand("M114");
-        }
-
-        /// <summary>
-        /// Position the probe before Probing
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="rise"></param>
-        public void G30(int x, int y, int rise)
-        {
-            // Move to X and Y
-            List<string> commands = new List<string> { $"G1 X{x} Y{y}", "G90", $"G1 Z-{rise}", "G91", "M114" };
-            SendCommand(commands);
-
-        }
-        #endregion
+        
 
     }
 
@@ -1379,6 +1319,15 @@ namespace MarlinComunicationHelper
     /// </summary>
     public class Temperatures : EventArgs
     {
+        /// <summary>
+        /// Temperature divided to there source
+        /// </summary>
+        /// <param name="extruder"></param>
+        /// <param name="setExtruder"></param>
+        /// <param name="heatbed"></param>
+        /// <param name="setHeatbed"></param>
+        /// <param name="extruder2"></param>
+        /// <param name="extruder2Set"></param>
         public Temperatures(double extruder, double setExtruder, double heatbed, double setHeatbed, double extruder2,
             double extruder2Set)
         {
@@ -1390,43 +1339,91 @@ namespace MarlinComunicationHelper
             SetExtruder2 = extruder2Set;
         }
 
-
+        /// <summary>
+        /// Extruder temp
+        /// </summary>
         public double Extruder { get; }
+        /// <summary>
+        /// Set extruder Temp
+        /// </summary>
         public double SetExtruder { get; }
+
+        /// <summary>
+        /// Heatbed temp
+        /// </summary>
         public double Heatbed { get; }
+        /// <summary>
+        /// Set heatbed Temp
+        /// </summary>
         public double SetHeatbed { get; }
+
+        /// <summary>
+        /// Extruder2 Temp
+        /// </summary>
         public double Extruder2 { get; }
+        /// <summary>
+        /// Set extruder2 Temp
+        /// </summary>
         public double SetExtruder2 { get; }
     }
     #endregion
     
     #region ResponceData / generic responce
+    /// <summary>
+    /// Generic responcedata
+    /// </summary>
     public class ResponceData : EventArgs
     {
+        /// <summary>
+        /// Generic Responce Data
+        /// </summary>
+        /// <param name="data"></param>
         public ResponceData(string data)
         {
             Data = data;
         }
 
+        /// <summary>
+        /// Generic Responce Data
+        /// </summary>
         public string Data { get; }
     }
 
 
+    /// <summary>
+    /// Responce with many lines
+    /// </summary>
     public class Responce : EventArgs
     {
+        /// <summary>
+        /// List of responce rows
+        /// </summary>
+        /// <param name="responceRowList"></param>
         public Responce(List<string> responceRowList)
         {
             ResponsRowList = responceRowList;
         }
 
+        /// <summary>
+        /// Responce list of rows
+        /// </summary>
         public List<string> ResponsRowList { get; }
     }
 
     #endregion
 
     #region Current Position
+    /// <summary>
+    /// Current Position
+    /// </summary>
     public class CurrentPosition : EventArgs
     {
+        /// <summary>
+        /// Current position where X/Y/Z is strings
+        /// </summary>
+        /// <param name="xposition"></param>
+        /// <param name="yposition"></param>
+        /// <param name="zposition"></param>
         public CurrentPosition(string xposition, string yposition, string zposition)
         {
             Xdouble = Convert.ToDouble(xposition.Replace(".", ","));
@@ -1434,9 +1431,17 @@ namespace MarlinComunicationHelper
             Zdouble = Convert.ToDouble(zposition.Replace(".", ","));
         }
 
-
+        /// <summary>
+        /// X as a Double
+        /// </summary>
         public double Xdouble { get; }
+        /// <summary>
+        /// Y as a double
+        /// </summary>
         public double Ydouble { get; }
+        /// <summary>
+        /// Z as a double
+        /// </summary>
         public double Zdouble { get; }
     }
     #endregion

@@ -3,10 +3,17 @@ using System.Windows.Forms;
 
 namespace Marlin3DprinterStlViewer
 {
+    /// <summary>
+    /// STL viewer based on HelixToolkit
+    /// </summary>
     public partial class FrmStlViewer : Form
     {
         MarlinComunicationHelper.Configuration configuration = new MarlinComunicationHelper.Configuration();
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public FrmStlViewer()
         {
             InitializeComponent();
@@ -14,6 +21,10 @@ namespace Marlin3DprinterStlViewer
             
         }
 
+        /// <summary>
+        /// Show window with filename of STL
+        /// </summary>
+        /// <param name="filename"></param>
         public FrmStlViewer(string filename)
         {
             Filename = filename;
@@ -21,11 +32,15 @@ namespace Marlin3DprinterStlViewer
             
         }
 
+
+        /// <summary>
+        /// Filename of file that is visible
+        /// </summary>
         public string Filename { get; internal set; }
 
         private void FrmStlViewer_DragDrop(object sender, DragEventArgs e)
         {
-            ///stLviewerWPF1.ModelColor = configuration.STLcolor;
+            //stLviewerWPF1.ModelColor = configuration.STLcolor;
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files)
             {
