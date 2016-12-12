@@ -3,23 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
-using MarlinDocumentation;
 using MarlinEditor;
 using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
-using ServerManager;
-using SharpShellServerManager;
 using Configuration = MarlinComunicationHelper.Configuration;
 using Position = MarlinComunicationHelper.Position;
 
@@ -59,11 +53,8 @@ namespace Marlin3DprinterTool
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
-#if DEBUG
-            DelegateAndInvoke.DisableTabs(tabControl3DprinterTool, true);
-#else
+
             Delegate.DisableTabs(tabControl3DprinterTool, false);
-#endif
 
             PopulateComboBoxes();
             PopulateConfig();
@@ -141,7 +132,7 @@ namespace Marlin3DprinterTool
             //TODO:
             var selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
 
-            UpdateServerStatus();
+            
 
             switch (selectedTab)
             {
@@ -169,8 +160,7 @@ namespace Marlin3DprinterTool
                 case 7:
                     UpdateZmaintDescription();
                     break;
-                case 9:
-                    UpdateServerStatus();
+                case 8:
                     break;
             }
 
@@ -2156,204 +2146,113 @@ namespace Marlin3DprinterTool
             CalculateBelt();
         }
 
-        private void btnAssociateStlViewer_Click(object sender, EventArgs e)
-        {
+
+        //TODO: Tabort
+        //private void btnAssociateStlViewer_Click(object sender, EventArgs e)
+        //{
 
 
-            string stlViewerExe = Path.GetDirectoryName(Application.ExecutablePath);
+        //    string stlViewerExe = Path.GetDirectoryName(Application.ExecutablePath);
 
-            if (stlViewerExe != null)
-            {
-                stlViewerExe = Path.Combine(stlViewerExe, "Marlin3DprinterStlViewer.exe");
+        //    if (stlViewerExe != null)
+        //    {
+        //        stlViewerExe = Path.Combine(stlViewerExe, "Marlin3DprinterStlViewer.exe");
 
-                FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer",
-                    "Marlin3DprinterTool.ico", stlViewerExe);
-                MessageBox.Show(@"STL viewer is now the prefered stl-application", @"Assign STL Viewer",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer",
+        //            "Marlin3DprinterTool.ico", stlViewerExe);
+        //        MessageBox.Show(@"STL viewer is now the prefered stl-application", @"Assign STL Viewer",
+        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            }
-        }
-
-
-
-
-
-        private void btnInstallStlServer_Click(object sender, EventArgs e)
-        {
-            bool osIs32Bit = chkBx32BitOS.Checked;
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-                "Marlin3DprinterToolStlThumbnail.dll");
-            SharpShellServerManagerClass.InstallServer(stlViewerThumbnail, osIs32Bit);
-            UpdateServerStatus();
-        }
-
-        private void UpdateServerStatus()
-        {
+        //    }
+        //}
 
 
 
 
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-                "Marlin3DprinterToolStlThumbnail.dll");
-            //TODO: SharpShellServerManagerClass.Serverentries
-            IEnumerable<ServerEntry> serverEntries = SharpShellServerManagerClass.UpdateServerStatus(stlViewerThumbnail);
-
-            if (serverEntries != null)
-            {
-                foreach (ServerEntry serverEntry in serverEntries)
-                {
-                    SharpShellServerManagerClass.ServerInfo serverinfo =
-                        SharpShellServerManagerClass.GetServerinfo(serverEntry);
-                    textBoxServerName.Text = serverinfo.ServerName;
-                    textBoxServerType.Text = serverinfo.ServerType;
-                    textBoxServerCLSID.Text = serverinfo.ClassId;
-                    textBoxServerSecurity.Text = serverinfo.SecurityStatus;
-                    textBoxAssemblyPath.Text = serverinfo.ServerPath;
-                    if (serverinfo.IsInvalid)
-                    {
-                        //  Clear other data for invalid servers.
-                        textBoxAssociations.Text = string.Empty;
-                        ledServer32.Color = Color.Gray;
-                        ledServer64.Color = Color.Gray;
-                        ledRegister32.Color = Color.Gray;
-                        ledRegister64.Color = Color.Gray;
-                    }
-                    else
-                    {
-
-                        textBoxAssociations.Text = serverinfo.Association;
+        //TODO: Tabort
+        //private void btnInstallStlServer_Click(object sender, EventArgs e)
+        //{
+        //    bool osIs32Bit = chkBx32BitOS.Checked;
+        //    string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
+        //        "Marlin3DprinterToolStlThumbnail.dll");
+        //    SharpShellServerManagerClass.InstallServer(stlViewerThumbnail, osIs32Bit);
+        //    UpdateServerStatus();
+        //}
 
 
 
-                        //  By default, our installation info is going all led gray.
-                        ledServer32.Color = Color.Gray;
-                        ledServer64.Color = Color.Gray;
-                        ledRegister32.Color = Color.Gray;
-                        ledRegister64.Color = Color.Gray;
+        //TODO: Tabort
+        //private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
+        //{
+        //    string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
+        //        "Marlin3DprinterToolStlThumbnail.dll");
+        //    bool osIs32Bit = chkBx32BitOS.Checked;
+        //    SharpShellServerManagerClass.Unregister(stlViewerThumbnail, osIs32Bit);
+        //    UpdateServerStatus();
+        //}
 
-                        //  Do we have 32 bit registration info?
-                        if (serverinfo.Info32 != null)
-                        {
-                            //  Do we have a codebase?
-                            if (!string.IsNullOrEmpty(serverinfo.Info32.CodeBase))
-                            {
-                                //textBox32BitServer.Text = info32.CodeBase;
-                                ledServer32.Color = Color.Chartreuse;
-                            }
-                            else if (!string.IsNullOrEmpty(serverinfo.Info32.Assembly))
-                                //textBox32BitServer.Text = info32.Assembly + " (GAC)";
-                                ledServer32.Color = Color.Chartreuse;
+        //private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
+        //{
+        //    DialogResult result =
+        //        MessageBox.Show(
+        //            @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
+        //            @"Explorer will be forced to restart"
+        //            , @"Restarting Explorer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+        //            MessageBoxDefaultButton.Button2);
+        //    if (result == DialogResult.Cancel) return;
 
-                            //  Set the registration info.
-                            if (serverinfo.Info32.IsApproved)
-                            {
-                                //textBox32BitServerRegistration.Text = "Registered";
-                                ledRegister32.Color = Color.Chartreuse;
-                            }
+        //    SharpShellServerManagerClass.RestartExplorer();
 
-                        }
+        //    MessageBox.Show(@"Restart of Explorer DONE!", @"Restart of Explorer", MessageBoxButtons.OK,
+        //        MessageBoxIcon.Information);
 
-                        //  Do we have 64 bit registration info?
-                        if (serverinfo.Info64 != null)
-                        {
-                            //  Do we have a codebase?
-                            if (!string.IsNullOrEmpty(serverinfo.Info64.CodeBase))
-                            {
-                                //textBox64BitServer.Text = info64.CodeBase;
-                                ledServer64.Color = Color.Chartreuse;
-                            }
-                            else if (!string.IsNullOrEmpty(serverinfo.Info64.Assembly))
-                            {
-                                //textBox64BitServer.Text = info64.Assembly + " (GAC)";
-                                ledServer64.Color = Color.Chartreuse;
-                            }
-
-                            //  Set the registration info.
-                            if (serverinfo.Info64.IsApproved)
-                            {
-                                //textBox64BitServerRegistration.Text = "Registered";
-                                ledRegister64.Color = Color.Chartreuse;
-                            }
-                        }
-                    }
-
-                }
-            }
-
-        }
-
-
-        private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
-        {
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-                "Marlin3DprinterToolStlThumbnail.dll");
-            bool osIs32Bit = chkBx32BitOS.Checked;
-            SharpShellServerManagerClass.Unregister(stlViewerThumbnail, osIs32Bit);
-            UpdateServerStatus();
-        }
-
-        private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
-        {
-            DialogResult result =
-                MessageBox.Show(
-                    @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
-                    @"Explorer will be forced to restart"
-                    , @"Restarting Explorer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Cancel) return;
-
-            SharpShellServerManagerClass.RestartExplorer();
-
-            MessageBox.Show(@"Restart of Explorer DONE!", @"Restart of Explorer", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-        }
+        //}
 
 
 
 
-        private void btnTroubleShootStl_Click_1(object sender, EventArgs e)
-        {
+        //private void btnTroubleShootStl_Click_1(object sender, EventArgs e)
+        //{
 
-            FrmRTFdocumentation stlTroubleshoot = new FrmRTFdocumentation {Filename = "STL thumbnail debug.rtf"};
-            stlTroubleshoot.ShowDialog();
-        }
+        //    FrmRTFdocumentation stlTroubleshoot = new FrmRTFdocumentation {Filename = "STL thumbnail debug.rtf"};
+        //    stlTroubleshoot.ShowDialog();
+        //}
 
-        private void btnResetAndCleanExistingThumbnails_Click(object sender, EventArgs e)
-        {
-            DialogResult result =
-                MessageBox.Show(
-                    @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
-                    @"This is a more BRUTAL method of reseting the File Explorer Thumbnails"
-                    , @"Forced Delete of Thumbnail cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Cancel) return;
+        //private void btnResetAndCleanExistingThumbnails_Click(object sender, EventArgs e)
+        //{
+        //    DialogResult result =
+        //        MessageBox.Show(
+        //            @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
+        //            @"This is a more BRUTAL method of reseting the File Explorer Thumbnails"
+        //            , @"Forced Delete of Thumbnail cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
+        //            MessageBoxDefaultButton.Button2);
+        //    if (result == DialogResult.Cancel) return;
 
 
-            SharpShellServerManagerClass.ResetAndCleanExistingThumbnails();
-            MessageBox.Show(@"Forced Delete of Thumbnail Cache and Restart of Explorer is DONE!", @"Restart of Explorer",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        //    SharpShellServerManagerClass.ResetAndCleanExistingThumbnails();
+        //    MessageBox.Show(@"Forced Delete of Thumbnail Cache and Restart of Explorer is DONE!", @"Restart of Explorer",
+        //        MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //}
 
-        private void btnColorStl_Click(object sender, EventArgs e)
-        {
-            ColorConverter exitingColor = new ColorConverter();
-            exitingColor.ConvertFrom(_configuration.STLcolor);
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = (Color) exitingColor.ConvertFrom(_configuration.STLcolor);
-            colorDialog.AllowFullOpen = false;
-            colorDialog.AnyColor = false;
-            colorDialog.ShowHelp = true;
-            colorDialog.FullOpen = false;
-            colorDialog.ShowDialog();
-            _configuration.STLcolor = colorDialog.Color.IsNamedColor
-                ? colorDialog.Color.Name
-                : $"#{colorDialog.Color.Name}";
+        //private void btnColorStl_Click(object sender, EventArgs e)
+        //{
+        //    ColorConverter exitingColor = new ColorConverter();
+        //    exitingColor.ConvertFrom(_configuration.STLcolor);
+        //    ColorDialog colorDialog = new ColorDialog();
+        //    colorDialog.Color = (Color) exitingColor.ConvertFrom(_configuration.STLcolor);
+        //    colorDialog.AllowFullOpen = false;
+        //    colorDialog.AnyColor = false;
+        //    colorDialog.ShowHelp = true;
+        //    colorDialog.FullOpen = false;
+        //    colorDialog.ShowDialog();
+        //    _configuration.STLcolor = colorDialog.Color.IsNamedColor
+        //        ? colorDialog.Color.Name
+        //        : $"#{colorDialog.Color.Name}";
 
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", _configuration.STLcolor);
-            //string color = (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool","Color","Brown");
-            //MessageBox.Show(color);
-        }
+        //    Registry.SetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", _configuration.STLcolor);
+        //    //string color = (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool","Color","Brown");
+        //    //MessageBox.Show(color);
+        //}
 
        
 

@@ -25,5 +25,6 @@ DEL /F /S /Q "C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3Dpr
 DEL /F /S /Q "C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin"
 DEL /F /S /Q "C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj"
 
+pause
 
 

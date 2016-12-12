@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Marlin3DprinterTool</RootNamespace>
     <AssemblyName>Marlin3DprinterTool</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -68,7 +69,7 @@
     <Optimize>false</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
@@ -173,29 +174,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="STL thumbnail debug.rtf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
-      <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
-      <Name>MarlinComunicationHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MarlinDocumentation\MarlinDocumentation.csproj">
-      <Project>{0909412d-4c12-49f6-9225-b60349c29d02}</Project>
-      <Name>MarlinDocumentation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MarlinEditor\MarlinEditor.csproj">
-      <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
-      <Name>MarlinEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharpShellServerManager\SharpShellServerManager.csproj">
-      <Project>{6db2edfd-193e-4e96-aae6-72f0d45fb5cd}</Project>
-      <Name>SharpShellServerManager</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\adjuster.gif" />
@@ -239,6 +225,24 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
+      <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
+      <Name>MarlinComunicationHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarlinDocumentation\MarlinDocumentation.csproj">
+      <Project>{0909412d-4c12-49f6-9225-b60349c29d02}</Project>
+      <Name>MarlinDocumentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarlinEditor\MarlinEditor.csproj">
+      <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
+      <Name>MarlinEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpShellServerManager\SharpShellServerManager.csproj">
+      <Project>{6db2edfd-193e-4e96-aae6-72f0d45fb5cd}</Project>
+      <Name>SharpShellServerManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
