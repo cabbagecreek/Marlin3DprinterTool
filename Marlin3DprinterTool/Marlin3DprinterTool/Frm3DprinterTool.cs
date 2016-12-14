@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using AutoUpdaterDotNET;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
 using MarlinEditor;
@@ -54,6 +55,9 @@ namespace Marlin3DprinterTool
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
 
+
+            AutoUpdaterDotNET();
+
             Delegate.DisableTabs(tabControl3DprinterTool, false);
 
             PopulateComboBoxes();
@@ -63,7 +67,24 @@ namespace Marlin3DprinterTool
 
         }
 
+        private void AutoUpdaterDotNET()
+        {
+            //Uncomment below line to see Russian version
 
+            //AutoUpdater.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
+
+            //If you want to open download page when user click on download button uncomment below line.
+
+            //AutoUpdater.OpenDownloadPage = true;
+
+            //Don't want user to select remind later time in AutoUpdater notification window then uncomment 3 lines below so default remind later time will be set to 2 days.
+
+            //AutoUpdater.LetUserSelectRemindLater = false;
+            //AutoUpdater.RemindLaterTimeSpan = RemindLaterFormat.Days;
+            //AutoUpdater.RemindLaterAt = 2;
+
+            AutoUpdater.Start("http://rbsoft.org/updates/right-click-enhancer.xml");
+        }
 
 
         private void PopulateConfig()
