@@ -48,33 +48,56 @@ namespace MarlinEditor
             }
         }
 
-       
-        private List<string> FindFirmwareFeatures()
+
+        private void SearchAndCompare()
         {
-            List<string> allFeatures = new List<string>();
-            List<int> rows = fctbCurrentFirmware.FindLines(@"\#define", RegexOptions.Singleline);
-            foreach (int row in rows)
+            
+            FrmMigrationCompare frmMigrationCompare = new FrmMigrationCompare();
+            if (frmMigrationCompare.ShowDialog() != DialogResult.OK) return;
+
+            foreach (ToolStripMenuItem dropDownItem in filesWithDifferancesToolStripMenuItem.DropDownItems)
             {
-                string text = fctbCurrentFirmware.GetLineText(row);
-                //Get word after #define featurename
-                string feature = Regex.Match(text, @"(?<=\s*\#define\s*)(\w+)", RegexOptions.Singleline).Value;
-
-
-                if (allFeatures.Contains(feature)) continue;
-                
-
-
-                allFeatures.Add(feature);
+                filesWithDifferancesToolStripMenuItem.DropDownItems.RemoveByKey(dropDownItem.Name);
             }
 
-            return allFeatures;
+            // create menuitems for each file
+            foreach (FileInfo fileInfo in frmMigrationCompare.FileNames)
+            {
+                ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                tsmi.Tag = fileInfo;
+                tsmi.Text = fileInfo.Name;
+                tsmi.Click += Tsmi_Click;
+                filesWithDifferancesToolStripMenuItem.DropDownItems.Add(tsmi);
+                    
+            }
+        }
+
+        private void Tsmi_Click(object sender, EventArgs e)
+        {
+
+            ToolStripItem item = (ToolStripItem)sender;
+
+            FileInfo fileInfo = (FileInfo) item.Tag;
+
+            ConfigurationFilename = fileInfo.Name;
+            LoadFiles();
 
         }
 
-
-
         private void FrmFirmware_Load(object sender, EventArgs e)
         {
+            
+            DialogResult result =
+                MessageBox.Show("Do you want to search for changes in *.h files?" + Environment.NewLine +
+                                "( This will take 5 minutes or more )", "Search for changes",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            if (result == DialogResult.Cancel) this.Close();
+            if (result == DialogResult.Yes)
+            {
+                SearchAndCompare();
+
+            }
+
 
             LoadFiles();
 
@@ -100,6 +123,7 @@ namespace MarlinEditor
         {
             Configuration configuration = new Configuration();
 
+            CheckIfNewFirmwareIsChanged();
 
             ResizedFrame();
 
@@ -109,11 +133,14 @@ namespace MarlinEditor
             fctbCurrentFirmware.Language = Language.Custom;
             fctbCurrentFirmware.Font = new Font("Consolas", 9.75f);
 
+            fctbNewFirmware.DescriptionFile = "ArduinoSyntax.xml";
+            fctbNewFirmware.Language = Language.Custom;
+            fctbNewFirmware.Font = new Font("Consolas", 9.75f);
 
 
 
-            fixCrLFproblems(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename));
-            fixCrLFproblems(Path.Combine(configuration.NewFirmware, ConfigurationFilename));
+            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename));
+            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(configuration.NewFirmware, ConfigurationFilename));
 
 
 
@@ -128,7 +155,7 @@ namespace MarlinEditor
             HighlightInvisibleChars(fctbNewFirmware.Range);
 
             cmbBxFirmwareFeatures.Items.Clear();
-            foreach (string feature in FindFirmwareFeatures())
+            foreach (string feature in MarlinMigrateHelper.FindFirmwareFeatures(fctbCurrentFirmware))
             {
                 cmbBxFirmwareFeatures.Items.Add(feature);
             }
@@ -141,50 +168,27 @@ namespace MarlinEditor
            
         }
 
-        private void fixCrLFproblems(string filename)
-        {
-            try
-            {
-                string allText = File.ReadAllText(filename, Encoding.UTF8);
-
-                allText = allText.Replace("\r\n", "\n");
-                allText = allText.Replace("\n", "\r\n");
-                allText = allText.Replace("\r\n", "\n");
-
-                File.WriteAllText(filename, allText);
-
-            }
-            catch (Exception writException)
-            {
-                MessageBox.Show(@"Cant correct CR/LF on file!" + Environment.NewLine + writException.Message, @"Correcting CR/LF");
-                throw;
-            }
-            
-
-
-
-        }
 
         private void ShowFirmwareFeatures(string feature)
         {
-            BookmarkChangeNeeded(feature);
+            MarlinMigrateHelper.BookmarkChangeNeeded(feature,fctbCurrentFirmware,fctbNewFirmware);
 
             // Old firmware
-            string oldFeatureValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
-            string newFeatureValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
+            string oldFeatureValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
+            string newFeatureValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbNewFirmware, feature);
 
 
 
-            int oldRow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
-            int newRow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
+            int oldRow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
+            int newRow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbNewFirmware, feature);
 
             txtBxCurrentFirmwareValue.Text = oldFeatureValue;
 
             if (newRow == 0)
             {
                 MessageBox.Show(
-                    "It looks like feature " + feature + " is obsolite in new firmware" + Environment.NewLine,
-                    "Obsolite feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    @"It looks like feature " + feature + @" is obsolite in new firmware" + Environment.NewLine,
+                    @"Obsolite feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 fctbCurrentFirmware.Navigate(oldRow);
                 fctbCurrentFirmware.CurrentLineColor = Color.Red;
                 fctbNewFirmware.CurrentLineColor = Color.Transparent;
@@ -201,163 +205,140 @@ namespace MarlinEditor
 
         }
 
-        private string GetFirmwareFeatureValue(FastColoredTextBox fctb, string feauture )
-        {
-            if (string.IsNullOrEmpty(feauture)) return "";
+        //private string GetFirmwareFeatureValue(FastColoredTextBox fctb, string feauture )
+        //{
+        //    if (string.IsNullOrEmpty(feauture)) return "";
 
-            string featurevalue = "";
-            string row = "";
+        //    string featurevalue = "";
+        //    string row = "";
 
-            List<int> rows = new List<int>();
-            rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Multiline);
+        //    List<int> rows = new List<int>();
+        //    rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Multiline);
 
-            foreach (int index in rows)
-            {
-                row = fctb.GetLineText(index).Trim();
+        //    foreach (int index in rows)
+        //    {
+        //        row = fctb.GetLineText(index).Trim();
 
-                featurevalue = row.Substring(row.IndexOf(feauture, StringComparison.Ordinal));
-                featurevalue = featurevalue.Replace(feauture, "");
-                if (featurevalue.StartsWith("\""))
-                {
-                    featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("\"", 1, StringComparison.Ordinal) + 1);
-                }
+        //        featurevalue = row.Substring(row.IndexOf(feauture, StringComparison.Ordinal));
+        //        featurevalue = featurevalue.Replace(feauture, "");
+        //        if (featurevalue.StartsWith("\""))
+        //        {
+        //            featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("\"", 1, StringComparison.Ordinal) + 1);
+        //        }
 
-                if (row.StartsWith("#define")) break;
-            }
+        //        if (row.StartsWith("#define")) break;
+        //    }
 
             
-            if (featurevalue.Contains("//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("//", StringComparison.Ordinal)).Trim();
+        //    if (featurevalue.Contains("//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("//", StringComparison.Ordinal)).Trim();
 
-            if(string.IsNullOrEmpty(featurevalue))
-            {
-                if (row.StartsWith(@"//")) featurevalue = "// Deactivated feature";
-                else featurevalue = "// Activated feature";
-            }
+        //    if(string.IsNullOrEmpty(featurevalue))
+        //    {
+        //        if (row.StartsWith(@"//")) featurevalue = "// Deactivated feature";
+        //        else featurevalue = "// Activated feature";
+        //    }
             
 
-            return featurevalue.Trim();
-        }
+        //    return featurevalue.Trim();
+        //}
 
-        private void BookmarkChangeNeeded(string feature)
-        {
-            // Get the last occurance for the feature in current firmware
-            int currentrow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
-            string currentValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
-            string currentLine = fctbCurrentFirmware.GetLineText(currentrow).Trim();
+        //private void BookmarkChangeNeeded(string feature)
+        //{
+        //    // Get the last occurance for the feature in current firmware
+        //    int currentrow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
+        //    string currentValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
+        //    string currentLine = fctbCurrentFirmware.GetLineText(currentrow).Trim();
 
-            // Get the last occurance for the feature in new firmware
-            int newrow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
-            string newValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
-            string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
-
-
-            if ((newrow == 0) | currentValue != newValue )
-            {
-                fctbCurrentFirmware.BookmarkLine(currentrow);
-                return;
-
-            }
-
-            //if (currentLine.StartsWith("//") && !newLine.StartsWith("//"))
-            //{
-            //    fctbCurrentFirmware.BookmarkLine(currentrow);
-            //    return;
-            //}
-            //if (!currentLine.StartsWith("//") && newLine.StartsWith("//"))
-            //{
-            //    fctbCurrentFirmware.BookmarkLine(currentrow);
-            //    return;
-            //}
+        //    // Get the last occurance for the feature in new firmware
+        //    int newrow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbNewFirmware, feature);
+        //    string newValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
+        //    string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
 
 
-            fctbCurrentFirmware.UnbookmarkLine(currentrow);
+        //    if ((newrow == 0) | currentValue != newValue )
+        //    {
+        //        fctbCurrentFirmware.BookmarkLine(currentrow);
+        //        return;
+
+        //    }
+
+        //    //if (currentLine.StartsWith("//") && !newLine.StartsWith("//"))
+        //    //{
+        //    //    fctbCurrentFirmware.BookmarkLine(currentrow);
+        //    //    return;
+        //    //}
+        //    //if (!currentLine.StartsWith("//") && newLine.StartsWith("//"))
+        //    //{
+        //    //    fctbCurrentFirmware.BookmarkLine(currentrow);
+        //    //    return;
+        //    //}
 
 
-        }
-
-        private int GetFirmwareFeatureRow(FastColoredTextBox fctb, string feauture)
-        {
-            if (string.IsNullOrEmpty(feauture)) return 0;
-
-            string row = "";
-            string featurevalue = "";
-
-            List<int> rows = new List<int>();
-            rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Singleline);
-            
-            // return last occurance of feature
-            foreach (int index in rows)
-            {
-                row = fctb.GetLineText(index).Trim();
-                if (row.StartsWith("#define")) return index;
-            }
-
-            if (rows.Count == 0) return 0;
-            
-            return  rows[rows.Count - 1] ;
+        //    fctbCurrentFirmware.UnbookmarkLine(currentrow);
 
 
+        //}
 
-        }
+       
 
         private void btnPassValue_Click(object sender, EventArgs e)
         {
-            UpdateFeatureValue(cmbBxFirmwareFeatures.Text);
+            MarlinMigrateHelper.UpdateFeatureValue(cmbBxFirmwareFeatures.Text,fctbCurrentFirmware,fctbNewFirmware);
 
             ShowFirmwareFeatures(cmbBxFirmwareFeatures.Text);
             // Move the focus to cmbBxFirmwareFeatures => Next feature
             cmbBxFirmwareFeatures.Focus();
         }
 
-        private void UpdateFeatureValue(string feature)
-        {
+        //private void UpdateFeatureValue(string feature)
+        //{
 
-            // Get the last occurance for the feature in current firmware
-            int currentrow = GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
-            string currentValue = GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
-            string currentLine = fctbCurrentFirmware.GetLineText(currentrow).Trim();
+        //    // Get the last occurance for the feature in current firmware
+        //    int currentrow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbCurrentFirmware, feature);
+        //    string currentValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
+        //    string currentLine = fctbCurrentFirmware.GetLineText(currentrow).Trim();
 
-            // Get the last occurance for the feature in new firmware
-            int newrow = GetFirmwareFeatureRow(fctbNewFirmware, feature);
-            string newValue = GetFirmwareFeatureValue(fctbNewFirmware, feature);
-            string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
+        //    // Get the last occurance for the feature in new firmware
+        //    int newrow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbNewFirmware, feature);
+        //    string newValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbNewFirmware, feature);
+        //    string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
 
             
 
-            if (currentLine.StartsWith("//"))
-            {
-                if (!newLine.StartsWith("//"))
-                {
-                    fctbNewFirmware.Navigate(newrow);
-                    fctbNewFirmware.CommentSelected("//");
+        //    if (currentLine.StartsWith("//"))
+        //    {
+        //        if (!newLine.StartsWith("//"))
+        //        {
+        //            fctbNewFirmware.Navigate(newrow);
+        //            fctbNewFirmware.CommentSelected("//");
 
-                }
-            }
-            if (!currentLine.StartsWith("//"))
-            {
-                if (newLine.StartsWith("//"))
-                {
-                    fctbNewFirmware.Navigate(newrow);
-                    fctbNewFirmware.RemoveLinePrefix("//");
-                }
-            }
+        //        }
+        //    }
+        //    if (!currentLine.StartsWith("//"))
+        //    {
+        //        if (newLine.StartsWith("//"))
+        //        {
+        //            fctbNewFirmware.Navigate(newrow);
+        //            fctbNewFirmware.RemoveLinePrefix("//");
+        //        }
+        //    }
 
-            if (!currentValue.StartsWith("//"))
-            {
-                string originalLine = fctbNewFirmware.GetLineText(newrow);
-                fctbNewFirmware.Navigate(newrow);
-                List<int> removeRow = new List<int>();
+        //    if (!currentValue.StartsWith("//"))
+        //    {
+        //        string originalLine = fctbNewFirmware.GetLineText(newrow);
+        //        fctbNewFirmware.Navigate(newrow);
+        //        List<int> removeRow = new List<int>();
 
-                removeRow.Add(newrow);
-                fctbNewFirmware.RemoveLines(removeRow);
-                fctbNewFirmware.Navigate(newrow);
-                fctbNewFirmware.InsertText(originalLine.ReplaceFirst(newValue, currentValue) + Environment.NewLine);
+        //        removeRow.Add(newrow);
+        //        fctbNewFirmware.RemoveLines(removeRow);
+        //        fctbNewFirmware.Navigate(newrow);
+        //        fctbNewFirmware.InsertText(originalLine.ReplaceFirst(newValue, currentValue) + Environment.NewLine);
 
-            }
+        //    }
 
-            fctbNewFirmware.DoAutoIndent(newrow);
-            fctbNewFirmware.DoAutoIndent(newrow + 1);
-        }
+        //    fctbNewFirmware.DoAutoIndent(newrow);
+        //    fctbNewFirmware.DoAutoIndent(newrow + 1);
+        //}
 
         
 
@@ -475,25 +456,9 @@ namespace MarlinEditor
             HighlightInvisibleChars(e.ChangedRange);
         }
 
-        private void aonfigurationadvhToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConfigurationFilename = @"Configuration_adv.h";
-            LoadFiles();
+       
 
-        }
-
-        private void boardhToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConfigurationFilename = @"Boards.h";
-            LoadFiles();
-        }
-
-        private void configurationhToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CheckIfNewFirmwareIsChanged();
-            ConfigurationFilename = @"Configuration.h";
-            LoadFiles();
-        }
+        
 
         private void CheckIfNewFirmwareIsChanged()
         {
@@ -508,23 +473,37 @@ namespace MarlinEditor
             }
         }
 
-        private void chooseFileToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void chooseAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Configuration configuration = new Configuration();
             FileDialog fileDialog = new OpenFileDialog();
             fileDialog.DefaultExt = "*.h";
             fileDialog.InitialDirectory = configuration.CurrentFirmware;
 
-            fileDialog.ShowDialog();
-            FileInfo fileInfo = new FileInfo(fileDialog.FileName);
-            ConfigurationFilename = fileInfo.Name;
-            LoadFiles();
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fileInfo = new FileInfo(fileDialog.FileName);
+                ConfigurationFilename = fileInfo.Name;
+                LoadFiles();
+            }
         }
 
         private void FrmFirmware_SizeChanged(object sender, EventArgs e)
         {
             ResizedFrame();
         }
+
+       
+        private void compareFiles_Click(object sender, EventArgs e)
+        {
+            
+            SearchAndCompare();
+
+
+        }
+
+       
     }
 
     public static class StringExtension
