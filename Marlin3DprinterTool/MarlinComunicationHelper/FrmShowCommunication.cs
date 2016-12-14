@@ -75,6 +75,8 @@ namespace MarlinComunicationHelper
             set
             {
                 MarlinSyntaxTextBox(fctbMarlinCommunication, "Send " + value + Environment.NewLine);
+
+
             }
         }
 
@@ -94,7 +96,18 @@ namespace MarlinComunicationHelper
             {
                 if (chkBxNeverClear.Checked) marlinSyntaxTextBox.Text += text;
                 else marlinSyntaxTextBox.Text = text;
+
+                if (marlinSyntaxTextBox.Lines.Count >= 10)
+                {
+                    marlinSyntaxTextBox.Navigate(marlinSyntaxTextBox.Lines.Count - 10);
+                }
+                
             }
+
+
+
+            
+
         }
 
 

@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -91,6 +92,13 @@
     <Compile Include="FrmMarlinEditorSetup.Designer.cs">
       <DependentUpon>FrmMarlinEditorSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMigrationCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMigrationCompare.Designer.cs">
+      <DependentUpon>FrmMigrationCompare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarlinMigrateHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmFirmwareMigrate.resx">
@@ -102,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMarlinEditorSetup.resx">
       <DependentUpon>FrmMarlinEditorSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMigrationCompare.resx">
+      <DependentUpon>FrmMigrationCompare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -33,10 +33,8 @@
             this.grpBxOldFirmware = new System.Windows.Forms.GroupBox();
             this.fctbCurrentFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStripChangeConfigTypeFile = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.configurationhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aonfigurationadvhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boardhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chooseFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CompareFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.chooseAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblFeatureValue = new System.Windows.Forms.Label();
             this.lblFeature = new System.Windows.Forms.Label();
             this.txtBxCurrentFirmwareValue = new System.Windows.Forms.TextBox();
@@ -49,6 +47,10 @@
             this.fctbNewFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.filesWithDifferancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpBxOldFirmware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).BeginInit();
             this.contextMenuStripChangeConfigTypeFile.SuspendLayout();
@@ -58,6 +60,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // grpBxOldFirmware
@@ -124,40 +127,27 @@
             // contextMenuStripChangeConfigTypeFile
             // 
             this.contextMenuStripChangeConfigTypeFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configurationhToolStripMenuItem,
-            this.aonfigurationadvhToolStripMenuItem,
-            this.boardhToolStripMenuItem,
-            this.chooseFileToolStripMenuItem});
+            this.chooseAFileToolStripMenuItem,
+            this.CompareFiles,
+            this.toolStripSeparator1,
+            this.filesWithDifferancesToolStripMenuItem,
+            this.toolStripTextBox1});
             this.contextMenuStripChangeConfigTypeFile.Name = "contextMenuStripChangeConfigTypeFile";
-            this.contextMenuStripChangeConfigTypeFile.Size = new System.Drawing.Size(183, 92);
+            this.contextMenuStripChangeConfigTypeFile.Size = new System.Drawing.Size(200, 123);
             // 
-            // configurationhToolStripMenuItem
+            // CompareFiles
             // 
-            this.configurationhToolStripMenuItem.Name = "configurationhToolStripMenuItem";
-            this.configurationhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.configurationhToolStripMenuItem.Text = "Configuration.h";
-            this.configurationhToolStripMenuItem.Click += new System.EventHandler(this.configurationhToolStripMenuItem_Click);
+            this.CompareFiles.Name = "CompareFiles";
+            this.CompareFiles.Size = new System.Drawing.Size(199, 22);
+            this.CompareFiles.Text = "Compare all config files";
+            this.CompareFiles.Click += new System.EventHandler(this.compareFiles_Click);
             // 
-            // aonfigurationadvhToolStripMenuItem
+            // chooseAFileToolStripMenuItem
             // 
-            this.aonfigurationadvhToolStripMenuItem.Name = "aonfigurationadvhToolStripMenuItem";
-            this.aonfigurationadvhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.aonfigurationadvhToolStripMenuItem.Text = "Configuration_adv.h";
-            this.aonfigurationadvhToolStripMenuItem.Click += new System.EventHandler(this.aonfigurationadvhToolStripMenuItem_Click);
-            // 
-            // boardhToolStripMenuItem
-            // 
-            this.boardhToolStripMenuItem.Name = "boardhToolStripMenuItem";
-            this.boardhToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.boardhToolStripMenuItem.Text = "Board.h";
-            this.boardhToolStripMenuItem.Click += new System.EventHandler(this.boardhToolStripMenuItem_Click);
-            // 
-            // chooseFileToolStripMenuItem
-            // 
-            this.chooseFileToolStripMenuItem.Name = "chooseFileToolStripMenuItem";
-            this.chooseFileToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.chooseFileToolStripMenuItem.Text = "Choose file";
-            this.chooseFileToolStripMenuItem.Click += new System.EventHandler(this.chooseFileToolStripMenuItem_Click);
+            this.chooseAFileToolStripMenuItem.Name = "chooseAFileToolStripMenuItem";
+            this.chooseAFileToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.chooseAFileToolStripMenuItem.Text = "Choose a file";
+            this.chooseAFileToolStripMenuItem.Click += new System.EventHandler(this.chooseAFileToolStripMenuItem_Click);
             // 
             // lblFeatureValue
             // 
@@ -316,6 +306,27 @@
             this.splitContainer1.SplitterDistance = 501;
             this.splitContainer1.TabIndex = 30;
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(196, 6);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            // 
+            // filesWithDifferancesToolStripMenuItem
+            // 
+            this.filesWithDifferancesToolStripMenuItem.Name = "filesWithDifferancesToolStripMenuItem";
+            this.filesWithDifferancesToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.filesWithDifferancesToolStripMenuItem.Text = "Files with differances";
+            // 
             // FrmFirmware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,12 +344,14 @@
             this.grpBxOldFirmware.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).EndInit();
             this.contextMenuStripChangeConfigTypeFile.ResumeLayout(false);
+            this.contextMenuStripChangeConfigTypeFile.PerformLayout();
             this.grpBxNewFirmware.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctbNewFirmware)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -359,10 +372,12 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private FastColoredTextBoxNS.FastColoredTextBox fctbNewFirmware;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripChangeConfigTypeFile;
-        private System.Windows.Forms.ToolStripMenuItem configurationhToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aonfigurationadvhToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem boardhToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem chooseFileToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ToolStripMenuItem CompareFiles;
+        private System.Windows.Forms.ToolStripMenuItem chooseAFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem filesWithDifferancesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
     }
 }

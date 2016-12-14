@@ -301,6 +301,7 @@ namespace MarlinEditor
             this.newToolStripButton.Name = "newToolStripButton";
             this.newToolStripButton.Size = new System.Drawing.Size(36, 46);
             this.newToolStripButton.Text = "&New";
+            this.newToolStripButton.Visible = false;
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
             // openToolStripButton
