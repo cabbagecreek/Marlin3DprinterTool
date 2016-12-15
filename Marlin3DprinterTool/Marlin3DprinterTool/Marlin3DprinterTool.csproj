@@ -209,7 +209,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
-    <Content Include="Marlin3DprinterToolUpdate.xml" />
     <None Include="Resources\Work_in_progress.png" />
     <None Include="Resources\dialGauge.jpg" />
     <None Include="Resources\Setting.png" />

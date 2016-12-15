@@ -54,10 +54,13 @@ namespace Marlin3DprinterTool
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
 
-
+            UpdateFrameHeader();
             AutoUpdaterDotNET();
 
             Delegate.DisableTabs(tabControl3DprinterTool, false);
+
+
+
 
             PopulateComboBoxes();
             PopulateConfig();
@@ -69,6 +72,14 @@ namespace Marlin3DprinterTool
         private void AutoUpdaterDotNET()
         {
             
+        }
+
+        private void UpdateFrameHeader()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.ProductVersion;
+            Text = $"Marlin3DprinterTool Version: {version}";
         }
 
 

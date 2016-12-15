@@ -44,6 +44,7 @@ namespace Marlin3DprinterTool
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
+            this.btnRetractZprobe = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnM851 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -70,19 +71,14 @@ namespace Marlin3DprinterTool
             this.cmbBxZprobeXoffset = new System.Windows.Forms.ComboBox();
             this.lblZprobeXoffsetmm = new System.Windows.Forms.Label();
             this.lblZprobeXoffset = new System.Windows.Forms.Label();
+            this.btnEngageZprobe = new System.Windows.Forms.Button();
             this.grpBxZ = new System.Windows.Forms.GroupBox();
-            this.ledZmax = new MarlinComunicationHelper.LedBulb();
-            this.ledZmin = new MarlinComunicationHelper.LedBulb();
             this.lblZmax = new System.Windows.Forms.Label();
             this.lblZmin = new System.Windows.Forms.Label();
             this.grpBxY = new System.Windows.Forms.GroupBox();
-            this.ledYmax = new MarlinComunicationHelper.LedBulb();
-            this.ledYmin = new MarlinComunicationHelper.LedBulb();
             this.lblYmax = new System.Windows.Forms.Label();
             this.lblYmin = new System.Windows.Forms.Label();
             this.grpBxX = new System.Windows.Forms.GroupBox();
-            this.ledXmax = new MarlinComunicationHelper.LedBulb();
-            this.ledXmin = new MarlinComunicationHelper.LedBulb();
             this.lblXmax = new System.Windows.Forms.Label();
             this.lblXmin = new System.Windows.Forms.Label();
             this.tabPageConfigurationBed = new System.Windows.Forms.TabPage();
@@ -360,13 +356,9 @@ namespace Marlin3DprinterTool
             this.lblStepsPerUnitX = new System.Windows.Forms.Label();
             this.fctbInit = new FastColoredTextBoxNS.FastColoredTextBox();
             this.grpBxNavigation = new System.Windows.Forms.GroupBox();
-            this.btnRetractZprobe = new System.Windows.Forms.Button();
-            this.txtBxProbeLift = new MarlinComunicationHelper.KompassControll();
             this.grpBxBed = new System.Windows.Forms.Button();
             this.btnHomeY = new System.Windows.Forms.Button();
             this.btnHomeX = new System.Windows.Forms.Button();
-            this.verticalJogControlZprobeHeight = new MarlinComunicationHelper.VerticalJogControl();
-            this.btnEngageZprobe = new System.Windows.Forms.Button();
             this.btnOpenMarlin = new System.Windows.Forms.Button();
             this.btnSaveArduinoIDE = new System.Windows.Forms.Button();
             this.txtBxArduinoIDE = new System.Windows.Forms.TextBox();
@@ -381,6 +373,14 @@ namespace Marlin3DprinterTool
             this.btnFirmware = new System.Windows.Forms.Button();
             this.btnSetup = new System.Windows.Forms.Button();
             this.btnPayPal = new System.Windows.Forms.Button();
+            this.ledZmax = new MarlinComunicationHelper.LedBulb();
+            this.ledZmin = new MarlinComunicationHelper.LedBulb();
+            this.ledYmax = new MarlinComunicationHelper.LedBulb();
+            this.ledYmin = new MarlinComunicationHelper.LedBulb();
+            this.ledXmax = new MarlinComunicationHelper.LedBulb();
+            this.ledXmin = new MarlinComunicationHelper.LedBulb();
+            this.txtBxProbeLift = new MarlinComunicationHelper.KompassControll();
+            this.verticalJogControlZprobeHeight = new MarlinComunicationHelper.VerticalJogControl();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -511,7 +511,7 @@ namespace Marlin3DprinterTool
             this.tabControl3DprinterTool.Multiline = true;
             this.tabControl3DprinterTool.Name = "tabControl3DprinterTool";
             this.tabControl3DprinterTool.SelectedIndex = 0;
-            this.tabControl3DprinterTool.Size = new System.Drawing.Size(816, 752);
+            this.tabControl3DprinterTool.Size = new System.Drawing.Size(816, 610);
             this.tabControl3DprinterTool.TabIndex = 0;
             this.tabControl3DprinterTool.SelectedIndexChanged += new System.EventHandler(this.tabControl3DprinterTool_SelectedIndexChanged);
             // 
@@ -529,12 +529,23 @@ namespace Marlin3DprinterTool
             this.tabPageEndstop.Location = new System.Drawing.Point(4, 22);
             this.tabPageEndstop.Name = "tabPageEndstop";
             this.tabPageEndstop.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEndstop.Size = new System.Drawing.Size(808, 726);
+            this.tabPageEndstop.Size = new System.Drawing.Size(808, 584);
             this.tabPageEndstop.TabIndex = 0;
             this.tabPageEndstop.Text = "Endstop";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageEndstop, "Check the status of the Endstop(s)");
             this.tabPageEndstop.UseVisualStyleBackColor = true;
             this.tabPageEndstop.Click += new System.EventHandler(this.tabPageEndstop_Click);
+            // 
+            // btnRetractZprobe
+            // 
+            this.btnRetractZprobe.Location = new System.Drawing.Point(274, 218);
+            this.btnRetractZprobe.Name = "btnRetractZprobe";
+            this.btnRetractZprobe.Size = new System.Drawing.Size(94, 23);
+            this.btnRetractZprobe.TabIndex = 28;
+            this.btnRetractZprobe.Text = "Retract Z probe";
+            this.toolTip3DprinterTool.SetToolTip(this.btnRetractZprobe, "Retract the Z-probe");
+            this.btnRetractZprobe.UseVisualStyleBackColor = true;
+            this.btnRetractZprobe.Click += new System.EventHandler(this.btnRetractZprobe_Click);
             // 
             // groupBox12
             // 
@@ -839,6 +850,17 @@ namespace Marlin3DprinterTool
             this.lblZprobeXoffset.TabIndex = 7;
             this.lblZprobeXoffset.Text = "The probe is";
             // 
+            // btnEngageZprobe
+            // 
+            this.btnEngageZprobe.Location = new System.Drawing.Point(275, 189);
+            this.btnEngageZprobe.Name = "btnEngageZprobe";
+            this.btnEngageZprobe.Size = new System.Drawing.Size(94, 23);
+            this.btnEngageZprobe.TabIndex = 13;
+            this.btnEngageZprobe.Text = "Engage Z probe";
+            this.toolTip3DprinterTool.SetToolTip(this.btnEngageZprobe, "Engage the Z-Probe ");
+            this.btnEngageZprobe.UseVisualStyleBackColor = true;
+            this.btnEngageZprobe.Click += new System.EventHandler(this.btnEngageZprobeScanSurface_Click);
+            // 
             // grpBxZ
             // 
             this.grpBxZ.Controls.Add(this.ledZmax);
@@ -851,25 +873,6 @@ namespace Marlin3DprinterTool
             this.grpBxZ.TabIndex = 2;
             this.grpBxZ.TabStop = false;
             this.grpBxZ.Text = "Z";
-            // 
-            // ledZmax
-            // 
-            this.ledZmax.Location = new System.Drawing.Point(13, 95);
-            this.ledZmax.Name = "ledZmax";
-            this.ledZmax.On = false;
-            this.ledZmax.Size = new System.Drawing.Size(38, 40);
-            this.ledZmax.TabIndex = 7;
-            this.ledZmax.Text = "ledBulb1";
-            // 
-            // ledZmin
-            // 
-            this.ledZmin.Location = new System.Drawing.Point(13, 36);
-            this.ledZmin.Name = "ledZmin";
-            this.ledZmin.On = false;
-            this.ledZmin.Size = new System.Drawing.Size(38, 40);
-            this.ledZmin.TabIndex = 6;
-            this.ledZmin.Text = "ledBulb1";
-            this.ledZmin.Click += new System.EventHandler(this.ledZmin_Click);
             // 
             // lblZmax
             // 
@@ -902,24 +905,6 @@ namespace Marlin3DprinterTool
             this.grpBxY.TabStop = false;
             this.grpBxY.Text = "Y";
             // 
-            // ledYmax
-            // 
-            this.ledYmax.Location = new System.Drawing.Point(13, 100);
-            this.ledYmax.Name = "ledYmax";
-            this.ledYmax.On = false;
-            this.ledYmax.Size = new System.Drawing.Size(38, 40);
-            this.ledYmax.TabIndex = 5;
-            this.ledYmax.Text = "ledBulb1";
-            // 
-            // ledYmin
-            // 
-            this.ledYmin.Location = new System.Drawing.Point(13, 36);
-            this.ledYmin.Name = "ledYmin";
-            this.ledYmin.On = false;
-            this.ledYmin.Size = new System.Drawing.Size(38, 40);
-            this.ledYmin.TabIndex = 4;
-            this.ledYmin.Text = "ledBulb1";
-            // 
             // lblYmax
             // 
             this.lblYmax.AutoSize = true;
@@ -951,24 +936,6 @@ namespace Marlin3DprinterTool
             this.grpBxX.TabStop = false;
             this.grpBxX.Text = "X";
             // 
-            // ledXmax
-            // 
-            this.ledXmax.Location = new System.Drawing.Point(13, 95);
-            this.ledXmax.Name = "ledXmax";
-            this.ledXmax.On = false;
-            this.ledXmax.Size = new System.Drawing.Size(38, 40);
-            this.ledXmax.TabIndex = 3;
-            this.ledXmax.Text = "ledBulb1";
-            // 
-            // ledXmin
-            // 
-            this.ledXmin.Location = new System.Drawing.Point(13, 36);
-            this.ledXmin.Name = "ledXmin";
-            this.ledXmin.On = false;
-            this.ledXmin.Size = new System.Drawing.Size(38, 40);
-            this.ledXmin.TabIndex = 2;
-            this.ledXmin.Text = "ledBulb1";
-            // 
             // lblXmax
             // 
             this.lblXmax.AutoSize = true;
@@ -994,7 +961,7 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurationBed.Controls.Add(this.richTextBox2);
             this.tabPageConfigurationBed.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfigurationBed.Name = "tabPageConfigurationBed";
-            this.tabPageConfigurationBed.Size = new System.Drawing.Size(808, 657);
+            this.tabPageConfigurationBed.Size = new System.Drawing.Size(808, 584);
             this.tabPageConfigurationBed.TabIndex = 4;
             this.tabPageConfigurationBed.Text = "Configuration Bed";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurationBed, "Navigate and save positions for other features to use");
@@ -1392,7 +1359,7 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurateZprobe.Controls.Add(this.grpBxEngageZprobe);
             this.tabPageConfigurateZprobe.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfigurateZprobe.Name = "tabPageConfigurateZprobe";
-            this.tabPageConfigurateZprobe.Size = new System.Drawing.Size(808, 657);
+            this.tabPageConfigurateZprobe.Size = new System.Drawing.Size(808, 584);
             this.tabPageConfigurateZprobe.TabIndex = 6;
             this.tabPageConfigurateZprobe.Text = "Configurate Z-probe";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurateZprobe, "Configuration and Test of the Z-probe");
@@ -1579,7 +1546,7 @@ namespace Marlin3DprinterTool
             this.tabPageBedLevel.Controls.Add(this.picBxLowerLeftAdjuster);
             this.tabPageBedLevel.Location = new System.Drawing.Point(4, 22);
             this.tabPageBedLevel.Name = "tabPageBedLevel";
-            this.tabPageBedLevel.Size = new System.Drawing.Size(808, 657);
+            this.tabPageBedLevel.Size = new System.Drawing.Size(808, 584);
             this.tabPageBedLevel.TabIndex = 5;
             this.tabPageBedLevel.Text = "Bed Level";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageBedLevel, "Help for level the building surface");
@@ -1850,7 +1817,7 @@ namespace Marlin3DprinterTool
             this.tabPageScanSurface.Controls.Add(this.numUpDownXpoints);
             this.tabPageScanSurface.Location = new System.Drawing.Point(4, 22);
             this.tabPageScanSurface.Name = "tabPageScanSurface";
-            this.tabPageScanSurface.Size = new System.Drawing.Size(808, 657);
+            this.tabPageScanSurface.Size = new System.Drawing.Size(808, 584);
             this.tabPageScanSurface.TabIndex = 9;
             this.tabPageScanSurface.Text = "Scan buildsurface";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageScanSurface, "Scan the building surface");
@@ -1988,7 +1955,7 @@ namespace Marlin3DprinterTool
             this.tabPagePID.Controls.Add(this.grpBxExtruderPID);
             this.tabPagePID.Location = new System.Drawing.Point(4, 22);
             this.tabPagePID.Name = "tabPagePID";
-            this.tabPagePID.Size = new System.Drawing.Size(808, 657);
+            this.tabPagePID.Size = new System.Drawing.Size(808, 584);
             this.tabPagePID.TabIndex = 10;
             this.tabPagePID.Text = "PID";
             this.tabPagePID.UseVisualStyleBackColor = true;
@@ -2015,7 +1982,7 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbPidResponce.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.fctbPidResponce.IsReplaceMode = false;
-            this.fctbPidResponce.Location = new System.Drawing.Point(0, 411);
+            this.fctbPidResponce.Location = new System.Drawing.Point(0, 338);
             this.fctbPidResponce.Name = "fctbPidResponce";
             this.fctbPidResponce.Paddings = new System.Windows.Forms.Padding(0);
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
@@ -2437,7 +2404,7 @@ namespace Marlin3DprinterTool
             this.tabPageExtruderCalibration.Controls.Add(this.grpBxTestExtrude);
             this.tabPageExtruderCalibration.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtruderCalibration.Name = "tabPageExtruderCalibration";
-            this.tabPageExtruderCalibration.Size = new System.Drawing.Size(808, 657);
+            this.tabPageExtruderCalibration.Size = new System.Drawing.Size(808, 584);
             this.tabPageExtruderCalibration.TabIndex = 2;
             this.tabPageExtruderCalibration.Text = "Extruder Calibration";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageExtruderCalibration, "Extruder calibration");
@@ -2691,7 +2658,7 @@ namespace Marlin3DprinterTool
             this.tabPageZMaintenance.Controls.Add(this.grpZprobeConfigMax);
             this.tabPageZMaintenance.Location = new System.Drawing.Point(4, 22);
             this.tabPageZMaintenance.Name = "tabPageZMaintenance";
-            this.tabPageZMaintenance.Size = new System.Drawing.Size(808, 657);
+            this.tabPageZMaintenance.Size = new System.Drawing.Size(808, 584);
             this.tabPageZMaintenance.TabIndex = 7;
             this.tabPageZMaintenance.Text = "Z  Maintenance";
             this.toolTip3DprinterTool.SetToolTip(this.tabPageZMaintenance, "Move Z up and down for oiling and check for binding(s)");
@@ -2887,7 +2854,7 @@ namespace Marlin3DprinterTool
             this.tabPageCalculations.Controls.Add(this.grpBxLeadScrew);
             this.tabPageCalculations.Location = new System.Drawing.Point(4, 22);
             this.tabPageCalculations.Name = "tabPageCalculations";
-            this.tabPageCalculations.Size = new System.Drawing.Size(808, 657);
+            this.tabPageCalculations.Size = new System.Drawing.Size(808, 584);
             this.tabPageCalculations.TabIndex = 11;
             this.tabPageCalculations.Text = "Calculations";
             this.tabPageCalculations.UseVisualStyleBackColor = true;
@@ -3577,7 +3544,7 @@ namespace Marlin3DprinterTool
             this.tabPageParameters.Controls.Add(this.fctbInit);
             this.tabPageParameters.Location = new System.Drawing.Point(4, 22);
             this.tabPageParameters.Name = "tabPageParameters";
-            this.tabPageParameters.Size = new System.Drawing.Size(808, 657);
+            this.tabPageParameters.Size = new System.Drawing.Size(808, 584);
             this.tabPageParameters.TabIndex = 13;
             this.tabPageParameters.Text = "Parameters";
             this.tabPageParameters.UseVisualStyleBackColor = true;
@@ -4272,6 +4239,7 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.Controls.Add(this.txtBxProbeLift);
             this.grpBxNavigation.Controls.Add(this.grpBxBed);
             this.grpBxNavigation.Controls.Add(this.btnHomeY);
+            this.grpBxNavigation.Controls.Add(this.btnEmergency);
             this.grpBxNavigation.Controls.Add(this.btnHomeX);
             this.grpBxNavigation.Controls.Add(this.verticalJogControlZprobeHeight);
             this.grpBxNavigation.Location = new System.Drawing.Point(832, 68);
@@ -4282,29 +4250,6 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.Text = "Navigation";
             this.toolTip3DprinterTool.SetToolTip(this.grpBxNavigation, "Navigation for saving positions");
             this.grpBxNavigation.Visible = false;
-            // 
-            // btnRetractZprobe
-            // 
-            this.btnRetractZprobe.Location = new System.Drawing.Point(274, 218);
-            this.btnRetractZprobe.Name = "btnRetractZprobe";
-            this.btnRetractZprobe.Size = new System.Drawing.Size(94, 23);
-            this.btnRetractZprobe.TabIndex = 28;
-            this.btnRetractZprobe.Text = "Retract Z probe";
-            this.toolTip3DprinterTool.SetToolTip(this.btnRetractZprobe, "Retract the Z-probe");
-            this.btnRetractZprobe.UseVisualStyleBackColor = true;
-            this.btnRetractZprobe.Click += new System.EventHandler(this.btnRetractZprobe_Click);
-            // 
-            // txtBxProbeLift
-            // 
-            this.txtBxProbeLift.Location = new System.Drawing.Point(4, 13);
-            this.txtBxProbeLift.MarlinCommunication = null;
-            this.txtBxProbeLift.MaximumSize = new System.Drawing.Size(246, 246);
-            this.txtBxProbeLift.MinimumSize = new System.Drawing.Size(246, 246);
-            this.txtBxProbeLift.Name = "txtBxProbeLift";
-            this.txtBxProbeLift.SendCurrentPosition = true;
-            this.txtBxProbeLift.Size = new System.Drawing.Size(246, 246);
-            this.txtBxProbeLift.TabIndex = 4;
-            this.toolTip3DprinterTool.SetToolTip(this.txtBxProbeLift, "Navigate the 3D printer in X and Y direction");
             // 
             // grpBxBed
             // 
@@ -4338,37 +4283,6 @@ namespace Marlin3DprinterTool
             this.toolTip3DprinterTool.SetToolTip(this.btnHomeX, "Home X");
             this.btnHomeX.UseVisualStyleBackColor = true;
             this.btnHomeX.Click += new System.EventHandler(this.btnHomeX_Click);
-            // 
-            // verticalJogControlZprobeHeight
-            // 
-            this.verticalJogControlZprobeHeight.Location = new System.Drawing.Point(307, 9);
-            this.verticalJogControlZprobeHeight.MarlinCommunication = null;
-            this.verticalJogControlZprobeHeight.MaximumSize = new System.Drawing.Size(50, 250);
-            this.verticalJogControlZprobeHeight.MinimumSize = new System.Drawing.Size(50, 250);
-            this.verticalJogControlZprobeHeight.Name = "verticalJogControlZprobeHeight";
-            this.verticalJogControlZprobeHeight.NegativeButtonsFirst = false;
-            this.verticalJogControlZprobeHeight.SendCurrentPosition = false;
-            this.verticalJogControlZprobeHeight.Size = new System.Drawing.Size(50, 250);
-            this.verticalJogControlZprobeHeight.StepperMotor = "Z";
-            this.verticalJogControlZprobeHeight.TabIndex = 27;
-            this.verticalJogControlZprobeHeight.TextOver = "Z+";
-            this.verticalJogControlZprobeHeight.TextUnder = "Z-";
-            this.toolTip3DprinterTool.SetToolTip(this.verticalJogControlZprobeHeight, "Move the Nozzle Up and Down");
-            this.verticalJogControlZprobeHeight.Visible100Movement = true;
-            this.verticalJogControlZprobeHeight.Visible10Movement = true;
-            this.verticalJogControlZprobeHeight.VisibleZero = true;
-            this.verticalJogControlZprobeHeight.ZeroPositionAfterEachMove = true;
-            // 
-            // btnEngageZprobe
-            // 
-            this.btnEngageZprobe.Location = new System.Drawing.Point(275, 189);
-            this.btnEngageZprobe.Name = "btnEngageZprobe";
-            this.btnEngageZprobe.Size = new System.Drawing.Size(94, 23);
-            this.btnEngageZprobe.TabIndex = 13;
-            this.btnEngageZprobe.Text = "Engage Z probe";
-            this.toolTip3DprinterTool.SetToolTip(this.btnEngageZprobe, "Engage the Z-Probe ");
-            this.btnEngageZprobe.UseVisualStyleBackColor = true;
-            this.btnEngageZprobe.Click += new System.EventHandler(this.btnEngageZprobeScanSurface_Click);
             // 
             // btnOpenMarlin
             // 
@@ -4520,7 +4434,7 @@ namespace Marlin3DprinterTool
             this.chartTemperature.Series.Add(series2);
             this.chartTemperature.Series.Add(series3);
             this.chartTemperature.Series.Add(series4);
-            this.chartTemperature.Size = new System.Drawing.Size(417, 438);
+            this.chartTemperature.Size = new System.Drawing.Size(417, 296);
             this.chartTemperature.TabIndex = 21;
             this.chartTemperature.Text = "Z Extra Distance";
             this.chartTemperature.Visible = false;
@@ -4528,9 +4442,12 @@ namespace Marlin3DprinterTool
             // btnEmergency
             // 
             this.btnEmergency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEmergency.Location = new System.Drawing.Point(1119, 3);
+            this.btnEmergency.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnEmergency.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.emargency_enabled;
+            this.btnEmergency.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEmergency.Location = new System.Drawing.Point(312, 13);
             this.btnEmergency.Name = "btnEmergency";
-            this.btnEmergency.Size = new System.Drawing.Size(45, 59);
+            this.btnEmergency.Size = new System.Drawing.Size(96, 122);
             this.btnEmergency.TabIndex = 22;
             this.btnEmergency.UseVisualStyleBackColor = true;
             this.btnEmergency.Visible = false;
@@ -4539,7 +4456,7 @@ namespace Marlin3DprinterTool
             // btnFirmware
             // 
             this.btnFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFirmware.Location = new System.Drawing.Point(1027, 3);
+            this.btnFirmware.Location = new System.Drawing.Point(1069, 3);
             this.btnFirmware.Name = "btnFirmware";
             this.btnFirmware.Size = new System.Drawing.Size(86, 59);
             this.btnFirmware.TabIndex = 23;
@@ -4552,7 +4469,7 @@ namespace Marlin3DprinterTool
             this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSetup.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Setting;
             this.btnSetup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSetup.Location = new System.Drawing.Point(976, 6);
+            this.btnSetup.Location = new System.Drawing.Point(1018, 4);
             this.btnSetup.Name = "btnSetup";
             this.btnSetup.Size = new System.Drawing.Size(45, 57);
             this.btnSetup.TabIndex = 22;
@@ -4572,21 +4489,107 @@ namespace Marlin3DprinterTool
             this.btnPayPal.UseVisualStyleBackColor = true;
             this.btnPayPal.Click += new System.EventHandler(this.btnPayPal_Click);
             // 
+            // ledZmax
+            // 
+            this.ledZmax.Location = new System.Drawing.Point(13, 95);
+            this.ledZmax.Name = "ledZmax";
+            this.ledZmax.On = false;
+            this.ledZmax.Size = new System.Drawing.Size(38, 40);
+            this.ledZmax.TabIndex = 7;
+            this.ledZmax.Text = "ledBulb1";
+            // 
+            // ledZmin
+            // 
+            this.ledZmin.Location = new System.Drawing.Point(13, 36);
+            this.ledZmin.Name = "ledZmin";
+            this.ledZmin.On = false;
+            this.ledZmin.Size = new System.Drawing.Size(38, 40);
+            this.ledZmin.TabIndex = 6;
+            this.ledZmin.Text = "ledBulb1";
+            this.ledZmin.Click += new System.EventHandler(this.ledZmin_Click);
+            // 
+            // ledYmax
+            // 
+            this.ledYmax.Location = new System.Drawing.Point(13, 100);
+            this.ledYmax.Name = "ledYmax";
+            this.ledYmax.On = false;
+            this.ledYmax.Size = new System.Drawing.Size(38, 40);
+            this.ledYmax.TabIndex = 5;
+            this.ledYmax.Text = "ledBulb1";
+            // 
+            // ledYmin
+            // 
+            this.ledYmin.Location = new System.Drawing.Point(13, 36);
+            this.ledYmin.Name = "ledYmin";
+            this.ledYmin.On = false;
+            this.ledYmin.Size = new System.Drawing.Size(38, 40);
+            this.ledYmin.TabIndex = 4;
+            this.ledYmin.Text = "ledBulb1";
+            // 
+            // ledXmax
+            // 
+            this.ledXmax.Location = new System.Drawing.Point(13, 95);
+            this.ledXmax.Name = "ledXmax";
+            this.ledXmax.On = false;
+            this.ledXmax.Size = new System.Drawing.Size(38, 40);
+            this.ledXmax.TabIndex = 3;
+            this.ledXmax.Text = "ledBulb1";
+            // 
+            // ledXmin
+            // 
+            this.ledXmin.Location = new System.Drawing.Point(13, 36);
+            this.ledXmin.Name = "ledXmin";
+            this.ledXmin.On = false;
+            this.ledXmin.Size = new System.Drawing.Size(38, 40);
+            this.ledXmin.TabIndex = 2;
+            this.ledXmin.Text = "ledBulb1";
+            // 
+            // txtBxProbeLift
+            // 
+            this.txtBxProbeLift.Location = new System.Drawing.Point(4, 13);
+            this.txtBxProbeLift.MarlinCommunication = null;
+            this.txtBxProbeLift.MaximumSize = new System.Drawing.Size(246, 246);
+            this.txtBxProbeLift.MinimumSize = new System.Drawing.Size(246, 246);
+            this.txtBxProbeLift.Name = "txtBxProbeLift";
+            this.txtBxProbeLift.SendCurrentPosition = true;
+            this.txtBxProbeLift.Size = new System.Drawing.Size(246, 246);
+            this.txtBxProbeLift.TabIndex = 4;
+            this.toolTip3DprinterTool.SetToolTip(this.txtBxProbeLift, "Navigate the 3D printer in X and Y direction");
+            // 
+            // verticalJogControlZprobeHeight
+            // 
+            this.verticalJogControlZprobeHeight.Location = new System.Drawing.Point(256, 13);
+            this.verticalJogControlZprobeHeight.MarlinCommunication = null;
+            this.verticalJogControlZprobeHeight.MaximumSize = new System.Drawing.Size(50, 250);
+            this.verticalJogControlZprobeHeight.MinimumSize = new System.Drawing.Size(50, 250);
+            this.verticalJogControlZprobeHeight.Name = "verticalJogControlZprobeHeight";
+            this.verticalJogControlZprobeHeight.NegativeButtonsFirst = false;
+            this.verticalJogControlZprobeHeight.SendCurrentPosition = false;
+            this.verticalJogControlZprobeHeight.Size = new System.Drawing.Size(50, 250);
+            this.verticalJogControlZprobeHeight.StepperMotor = "Z";
+            this.verticalJogControlZprobeHeight.TabIndex = 27;
+            this.verticalJogControlZprobeHeight.TextOver = "Z+";
+            this.verticalJogControlZprobeHeight.TextUnder = "Z-";
+            this.toolTip3DprinterTool.SetToolTip(this.verticalJogControlZprobeHeight, "Move the Nozzle Up and Down");
+            this.verticalJogControlZprobeHeight.Visible100Movement = true;
+            this.verticalJogControlZprobeHeight.Visible10Movement = true;
+            this.verticalJogControlZprobeHeight.VisibleZero = true;
+            this.verticalJogControlZprobeHeight.ZeroPositionAfterEachMove = true;
+            // 
             // FrmMarlin3DprinterTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 824);
+            this.ClientSize = new System.Drawing.Size(1252, 682);
             this.Controls.Add(this.btnSetup);
             this.Controls.Add(this.btnPayPal);
             this.Controls.Add(this.btnFirmware);
-            this.Controls.Add(this.btnEmergency);
             this.Controls.Add(this.tabControl3DprinterTool);
             this.Controls.Add(this.chartTemperature);
             this.Controls.Add(this.grpBxNavigation);
             this.Controls.Add(this.lblStepperDriverPulley);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1268, 768);
+            this.MinimumSize = new System.Drawing.Size(1268, 720);
             this.Name = "FrmMarlin3DprinterTool";
             this.Text = "3DprinterTool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm3DprinterTool_FormClosing);
