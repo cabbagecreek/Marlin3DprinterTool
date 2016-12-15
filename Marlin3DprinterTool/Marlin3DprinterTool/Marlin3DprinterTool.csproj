@@ -92,9 +92,6 @@
     <Reference Include="AGauge">
       <HintPath>..\..\..\..\..\Desktop\Agauge\AGauge_Bin\AGauge.dll</HintPath>
     </Reference>
-    <Reference Include="AutoUpdater.NET">
-      <HintPath>..\packages\AutoUpdater.NET.dll</HintPath>
-    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
