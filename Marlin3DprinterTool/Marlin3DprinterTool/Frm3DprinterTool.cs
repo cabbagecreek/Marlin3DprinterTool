@@ -2828,6 +2828,36 @@ namespace Marlin3DprinterTool
         {
             MessageBox.Show("Update M851. \n Take careof both MBL and ABL.\n Not implemented (yet)");
         }
+
+        private void grpBxNavigation_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chartTemperature_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCurrentPositionYConfigBed_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void nChartControlSurface_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
