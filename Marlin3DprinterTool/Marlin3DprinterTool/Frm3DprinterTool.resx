@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTip3DprinterTool.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>167, 17</value>
-  </metadata>
   <data name="txtBxZextraDistanceInstruct.Text" xml:space="preserve">
     <value>When doing Z-probing and moving this is the extra distance from the bed. This can be set to 2-3mm when everything is working. For initial testing set this to 50mm. Reducing this will speed up the process using the Z-probe
 </value>
   </data>
+  <metadata name="toolTip3DprinterTool.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>167, 17</value>
+  </metadata>
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>Move the extruder to the different locations on the bed.
 
