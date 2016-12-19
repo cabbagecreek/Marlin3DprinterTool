@@ -3,8 +3,22 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
-  <Product Id="*" Name="Marlin3DprinterTool" Language="1033" Version="0.0.0.11" Manufacturer="Cabbagecreek"  UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <Product Id="*"
+           Name="Marlin3DprinterTool"
+           Language="1033"
+           Version="!(bind.fileVersion.Marlin3DprinterTool.exe)"
+           Manufacturer="Cabbagecreek"  
+           UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
+
+   
+
+
+    <Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine" />
+    
+    
+    
     <WixVariable Id="WixUILicenseRtf" Value="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
 
 
@@ -12,7 +26,10 @@
     <Property Id="ARPPRODUCTICON" Value="Marlin3DprinterTool.ico" />
 
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of Marlin3DprinterTool is already installed." />
+    <MajorUpgrade
+      Schedule="afterInstallInitialize"  
+      DowngradeErrorMessage="A newer version of Marlin3DprinterTool is already installed." />
+    
     <MediaTemplate EmbedCab="yes" />
 
 
@@ -117,15 +134,6 @@
 
 
 
-
-  <!-- Fragment-->
-    <!-- DirectoryRef Id="APPLICATIONROOTDIRECTORY"-->
-      <!-- Component Id="marlin3dprintertool.exe" Guid="{A2AF9ACC-1E11-4A1C-8DC4-FA022907E0BB}"-->
-        <!-- File Id="Marlin3DprinterTool.exe" Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe" KeyPath="yes" Checksum="yes" /-->
-      <!-- /Component-->
-    <!-- /DirectoryRef-->
-  <!-- /Fragment -->
-  
 
 
 
