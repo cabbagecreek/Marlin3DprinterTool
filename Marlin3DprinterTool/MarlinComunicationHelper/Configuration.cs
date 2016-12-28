@@ -611,6 +611,10 @@ namespace MarlinComunicationHelper
             }
         }
 
+
+        
+
+
         /// <summary>
         /// Z probe Offset in X-axis in mm
         /// </summary>
@@ -640,8 +644,6 @@ namespace MarlinComunicationHelper
             }
         }
 
-
-
         /// <summary>
         /// Z probe Offset in Z-axis in mm
         /// </summary>
@@ -670,6 +672,10 @@ namespace MarlinComunicationHelper
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
+
+
+
+        
 
 
         /// <summary>

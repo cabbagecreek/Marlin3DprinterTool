@@ -94,13 +94,23 @@ namespace MarlinComunicationHelper
             }
             else
             {
-                if (chkBxNeverClear.Checked) marlinSyntaxTextBox.Text += text;
-                else marlinSyntaxTextBox.Text = text;
-
-                if (marlinSyntaxTextBox.Lines.Count >= 10)
+                try
                 {
-                    marlinSyntaxTextBox.Navigate(marlinSyntaxTextBox.Lines.Count - 10);
+                    if (chkBxNeverClear.Checked) marlinSyntaxTextBox.Text += text;
+                    else marlinSyntaxTextBox.Text = text;
+
+                    if (marlinSyntaxTextBox.Lines.Count >= 10)
+                    {
+                        marlinSyntaxTextBox.Navigate(marlinSyntaxTextBox.Lines.Count - 10);
+                    }
+
                 }
+                catch (Exception)
+                {
+                    
+                    //TODO: figure out why the MarlinSyntaxTextBox is disposed instead of empty catch
+                }
+                
                 
             }
 

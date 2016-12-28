@@ -36,16 +36,16 @@ namespace Marlin3DprinterTool
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMarlin3DprinterTool));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnM851 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtBxM851 = new System.Windows.Forms.TextBox();
             this.lblM851 = new System.Windows.Forms.Label();
             this.grpBxZextraDistance = new System.Windows.Forms.GroupBox();
             this.lblZextraDistance = new System.Windows.Forms.Label();
@@ -210,11 +210,11 @@ namespace Marlin3DprinterTool
             this.tabPageExtruderCalibration = new System.Windows.Forms.TabPage();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbBxCalibrationExtruder = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.chkBxColdExtruderCalibration = new System.Windows.Forms.CheckBox();
             this.numUpDnCalibrateExtruderTemp = new System.Windows.Forms.NumericUpDown();
-            this.btnHeatExtruderForCalibration = new System.Windows.Forms.Button();
-            this.trkBarTemperature = new System.Windows.Forms.TrackBar();
+            this.trkBarCalibrationExtruderTemperature = new System.Windows.Forms.TrackBar();
             this.grpBxCalculate = new System.Windows.Forms.GroupBox();
             this.btnExtruderCalibrationCalculate = new System.Windows.Forms.Button();
             this.btnM92Extruder = new System.Windows.Forms.Button();
@@ -442,7 +442,7 @@ namespace Marlin3DprinterTool
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnCalibrateExtruderTemp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBarTemperature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkBarCalibrationExtruderTemperature)).BeginInit();
             this.grpBxCalculate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnFirmware)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnMeassure)).BeginInit();
@@ -538,7 +538,7 @@ namespace Marlin3DprinterTool
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.btnM851);
-            this.groupBox12.Controls.Add(this.textBox3);
+            this.groupBox12.Controls.Add(this.txtBxM851);
             this.groupBox12.Controls.Add(this.lblM851);
             this.groupBox12.Location = new System.Drawing.Point(83, 17);
             this.groupBox12.Name = "groupBox12";
@@ -557,12 +557,12 @@ namespace Marlin3DprinterTool
             this.btnM851.UseVisualStyleBackColor = true;
             this.btnM851.Click += new System.EventHandler(this.btnM851_Click);
             // 
-            // textBox3
+            // txtBxM851
             // 
-            this.textBox3.Location = new System.Drawing.Point(47, 25);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(38, 20);
-            this.textBox3.TabIndex = 1;
+            this.txtBxM851.Location = new System.Drawing.Point(47, 25);
+            this.txtBxM851.Name = "txtBxM851";
+            this.txtBxM851.Size = new System.Drawing.Size(38, 20);
+            this.txtBxM851.TabIndex = 1;
             // 
             // lblM851
             // 
@@ -633,9 +633,9 @@ namespace Marlin3DprinterTool
             // 
             this.pictureWorkInProgressZprobe.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Work_in_progress;
             this.pictureWorkInProgressZprobe.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureWorkInProgressZprobe.Location = new System.Drawing.Point(217, 170);
+            this.pictureWorkInProgressZprobe.Location = new System.Drawing.Point(298, 260);
             this.pictureWorkInProgressZprobe.Name = "pictureWorkInProgressZprobe";
-            this.pictureWorkInProgressZprobe.Size = new System.Drawing.Size(142, 158);
+            this.pictureWorkInProgressZprobe.Size = new System.Drawing.Size(61, 68);
             this.pictureWorkInProgressZprobe.TabIndex = 27;
             this.pictureWorkInProgressZprobe.TabStop = false;
             // 
@@ -2452,7 +2452,7 @@ namespace Marlin3DprinterTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox3.Location = new System.Drawing.Point(7, 352);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(249, 270);
+            this.richTextBox3.Size = new System.Drawing.Size(651, 270);
             this.richTextBox3.TabIndex = 12;
             this.richTextBox3.Text = "";
             // 
@@ -2460,33 +2460,46 @@ namespace Marlin3DprinterTool
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cmbBxCalibrationExtruder);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.chkBxColdExtruderCalibration);
             this.groupBox2.Controls.Add(this.numUpDnCalibrateExtruderTemp);
-            this.groupBox2.Controls.Add(this.btnHeatExtruderForCalibration);
-            this.groupBox2.Controls.Add(this.trkBarTemperature);
+            this.groupBox2.Controls.Add(this.trkBarCalibrationExtruderTemperature);
             this.groupBox2.Location = new System.Drawing.Point(7, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(249, 174);
+            this.groupBox2.Size = new System.Drawing.Size(651, 144);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Temperarure";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
+            // cmbBxCalibrationExtruder
+            // 
+            this.cmbBxCalibrationExtruder.FormattingEnabled = true;
+            this.cmbBxCalibrationExtruder.Items.AddRange(new object[] {
+            "Extruder 0",
+            "Extruder 1",
+            "Extruder 2",
+            "Extruder 3"});
+            this.cmbBxCalibrationExtruder.Location = new System.Drawing.Point(5, 17);
+            this.cmbBxCalibrationExtruder.Name = "cmbBxCalibrationExtruder";
+            this.cmbBxCalibrationExtruder.Size = new System.Drawing.Size(251, 21);
+            this.cmbBxCalibrationExtruder.TabIndex = 29;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Work_in_progress;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(263, 34);
+            this.pictureBox1.Location = new System.Drawing.Point(282, 17);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(121, 133);
+            this.pictureBox1.Size = new System.Drawing.Size(121, 121);
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
             // chkBxColdExtruderCalibration
             // 
             this.chkBxColdExtruderCalibration.AutoSize = true;
-            this.chkBxColdExtruderCalibration.Location = new System.Drawing.Point(9, 38);
+            this.chkBxColdExtruderCalibration.Location = new System.Drawing.Point(9, 44);
             this.chkBxColdExtruderCalibration.Name = "chkBxColdExtruderCalibration";
             this.chkBxColdExtruderCalibration.Size = new System.Drawing.Size(139, 17);
             this.chkBxColdExtruderCalibration.TabIndex = 4;
@@ -2496,7 +2509,7 @@ namespace Marlin3DprinterTool
             // 
             // numUpDnCalibrateExtruderTemp
             // 
-            this.numUpDnCalibrateExtruderTemp.Location = new System.Drawing.Point(6, 112);
+            this.numUpDnCalibrateExtruderTemp.Location = new System.Drawing.Point(6, 118);
             this.numUpDnCalibrateExtruderTemp.Maximum = new decimal(new int[] {
             300,
             0,
@@ -2517,28 +2530,18 @@ namespace Marlin3DprinterTool
             0});
             this.numUpDnCalibrateExtruderTemp.ValueChanged += new System.EventHandler(this.NumUpDnCalibrateExtruderTemp_ValueChanged);
             // 
-            // btnHeatExtruderForCalibration
+            // trkBarCalibrationExtruderTemperature
             // 
-            this.btnHeatExtruderForCalibration.Location = new System.Drawing.Point(6, 138);
-            this.btnHeatExtruderForCalibration.Name = "btnHeatExtruderForCalibration";
-            this.btnHeatExtruderForCalibration.Size = new System.Drawing.Size(251, 29);
-            this.btnHeatExtruderForCalibration.TabIndex = 2;
-            this.btnHeatExtruderForCalibration.Text = "Heat Extruder For Calibaration";
-            this.btnHeatExtruderForCalibration.UseVisualStyleBackColor = true;
-            this.btnHeatExtruderForCalibration.Click += new System.EventHandler(this.btnHeatExtruderForCalibration_Click);
-            // 
-            // trkBarTemperature
-            // 
-            this.trkBarTemperature.LargeChange = 10;
-            this.trkBarTemperature.Location = new System.Drawing.Point(5, 61);
-            this.trkBarTemperature.Maximum = 300;
-            this.trkBarTemperature.Minimum = 170;
-            this.trkBarTemperature.Name = "trkBarTemperature";
-            this.trkBarTemperature.Size = new System.Drawing.Size(251, 45);
-            this.trkBarTemperature.SmallChange = 5;
-            this.trkBarTemperature.TabIndex = 0;
-            this.trkBarTemperature.Value = 170;
-            this.trkBarTemperature.Scroll += new System.EventHandler(this.trkBarTemperature_Scroll);
+            this.trkBarCalibrationExtruderTemperature.LargeChange = 10;
+            this.trkBarCalibrationExtruderTemperature.Location = new System.Drawing.Point(5, 67);
+            this.trkBarCalibrationExtruderTemperature.Maximum = 300;
+            this.trkBarCalibrationExtruderTemperature.Minimum = 170;
+            this.trkBarCalibrationExtruderTemperature.Name = "trkBarCalibrationExtruderTemperature";
+            this.trkBarCalibrationExtruderTemperature.Size = new System.Drawing.Size(251, 45);
+            this.trkBarCalibrationExtruderTemperature.SmallChange = 5;
+            this.trkBarCalibrationExtruderTemperature.TabIndex = 0;
+            this.trkBarCalibrationExtruderTemperature.Value = 170;
+            this.trkBarCalibrationExtruderTemperature.Scroll += new System.EventHandler(this.trkBarCalibrationExtruderTemperature_Scroll);
             // 
             // grpBxCalculate
             // 
@@ -2550,9 +2553,9 @@ namespace Marlin3DprinterTool
             this.grpBxCalculate.Controls.Add(this.numUpDnFirmware);
             this.grpBxCalculate.Controls.Add(this.numUpDnMeassure);
             this.grpBxCalculate.Controls.Add(this.lblMeassure);
-            this.grpBxCalculate.Location = new System.Drawing.Point(7, 252);
+            this.grpBxCalculate.Location = new System.Drawing.Point(7, 258);
             this.grpBxCalculate.Name = "grpBxCalculate";
-            this.grpBxCalculate.Size = new System.Drawing.Size(249, 83);
+            this.grpBxCalculate.Size = new System.Drawing.Size(651, 83);
             this.grpBxCalculate.TabIndex = 10;
             this.grpBxCalculate.TabStop = false;
             this.grpBxCalculate.Text = "Calculate";
@@ -2647,9 +2650,9 @@ namespace Marlin3DprinterTool
             this.grpBxTestExtrude.Controls.Add(this.lblExtrude);
             this.grpBxTestExtrude.Controls.Add(this.btnExtruderCalibation);
             this.grpBxTestExtrude.Controls.Add(this.numUpDnExtrude);
-            this.grpBxTestExtrude.Location = new System.Drawing.Point(7, 193);
+            this.grpBxTestExtrude.Location = new System.Drawing.Point(7, 163);
             this.grpBxTestExtrude.Name = "grpBxTestExtrude";
-            this.grpBxTestExtrude.Size = new System.Drawing.Size(249, 53);
+            this.grpBxTestExtrude.Size = new System.Drawing.Size(651, 89);
             this.grpBxTestExtrude.TabIndex = 9;
             this.grpBxTestExtrude.TabStop = false;
             this.grpBxTestExtrude.Text = "Test extrusion";
@@ -2668,7 +2671,7 @@ namespace Marlin3DprinterTool
             // 
             this.btnExtruderCalibation.Location = new System.Drawing.Point(226, 23);
             this.btnExtruderCalibation.Name = "btnExtruderCalibation";
-            this.btnExtruderCalibation.Size = new System.Drawing.Size(118, 21);
+            this.btnExtruderCalibation.Size = new System.Drawing.Size(118, 57);
             this.btnExtruderCalibation.TabIndex = 8;
             this.btnExtruderCalibation.Text = "Test extrude";
             this.btnExtruderCalibation.UseVisualStyleBackColor = true;
@@ -4496,42 +4499,42 @@ namespace Marlin3DprinterTool
             // 
             this.chartTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.AxisX.Title = "Secunds";
-            chartArea1.AxisY.Title = "Temp";
-            chartArea1.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.Title = "Secunds";
+            chartArea2.AxisY.Title = "Temp";
+            chartArea2.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea2);
             this.chartTemperature.Location = new System.Drawing.Point(688, 416);
             this.chartTemperature.Name = "chartTemperature";
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Red;
-            series1.IsVisibleInLegend = false;
-            series1.Name = "Extruder";
-            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series2.BorderWidth = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.LightCoral;
-            series2.IsVisibleInLegend = false;
-            series2.Name = "SetExtruder";
-            series3.BorderWidth = 2;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Color = System.Drawing.Color.Blue;
-            series3.IsVisibleInLegend = false;
-            series3.Name = "Bed";
-            series4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series4.BorderWidth = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Color = System.Drawing.Color.LightBlue;
-            series4.IsVisibleInLegend = false;
-            series4.Name = "SetBed";
-            this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Series.Add(series2);
-            this.chartTemperature.Series.Add(series3);
-            this.chartTemperature.Series.Add(series4);
+            series5.BorderWidth = 2;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Color = System.Drawing.Color.Red;
+            series5.IsVisibleInLegend = false;
+            series5.Name = "Extruder";
+            series6.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series6.BorderWidth = 2;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Color = System.Drawing.Color.LightCoral;
+            series6.IsVisibleInLegend = false;
+            series6.Name = "SetExtruder";
+            series7.BorderWidth = 2;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Color = System.Drawing.Color.Blue;
+            series7.IsVisibleInLegend = false;
+            series7.Name = "Bed";
+            series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            series8.BorderWidth = 2;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series8.Color = System.Drawing.Color.LightBlue;
+            series8.IsVisibleInLegend = false;
+            series8.Name = "SetBed";
+            this.chartTemperature.Series.Add(series5);
+            this.chartTemperature.Series.Add(series6);
+            this.chartTemperature.Series.Add(series7);
+            this.chartTemperature.Series.Add(series8);
             this.chartTemperature.Size = new System.Drawing.Size(316, 302);
             this.chartTemperature.TabIndex = 21;
             this.chartTemperature.Visible = false;
@@ -4676,7 +4679,7 @@ namespace Marlin3DprinterTool
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnCalibrateExtruderTemp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBarTemperature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkBarCalibrationExtruderTemperature)).EndInit();
             this.grpBxCalculate.ResumeLayout(false);
             this.grpBxCalculate.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnFirmware)).EndInit();
@@ -4765,7 +4768,7 @@ namespace Marlin3DprinterTool
         private Button btnConnect;
         private TabPage tabPageExtruderCalibration;
         private GroupBox groupBox2;
-        private TrackBar trkBarTemperature;
+        private TrackBar trkBarCalibrationExtruderTemperature;
         private GroupBox grpBxCalculate;
         private Button btnExtruderCalibrationCalculate;
         private Button btnM92Extruder;
@@ -4778,7 +4781,6 @@ namespace Marlin3DprinterTool
         private Button btnExtruderCalibation;
         private NumericUpDown numUpDnExtrude;
         private NumericUpDown numUpDnCalibrateExtruderTemp;
-        private Button btnHeatExtruderForCalibration;
         private TextBox txtBxGcodeAssistZprobeEngage;
         private TabPage tabPageConfigurationBed;
         private GroupBox grpPosition;
@@ -5074,7 +5076,7 @@ namespace Marlin3DprinterTool
         private TextBox txtBxZprobeXoffset;
         private GroupBox groupBox12;
         private Button btnM851;
-        private TextBox textBox3;
+        private TextBox txtBxM851;
         private Label lblM851;
         private TextBox txtBxZprobePosition;
         private Button btnDockZprobe;
@@ -5087,5 +5089,6 @@ namespace Marlin3DprinterTool
         private PictureBox pictureWorkInProgressZprobe;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private ComboBox cmbBxCalibrationExtruder;
     }
 }
