@@ -18,6 +18,8 @@ namespace MarlinComunicationHelper
         private string _dataReceived;
         private FrmShowCommunication _showcom;
 
+        private string linuxNewline = "\n";
+
         #region Properties
 
         /// <summary>
@@ -69,8 +71,11 @@ namespace MarlinComunicationHelper
             /// <summary>
             /// Search for where the Probe touch the bed
             /// </summary>
-            DockZprobe = 15
-            
+            DockZprobe = 15,
+            /// <summary>
+            /// Start of extruder Calibration
+            /// </summary>
+            ExtruderCalibration = 16
         }
         
 
@@ -531,7 +536,7 @@ namespace MarlinComunicationHelper
             foreach (var responce in responces)
             {
                 if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
-                if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
+                if (responce.Contains("x_max")) EndStopStatus.Xmax = responce.ToLower().Contains("triggered");
                 if (responce.Contains("y_min")) EndStopStatus.Ymin = responce.ToLower().Contains("triggered");
                 if (responce.Contains("y_max")) EndStopStatus.Ymax = responce.ToLower().Contains("triggered");
                 if (responce.Contains("z_min")) EndStopStatus.Zmin = responce.ToLower().Contains("triggered");
@@ -923,10 +928,14 @@ namespace MarlinComunicationHelper
         /// <param name="command"></param>
         public void SendCommand(string command)
         {
+
+            // For the technically minded, Gcode line endings are Unix Line Endings (\n), 
+            // but will accept Windows Line Endings (\r\n), so you should not need to worry
+            // about converting between the two, but it is best practice to use Unix Line Endings where possible.
             if (IsPortOpen)
             {
                 //TODO: _serialPort.SendAsciiStringLine()
-                if (Kill) _serialPort.SendAsciiString("M112" + Environment.NewLine);
+                if (Kill) _serialPort.SendAsciiString("M112" + linuxNewline);
 
                 if (Showform != null)
                 {
@@ -940,7 +949,7 @@ namespace MarlinComunicationHelper
 
                 // Send the command
                 //TODO: _serialPort.SendAsciiStringLine()
-                _serialPort.SendAsciiString(command + Environment.NewLine);
+                _serialPort.SendAsciiString(command + linuxNewline);
             }
         }
 
