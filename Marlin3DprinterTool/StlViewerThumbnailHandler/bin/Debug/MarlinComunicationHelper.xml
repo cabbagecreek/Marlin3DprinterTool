@@ -4,6 +4,18 @@
         <name>MarlinComunicationHelper</name>
     </assembly>
     <members>
+        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateBackgroundImage(System.Windows.Forms.Control,System.Drawing.Image)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="image"></param>
+        </member>
+        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateText(System.Windows.Forms.Control,System.String)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="text"></param>
+        </member>
         <member name="F:MarlinComunicationHelper.BedAdjuster.components">
             <summary> 
             Required designer variable.
@@ -433,7 +445,7 @@
             Start of extruder Calibration
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.MarlinCommunication.ZprobeOffset">
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.M851ZprobeOffset">
             <summary>
             The ZprobeOffset that is found in M851
             </summary>
@@ -872,6 +884,21 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.adjuster">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.clockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.counterclockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
         <member name="T:MarlinComunicationHelper.VerticalJogControl">
