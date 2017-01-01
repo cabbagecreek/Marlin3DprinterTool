@@ -131,9 +131,7 @@
             </summary>
         </member>
         <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.#ctor">
-            <summary>
-            Constructor Sebbe
-            </summary>
+            
         </member>
         <member name="P:Marlin3DprinterTool.FrmMarlin3DprinterTool.Delegate">
             <summary>
@@ -159,33 +157,39 @@
         </member>
         <member name="T:Marlin3DprinterTool.ComboboxItemTextValue">
             <summary>
-                Combobox with Text-Value Keypair.
+            Combobox with Text-Value Keypair. 
             </summary>
         </member>
         <member name="P:Marlin3DprinterTool.ComboboxItemTextValue.Text">
             <summary>
+            
             </summary>
         </member>
         <member name="P:Marlin3DprinterTool.ComboboxItemTextValue.Value">
             <summary>
+            
             </summary>
         </member>
         <member name="M:Marlin3DprinterTool.ComboboxItemTextValue.ToString">
             <summary>
+            
             </summary>
             <returns></returns>
         </member>
         <member name="M:Marlin3DprinterTool.ComboboxItemTextValue.ToValue">
             <summary>
+            
             </summary>
             <returns></returns>
         </member>
         <member name="T:Marlin3DprinterTool.FileAssociation">
             <summary>
+            
             </summary>
         </member>
         <member name="M:Marlin3DprinterTool.FileAssociation.Associate(System.String,System.String,System.String,System.String,System.String)">
             <summary>
+            
             </summary>
             <param name="extension"></param>
             <param name="progID"></param>
@@ -195,6 +199,7 @@
         </member>
         <member name="M:Marlin3DprinterTool.FileAssociation.IsAssociated(System.String)">
             <summary>
+            
             </summary>
             <param name="extension"></param>
             <returns></returns>
