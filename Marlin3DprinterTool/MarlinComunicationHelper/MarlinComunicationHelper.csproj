@@ -78,6 +78,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedAdjuster.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BedAdjuster.Designer.cs">
+      <DependentUpon>BedAdjuster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BedCorner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BedCorner.Designer.cs">
+      <DependentUpon>BedCorner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="FrmShowCommunication.cs">
       <SubType>Form</SubType>
@@ -109,6 +121,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BedAdjuster.resx">
+      <DependentUpon>BedAdjuster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BedCorner.resx">
+      <DependentUpon>BedCorner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmShowCommunication.resx">
       <DependentUpon>FrmShowCommunication.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +151,9 @@
     <Content Include="MarlinCommunication.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\counterclockwise.jpg" />
+    <None Include="Resources\clockwise.jpg" />
+    <None Include="Resources\adjuster.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

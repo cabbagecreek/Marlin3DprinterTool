@@ -85,7 +85,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// The ZprobeOffset that is found in M851
         /// </summary>
-        private decimal ZprobeOffset { get; set; }
+        public decimal M851ZprobeOffset { get; set; }
 
         /// <summary>
         /// The Steps per Unit X that is found during INIT
@@ -378,14 +378,18 @@ namespace MarlinComunicationHelper
             // Get all responces
             var responces = GetAllResponces();
 
+
+            var probePosition = new Position();
+            string xstring = null;
+            string ystring = null;
+            string zstring = null;
+
             // Create G30 responce Event
             foreach (var responce in responces)
             {
                 if (responce.Contains("Bed"))
                 {
-                    string xstring = null;
-                    string ystring = null;
-                    string zstring = null;
+                    
                     try
                     {
                         // Bed X: 170.00 Y: 180.00 Z: -0.98
@@ -407,22 +411,27 @@ namespace MarlinComunicationHelper
                         MessageBox.Show($"Error in parser of G30. Error: {parsException.Message}");
                     }
 
-                    var probePosition = new Position();
+                    
                     if (zstring != null)
                     {
-                        probePosition.Z = Convert.ToDouble(zstring.Replace(".", ","));
+                        probePosition.Zstring = zstring;
                     }
                     if (ystring != null)
                     {
-                        probePosition.Y = Convert.ToDouble(ystring.Replace(".", ","));
+                        probePosition.Ystring = ystring;
                     }
                     if (xstring != null)
                     {
-                        probePosition.X = Convert.ToDouble(xstring.Replace(".", ","));
+                        probePosition.Xstring = xstring;
                     }
-                    ProbeResponceList.Add(probePosition);
+                    
                 }
+                
+
+                
             }
+
+            ProbeResponceList.Add(probePosition);
 
             // Create G30 responce Event
             OnG30ProbeResponce(ProbeResponceList);
@@ -626,7 +635,10 @@ namespace MarlinComunicationHelper
         {
             var m851Pattern = @"(?<=M851\sZ)[-|.|0-9]*";
             var m851Match = Regex.Match(_dataReceived, m851Pattern);
-            if (m851Match.Success) ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
+            if (m851Match.Success)
+            {
+                M851ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
+            }
         }
 
         private void ParseDefault()

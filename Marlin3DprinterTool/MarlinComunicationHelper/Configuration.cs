@@ -110,16 +110,19 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// Configure the type of Bed
         /// </summary>
-        public string BedType
+        public BedTypeEnum BedType
         {
             get
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement) xml.SelectSingleNode("/configuration/bed");
-                if (xmlNode == null) return "4point";
+                if (xmlNode == null) return BedTypeEnum.FourPoint;
 
-                return xmlNode.GetAttribute("bedtype");
+
+
+                // Enum.Parse(typeof(Colors), colorString);  
+                return (BedTypeEnum) Enum.Parse(typeof (BedTypeEnum), xmlNode.GetAttribute("bedtype"));
             }
 
             set
@@ -131,8 +134,10 @@ namespace MarlinComunicationHelper
                 {
                     xmlNode = (XmlElement) CreateMissingXmlNode(xml, xml.DocumentElement, "bed");
                 }
-                // 4point, 3pointLeft, 3pointRight
-                xmlNode?.SetAttribute("bedtype", value);
+                
+
+                if (xmlNode != null) xmlNode.SetAttribute("bedtype", value.ToString());
+
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
@@ -149,10 +154,10 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// Define the lower Left Corner
         /// </summary>
-        public Position LowerLeftCorner
+        public Position FrontLeftCorner
         {
-            get { return GetPosition("LowerLeftCorner"); }
-            set { SetPosition(value, "LowerLeftCorner"); }
+            get { return GetPosition("FrontLeftCorner"); }
+            set { SetPosition(value, "FrontLeftCorner"); }
         }
 
 
@@ -332,67 +337,33 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// Lower Right Coner
         /// </summary>
-        public Position LowerRightCorner
+        public Position FrontRightCorner
         {
-            get { return GetPosition("LowerRightCorner"); }
-            set { SetPosition(value, "LowerRightCorner"); }
+            get { return GetPosition("FrontRightCorner"); }
+            set { SetPosition(value, "FrontRightCorner"); }
         }
 
         /// <summary>
         /// Upper Left Corner
         /// </summary>
-        public Position UpperLeftCorner
+        public Position BackLeftCorner
         {
-            get { return GetPosition("UpperLeftCorner"); }
-            set { SetPosition(value, "UpperLeftCorner"); }
+            get { return GetPosition("BackLeftCorner"); }
+            set { SetPosition(value, "BackLeftCorner"); }
         }
 
         /// <summary>
         /// Upper Right Corner
         /// </summary>
-        public Position UpperRightCorner
+        public Position BackRightCorner
         {
-            get { return GetPosition("UpperRightCorner"); }
-            set { SetPosition(value, "UpperRightCorner"); }
+            get { return GetPosition("BackRightCorner"); }
+            set { SetPosition(value, "BackRightCorner"); }
         }
 
-        /// <summary>
-        /// Lower Left Adjuster
-        /// </summary>
-        public Position LowerLeftAdjuster
-        {
-            get { return GetPosition("LowerLeftAdjuster"); }
-            set { SetPosition(value, "LowerLeftAdjuster"); }
-        }
+       
 
-
-        /// <summary>
-        /// Lower Right Adjuster
-        /// </summary>
-        public Position LowerRightAdjuster
-        {
-            get { return GetPosition("LowerRightAdjuster"); }
-            set { SetPosition(value, "LowerRightAdjuster"); }
-        }
-
-        /// <summary>
-        /// Upper Left Adjuster
-        /// </summary>
-        public Position UpperLeftAdjuster
-        {
-            get { return GetPosition("UpperLeftAdjuster"); }
-            set { SetPosition(value, "UpperLeftAdjuster"); }
-        }
-
-
-        /// <summary>
-        /// Upper Right Adjuster
-        /// </summary>
-        public Position UpperRightAdjuster
-        {
-            get { return GetPosition("UpperRightAdjuster"); }
-            set { SetPosition(value, "UpperRightAdjuster"); }
-        }
+        
 
         /// <summary>
         /// Position where the probe is in a safe position
@@ -611,10 +582,6 @@ namespace MarlinComunicationHelper
             }
         }
 
-
-        
-
-
         /// <summary>
         /// Z probe Offset in X-axis in mm
         /// </summary>
@@ -644,6 +611,8 @@ namespace MarlinComunicationHelper
             }
         }
 
+
+
         /// <summary>
         /// Z probe Offset in Z-axis in mm
         /// </summary>
@@ -672,10 +641,6 @@ namespace MarlinComunicationHelper
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
-
-
-
-        
 
 
         /// <summary>
@@ -941,6 +906,15 @@ namespace MarlinComunicationHelper
             xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
         }
 
+    }
+
+    public enum BedTypeEnum
+    {
+        None = 0,
+        FourPoint = 1,
+        ThreePointLeftSingle = 2,
+        ThreePointFrontSingle = 3,
+        ThreePointRightSingle = 4
     }
 
 
