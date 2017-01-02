@@ -160,7 +160,7 @@ namespace Marlin3DprinterTool
             {
                 case 0:
                     _com.Status = MarlinCommunication.Feature.EndStop;
-                    _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+                    timerEndstop.Start();
                     break;
 
                 case 1:
@@ -200,17 +200,7 @@ namespace Marlin3DprinterTool
         }
 
 
-        private void _com_EndStopStatus(object sender, EndstopStatus endstopStatus)
-        {
-            ledXmin.On = _com.EndStopStatus.Xmin;
-            ledXmax.On = _com.EndStopStatus.Xmax;
-            ledYmin.On = _com.EndStopStatus.Ymin;
-            ledYmax.On = _com.EndStopStatus.Ymax;
-            ledZmin.On = _com.EndStopStatus.Zmin;
-            ledZmax.On = _com.EndStopStatus.Zmax;
-            
-            if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
-        }
+       
 
         
 
@@ -313,7 +303,6 @@ namespace Marlin3DprinterTool
                 for (var i = 0; i < numberOfRepetitions; i++)
                 {
                     // probe the point
-                    commands.Add("M0 S1");
                     commands.Add("G30 S-1");
                     commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} F6000");
                 }
@@ -783,7 +772,7 @@ namespace Marlin3DprinterTool
             chartTemperature.Series["SetBed"].Points.Clear();
 
 
-            _com.ClearReceived();
+            _com.ClearCommunication();
             _com.SendCommand($"M303 E0 S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
         }
 
@@ -898,13 +887,13 @@ namespace Marlin3DprinterTool
                     _com.M48ProbeStatus += _com_M48ProbeStatus;
                     _com.Temperatures += _com_Temperatures;
                     _com.M114GetCurrentPosition += _com_M114GetCurrentPosition;
-                    _com.M119EndStopStatus += _com_EndStopStatus;
+                    _com.M119EndStopStatus += _com_M119EndStopStatus;
                     _com.M301Responce += _com_M301Responce;
                     _com.M303Responce += _com_M303Responce;
                     _com.M304Responce += _com_M304Responce;
                     _com.M500Responce += _com_M500Responce;
                     _com.M501Responce += _com_M501Responce;
-                    _com.ReadyForNextCommand += _com_ReadyForNextCommand;
+                    _com.M851Responce += _com_M851Responce;
                     _com.CommandSequenceeDone += _com_CommandSequenceeDone;
 
                     _com.DisConnected += _com_DisConnected;
@@ -938,69 +927,236 @@ namespace Marlin3DprinterTool
             }
         }
 
+        private void _com_M851Responce(object sender, ResponceData m851Data)
+        {
+            txtBxM851.Text = m851Data.Data;
+        }
+
+        private void _com_M119EndStopStatus(object sender, EndStop e)
+        {
+            ledXmin.On = _com.EndStopStatus.Xmin;
+            ledXmax.On = _com.EndStopStatus.Xmax;
+            ledYmin.On = _com.EndStopStatus.Ymin;
+            ledYmax.On = _com.EndStopStatus.Ymax;
+            ledZmin.On = _com.EndStopStatus.Zmin;
+            ledZmax.On = _com.EndStopStatus.Zmax;
+        }
+       
         private void _com_CommandSequenceeDone(object sender, EventArgs e)
         {
-            if (_com.Status == MarlinCommunication.Feature.DockZprobe )
+            switch (_com.Status)
             {
-                if (_com.EndStopStatus.Zmin == _dockZprobeUpDown)
-                {
-                    if (_dockZprobePrecision <= 0.05 && _dockZprobeUpDown)
+
+
+                    #region EndStop
+
+                case MarlinCommunication.Feature.EndStop:
+                    //_com.SendCommand("M119");
+                    break;
+
+                    #endregion
+
+                    #region BedLevel
+
+                case MarlinCommunication.Feature.Bedlevel:
+                    // Calculate the turns on each corner
+                    if (_com.ProbeResponceList != null)
                     {
-                        
-                        DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
-                        _com.Status = MarlinCommunication.Feature.Done;
+                        foreach (var probeResponce in _com.ProbeResponceList)
+                        {
+                            _probePoints.Add(new Position
+                            {
+                                X = probeResponce.X,
+                                Y = probeResponce.Y,
+                                Z = probeResponce.Z
+                            });
+
+
+                            // Find control that match the X and Y
+                            // Assign the Z
+                            if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterBackLeft.Z = probeResponce.Z;
+                            }
+
+                            if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterBackRight.Z = probeResponce.Z;
+                            }
+
+                            if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterFrontLeft.Z = probeResponce.Z;
+                            }
+
+                            if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterFrontRight.Z = probeResponce.Z;
+                            }
+
+                            if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterLeftSingle.Z = probeResponce.Z;
+                            }
+
+                            if ((Math.Abs(bedAdjusterFrontSingle.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterFrontSingle.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterFrontSingle.Z = probeResponce.Z;
+                            }
+
+                            if ((Math.Abs(bedAdjusterRightSingle.X - probeResponce.X) < 35) &&
+                                (Math.Abs(bedAdjusterRightSingle.Y - probeResponce.Y) < 35))
+                            {
+                                bedAdjusterRightSingle.Z = probeResponce.Z;
+                            }
+
+
+
+
+
+
+                            double fixedPoint;
+
+                            switch (_configuration.BedType)
+                            {
+                                case BedTypeEnum.FourPoint:
+                                    fixedPoint = bedAdjusterBackRight.Z;
+
+                                    bedAdjusterBackRight.Fix = fixedPoint;
+                                    bedAdjusterBackRight.Calculate();
+
+                                    bedAdjusterBackLeft.Fix = fixedPoint;
+                                    bedAdjusterBackLeft.Calculate();
+
+                                    bedAdjusterFrontLeft.Fix = fixedPoint;
+                                    bedAdjusterFrontLeft.Calculate();
+
+                                    bedAdjusterFrontRight.Fix = fixedPoint;
+                                    bedAdjusterFrontRight.Calculate();
+
+                                    break;
+
+
+
+                                case BedTypeEnum.ThreePointLeftSingle:
+                                    fixedPoint = bedAdjusterLeftSingle.Z;
+
+                                    bedAdjusterLeftSingle.Fix = fixedPoint;
+                                    bedAdjusterLeftSingle.Calculate();
+
+                                    bedAdjusterBackRight.Fix = fixedPoint;
+                                    bedAdjusterBackLeft.Calculate();
+
+                                    bedAdjusterFrontRight.Fix = fixedPoint;
+                                    bedAdjusterFrontRight.Calculate();
+
+                                    break;
+
+
+
+                                case BedTypeEnum.ThreePointFrontSingle:
+                                    fixedPoint = bedAdjusterFrontSingle.Z;
+
+                                    bedAdjusterFrontSingle.Fix = fixedPoint;
+                                    bedAdjusterFrontSingle.Calculate();
+
+                                    bedAdjusterBackRight.Fix = fixedPoint;
+                                    bedAdjusterBackRight.Calculate();
+
+                                    bedAdjusterBackLeft.Fix = fixedPoint;
+                                    bedAdjusterBackLeft.Calculate();
+                                    break;
+
+
+
+                                case BedTypeEnum.ThreePointRightSingle:
+                                    fixedPoint = bedAdjusterRightSingle.Z;
+                                    bedAdjusterRightSingle.Fix = fixedPoint;
+                                    bedAdjusterRightSingle.Calculate();
+
+                                    bedAdjusterBackLeft.Fix = fixedPoint;
+                                    bedAdjusterBackLeft.Calculate();
+
+                                    bedAdjusterFrontLeft.Fix = fixedPoint;
+                                    bedAdjusterFrontLeft.Calculate();
+
+                                    break;
+
+                            }
+                        }
+
+
+                        string zMin = null;
+                        string zMax = null;
+
+                        foreach (var probePoint in _com.ProbeResponceList)
+                        {
+                            if (zMin == null) zMin = probePoint.Z.ToString();
+                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString();
+                            if (zMax == null) zMax = probePoint.Z.ToString();
+                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString();
+                        }
                     }
-                    else
-                    {
-                        _dockZprobePrecision = _dockZprobePrecision / 2.0;
-                        _dockZprobeUpDown = !_dockZprobeUpDown;
-                    }  
-                }
+                    CreateSurfaceChart(_com.ProbeResponceList);
+                    _com.Status = MarlinCommunication.Feature.Done;
+                    break;
 
-                if (_com.EndStopStatus.Zmin == _dockZprobeUpDown)
-                {
-                    if (_dockZprobePrecision <= 0.05 && _dockZprobeUpDown)
+                    #endregion
+
+                    #region SurfaceScan
+
+                case MarlinCommunication.Feature.SurfaceScan:
+                    CreateSurfaceChart(_com.ProbeResponceList);
+                    _com.Status = MarlinCommunication.Feature.Done;
+                    break;
+
+                    #endregion
+
+                case MarlinCommunication.Feature.DockZprobe:
+                    
+
+                    // Going Down and ZProbe triggered
+                    if (_com.EndStopStatus.Zmin == _dockZprobeUpDown )
                     {
-                        DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
-                        _com.Status = MarlinCommunication.Feature.Done;
+                        if (_com.EndStopStatus.Zmin && _dockZprobeUpDown && _dockZprobePrecision <= 0.03)
+                        {
+                            DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
+                            _com.Status = MarlinCommunication.Feature.EndStop;
+                            break;
+                        }
+
+                        _dockZprobePrecision = Math.Max( _dockZprobePrecision/2.0, 0.025);
+                        _dockZprobeUpDown = !_dockZprobeUpDown; // going up
                     }
-                    else
-                    {
-                        _dockZprobePrecision = _dockZprobePrecision / 2.0;
-                        _dockZprobeUpDown = !_dockZprobeUpDown;
-                    }
-                }
 
-                if (_com.Status == MarlinCommunication.Feature.DockZprobe)
-                {
-                    var lower = new List<string>
-                    {
-                        "G91",
-                        $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F200",
-                        "G90",
-                        "M119",
-                        "M114"
-                    };
-                    var riser = new List<string>
-                    {
-                        "G91",
-                        $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F200",
-                        "G90",
-                        "M119",
-                        "M114"
-                    };
-
-
+                    
                     if (_dockZprobeUpDown)
                     {
-                        _com.SendCommand(lower);
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M119", "M114" });
                     }
                     else
                     {
-                        _com.SendCommand(riser);
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M119", "M114" });
                     }
-                }
+
+                    break;
+                
+
+
+
+
             }
+
+
+
+                
+            
         }
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
@@ -1172,7 +1328,7 @@ namespace Marlin3DprinterTool
             
             // _com.status endstop TODO:
             //var selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
-            if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+            //TODO: if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
         }
 
         private void ShowInitAndM501(string data)
@@ -1197,221 +1353,7 @@ namespace Marlin3DprinterTool
         private void _com_ReadyForNextCommand(object sender, EventArgs e)
         {
             
-            switch (_com.Status)
-            {
-                
-
-                #region EndStop
-                case MarlinCommunication.Feature.EndStop:
-                    _com.SendCommand("M119");
-                    break;
-                #endregion
-
-                #region BedLevel
-                case MarlinCommunication.Feature.Bedlevel:
-                    // Calculate the turns on each corner
-                    if (_com.ProbeResponceList != null)
-                    {
-                        foreach (var probeResponce in _com.ProbeResponceList)
-                        {
-                            _probePoints.Add(new Position
-                            {
-                                X = probeResponce.X,
-                                Y = probeResponce.Y,
-                                Z = probeResponce.Z
-                            });
-
-
-                            // Find control that match the X and Y
-                            // Assign the Z
-                            if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterBackLeft.Z = probeResponce.Z;
-                            }
-                            
-                            if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterBackRight.Z = probeResponce.Z;
-                            }
-
-                            if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterFrontLeft.Z = probeResponce.Z;
-                            }
-
-                            if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterFrontRight.Z = probeResponce.Z;
-                            }
-
-                            if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterLeftSingle.Z = probeResponce.Z;
-                            }
-
-                            if ((Math.Abs(bedAdjusterFrontSingle.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterFrontSingle.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterFrontSingle.Z = probeResponce.Z;
-                            }
-
-                            if ((Math.Abs(bedAdjusterRightSingle.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterRightSingle.Y - probeResponce.Y) < 35))
-                            {
-                                bedAdjusterRightSingle.Z = probeResponce.Z;
-                            }
-
-
-
-
-
-
-                            double fixedPoint;
-
-                            switch (_configuration.BedType)
-                            {
-                                case BedTypeEnum.FourPoint:
-                                    fixedPoint = bedAdjusterBackRight.Z;
-
-                                    bedAdjusterBackRight.Fix = fixedPoint;
-                                    bedAdjusterBackRight.Calculate();
-
-                                    bedAdjusterBackLeft.Fix = fixedPoint;
-                                    bedAdjusterBackLeft.Calculate();
-
-                                    bedAdjusterFrontLeft.Fix = fixedPoint;
-                                    bedAdjusterFrontLeft.Calculate();
-
-                                    bedAdjusterFrontRight.Fix = fixedPoint;
-                                    bedAdjusterFrontRight.Calculate();
-
-                                    break;
-
-
-
-                                case BedTypeEnum.ThreePointLeftSingle:
-                                    fixedPoint = bedAdjusterLeftSingle.Z;
-
-                                    bedAdjusterLeftSingle.Fix = fixedPoint;
-                                    bedAdjusterLeftSingle.Calculate();
-
-                                    bedAdjusterBackRight.Fix = fixedPoint;
-                                    bedAdjusterBackLeft.Calculate();
-
-                                    bedAdjusterFrontRight.Fix = fixedPoint;
-                                    bedAdjusterFrontRight.Calculate();
-
-                                    break;
-
-
-
-                                case BedTypeEnum.ThreePointFrontSingle:
-                                    fixedPoint = bedAdjusterFrontSingle.Z;
-
-                                    bedAdjusterFrontSingle.Fix = fixedPoint;
-                                    bedAdjusterFrontSingle.Calculate();
-
-                                    bedAdjusterBackRight.Fix = fixedPoint;
-                                    bedAdjusterBackRight.Calculate();
-
-                                    bedAdjusterBackLeft.Fix = fixedPoint;
-                                    bedAdjusterBackLeft.Calculate();
-                                    break;
-
-
-
-                                case BedTypeEnum.ThreePointRightSingle:
-                                    fixedPoint = bedAdjusterRightSingle.Z;
-                                    bedAdjusterRightSingle.Fix = fixedPoint;
-                                    bedAdjusterRightSingle.Calculate();
-
-                                    bedAdjusterBackLeft.Fix = fixedPoint;
-                                    bedAdjusterBackLeft.Calculate();
-
-                                    bedAdjusterFrontLeft.Fix = fixedPoint;
-                                    bedAdjusterFrontLeft.Calculate();
-
-                                    break;
-
-                            }                           
-                        }
-
-
-                        string zMin = null;
-                        string zMax = null;
-
-                        foreach (var probePoint in _com.ProbeResponceList)
-                        {
-                            if (zMin == null) zMin = probePoint.Z.ToString();
-                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString();
-                            if (zMax == null) zMax = probePoint.Z.ToString();
-                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString();
-                        }
-                    }
-                    CreateSurfaceChart(_com.ProbeResponceList);
-                    _com.Status = MarlinCommunication.Feature.Done;
-                    break;
-                #endregion
-
-                #region SurfaceScan
-                case MarlinCommunication.Feature.SurfaceScan:
-                    CreateSurfaceChart(_com.ProbeResponceList);
-                    _com.Status = MarlinCommunication.Feature.Done;
-                    break;
-                #endregion
-
-                
-                case MarlinCommunication.Feature.AutomaticMeshBedLevel:
-                    GetAllMeshPoints();
-                    
-                    break;
-
-                case MarlinCommunication.Feature.GetMeshBedPoints:
-                    
-                    List<string> row = new List<string>();
-
-                    double zprogeRise = _com.ProbeResponceList[1].Z - _com.ProbeResponceList[0].Z;
-
-                    // Remove the first 2 ProbeResponce.. They are from the build in G28 hand G29 Start
-                    // In the two first proberesponce you can calculate the Z-probe rise.. 
-                    _com.ProbeResponceList.RemoveAt(0);
-                    _com.ProbeResponceList.RemoveAt(0);
-
-                    foreach (Position point in _com.ProbeResponceList)
-                    {
-                        _configuration.SetMeassuredMeshpoint(point.X, point.Y, 0);
-                        row.Add($"Getmeshbedpoints X:{point.X} Y:{point.Y} z:{point.Z}");
-                    }
-
-                    row.Add($"Z probe rise is {zprogeRise}");
-
-                    
-                    MeshMeassure();
-                    
-
-
-
-                    break;
-
-                #region MeassureMesh
-                case MarlinCommunication.Feature.MeassureMesh:
-                    foreach (Position point in _com.ProbeResponceList)
-                    {
-                        _configuration.SetMeassuredMeshpoint(point.X, point.Y, point.Z);
-                    }
-                    CreateSurfaceChart(_com.ProbeResponceList);
-
-                    CalculateMesh();
-                    _com.Status = MarlinCommunication.Feature.Done;
-
-                    break;
-                #endregion
-            }
+            
 
 
            
@@ -2351,50 +2293,9 @@ namespace Marlin3DprinterTool
             _configuration.ZextraDistance = txtBxZextraDistance.Text;
         }
 
-        private void btnGetAllMeshPoints_Click(object sender, EventArgs e)
-        {
-            GetAllMeshPoints();
-            
+        
 
-        }
-
-        private void GetAllMeshPoints()
-        {
-            int numberOfpoints;
-            try
-            {
-                numberOfpoints = Convert.ToInt16(txtBxMeshBedLevelPointX.Text) * Convert.ToInt16(txtBxMeshBedLevelPointY.Text);
-
-            }
-            catch
-            {
-                return;
-            }
-
-            _configuration.DeleteMeshPoints();
-
-
-            _com.ProbeResponceList = new List<Position>();
-            List<string> commands = new List<string>();
-            commands.Add("G28 Y");
-            commands.Add("G28 X");
-
-            commands.Add("G29 S1");
-            for (int i = 1; i < numberOfpoints; i++)
-            {
-                commands.Add("G29 S2");
-            }
-            _com.Status = MarlinCommunication.Feature.GetMeshBedPoints;
-            _com.SendCommand(commands);
-
-        }
-        private void UpdateZprobeOffset(string zprobeXoffset, string zprobeXoffsetValue, string zprobeYoffset, string zprobeYoffsetValue)
-        {
-            _configuration.ZprobeXoffset = zprobeXoffset;
-            _configuration.ZprobeXoffsetValue = zprobeXoffsetValue;
-            _configuration.ZprobeYoffset = zprobeYoffset;
-            _configuration.ZprobeYoffsetValue = zprobeYoffsetValue;
-        }
+       
 
         private void UpdateZprobeOffset(string zprobeZoffset)
         {
@@ -2428,131 +2329,12 @@ namespace Marlin3DprinterTool
         }
 
 
-        private void MeshMeassure()
-        {
-            _com.Status = MarlinCommunication.Feature.MeassureMesh;
-
-            _com.ProbeResponceList = new List<Position>();
-            List<string> commands = new List<string>();
-
-            List<Position> meshPoints = _configuration.GetMeshpoints();
-
-
-            commands.Add("G28 Y");
-            commands.Add("G28 X");
-            commands.Add("G28 Z");
-
-            foreach (Position probePoint in meshPoints)
-            {
-                // adjust probe to be over manual mesh point
-
-                double x;
-                double y;
-
-
-                x = probePoint.X - Convert.ToDouble(_configuration.ZprobeXoffsetValue);
-                y = probePoint.Y - Convert.ToDouble(_configuration.ZprobeYoffsetValue);
-
-                // move to X&Y
-                commands.Add($"G1 X{x}.0 Y{y}.0 Z{_configuration.ZextraDistance} F3000");
-                //commands.Add("G1 Z40");
-
-
-                // probe the point
-                commands.Add("G30 S-1");
-
-            }
-            
-            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} F5000");
-            _com.SendCommand(commands);
-        }
-
-        
-
-        private void CalculateMesh()
-        {
-            _com.ProbeResponceList = new List<Position>(); // Create a new probe responce list
-            List<Position> meshPoints = _configuration.GetMeshpoints();
-
-            // Sort all X and Y
-            List<int> xList = new List<int>();
-            List<int> yList = new List<int>();
-
-            foreach (Position probePoint in meshPoints)
-            {
-                if (!xList.Contains(Convert.ToInt16(probePoint.X))) xList.Add(Convert.ToInt16(probePoint.X));
-                if (!yList.Contains(Convert.ToInt16(probePoint.Y))) yList.Add(Convert.ToInt16(probePoint.Y));
-            }
-            xList.Sort();
-            yList.Sort();
-
-            // Find X1 Y1 and store the point
-            double firstProbe = 0;
-            foreach (Position meshPoint in meshPoints)
-            {
-                if ((xList[0] == (int)meshPoint.X) && (yList[0] == (int)meshPoint.Y))
-                {
-                    firstProbe = meshPoint.Z;
-                    break;
-                }
-            }
-
-
-
-
-            meshPoints = _configuration.GetMeshpoints();
-            for (int yi = 0; yi < yList.Count; yi++)
-
-            {
-                for (int xi = 0; xi < xList.Count; xi++)
-                {
-                    foreach (Position meshPoint in meshPoints)
-                    {
-                        if ((xList[xi] == (int)meshPoint.X) && (yList[yi] == (int)meshPoint.Y))
-                        {
-
-                            int Zlift = 5;
-                            double zoffset = 2.35;
-                            double newMeshPoint = (Zlift + firstProbe) + (zoffset - meshPoint.Z);
-                            string command = $"G29 S3 X{xi + 1} Y{yi + 1} Z{newMeshPoint.ToString().Replace(',', '.')}";
-                            _com.SendCommand(command);
-                            break;
-                        }
-                    }
-
-                }
-            }
-
-
-        }
+       
 
        
 
+       
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-
-            List<Position> trueMeshPoints =_configuration.GetTrueMeshpoints();
-
-            
-
-            List<string> commands = new List<string>();
-
-
-            foreach (Position position in trueMeshPoints)
-            {
-
-                
-                commands.Add($"G29 S3 X{position.X} Y{position.Y} Z{position.Zstring}");
-
-               
-            }
-            commands.Add("M500"); // save to eeprom
-            _com.SendCommand(commands);
-
-
-        }
 
         private void btnDockZprobe_Click(object sender, EventArgs e)
         {
@@ -2707,6 +2489,17 @@ namespace Marlin3DprinterTool
         private void rdoBn3pointFront_CheckedChanged(object sender, EventArgs e)
         {
             RedesignBedAdjusters();
+        }
+
+        private void timerEndstop_Tick(object sender, EventArgs e)
+        {
+            if (_com.Status == MarlinCommunication.Feature.EndStop)
+            {
+                _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0    
+            }
+            else timerEndstop.Stop();
+                
+            
         }
     }
 
