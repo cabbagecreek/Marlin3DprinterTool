@@ -139,6 +139,7 @@ namespace MarlinComunicationHelper
             this.cmbBxCommand.Name = "cmbBxCommand";
             this.cmbBxCommand.Size = new System.Drawing.Size(344, 21);
             this.cmbBxCommand.TabIndex = 20;
+            this.cmbBxCommand.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbBxCommand_KeyPress);
             // 
             // chkBxRemoveProcessing
             // 

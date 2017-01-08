@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using ZylSoft.Serial;
 
 namespace MarlinComunicationHelper
@@ -13,10 +15,12 @@ namespace MarlinComunicationHelper
     public sealed class MarlinCommunication
     {
 
+        
         private readonly SerialPort _serialPort = new SerialPort();
         private FrmShowCommunication _showcom;
 
         private string linuxNewline = "\n";
+        private bool _kill;
 
         #region Properties
 
@@ -37,36 +41,37 @@ namespace MarlinComunicationHelper
             /// <summary>
             /// Feature is trying to do a Bedlevel
             /// </summary>
-            Bedlevel = 3,
+            Bedlevel = 2,
             /// <summary>
             /// Doing Surface Scan
             /// </summary>
-            SurfaceScan = 4,
+            SurfaceScan = 3,
             /// <summary>
             /// Process that do AutoBedLevel
             /// </summary>
-            AutoBedLevel = 7,
-            /// <summary>
-            /// Calculating ZprobeHeight
-            /// </summary>
-            ZprobeHeight = 13,
-            /// <summary>
-            /// Search extra safety Lift of the probe
-            /// </summary>
-            SearchLift = 14,
+            AutoBedLevel = 4,
             /// <summary>
             /// Search for where the Probe touch the bed
             /// </summary>
-            DockZprobe = 15,
+            DockZprobe = 5,
+            
+            /// <summary>
+            /// Auto Tune PID for Exctruder
+            /// </summary>
+            AutoPidTuneExtruder = 6,
+            /// <summary>
+            /// Auto Tune PID for Bed
+            /// </summary>
+            AutoPidTuneBed = 7,
             /// <summary>
             /// Start of extruder Calibration
             /// </summary>
-            ExtruderCalibration = 16,
-            
+            ExtruderCalibration = 8,
+            ExtruderCalibrationTest = 9
         }
         
 
-
+        public bool IsReceivingOrSending { get; set; }
         
 
         /// <summary>
@@ -92,7 +97,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// The Steps per Unit E that is found during INIT
         /// </summary>
-        public string StepsPerUnitE { internal get; set; }
+        public string StepsPerUnitE { get; set; }
 
         /// <summary>
         /// The PidExtruder Kp that is found during INIT
@@ -149,7 +154,22 @@ namespace MarlinComunicationHelper
         /// <summary>
         ///     Kill the commandstream at next command
         /// </summary>
-        public bool Kill { private get; set; }
+        public bool Kill
+        {
+            private get { return _kill; }
+            set
+            {
+                _kill = value;
+                if (_kill)
+                {
+                    TypeOfCursor cursorType = new TypeOfCursor(Cursors.Default);
+                    OnSending(cursorType);
+                    SendCommand("M P50"); // Send a short wait    
+                }
+                
+            }
+
+        }
 
         /// <summary>
         ///     The Gcode without argument
@@ -203,73 +223,7 @@ namespace MarlinComunicationHelper
 
 
 
-        #region Data Is Received 
-        //private void _serialPort_Received(object sender, DataEventArgs e)
-        //{
-        //    // Read all bytes in the buffer
-        //    _dataReceived += SerialPort.AsciiByteArrayToString(e.Buffer);
-
-        //    if (Showform != null)
-        //    {
-        //        _showcom.AddReceived = _dataReceived;
-        //    }
-
-        //    switch (Gcode)
-        //    {
-        //        case "INIT":
-        //            ParseInit();
-        //            break;
-        //        case "G28":
-        //            ParseG28();
-        //            break;
-        //        case "G29":
-        //            ParseG29();
-        //            break;
-        //        case "G30":
-        //            ParseG30();
-        //            break;
-        //        case "M114":
-        //            ParseM114();
-        //            break;
-
-        //        case "M119":
-        //            ParseM119();
-        //            break;
-
-        //        case "M48":
-        //            ParseM48();
-        //            break;
-
-        //        case "M301":
-        //            ParseM301();
-        //            break;
-
-
-        //        case "M303":
-        //            ParseM303();
-        //            break;
-
-        //        case "M304":
-        //            ParseM304();
-        //            break;
-
-        //        case "M500":
-        //            ParseM500();
-        //            break;
-
-        //        case "M501":
-        //            ParseM501();
-        //            break;
-
-        //        default:
-        //            ParseDefault();
-        //            break;
-        //    }
-        //}
-
         
-
-        #endregion
 
 
 
@@ -619,7 +573,7 @@ namespace MarlinComunicationHelper
 
         private bool ParseTemperatures(string temperatureLine)
         {
-            var pattern = @"\AT:[0-9,-,.]*\s*/[0-9,.]*\s*B:[0-9,.]*\s/[0-9,.]*\s@:[0-9,.]*\s*B@:[0-9,.]*";
+            var pattern = @"\A\s*T:[0-9,-,.]*\s*/[0-9,.]*\s*B:[0-9,.]*\s/[0-9,.]*\s@:[0-9,.]*\s*B@:[0-9,.]*";
 
             if (Regex.Match(temperatureLine, pattern).Success)
             {
@@ -721,6 +675,8 @@ namespace MarlinComunicationHelper
             {
                 try
                 {
+                    TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
+                    OnSending(cursorType);
                     IsPortOpen = false;
                     _serialPort.Disconnected += _serialPort_Disconnected;
                     _serialPort.Connected += _serialPort_Connected;
@@ -768,8 +724,10 @@ namespace MarlinComunicationHelper
 
                     if (!_serialPort.IsConnected()) return;
                     ParseInit(dataReceived);
-                    
-                    
+                    cursorType = new TypeOfCursor(Cursors.Default);
+                    OnSending(cursorType);
+
+
                 }
                 catch (Exception serialOpenException)
                 {
@@ -853,13 +811,44 @@ namespace MarlinComunicationHelper
             SendCommand(commands);
         }
 
+       
+
+
+
+
         /// <summary>
         /// Send a list of commands . Each command uses SendCommand with the single GCODE
         /// </summary>
         /// <param name="commands"></param>
         public void SendCommand(List<string> commands)
         {
+
+
+            if (!IsReceivingOrSending)
+            {
+                BackgroundWorker serialBackgroundWorker = new BackgroundWorker();
+                serialBackgroundWorker.DoWork += SerialBackgroundWorker_DoWork;
+                serialBackgroundWorker.WorkerSupportsCancellation = true;
+                serialBackgroundWorker.RunWorkerAsync(commands);
+            }
+
+
+        }
+
+        private void SerialBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
+
+
+            if (Status != Feature.EndStop) // Reuce flicker cursor
+            {
+                OnSending(cursorType);
+            }
             
+
+            IsReceivingOrSending = true;
+            List<string> commands = (List<string>)e.Argument;
 
 
             foreach (string command in commands)
@@ -869,8 +858,21 @@ namespace MarlinComunicationHelper
                 // about converting between the two, but it is best practice to use Unix Line Endings where possible.
                 if (IsPortOpen)
                 {
-                    //TODO: _serialPort.SendAsciiStringLine()
-                    if (Kill) _serialPort.SendAsciiString("M112" + linuxNewline);
+
+
+
+                    // Stop executing commands on backgrounworkerCancel or KILL
+                    if (Kill || (worker != null && worker.CancellationPending))
+                    {
+                        // Kill the printer
+                        _serialPort.SendAsciiString("M112" + linuxNewline);
+                        Thread.Sleep(3000);
+                        //Dissconnect
+                        _serialPort.Close();
+                        break;
+                    }
+
+
 
                     if (Showform != null)
                     {
@@ -886,14 +888,14 @@ namespace MarlinComunicationHelper
                     //TODO: _serialPort.SendAsciiStringLine()
                     _serialPort.SendAsciiString(command + linuxNewline);
 
-                    
 
-                    
+
+
 
                     switch (Gcode)
                     {
                         case "G28":
-                            
+
                             ParseG28(ReceiveDataUntilOk(30));
                             break;
                         case "G29":
@@ -940,13 +942,22 @@ namespace MarlinComunicationHelper
                             break;
                     }
 
-                    
+
 
 
 
                 }
             }
+
+            IsReceivingOrSending = false;
+
+
             OnCommandSequenceeDone(EventArgs.Empty);
+
+            cursorType = new TypeOfCursor(Cursors.Default);
+            OnSending(cursorType);
+            
+
         }
 
         private string ReceiveDataUntilOk(int timeout)
@@ -960,18 +971,29 @@ namespace MarlinComunicationHelper
 
             while (true)
             {
-                string line = _serialPort.ReadLine(timeout);
+                string line = _serialPort.ReadLine(timeout); //Delete all "Busy ..."
 
                 if (line.ToLower().Contains("busy"))
                 {
                     continue;
                 }
 
-                if (ParseTemperatures(line)) continue;
+                if (ParseTemperatures(line)) continue; // Delete all temperatures
 
                 dataReceived += line + linuxNewline;
                 
                 ParseM114(line);
+
+                switch (Gcode)
+                {
+                    case "M303":
+                        var responceData = new ResponceData(dataReceived);
+                        OnM303Responce(responceData);
+                        break;
+                    case "G30":
+                        OnG30ProbeResponce(ProbeResponceList);
+                        break;
+                }
 
                 
                 if (dataReceived.ToLower().Contains("ok")) break;
@@ -1003,17 +1025,29 @@ namespace MarlinComunicationHelper
         /// <param name="extrude">Amount of extruded filament in the test</param>
         /// <param name="oldSteps">Value for Steps-per-mm before the test</param>
         /// <param name="meassuredUsedFilament">Meassured filament that is used during the test</param>
-        /// <param name="updateEEprom">If the new Steps-Per-mm  should update the EEPROM</param>
-        public void ExtrudeCalculationUpdate(int extrude, double oldSteps, int meassuredUsedFilament, bool updateEEprom)
+        public void ExtrudeCalculationUpdate(int extrude, string oldSteps, int meassuredUsedFilament)
         {
+
+            double currentStepsPermm = Convert.ToDouble(oldSteps.Replace(".", ","));
+
             var commands = new List<string>
             {
-                $"M92 E{CalculateExtrusionSteps(extrude, oldSteps, meassuredUsedFilament)}" + Environment.NewLine
+                $"M92 E{CalculateExtrusionSteps(extrude, currentStepsPermm, meassuredUsedFilament)}" + Environment.NewLine
             };
 
 
-            if (updateEEprom)
+            DialogResult result =
+                MessageBox.Show(@"The old Steps-Per-mm.....: " + oldSteps + Environment.NewLine +
+                                @"Extruded filament........: " + extrude + Environment.NewLine +
+                                @"Meassured filament.......: " + meassuredUsedFilament + Environment.NewLine +
+                                @"Recalculated Steps-per-mm: " + CalculateExtrusionSteps(extrude, currentStepsPermm, meassuredUsedFilament) + Environment.NewLine +
+                                Environment.NewLine +
+                                @"Do you want to update EEPROM?",@"ReCalculation of Steps-per-mm",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
+                
+            if (result == DialogResult.Cancel) return;
+            if (result == DialogResult.Yes)
             {
+                commands.Add("M500");
                 commands.Add("M501");
             }
 
@@ -1257,13 +1291,51 @@ namespace MarlinComunicationHelper
         }
 
 
+       
+        /// <summary>
+        /// 
+        /// </summary>
+        public event EventHandler Sending;
 
-        
+        private void OnSending(EventArgs e)
+        {
+            var handler = Sending;
+            handler?.Invoke(this, e);
+        }
 
-        
-        
 
+
+
+
+
+
+
+
+
+
+}
+
+    
+    /// <summary>
+    /// Generic responcedata
+    /// </summary>
+    public class TypeOfCursor : EventArgs
+    {
+        /// <summary>
+        /// Cursor during operations
+        /// </summary>
+        /// <param name="cursorType"></param>
+        public TypeOfCursor(Cursor cursorType)
+        {
+            CursorType = cursorType;
+        }
+
+        /// <summary>
+        /// Generic Responce Data
+        /// </summary>
+        public Cursor CursorType { get; }
     }
+
 
 
     #region EndStop/EndstopStatus

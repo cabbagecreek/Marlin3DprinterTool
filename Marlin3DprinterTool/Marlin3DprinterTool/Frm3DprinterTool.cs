@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Forms.VisualStyles;
 using Marlin3DprinterTool.Properties;
 using MarlinComunicationHelper;
 using MarlinEditor;
@@ -16,6 +18,7 @@ using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
 using Configuration = MarlinComunicationHelper.Configuration;
+using Cursor = System.Windows.Forms.Cursor;
 using Position = MarlinComunicationHelper.Position;
 
 
@@ -118,24 +121,9 @@ namespace Marlin3DprinterTool
 
         private void btnExtruderCalibrationCalculate_Click(object sender, EventArgs e)
         {
-            //TODO: Hitta X,Y,Z steps-per-unit
-
-            //lblFirmwareExtrudeCalibration.Text =
-            //    string.Format(
-            //        "#define DEFAULT_AXIS_STEPS_PER_UNIT   {{ {0},{1},{2},{3}}}  // default steps per unit",
-            //        200,
-            //        200,
-            //        3200,
-            //        _com.CalculateExtrusionStepsString((int) numUpDnExtrude.Value,
-            //            (double) numUpDnFirmware.Value,
-            //            (int) numUpDnMeassure.Value));
+            _com.ExtrudeCalculationUpdate((int)numUpDnExtrude.Value, txtBxCurrentStepsPermm.Text,(int)numUpDnMeassure.Value);
         }
 
-        private void btnM92_Click(object sender, EventArgs e)
-        {
-            _com.ExtrudeCalculationUpdate((int) numUpDnExtrude.Value, (double) numUpDnFirmware.Value,
-                (int) numUpDnMeassure.Value, false);
-        }
 
         private void trkBarTemperature_Scroll(object sender, EventArgs e)
         {
@@ -150,42 +138,65 @@ namespace Marlin3DprinterTool
 
         private void tabControl3DprinterTool_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            //TODO:
-            var selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
+            TabChanged();
+           
 
-            
+        }
 
-            switch (selectedTab)
+        private void TabChanged()
+        {
+            string selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelected(tabControl3DprinterTool);
+
+
+            if (selectedTab == tabPageEndstop.Name)
             {
-                case 0:
-                    _com.Status = MarlinCommunication.Feature.EndStop;
-                    timerEndstop.Start();
-                    break;
-
-                case 1:
-                    //TODO:
-                    _com.Status = MarlinCommunication.Feature.Done;
-
-                    break;
-                case 2:
-                    //TODO:
-                    _com.Status = MarlinCommunication.Feature.Done;
-
-                    break;
-                case 3:
-                    _com.Status = MarlinCommunication.Feature.Bedlevel;
-                    break;
-                case 4:
-                    _com.Status = MarlinCommunication.Feature.SurfaceScan;
-                    break;
-                case 7:
-                    UpdateZmaintDescription();
-                    break;
-                case 8:
-                    break;
+                _com.Status = MarlinCommunication.Feature.EndStop;
+                _com.SendCommand("M119");
             }
+            else
+            if (selectedTab == tabPageZoffset.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.Done;
+                
+            }
+            else
+            if (selectedTab == tabPageConfigurationBed.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.Bedlevel;
+            }
+            else
+            if (selectedTab == tabPageConfigurationZprobe.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.Done;
+            }
+            else
+            if (selectedTab == tabPageScanSurface.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.SurfaceScan;
+            }
+            else
+            if (selectedTab == tabPagePID.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.SurfaceScan;
+            }
+            else
+            if (selectedTab == tabPageExtruderCalibration.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.ExtruderCalibration;
+            }
+            else
+            if (selectedTab == tabPageCalculations.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.Done;
+            }
+            else
+            if (selectedTab == tabPageParameters.Name)
+            {
+                _com.Status = MarlinCommunication.Feature.Done;
+            }
+            
 
+           
         }
 
 
@@ -224,6 +235,7 @@ namespace Marlin3DprinterTool
 
         private void btnProbeTheBed_Click(object sender, EventArgs e)
         {
+            
             RedesignBedAdjusters();
 
             _com.Status = MarlinCommunication.Feature.Bedlevel;
@@ -422,7 +434,7 @@ namespace Marlin3DprinterTool
 
         private void btnZmaintenanceRun_Click(object sender, EventArgs e)
         {
-            var commands = new List<string>();
+            var commands = new List<string> {"G28 Y", "G28 X", "G28 Z"};
 
             for (var i = 0; i < numUpDnZmaintenanceRepetitions.Value; i++)
             {
@@ -664,6 +676,22 @@ namespace Marlin3DprinterTool
             {
                 cmbBxComPort.Text = @"No Comport found!";
             }
+
+
+            cmbBxPidExtruder.Items.Clear();
+            cmbBxPidExtruder.Items.Add(new ComboboxItemTextValue { Text = @"First Extruder  (0)", Value = 0});
+            cmbBxPidExtruder.Items.Add(new ComboboxItemTextValue { Text = @"Secund Extruder (1)", Value = 1 });
+            cmbBxPidExtruder.Items.Add(new ComboboxItemTextValue { Text = @"Third Extruder  (2)", Value = 2 });
+            cmbBxPidExtruder.Items.Add(new ComboboxItemTextValue { Text = @"Fourth Extruder (3)", Value = 3 });
+            cmbBxPidExtruder.SelectedIndex = 0;
+
+
+            cmbBxExtruderCalibration.Items.Clear();
+            cmbBxExtruderCalibration.Items.Add(new ComboboxItemTextValue { Text = @"First Extruder  (0)", Value = 0 });
+            cmbBxExtruderCalibration.Items.Add(new ComboboxItemTextValue { Text = @"Secund Extruder (1)", Value = 1 });
+            cmbBxExtruderCalibration.Items.Add(new ComboboxItemTextValue { Text = @"Third Extruder  (2)", Value = 2 });
+            cmbBxExtruderCalibration.Items.Add(new ComboboxItemTextValue { Text = @"Fourth Extruder (3)", Value = 3 });
+            cmbBxExtruderCalibration.SelectedIndex = 0;
         }
 
         #endregion
@@ -707,21 +735,30 @@ namespace Marlin3DprinterTool
             btnHeatExtruderForCalibration.Visible = !chkBxColdExtruderCalibration.Checked;
             chartTemperature.Visible = !chkBxColdExtruderCalibration.Checked;
             grpBxTestExtrude.Visible = chkBxColdExtruderCalibration.Checked;
-            grpBxCalculate.Visible = chkBxColdExtruderCalibration.Checked;
+            
         }
 
 
         private void btnExtruderCalibation_Click(object sender, EventArgs e)
         {
+            _com.Status = MarlinCommunication.Feature.ExtruderCalibrationTest;
             var extrudeCalibration = new List<string> {"M503"};
+
+
             if (chkBxColdExtruderCalibration.Checked)
             {
                 extrudeCalibration.Add("M302"); // Allow cold extrusion
             }
 
+            var comboboxItemTextValue = cmbBxExtruderCalibration.SelectedItem as ComboboxItemTextValue;
 
-            extrudeCalibration.Add("G92 E0");
-            extrudeCalibration.Add($"G1 E{numUpDnExtrude.Value} F20");
+
+            if (comboboxItemTextValue != null)
+            {
+                extrudeCalibration.Add($"T{comboboxItemTextValue.ToValue()}");
+            }
+
+            extrudeCalibration.Add($"G1 E{numUpDnExtrude.Value} F100");
             _com.SendCommand(extrudeCalibration);
         }
 
@@ -732,22 +769,55 @@ namespace Marlin3DprinterTool
 
         private void btnHeatExtruderForCalibration_Click(object sender, EventArgs e)
         {
+            _com.Status = MarlinCommunication.Feature.ExtruderCalibration;
             var commands = new List<string>();
 
 
-            chartTemperature.Series["Extruder"].Points.Clear();
-            chartTemperature.Series["SetExtruder"].Points.Clear();
-            chartTemperature.Series["Bed"].Points.Clear();
-            chartTemperature.Series["SetBed"].Points.Clear();
+            if (chartTemperature.Series.IndexOf("Extruder") == -1)
+            {
+                chartTemperature.Series.Add("Extruder");
+                chartTemperature.Series["Extruder"].ChartType = SeriesChartType.Spline;
+                chartTemperature.Series["Extruder"].Color = Color.Red;
+                chartTemperature.Series["Extruder"].BorderWidth = 3;
+                chartTemperature.Series["Extruder"].BorderDashStyle = ChartDashStyle.Solid;
+                chartTemperature.Series["Extruder"].Points.Clear();
+            }
+            if (chartTemperature.Series.IndexOf("SetExtruder") == -1)
+            {
+                chartTemperature.Series.Add("SetExtruder");
+                chartTemperature.Series["SetExtruder"].ChartType = SeriesChartType.Spline;
+                chartTemperature.Series["SetExtruder"].Color = Color.Blue;
+                chartTemperature.Series["SetExtruder"].BorderWidth = 3;
+                chartTemperature.Series["SetExtruder"].BorderDashStyle = ChartDashStyle.Dash;
+                chartTemperature.Series["SetExtruder"].Points.Clear();
+            }
+            
+            
+
+            
+
+            
+            
+
+            
+            
+            
+            
 
 
             _temperatureStopwatch.Reset();
             _temperatureStopwatch.Start();
 
 
-            //SENT: M104 S195 T0
-            commands.Add($"M109 S{Convert.ToDouble(numUpDnCalibrateExtruderTemp.Value)}");
-            _com.SendCommand(commands);
+            //SENT: M109 S195 T0
+            var extruder = cmbBxExtruderCalibration.SelectedItem as ComboboxItemTextValue;
+
+            if (extruder != null)
+            {
+                commands.Add($"M109 S{Convert.ToDouble(numUpDnCalibrateExtruderTemp.Value)} T{extruder.ToValue()}");
+
+                _com.SendCommand(commands);
+            }
         }
 
 
@@ -756,24 +826,45 @@ namespace Marlin3DprinterTool
         private void Kill()
         {
             _com.Kill = true;
-            MessageBox.Show(
-                @"You have to use the Disconnect button and then Connect button to reset Emergency Switch. +\n\n" +
-                @"Do not disconnect the USB cable.", @"Emergency Switch", MessageBoxButtons.OK,
-                MessageBoxIcon.Exclamation);
+            
         }
 
         private void btnCalculateExtruderPid_Click(object sender, EventArgs e)
         {
+            _com.Status = MarlinCommunication.Feature.AutoPidTuneExtruder;
             fctbPidResponce.Text = "";
 
-            chartTemperature.Series["Extruder"].Points.Clear();
-            chartTemperature.Series["SetExtruder"].Points.Clear();
-            chartTemperature.Series["Bed"].Points.Clear();
-            chartTemperature.Series["SetBed"].Points.Clear();
+
+            
+            if (chartTemperature.Series.IndexOf("Extruder") == -1)
+            {
+                
+                chartTemperature.Series.Add("Extruder");
+                chartTemperature.Series["Extruder"].ChartType = SeriesChartType.Spline;
+                chartTemperature.Series["Extruder"].Color = Color.Red;
+                chartTemperature.Series["Extruder"].BorderWidth = 3;
+                chartTemperature.Series["Extruder"].BorderDashStyle = ChartDashStyle.Solid;
+                chartTemperature.Series["Extruder"].Points.Clear();
+            }
+            if (chartTemperature.Series.IndexOf("SetExtruder") == -1)
+            {
+                chartTemperature.Series.Add("SetExtruder");
+                chartTemperature.Series["SetExtruder"].ChartType = SeriesChartType.Spline;
+                chartTemperature.Series["SetExtruder"].Color = Color.Blue;
+                chartTemperature.Series["SetExtruder"].BorderWidth = 3;
+                chartTemperature.Series["SetExtruder"].BorderDashStyle = ChartDashStyle.Dash;
+                chartTemperature.Series["SetExtruder"].Points.Clear();
+            }
+            
+
 
 
             _com.ClearCommunication();
-            _com.SendCommand($"M303 E0 S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
+            var comboboxItemTextValue = cmbBxPidExtruder.SelectedItem as ComboboxItemTextValue;
+            if (comboboxItemTextValue != null)
+            {
+                _com.SendCommand($"M303 E{(int) comboboxItemTextValue.ToValue()} S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
+            }
         }
 
        
@@ -815,6 +906,27 @@ namespace Marlin3DprinterTool
 
         private void btnCalculateBedPid_Click(object sender, EventArgs e)
         {
+            _com.Status = MarlinCommunication.Feature.AutoPidTuneBed;
+            if (chartTemperature.Series.IndexOf("Bed") == -1)
+            {
+               chartTemperature.Series.Add("Bed");
+                chartTemperature.Series["Bed"].ChartType = SeriesChartType.Spline;
+                chartTemperature.Series["Bed"].Color = Color.Red;
+                chartTemperature.Series["Bed"].BorderWidth = 3;
+                chartTemperature.Series["Bed"].BorderDashStyle = ChartDashStyle.Solid;
+                chartTemperature.Series["Bed"].Points.Clear();
+            }
+            if (chartTemperature.Series.IndexOf("SetBed") != -1)
+            {
+                chartTemperature.Series.Add("SetBed");
+                chartTemperature.Series["SetBed"].ChartType = SeriesChartType.Spline;
+                chartTemperature.Series["SetBed"].Color = Color.Blue;
+                chartTemperature.Series["SetBed"].BorderWidth = 3;
+                chartTemperature.Series["SetBed"].BorderDashStyle = ChartDashStyle.Dash;
+                chartTemperature.Series["SetBed"].Points.Clear();
+            }
+           
+
             fctbPidResponce.Text = "";
             _com.SendCommand($"M303 E-1 S{numUpDownPidBedTemp.Value} C{numUpDownPidBedCykles.Value}");
         }
@@ -894,6 +1006,7 @@ namespace Marlin3DprinterTool
                     _com.M500Responce += _com_M500Responce;
                     _com.M501Responce += _com_M501Responce;
                     _com.M851Responce += _com_M851Responce;
+                    _com.Sending += _com_Sending    ;
                     _com.CommandSequenceeDone += _com_CommandSequenceeDone;
 
                     _com.DisConnected += _com_DisConnected;
@@ -927,9 +1040,15 @@ namespace Marlin3DprinterTool
             }
         }
 
+        private void _com_Sending(object sender, EventArgs e)
+        {
+            var cursor  = (TypeOfCursor) e;
+            DelegateAndInvoke.Cursor(cursor.CursorType);
+        }
+
         private void _com_M851Responce(object sender, ResponceData m851Data)
         {
-            txtBxM851.Text = m851Data.Data;
+            DelegateAndInvoke.DelegateText(txtBxM851, m851Data.Data);
         }
 
         private void _com_M119EndStopStatus(object sender, EndStop e)
@@ -940,24 +1059,21 @@ namespace Marlin3DprinterTool
             ledYmax.On = _com.EndStopStatus.Ymax;
             ledZmin.On = _com.EndStopStatus.Zmin;
             ledZmax.On = _com.EndStopStatus.Zmax;
+
+            ledBulbZprobeGauge.On = _com.EndStopStatus.Zmin;
         }
        
         private void _com_CommandSequenceeDone(object sender, EventArgs e)
         {
             switch (_com.Status)
             {
-
-
-                    #region EndStop
-
+                #region EndStop
                 case MarlinCommunication.Feature.EndStop:
-                    //_com.SendCommand("M119");
+                    _com.SendCommand("M119");
                     break;
+                #endregion
 
-                    #endregion
-
-                    #region BedLevel
-
+                #region BedLevel
                 case MarlinCommunication.Feature.Bedlevel:
                     // Calculate the turns on each corner
                     if (_com.ProbeResponceList != null)
@@ -974,44 +1090,44 @@ namespace Marlin3DprinterTool
 
                             // Find control that match the X and Y
                             // Assign the Z
-                            if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterBackLeft.Z = probeResponce.Z;
                             }
 
-                            if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterBackRight.Z = probeResponce.Z;
                             }
 
-                            if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterFrontLeft.Z = probeResponce.Z;
                             }
 
-                            if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterFrontRight.Z = probeResponce.Z;
                             }
 
-                            if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterLeftSingle.Z = probeResponce.Z;
                             }
 
-                            if ((Math.Abs(bedAdjusterFrontSingle.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterFrontSingle.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterFrontSingle.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterFrontSingle.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterFrontSingle.Z = probeResponce.Z;
                             }
 
-                            if ((Math.Abs(bedAdjusterRightSingle.X - probeResponce.X) < 35) &&
-                                (Math.Abs(bedAdjusterRightSingle.Y - probeResponce.Y) < 35))
+                            if ((Math.Abs(bedAdjusterRightSingle.X - probeResponce.X) < 50) &&
+                                (Math.Abs(bedAdjusterRightSingle.Y - probeResponce.Y) < 50))
                             {
                                 bedAdjusterRightSingle.Z = probeResponce.Z;
                             }
@@ -1109,15 +1225,16 @@ namespace Marlin3DprinterTool
 
                     #endregion
 
-                    #region SurfaceScan
+                #region SurfaceScan
 
                 case MarlinCommunication.Feature.SurfaceScan:
                     CreateSurfaceChart(_com.ProbeResponceList);
                     _com.Status = MarlinCommunication.Feature.Done;
                     break;
 
-                    #endregion
+                #endregion
 
+                #region DockZprobe
                 case MarlinCommunication.Feature.DockZprobe:
                     
 
@@ -1127,7 +1244,9 @@ namespace Marlin3DprinterTool
                         if (_com.EndStopStatus.Zmin && _dockZprobeUpDown && _dockZprobePrecision <= 0.03)
                         {
                             DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
-                            _com.Status = MarlinCommunication.Feature.EndStop;
+                            
+                            _com.Status = MarlinCommunication.Feature.Done;
+                            _com.SendCommand(new List<string> { "M117 Z-Probe is docked", "M114", "M119", });
                             break;
                         }
 
@@ -1138,25 +1257,33 @@ namespace Marlin3DprinterTool
                     
                     if (_dockZprobeUpDown)
                     {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M119", "M114" });
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50",  "M114", "M119", });
                     }
                     else
                     {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M119", "M114" });
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M114", "M119", });
                     }
 
                     break;
-                
+                    #endregion
 
+                #region ExtruderCalibration
+                case MarlinCommunication.Feature.ExtruderCalibration:
+                        DelegateAndInvoke.DelegateVisible(grpBxTestExtrude,true);
+                    MessageBox.Show(
+                        @"Heating of the extruder is done!" + Environment.NewLine + Environment.NewLine +
+                        @"Continue with test-extrude of filament");
+                    break;
 
+                case MarlinCommunication.Feature.ExtruderCalibrationTest:
+                    MessageBox.Show(@" Wait until the filament extrusion stops!" +  Environment.NewLine +
+                        @"Then meassure the used filament and enter the amount as ""Meassured used"" filament "
+                        + Environment.NewLine + Environment.NewLine +
+                        @"Button ""Calculate"" will give you the recalculated steps-per-mm.");
+                    break;
 
-
-            }
-
-
-
-                
-            
+                 #endregion
+            }   
         }
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
@@ -1238,19 +1365,38 @@ namespace Marlin3DprinterTool
                         MessageBoxIcon.Information);
                 }
 
+                if (_com.Status == MarlinCommunication.Feature.AutoPidTuneExtruder)
+                {
+                    if (matchKp.Success)
+                    {
+                        DelegateAndInvoke.DelegateText(txtBxKpExtruder, matchKp.Value);
+                    }
+                    if (matchKi.Success)
+                    {
+                        DelegateAndInvoke.DelegateText(txtBxKiExtruder, matchKi.Value);
+                    }
+                    if (matchKd.Success)
+                    {
+                        DelegateAndInvoke.DelegateText(txtBxKdExtruder, matchKd.Value);
+                    }
+                }
+                else if (_com.Status == MarlinCommunication.Feature.AutoPidTuneBed)
+                {
+                    if (matchKp.Success)
+                    {
+                        DelegateAndInvoke.DelegateText(txtBxKpBed, matchKp.Value);
+                    }
+                    if (matchKi.Success)
+                    {
+                        DelegateAndInvoke.DelegateText(txtBxKiBed, matchKi.Value);
+                    }
+                    if (matchKd.Success)
+                    {
+                        DelegateAndInvoke.DelegateText(txtBxKdBed, matchKd.Value);
+                    }
 
-                if (matchKp.Success)
-                {
-                    DelegateAndInvoke.DelegateText(txtBxKpExtruder, matchKp.Value);
                 }
-                if (matchKi.Success)
-                {
-                    DelegateAndInvoke.DelegateText(txtBxKiExtruder, matchKi.Value);
-                }
-                if (matchKd.Success)
-                {
-                    DelegateAndInvoke.DelegateText(txtBxKdExtruder, matchKd.Value);
-                }
+
 
 
             }
@@ -1271,21 +1417,86 @@ namespace Marlin3DprinterTool
         private void _com_M500Responce(object sender, ResponceData responce)
         {
             // TODO: Show saved EEPROM
-            MessageBox.Show(responce.Data, @"Saved EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(responce.Data, @"Saved EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void _com_M501Responce(object sender, ResponceData responce)
         {
             //MessageBox.Show(responce.Data, @"Data in EEPROM", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ShowInitAndM501(responce.Data);
-        } 
+        }
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
         {
 
+            // Calculate the turns on each corner
+            if (_com.ProbeResponceList != null)
+            {
+                foreach (var probeResponce in _com.ProbeResponceList)
+                {
+                    _probePoints.Add(new Position
+                    {
+                        X = probeResponce.X,
+                        Y = probeResponce.Y,
+                        Z = probeResponce.Z
+                    });
 
-            
+
+                    // Find control that match the X and Y
+                    // Assign the Z
+                    if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterBackLeft.Z = probeResponce.Z;
+                    }
+
+                    if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterBackRight.Z = probeResponce.Z;
+                    }
+
+                    if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterFrontLeft.Z = probeResponce.Z;
+                    }
+
+                    if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterFrontRight.Z = probeResponce.Z;
+                    }
+
+                    if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterLeftSingle.Z = probeResponce.Z;
+                    }
+
+                    if ((Math.Abs(bedAdjusterFrontSingle.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterFrontSingle.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterFrontSingle.Z = probeResponce.Z;
+                    }
+
+                    if ((Math.Abs(bedAdjusterRightSingle.X - probeResponce.X) < 50) &&
+                        (Math.Abs(bedAdjusterRightSingle.Y - probeResponce.Y) < 50))
+                    {
+                        bedAdjusterRightSingle.Z = probeResponce.Z;
+                    }
+
+
+
+                }
+            }
         }
+
+
+
+
+
+
 
         private void _com_Init(object sender, ResponceData e)
         {
@@ -1306,7 +1517,7 @@ namespace Marlin3DprinterTool
             DelegateAndInvoke.DelegateVisible(grpBxNavigation, true);
 
             //// Assign Marlincommunication
-            DelegateAndInvoke.DelegateKompassControll(txtBxProbeLift, _com);
+            DelegateAndInvoke.DelegateKompassControll(kompass, _com);
             DelegateAndInvoke.DelegateVerticalJogControl(verticalJogControlZprobeHeight, _com);
 
 
@@ -1326,9 +1537,7 @@ namespace Marlin3DprinterTool
             ShowInitAndM501(e.Data);
 
             
-            // _com.status endstop TODO:
-            //var selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(tabControl3DprinterTool);
-            //TODO: if (_com.Status == MarlinCommunication.Feature.EndStop) _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0
+            
         }
 
         private void ShowInitAndM501(string data)
@@ -1350,14 +1559,6 @@ namespace Marlin3DprinterTool
 
 
 
-        private void _com_ReadyForNextCommand(object sender, EventArgs e)
-        {
-            
-            
-
-
-           
-        }
 
         private void CreateSurfaceChart(List<Position> positions )
         {
@@ -1397,28 +1598,29 @@ namespace Marlin3DprinterTool
 
         private void _com_DisConnected(object sender, EventArgs e)
         {
-            btnConnect.Text = @"Connect";
+            DelegateAndInvoke.DelegateText(btnConnect, @"Connect");
 
             //Disable TAB
             Delegate.DisableTabs(tabControl3DprinterTool, false);
 
             //Disable EmergencyStop
-            btnEmergency.BackgroundImage = Resources.emargency_disabled;
-            btnEmergency.Visible = false;
-            btnEmergency.Enabled = false;
+            DelegateAndInvoke.DelegateBackgroundImage(btnEmergency, Resources.emargency_disabled);
+            DelegateAndInvoke.DelegateVisible(btnEmergency,false);
+            DelegateAndInvoke.DelegateEnabled(btnEmergency, false);
 
             // DisableEnable/Hide ShowCommunication
-            btnShowCommunication.Visible = false;
-            btnShowCommunication.Enabled = false;
+            DelegateAndInvoke.DelegateVisible(btnShowCommunication, false);
+            DelegateAndInvoke.DelegateEnabled(btnShowCommunication,false);
 
             // Show navigation
-            grpBxNavigation.Visible = false;
+            DelegateAndInvoke.DelegateVisible(grpBxNavigation,false);
 
-            verticalJogControlZprobeHeight.MarlinCommunication = null;
-            txtBxProbeLift.MarlinCommunication = null;
+            
+            DelegateAndInvoke.VerticalJogControl(verticalJogControlZprobeHeight, null);
+            DelegateAndInvoke.KompassControl(kompass, null);
 
             // Show temperature Chart
-            chartTemperature.Visible = true;
+            DelegateAndInvoke.DelegateVisible(chartTemperature, true);
 
             // Stop the temperature stopwatch
             _temperatureStopwatch.Reset();
@@ -1445,8 +1647,7 @@ namespace Marlin3DprinterTool
 
             if (_com.Status == MarlinCommunication.Feature.AutoBedLevel)
             {
-
-                DelegateAndInvoke.MultiTextLines(txtBxAutoBedLevelResponce, responce.ResponsRowList);
+                DelegateAndInvoke.FastColoredTextBox(fctbAutoBedLevelResponce, responce.ResponsRowList);
                 return;
             }
 
@@ -1502,11 +1703,7 @@ namespace Marlin3DprinterTool
 
         private void btnUpdateExtruderPid_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string>
-            {
-                $"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}",
-                "M500"
-            };
+            List<string> commands = new List<string> {$"M301 P{txtBxKpExtruder.Text} I{txtBxKiExtruder.Text} D{txtBxKdExtruder.Text}","M500","M501"};
             // M301 P19.56 I0.71 D134.26
             _com.SendCommand(commands);
 
@@ -1517,7 +1714,8 @@ namespace Marlin3DprinterTool
             List<string> commands = new List<string>
             {
                 $"M304 P{txtBxKpBed.Text} I{txtBxKiBed.Text} D{txtBxKdBed.Text}",
-                "M500"
+                "M500",
+                "M501"
             };
             // M301 P19.56 I0.71 D134.26
             _com.SendCommand(commands);
@@ -1606,6 +1804,14 @@ namespace Marlin3DprinterTool
             bedAdjusterRightSingle.X = x;
             bedAdjusterRightSingle.Y = y;
 
+
+            bedAdjusterBackLeft.Clear();
+            bedAdjusterBackRight.Clear();
+            bedAdjusterFrontLeft.Clear();
+            bedAdjusterFrontRight.Clear();
+            bedAdjusterLeftSingle.Clear();
+            bedAdjusterFrontSingle.Clear();
+            bedAdjusterRightSingle.Clear();
 
             List<Position> probePointsList = new List<Position>();
             if (_configuration.BedType ==  BedTypeEnum.FourPoint)
@@ -2041,6 +2247,8 @@ namespace Marlin3DprinterTool
                     _com.StepsPerUnitZ = txtBxStepsPerUnitZ.Text;
                     _com.StepsPerUnitE = txtBxStepsPerUnitE.Text;
 
+                    txtBxCurrentStepsPermm.Text = _com.StepsPerUnitE;
+
 
                 }
 
@@ -2160,9 +2368,10 @@ namespace Marlin3DprinterTool
             string command = "M92";
             if (!string.IsNullOrEmpty(txtBxStepsPerUnitX.Text)) command += $" X{txtBxStepsPerUnitX.Text}";
             if (!string.IsNullOrEmpty(txtBxStepsPerUnitY.Text)) command += $" Y{txtBxStepsPerUnitY.Text}";
-            if (!string.IsNullOrEmpty(txtBxStepsPerUnitZ.Text)) command += $" Y{txtBxStepsPerUnitZ.Text}";
-            if (!string.IsNullOrEmpty(txtBxStepsPerUnitE.Text)) command += $" Y{txtBxStepsPerUnitE.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitZ.Text)) command += $" Z{txtBxStepsPerUnitZ.Text}";
+            if (!string.IsNullOrEmpty(txtBxStepsPerUnitE.Text)) command += $" E{txtBxStepsPerUnitE.Text}";
             commands.Add(command);
+            commands.Add("M500"); // Save the eprom values
             commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
             _com.SendCommand(commands);
 
@@ -2342,10 +2551,10 @@ namespace Marlin3DprinterTool
             AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
             if (probeRange != null) aGaugeProbe.GaugeRanges.Remove(probeRange);
             _com.Status = MarlinCommunication.Feature.DockZprobe;
-
+            
 
             List<String> commands = new List<string> {"G28","G91", "G1 Z10","G90","M119", "M114"};
-            _dockZprobePrecision = 1.0;
+            _dockZprobePrecision = 0.5;
             _dockZprobeUpDown = true;
 
             _com.SendCommand(commands);
@@ -2400,12 +2609,8 @@ namespace Marlin3DprinterTool
             }
         }
 
-        private void ledZmin_Click(object sender, EventArgs e)
-        {
-           
-        }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnNozzleIsTouchingBed_Click(object sender, EventArgs e)
         {
             double zhome = Convert.ToDouble(txtBxDockZprobe.Text.Replace(".", ","));
             double ztouch = Convert.ToDouble(txtBxZprobePosition.Text.Replace(".", ","));
@@ -2454,17 +2659,8 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void chartTemperature_Click(object sender, EventArgs e)
-        {
-
-        }
-
         
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void nChartControlSurface_Click(object sender, EventArgs e)
         {
@@ -2491,15 +2687,15 @@ namespace Marlin3DprinterTool
             RedesignBedAdjusters();
         }
 
+
+        private void txtBxProbeLift_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void timerEndstop_Tick(object sender, EventArgs e)
         {
-            if (_com.Status == MarlinCommunication.Feature.EndStop)
-            {
-                _com.SendCommand("M119"); // Send new M119 only if selected Tab is Enstop Tab = 0    
-            }
-            else timerEndstop.Stop();
-                
-            
+            _com.SendCommand("M119");
         }
     }
 

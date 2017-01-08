@@ -81,6 +81,7 @@ namespace MarlinComunicationHelper
             {
                 _z = value;
                 if (Position != null) Position.Z = _z;
+                DelegateText(txtBxZ,_z.ToString().Replace(",", "."));
             }
             get { return _z; }
         }
@@ -131,6 +132,35 @@ namespace MarlinComunicationHelper
             }
         }
 
+        public void Clear()
+        {
+            switch (Adjuster)
+            {
+                case AdjusterType.BackLeftAdjuster:
+                    ClearPictureToTheRight();
+                    break;
+                case AdjusterType.BackRightAdjuster:
+                    ClearPictureToTheLeft();
+                    break;
+                case AdjusterType.FrontLeftAdjuster:
+                    ClearPictureToTheRight();
+                    break;
+                case AdjusterType.FrontRightAdjuster:
+                    ClearPictureToTheLeft();
+                    break;
+                case AdjusterType.LeftSingleAdjuster:
+                    ClearPictureToTheRight();
+                    break;
+                case AdjusterType.FrontSingleAdjuster:
+                    ClearPictureToTheRight();
+                    break;
+                case AdjusterType.RightSingleAdjuster:
+                    ClearPictureToTheLeft();
+                    break;
+            }
+
+        }
+
         private void AdjusterPictureToTheLeft()
         {
             picBxLeft.BackgroundImage = Properties.Resources.adjuster;
@@ -139,6 +169,16 @@ namespace MarlinComunicationHelper
         private void AdjusterPictureToTheRight()
         {
             picBxRight.BackgroundImage = Properties.Resources.adjuster;
+        }
+
+        private void ClearPictureToTheLeft()
+        {
+            picBxLeft.Visible = false;
+        }
+
+        private void ClearPictureToTheRight()
+        {
+            picBxRight.Visible = false;
         }
 
         public double Fix { get; set; }
@@ -167,29 +207,34 @@ namespace MarlinComunicationHelper
             var decimalpart = adjust - turn;
             var minutes = (int)(decimalpart * 60);
 
+            DelegateVisible(picBxRight, true);
+            DelegateVisible(picBxLeft,true);
+
+            Image turnIndicator = adjust <= 0 ? Resources.clockwise : Resources.counterclockwise;
+            if (Math.Abs( adjust) <= 0.05) turnIndicator = Resources.OK;
 
             switch (Adjuster)
             {
                 case AdjusterType.BackLeftAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxRight, turnIndicator);
                     break;
                 case AdjusterType.BackRightAdjuster:
-                    DelegateBackgroundImage(picBxLeft, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxLeft, turnIndicator);
                     break;
                 case AdjusterType.FrontLeftAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxRight, turnIndicator);
                     break;
                 case AdjusterType.FrontRightAdjuster:
-                    DelegateBackgroundImage(picBxLeft, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxLeft, turnIndicator);
                     break;
                 case AdjusterType.LeftSingleAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxRight, turnIndicator);
                     break;
                 case AdjusterType.FrontSingleAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxRight, turnIndicator);
                     break;
                 case AdjusterType.RightSingleAdjuster:
-                    DelegateBackgroundImage(picBxLeft, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
+                    DelegateBackgroundImage(picBxLeft, turnIndicator);
                     break;
 
             }
@@ -224,6 +269,25 @@ namespace MarlinComunicationHelper
             else
             {
                 control.BackgroundImage = image;
+            }
+        }
+
+        private delegate void DelegateVisibleCallback(Control control, bool visible);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="visible"></param>
+        public void DelegateVisible(Control control, bool visible)
+        {
+            if (control.InvokeRequired)
+            {
+                DelegateVisibleCallback d = DelegateVisible;
+                this.Invoke(d, control, visible);
+            }
+            else
+            {
+                control.Visible = visible;
             }
         }
 

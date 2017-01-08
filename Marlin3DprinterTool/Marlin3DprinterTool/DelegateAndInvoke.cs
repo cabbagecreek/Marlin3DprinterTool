@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FastColoredTextBoxNS;
 using MarlinComunicationHelper;
+using Cursor = System.Windows.Forms.Cursor;
 
 namespace Marlin3DprinterTool
 {
@@ -140,16 +141,16 @@ namespace Marlin3DprinterTool
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public static int TabControl3DprinterToolSelectedIndex(TabControl tabControl)
+        public static string TabControl3DprinterToolSelected(TabControl tabControl)
         {
             if (tabControl.InvokeRequired)
             {
-                TabControl3DprinterToolSelectedIndexCallback d = TabControl3DprinterToolSelectedIndex;
+                TabControl3DprinterToolSelectedCallback d = TabControl3DprinterToolSelected;
 
-                return (int) tabControl.Invoke(d, tabControl);
+                return (string) tabControl.Invoke(d, tabControl);
             }
 
-            return tabControl.SelectedIndex;
+            return tabControl.SelectedTab.Name;
         }
 
         /// <summary>
@@ -286,27 +287,112 @@ namespace Marlin3DprinterTool
             }
             else
             {
-                if (chart.Series["Extruder"].Points.Count >= 21)
+
+                if (chart.Series.IndexOf("Extruder") != -1)
                 {
-                    chart.Series["Extruder"].Points.RemoveAt(0);
+                    if (chart.Series["Extruder"].Points.Count >= 21)
+                    {
+                        chart.Series["Extruder"].Points.RemoveAt(0);
+                    }
+
                 }
-                if (chart.Series["SetExtruder"].Points.Count >= 21)
+
+
+                if (chart.Series.IndexOf("SetExtruder") != -1)
                 {
-                    chart.Series["SetExtruder"].Points.RemoveAt(0);
+                    if (chart.Series["SetExtruder"].Points.Count >= 21)
+                    {
+                        chart.Series["SetExtruder"].Points.RemoveAt(0);
+                    }
                 }
+
+
+                
+                if (chart.Series.IndexOf("Bed") != -1)
+                {
+                    if (chart.Series["Bed"].Points.Count >= 21)
+                    {
+                        chart.Series["Bed"].Points.RemoveAt(0);
+                    }
+                }
+
+                if (chart.Series.IndexOf("SetBed") != -1)
+                {
+                    if (chart.Series["SetBed"].Points.Count >= 21)
+                    {
+                        chart.Series["SetBed"].Points.RemoveAt(0);
+                    }
+                }
+
+                int minAxisX = 200;
+                int maxAxisX = 0;
+
+                if (chart.Series.IndexOf("Bed") != -1)
+                {
+                    foreach (DataPoint dataPoint in chart.Series["Bed"].Points)
+                    {
+                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
+                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
+                    }
+                }
+                if (chart.Series.IndexOf("SetBed") != -1)
+                {
+                    foreach (DataPoint dataPoint in chart.Series["SetBed"].Points)
+                    {
+                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
+                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
+                    }
+                }
+                if (chart.Series.IndexOf("Extruder") != -1)
+                {
+                    foreach (DataPoint dataPoint in chart.Series["Extruder"].Points)
+                    {
+                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
+                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
+                    }
+                }
+                if (chart.Series.IndexOf("SetExtruder") != -1)
+                {
+                    foreach (DataPoint dataPoint in chart.Series["SetExtruder"].Points)
+                    {
+                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
+                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
+                    }
+                }
+
+                
+
+
+
+
 
                 var area = chart.ChartAreas[0];
                 area.AxisX.Maximum = time;
                 area.AxisX.Minimum = Math.Max(0, time - 20);
-                if (extruderTemp > 0)
-                    chart.Series["Extruder"].Points.AddXY(time, extruderTemp);
-                if (setExtruderTemp > 0)
-                    chart.Series["SetExtruder"].Points.AddXY(time, setExtruderTemp);
+                if (chart.Series.IndexOf("Extruder") != -1)
+                {
+                    if (extruderTemp > 0)
+                        chart.Series["Extruder"].Points.AddXY(time, extruderTemp);
+                }
+
+                if (chart.Series.IndexOf("SetExtruder") != -1)
+                {
+                    if (setExtruderTemp > 0)
+                        chart.Series["SetExtruder"].Points.AddXY(time, setExtruderTemp);
+                }
+
+
+
+
+
 
                 //TODO: 
                 // area.AxisX.IntervalType = DateTimeIntervalType.Seconds;
 
                 chart.ResetAutoValues();
+                chart.ChartAreas[0].AxisX.Maximum = maxAxisX;
+                chart.ChartAreas[0].AxisX.Minimum = minAxisX;
+
             }
         }
 
@@ -325,24 +411,49 @@ namespace Marlin3DprinterTool
             }
             else
             {
-                if (chart.Series["Extruder"].Points.Count >= 21)
+                if (chart.Series.IndexOf("Extruder") != -1)
                 {
-                    chart.Series["Extruder"].Points.RemoveAt(0);
+                    if (chart.Series["Extruder"].Points.Count >= 21)
+                    {
+                        chart.Series["Extruder"].Points.RemoveAt(0);
+                    }
                 }
-                if (chart.Series["SetExtruder"].Points.Count >= 21)
+                if (chart.Series.IndexOf("SetExtruder") != -1)
                 {
-                    chart.Series["SetExtruder"].Points.RemoveAt(0);
+                    if (chart.Series["SetExtruder"].Points.Count >= 21)
+                    {
+                        chart.Series["SetExtruder"].Points.RemoveAt(0);
+                    }
+                }
+                if (chart.Series.IndexOf("Bed") != -1)
+                {
+                    if (chart.Series["Bed"].Points.Count >= 21)
+                    {
+                        chart.Series["Bed"].Points.RemoveAt(0);
+                    }
+                }
+                if (chart.Series.IndexOf("SetBed") != -1)
+                {
+                    if (chart.Series["SetBed"].Points.Count >= 21)
+                    {
+                        chart.Series["SetBed"].Points.RemoveAt(0);
+                    }
                 }
 
                 var area = chart.ChartAreas[0];
                 area.AxisX.Maximum = time;
                 area.AxisX.Minimum = Math.Max(0, time - 20);
-                if (bedTemp > 0)
-                    chart.Series["Bed"].Points.AddXY(time, bedTemp);
-                if (setBedTemp > 0)
-                    chart.Series["SetBed"].Points.AddXY(time, setBedTemp);
-                area.AxisX.IntervalType = DateTimeIntervalType.Seconds;
-
+                if (chart.Series.IndexOf("Bed") != -1)
+                {
+                    if (bedTemp > 0)
+                        chart.Series["Bed"].Points.AddXY(time, bedTemp);
+                }
+                if (chart.Series.IndexOf("SetBed") != -1)
+                {
+                    if (setBedTemp > 0)
+                        chart.Series["SetBed"].Points.AddXY(time, setBedTemp);
+                    area.AxisX.IntervalType = DateTimeIntervalType.Seconds;
+                }
                 chart.ResetAutoValues();
             }
         }
@@ -388,6 +499,67 @@ namespace Marlin3DprinterTool
             return null;
         }
 
+
+
+        /// <summary>
+        /// Change the cursor
+        /// </summary>
+        /// <param name="cursorType"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static void Cursor(Cursor cursorType)
+        {
+            if (_frm3DprinterTool.InvokeRequired)
+            {
+                CursorCallback d = Cursor;
+                try{_frm3DprinterTool.Invoke(d, cursorType);} catch (Exception){}
+            }
+            else
+            {
+                try{_frm3DprinterTool.Cursor = cursorType; } catch (Exception) { }
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="verticalJogControl"></param>
+        /// <param name="communication"></param>
+        public static void VerticalJogControl(VerticalJogControl verticalJogControl, MarlinCommunication communication)
+        {
+            if (verticalJogControl.InvokeRequired)
+            {
+                VerticalJogControlCallback d = VerticalJogControl;
+                _frm3DprinterTool.Invoke(d, verticalJogControl, communication);
+            }
+            else
+            {
+                verticalJogControl.MarlinCommunication = communication;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kompassControl"></param>
+        /// <param name="communication"></param>
+        public static void KompassControl(KompassControll kompassControl, MarlinCommunication communication)
+        {
+            if (kompassControl.InvokeRequired)
+            {
+                KompassControlCallback d = KompassControl;
+                _frm3DprinterTool.Invoke(d, kompassControl, communication);
+            }
+            else
+            {
+                kompassControl.MarlinCommunication = communication;
+            }
+        }
+
+
+
+
         // Delegate
         private delegate void DelegateVerticalJogControlCallback(
             VerticalJogControl verticalJogControl, MarlinCommunication marlin);
@@ -416,9 +588,9 @@ namespace Marlin3DprinterTool
 
         private delegate void SetExtruderTempCallback(Chart chart, int time, int extruderTemp, int setExtruderTemp);
 
-        private delegate int TabControl3DprinterToolSelectedIndexCallback(TabControl tabControl);
+        private delegate string TabControl3DprinterToolSelectedCallback(TabControl tabControl);
 
-        private delegate void TabPageEnableCallback(TabPage tabPage, bool enable);
+        //TODO: TABORT private delegate void TabPageEnableCallback(TabPage tabPage, bool enable);
 
         private delegate void ScrollToCallback(FastColoredTextBox marlinSyntaxTextBox, int row);
 
@@ -426,7 +598,14 @@ namespace Marlin3DprinterTool
 
         private delegate TabPage GetSelectedTabCallback(TabControl tabControl);
 
+        private delegate void CursorCallback(Cursor cursorType);
+
+        private delegate void VerticalJogControlCallback(VerticalJogControl verticalJogControl, MarlinCommunication communication);
+
+        private delegate void KompassControlCallback(KompassControll kompassControl, MarlinCommunication communication);
+
         //!Delegate
+
 
     }
 }

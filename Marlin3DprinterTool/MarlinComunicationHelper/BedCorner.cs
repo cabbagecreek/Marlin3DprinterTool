@@ -104,13 +104,13 @@ namespace MarlinComunicationHelper
 
         }
 
-        private void btnSight_Click(object sender, EventArgs e)
+        private void btnPin_Click(object sender, EventArgs e)
         {
             maskedTxtBxX.Text = Communication.CurrentPosition.Xstring;
             maskedTxtBxY.Text = Communication.CurrentPosition.Ystring;
         }
 
-        private void btnPin_Click(object sender, EventArgs e)
+        private void btnGoto_Click(object sender, EventArgs e)
         {
             List<string> commands = new List<string>();
             // Lift
