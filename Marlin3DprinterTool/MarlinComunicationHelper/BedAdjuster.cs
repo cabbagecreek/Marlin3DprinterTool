@@ -81,10 +81,7 @@ namespace MarlinComunicationHelper
             {
                 _z = value;
                 if (Position != null) Position.Z = _z;
-<<<<<<< HEAD
-=======
                 DelegateText(txtBxZ,_z.ToString().Replace(",", "."));
->>>>>>> develop
             }
             get { return _z; }
         }
@@ -135,8 +132,6 @@ namespace MarlinComunicationHelper
             }
         }
 
-<<<<<<< HEAD
-=======
         public void Clear()
         {
             switch (Adjuster)
@@ -166,7 +161,7 @@ namespace MarlinComunicationHelper
 
         }
 
->>>>>>> develop
+
         private void AdjusterPictureToTheLeft()
         {
             picBxLeft.BackgroundImage = Properties.Resources.adjuster;
@@ -177,8 +172,7 @@ namespace MarlinComunicationHelper
             picBxRight.BackgroundImage = Properties.Resources.adjuster;
         }
 
-<<<<<<< HEAD
-=======
+
         private void ClearPictureToTheLeft()
         {
             picBxLeft.Visible = false;
@@ -189,7 +183,7 @@ namespace MarlinComunicationHelper
             picBxRight.Visible = false;
         }
 
->>>>>>> develop
+
         public double Fix { get; set; }
 
         
@@ -216,39 +210,19 @@ namespace MarlinComunicationHelper
             var decimalpart = adjust - turn;
             var minutes = (int)(decimalpart * 60);
 
-<<<<<<< HEAD
-=======
+
+
             DelegateVisible(picBxRight, true);
             DelegateVisible(picBxLeft,true);
 
             Image turnIndicator = adjust <= 0 ? Resources.clockwise : Resources.counterclockwise;
             if (Math.Abs( adjust) <= 0.05) turnIndicator = Resources.OK;
->>>>>>> develop
+
 
             switch (Adjuster)
             {
                 case AdjusterType.BackLeftAdjuster:
-<<<<<<< HEAD
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                    break;
-                case AdjusterType.BackRightAdjuster:
-                    DelegateBackgroundImage(picBxLeft, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                    break;
-                case AdjusterType.FrontLeftAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                    break;
-                case AdjusterType.FrontRightAdjuster:
-                    DelegateBackgroundImage(picBxLeft, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                    break;
-                case AdjusterType.LeftSingleAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                    break;
-                case AdjusterType.FrontSingleAdjuster:
-                    DelegateBackgroundImage(picBxRight, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-                    break;
-                case AdjusterType.RightSingleAdjuster:
-                    DelegateBackgroundImage(picBxLeft, adjust <= 0 ? Resources.clockwise : Resources.counterclockwise);
-=======
+
                     DelegateBackgroundImage(picBxRight, turnIndicator);
                     break;
                 case AdjusterType.BackRightAdjuster:
@@ -268,7 +242,6 @@ namespace MarlinComunicationHelper
                     break;
                 case AdjusterType.RightSingleAdjuster:
                     DelegateBackgroundImage(picBxLeft, turnIndicator);
->>>>>>> develop
                     break;
 
             }
@@ -306,8 +279,7 @@ namespace MarlinComunicationHelper
             }
         }
 
-<<<<<<< HEAD
-=======
+
         private delegate void DelegateVisibleCallback(Control control, bool visible);
         /// <summary>
         /// 
@@ -327,7 +299,7 @@ namespace MarlinComunicationHelper
             }
         }
 
->>>>>>> develop
+
         /// <summary>
         /// </summary>
         /// <param name="control"></param>

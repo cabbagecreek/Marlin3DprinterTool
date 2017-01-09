@@ -310,10 +310,7 @@ namespace MarlinComunicationHelper
             var responces = dataReceived.Split('\n');
 
 
-            var probePosition = new Position();
-            string xstring = null;
-            string ystring = null;
-            string zstring = null;
+           
 
 
             var probePosition = new Position();
@@ -538,31 +535,10 @@ namespace MarlinComunicationHelper
         private void ParseM851(string dataReceived)
         {
             var m851Pattern = @"(?<=M851\sZ)[-|.|0-9]*";
-<<<<<<< HEAD
-            var m851Match = Regex.Match(_dataReceived, m851Pattern);
-            if (m851Match.Success)
-            {
-                M851ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
-            }
-        }
-
-        private void ParseDefault()
-        {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            //Delete the responce from the received bytes
-            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-            OnReadyForNextCommand(EventArgs.Empty);
-        }
-=======
             var m851Match = Regex.Match(dataReceived, m851Pattern);
             if (m851Match.Success)
             {
                 M851ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
->>>>>>> develop
-
                 OnM851Responce(new ResponceData(m851Match.Value.Replace(',', '.')));
             }
 
