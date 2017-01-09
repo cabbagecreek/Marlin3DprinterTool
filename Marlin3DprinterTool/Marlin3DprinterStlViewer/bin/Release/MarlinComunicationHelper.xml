@@ -4,6 +4,57 @@
         <name>MarlinComunicationHelper</name>
     </assembly>
     <members>
+        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateBackgroundImage(System.Windows.Forms.Control,System.Drawing.Image)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="image"></param>
+        </member>
+        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateText(System.Windows.Forms.Control,System.String)">
+            <summary>
+            </summary>
+            <param name="control"></param>
+            <param name="text"></param>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedAdjuster.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.BedAdjuster.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MarlinComunicationHelper.BedAdjuster.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.BedCornerControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedCornerControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.BedCornerControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MarlinComunicationHelper.BedCornerControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
         <member name="T:MarlinComunicationHelper.Configuration">
             <summary>
             Configuration of all storable values
@@ -21,7 +72,7 @@
             Configure the type of Bed
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.Configuration.LowerLeftCorner">
+        <member name="P:MarlinComunicationHelper.Configuration.FrontLeftCorner">
             <summary>
             Define the lower Left Corner
             </summary>
@@ -56,39 +107,19 @@
             Path where Arduino IDE is located
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.Configuration.LowerRightCorner">
+        <member name="P:MarlinComunicationHelper.Configuration.FrontRightCorner">
             <summary>
             Lower Right Coner
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.Configuration.UpperLeftCorner">
+        <member name="P:MarlinComunicationHelper.Configuration.BackLeftCorner">
             <summary>
             Upper Left Corner
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.Configuration.UpperRightCorner">
+        <member name="P:MarlinComunicationHelper.Configuration.BackRightCorner">
             <summary>
             Upper Right Corner
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.Configuration.LowerLeftAdjuster">
-            <summary>
-            Lower Left Adjuster
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.Configuration.LowerRightAdjuster">
-            <summary>
-            Lower Right Adjuster
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.Configuration.UpperLeftAdjuster">
-            <summary>
-            Upper Left Adjuster
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.Configuration.UpperRightAdjuster">
-            <summary>
-            Upper Right Adjuster
             </summary>
         </member>
         <member name="P:MarlinComunicationHelper.Configuration.SafeHome">
@@ -379,21 +410,6 @@
             Process that do AutoBedLevel
             </summary>
         </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.GetMeshBedPoints">
-            <summary>
-            Learning where the FW do the MBL points
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.MeassureMesh">
-            <summary>
-            Meassure the MBL points using the probe
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutomaticMeshBedLevel">
-            <summary>
-            Do the process of Automatic MBL
-            </summary>
-        </member>
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ZprobeHeight">
             <summary>
             Calculating ZprobeHeight
@@ -409,7 +425,12 @@
             Search for where the Probe touch the bed
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.MarlinCommunication.ZprobeOffset">
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibration">
+            <summary>
+            Start of extruder Calibration
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.M851ZprobeOffset">
             <summary>
             The ZprobeOffset that is found in M851
             </summary>
@@ -625,7 +646,7 @@
             </summary>
             TODO: EndstopStatusList -> EndstopStatus
         </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndstopStatus)">
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndStop)">
             <summary>
                 Report result of M119 EndstopStatus
             </summary>
@@ -639,7 +660,7 @@
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.M303Responce">
             <summary>
-                Eventhandler for M119 EndstopStatus
+                Eventhandler for M303Responce
             </summary>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.M304Responce">
@@ -657,24 +678,14 @@
                 Eventhandler for M501
             </summary>
         </member>
-        <member name="E:MarlinComunicationHelper.MarlinCommunication.ReadyForNextCommand">
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M851Responce">
             <summary>
-            Handle event that rise after each command
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnReadyForNextCommand(System.EventArgs)">
-            <summary>
-            Handle event that rise after each command
+                Eventhandler for M501
             </summary>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.CommandSequenceeDone">
             <summary>
             
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.ClearReceived">
-            <summary>
-                Clear all data in the received buffer
             </summary>
         </member>
         <member name="T:MarlinComunicationHelper.EndstopStatus">
@@ -848,6 +859,21 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.adjuster">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.clockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.counterclockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
         <member name="T:MarlinComunicationHelper.VerticalJogControl">

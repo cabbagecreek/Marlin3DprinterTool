@@ -159,11 +159,24 @@ namespace MarlinComunicationHelper
 
         private void btnSend_Click(object sender, EventArgs e)
         {
+            Send();
+        }
+
+        private void Send()
+        {
             Communication.SendCommand(cmbBxCommand.Text);
-            
+
             // Add command to commandlist
             if (cmbBxCommand.Items.Contains(cmbBxCommand.Text)) return;
             cmbBxCommand.Items.Add(cmbBxCommand.Text);
+        }
+
+        private void cmbBxCommand_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                Send();
+            }
         }
     }
 }
