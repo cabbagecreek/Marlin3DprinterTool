@@ -54,7 +54,7 @@
             <param name="tabControl"></param>
             <param name="enable"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.TabControl3DprinterToolSelectedIndex(System.Windows.Forms.TabControl)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.TabControl3DprinterToolSelected(System.Windows.Forms.TabControl)">
             <summary>
             </summary>
             <returns></returns>
@@ -126,10 +126,35 @@
             <param name="tabControl3DprinterTool"></param>
             <returns></returns>
         </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.Cursor(System.Windows.Forms.Cursor)">
+            <summary>
+            Change the cursor
+            </summary>
+            <param name="cursorType"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+<<<<<<< HEAD
+=======
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.VerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
+            <summary>
+            
+            </summary>
+            <param name="verticalJogControl"></param>
+            <param name="communication"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.KompassControl(MarlinComunicationHelper.KompassControll,MarlinComunicationHelper.MarlinCommunication)">
+            <summary>
+            
+            </summary>
+            <param name="kompassControl"></param>
+            <param name="communication"></param>
+        </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>
             </summary>
         </member>
+>>>>>>> develop
         <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.#ctor">
             
         </member>

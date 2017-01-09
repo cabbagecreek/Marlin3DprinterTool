@@ -151,6 +151,13 @@
     <Content Include="MarlinCommunication.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+<<<<<<< HEAD
+=======
+    <None Include="Resources\OK.png" />
+    <None Include="Resources\GoTo.png" />
+    <None Include="Resources\Save.png" />
+    <None Include="Resources\pin.png" />
+>>>>>>> develop
     <None Include="Resources\counterclockwise.jpg" />
     <None Include="Resources\clockwise.jpg" />
     <None Include="Resources\adjuster.gif" />

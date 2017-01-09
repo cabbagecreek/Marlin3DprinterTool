@@ -410,21 +410,6 @@
             Process that do AutoBedLevel
             </summary>
         </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.GetMeshBedPoints">
-            <summary>
-            Learning where the FW do the MBL points
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.MeassureMesh">
-            <summary>
-            Meassure the MBL points using the probe
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutomaticMeshBedLevel">
-            <summary>
-            Do the process of Automatic MBL
-            </summary>
-        </member>
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ZprobeHeight">
             <summary>
             Calculating ZprobeHeight
@@ -661,7 +646,7 @@
             </summary>
             TODO: EndstopStatusList -> EndstopStatus
         </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndstopStatus)">
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndStop)">
             <summary>
                 Report result of M119 EndstopStatus
             </summary>
@@ -675,7 +660,7 @@
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.M303Responce">
             <summary>
-                Eventhandler for M119 EndstopStatus
+                Eventhandler for M303Responce
             </summary>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.M304Responce">
@@ -693,24 +678,14 @@
                 Eventhandler for M501
             </summary>
         </member>
-        <member name="E:MarlinComunicationHelper.MarlinCommunication.ReadyForNextCommand">
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M851Responce">
             <summary>
-            Handle event that rise after each command
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnReadyForNextCommand(System.EventArgs)">
-            <summary>
-            Handle event that rise after each command
+                Eventhandler for M501
             </summary>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.CommandSequenceeDone">
             <summary>
             
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.ClearReceived">
-            <summary>
-                Clear all data in the received buffer
             </summary>
         </member>
         <member name="T:MarlinComunicationHelper.EndstopStatus">
@@ -901,6 +876,19 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+<<<<<<< HEAD
+=======
+        <member name="P:MarlinComunicationHelper.Properties.Resources.pin">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.Save">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+>>>>>>> develop
         <member name="T:MarlinComunicationHelper.VerticalJogControl">
             <summary>
             User Control that shows vertical movement

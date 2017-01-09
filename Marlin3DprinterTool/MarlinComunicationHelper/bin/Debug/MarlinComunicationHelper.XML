@@ -10,6 +10,16 @@
             <param name="control"></param>
             <param name="image"></param>
         </member>
+<<<<<<< HEAD
+=======
+        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateVisible(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <param name="visible"></param>
+        </member>
+>>>>>>> develop
         <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateText(System.Windows.Forms.Control,System.String)">
             <summary>
             </summary>
@@ -410,34 +420,19 @@
             Process that do AutoBedLevel
             </summary>
         </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.GetMeshBedPoints">
-            <summary>
-            Learning where the FW do the MBL points
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.MeassureMesh">
-            <summary>
-            Meassure the MBL points using the probe
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutomaticMeshBedLevel">
-            <summary>
-            Do the process of Automatic MBL
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ZprobeHeight">
-            <summary>
-            Calculating ZprobeHeight
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.SearchLift">
-            <summary>
-            Search extra safety Lift of the probe
-            </summary>
-        </member>
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.DockZprobe">
             <summary>
             Search for where the Probe touch the bed
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutoPidTuneExtruder">
+            <summary>
+            Auto Tune PID for Exctruder
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutoPidTuneBed">
+            <summary>
+            Auto Tune PID for Bed
             </summary>
         </member>
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibration">
@@ -596,14 +591,13 @@
             </summary>
             <param name="commands"></param>
         </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.ExtrudeCalculationUpdate(System.Int32,System.Double,System.Int32,System.Boolean)">
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.ExtrudeCalculationUpdate(System.Int32,System.String,System.Int32)">
             <summary>
                 Update the uploaded Firmware with new calibrated value
             </summary>
             <param name="extrude">Amount of extruded filament in the test</param>
             <param name="oldSteps">Value for Steps-per-mm before the test</param>
             <param name="meassuredUsedFilament">Meassured filament that is used during the test</param>
-            <param name="updateEEprom">If the new Steps-Per-mm  should update the EEPROM</param>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.Connected">
             <summary>
@@ -661,7 +655,7 @@
             </summary>
             TODO: EndstopStatusList -> EndstopStatus
         </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndstopStatus)">
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndStop)">
             <summary>
                 Report result of M119 EndstopStatus
             </summary>
@@ -675,7 +669,7 @@
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.M303Responce">
             <summary>
-                Eventhandler for M119 EndstopStatus
+                Eventhandler for M303Responce
             </summary>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.M304Responce">
@@ -693,14 +687,9 @@
                 Eventhandler for M501
             </summary>
         </member>
-        <member name="E:MarlinComunicationHelper.MarlinCommunication.ReadyForNextCommand">
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M851Responce">
             <summary>
-            Handle event that rise after each command
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnReadyForNextCommand(System.EventArgs)">
-            <summary>
-            Handle event that rise after each command
+                Eventhandler for M501
             </summary>
         </member>
         <member name="E:MarlinComunicationHelper.MarlinCommunication.CommandSequenceeDone">
@@ -708,9 +697,25 @@
             
             </summary>
         </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.ClearReceived">
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.Sending">
             <summary>
-                Clear all data in the received buffer
+            
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.TypeOfCursor">
+            <summary>
+            Generic responcedata
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.TypeOfCursor.#ctor(System.Windows.Forms.Cursor)">
+            <summary>
+            Cursor during operations
+            </summary>
+            <param name="cursorType"></param>
+        </member>
+        <member name="P:MarlinComunicationHelper.TypeOfCursor.CursorType">
+            <summary>
+            Generic Responce Data
             </summary>
         </member>
         <member name="T:MarlinComunicationHelper.EndstopStatus">
@@ -901,6 +906,29 @@
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
+<<<<<<< HEAD
+=======
+        <member name="P:MarlinComunicationHelper.Properties.Resources.GoTo">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.OK">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.pin">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.Save">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+>>>>>>> develop
         <member name="T:MarlinComunicationHelper.VerticalJogControl">
             <summary>
             User Control that shows vertical movement

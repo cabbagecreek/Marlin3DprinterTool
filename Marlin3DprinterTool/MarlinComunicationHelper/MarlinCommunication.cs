@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using ZylSoft.Serial;
 
 namespace MarlinComunicationHelper
@@ -13,12 +15,12 @@ namespace MarlinComunicationHelper
     public sealed class MarlinCommunication
     {
 
+        
         private readonly SerialPort _serialPort = new SerialPort();
-        private List<string> _commands;
-        private string _dataReceived;
         private FrmShowCommunication _showcom;
 
         private string linuxNewline = "\n";
+        private bool _kill;
 
         #region Properties
 
@@ -39,47 +41,37 @@ namespace MarlinComunicationHelper
             /// <summary>
             /// Feature is trying to do a Bedlevel
             /// </summary>
-            Bedlevel = 3,
+            Bedlevel = 2,
             /// <summary>
             /// Doing Surface Scan
             /// </summary>
-            SurfaceScan = 4,
+            SurfaceScan = 3,
             /// <summary>
             /// Process that do AutoBedLevel
             /// </summary>
-            AutoBedLevel = 7,
-            /// <summary>
-            /// Learning where the FW do the MBL points
-            /// </summary>
-            GetMeshBedPoints = 10,
-            /// <summary>
-            /// Meassure the MBL points using the probe
-            /// </summary>
-            MeassureMesh = 11,
-            /// <summary>
-            /// Do the process of Automatic MBL
-            /// </summary>
-            AutomaticMeshBedLevel = 12,
-            /// <summary>
-            /// Calculating ZprobeHeight
-            /// </summary>
-            ZprobeHeight = 13,
-            /// <summary>
-            /// Search extra safety Lift of the probe
-            /// </summary>
-            SearchLift = 14,
+            AutoBedLevel = 4,
             /// <summary>
             /// Search for where the Probe touch the bed
             /// </summary>
-            DockZprobe = 15,
+            DockZprobe = 5,
+            
+            /// <summary>
+            /// Auto Tune PID for Exctruder
+            /// </summary>
+            AutoPidTuneExtruder = 6,
+            /// <summary>
+            /// Auto Tune PID for Bed
+            /// </summary>
+            AutoPidTuneBed = 7,
             /// <summary>
             /// Start of extruder Calibration
             /// </summary>
-            ExtruderCalibration = 16
+            ExtruderCalibration = 8,
+            ExtruderCalibrationTest = 9
         }
         
 
-
+        public bool IsReceivingOrSending { get; set; }
         
 
         /// <summary>
@@ -105,7 +97,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// The Steps per Unit E that is found during INIT
         /// </summary>
-        public string StepsPerUnitE { internal get; set; }
+        public string StepsPerUnitE { get; set; }
 
         /// <summary>
         /// The PidExtruder Kp that is found during INIT
@@ -156,13 +148,28 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// The staus of all endstops
         /// </summary>
-        public EndStop EndStopStatus { get; internal set; }
+        public EndStop EndStopStatus { get; set; }
 
 
         /// <summary>
         ///     Kill the commandstream at next command
         /// </summary>
-        public bool Kill { private get; set; }
+        public bool Kill
+        {
+            private get { return _kill; }
+            set
+            {
+                _kill = value;
+                if (_kill)
+                {
+                    TypeOfCursor cursorType = new TypeOfCursor(Cursors.Default);
+                    OnSending(cursorType);
+                    SendCommand("M P50"); // Send a short wait    
+                }
+                
+            }
+
+        }
 
         /// <summary>
         ///     The Gcode without argument
@@ -216,97 +223,32 @@ namespace MarlinComunicationHelper
 
 
 
-        #region Data Is Received 
-        private void _serialPort_Received(object sender, DataEventArgs e)
-        {
-            // Read all bytes in the buffer
-            _dataReceived += SerialPort.AsciiByteArrayToString(e.Buffer);
-
-            if (Showform != null)
-            {
-                _showcom.AddReceived = _dataReceived;
-            }
-
-            switch (Gcode)
-            {
-                case "INIT":
-                    ParseInit();
-                    break;
-                case "G28":
-                    ParseG28();
-                    break;
-                case "G29":
-                    ParseG29();
-                    break;
-                case "G30":
-                    ParseG30();
-                    break;
-                case "M114":
-                    ParseM114();
-                    break;
-
-                case "M119":
-                    ParseM119();
-                    break;
-
-                case "M48":
-                    ParseM48();
-                    break;
-
-                case "M301":
-                    ParseM301();
-                    break;
-
-
-                case "M303":
-                    ParseM303();
-                    break;
-
-                case "M304":
-                    ParseM304();
-                    break;
-
-                case "M500":
-                    ParseM500();
-                    break;
-
-                case "M501":
-                    ParseM501();
-                    break;
-
-                default:
-                    ParseDefault();
-                    break;
-            }
-        }
-
-        #endregion
+        
 
 
 
         #region Parse Received Data
 
-        private void ParseInit()
+        private void ParseInit(string dataReceived)
         {
             IsPortOpen = true;
 
             // Create INIT responce Event
-            var responce = new ResponceData(_dataReceived);
+            var responce = new ResponceData(dataReceived);
 
-            ParseM851();
+            ParseM851(dataReceived);
 
 
             OnInit(responce);
 
             //Delete the responce from the received bytes
-            _dataReceived = string.Empty;
+            dataReceived = string.Empty;
 
 
-            // ReadyForNextCommand          
-            OnReadyForNextCommand(EventArgs.Empty);
+            
         }
 
-        private void ParseG28()
+        private void ParseG28(string dataReceived)
         {
             // Return if The _dataReceived not contains ok\n
             //if (WaitForOkAndNewLineToBeReceived() == false) return;
@@ -317,24 +259,18 @@ namespace MarlinComunicationHelper
 
             //TODO: Get the current position???
 
-            //Delete the responce from the received bytes
-            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-            // ReadyForNextCommand          
-            OnReadyForNextCommand(EventArgs.Empty);
+           
 
 
         }
 
 
-        private void ParseG29()
+        private void ParseG29(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
+            
 
             // Get all responces
-            var responces = GetAllResponces();
+            var responces = dataReceived.Split('\n');
 
 
             // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:16000
@@ -363,20 +299,21 @@ namespace MarlinComunicationHelper
             OnG29Responce(eventG29Resonce);
 
 
-            //Delete the responce from the received bytes
-            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-            // ReadyForNextCommand          
-            OnReadyForNextCommand(EventArgs.Empty);
+            
+            
         }
 
-        private void ParseG30()
+        private void ParseG30(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
+           
             // Get all responces
-            var responces = GetAllResponces();
+            var responces = dataReceived.Split('\n');
+
+
+            var probePosition = new Position();
+            string xstring = null;
+            string ystring = null;
+            string zstring = null;
 
 
             var probePosition = new Position();
@@ -436,20 +373,15 @@ namespace MarlinComunicationHelper
             // Create G30 responce Event
             OnG30ProbeResponce(ProbeResponceList);
 
-            //Delete the responce from the received bytes
-            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-            // ReadyForNextCommand          
-            OnReadyForNextCommand(EventArgs.Empty);
+            
+            
         }
 
-        private void ParseM48()
+        private void ParseM48(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
+           
             // Get all responces
-            var responces = GetAllResponces();
+            var responces = dataReceived.Split('\n');
 
 
             //ok
@@ -475,7 +407,7 @@ namespace MarlinComunicationHelper
             try
             {
                 var meanProbeValue =
-                    Regex.Match(_dataReceived, @"(?<=Mean:\s*)([-,0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
+                    Regex.Match(dataReceived, @"(?<=Mean:\s*)([-,0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
                         .Value;
                 ProbeM48MeanValue = meanProbeValue;
             }
@@ -490,25 +422,21 @@ namespace MarlinComunicationHelper
 
             OnM48ProbeStatus(eventM48Resonce);
 
-            //Delete the responce from the received bytes
-            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-            // ReadyForNextCommand          
-            OnReadyForNextCommand(EventArgs.Empty);
+            
+            
         }
 
-        private void ParseM114()
+        private void ParseM114(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
+            
             // Get all responces 
-            var responces = GetAllResponces();
+            var responces = dataReceived.Split('\n');
 
             // Create M114 responce Event
             foreach (var responce in responces)
             {
-                if (responce.Contains("X:") && responce.Contains("Y:") && responce.Contains("Z:"))
+                // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:4000
+                if (Regex.Match(responce, @"\AX:[0-9,-,.]*\s*Y:[0-9,-,.]*\s*Z:[0-9,-,.]*\s*E:[0-9,-,.]*\s*Count X:\s*[0-9,-]*\s*Y:[0-9,-]*\s*Z:[0-9,-]*").Success)
                 {
                     var xstring =
                         Regex.Match(responce, @"(?:X:)([-,0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
@@ -525,23 +453,19 @@ namespace MarlinComunicationHelper
                 }
 
 
-                //Delete the responce from the received bytes
-                _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-                OnReadyForNextCommand(EventArgs.Empty);
+                
+               
             }
         }
 
-        private void ParseM119()
+        private void ParseM119(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            // Get all responces 
-            var responces = GetAllResponces();
-
-
             
+            // Get all responces 
+            var responces = dataReceived.Split('\n');
+
+
+
             foreach (var responce in responces)
             {
                 if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
@@ -553,87 +477,68 @@ namespace MarlinComunicationHelper
             }
 
 
-            var eventEndstopStatusList = new EndstopStatus(EndStopStatus);
+
+
+
+
+
             
+            OnM119EndStopStatus(EndStopStatus);
 
-
-            OnM119EndStopStatus(eventEndstopStatusList);
-
-            //Delete the responce from the received bytes
-            _dataReceived = DeleteResponceUpToAndInclusiveOk(_dataReceived);
-
-            OnReadyForNextCommand(EventArgs.Empty);
+            
+            
         }
 
-        private void ParseM301()
+        private void ParseM301(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            var responceData = new ResponceData(_dataReceived);
+            
+            var responceData = new ResponceData(dataReceived);
             OnM301Responce(responceData);
 
-            OnReadyForNextCommand(EventArgs.Empty);
+            
         }
 
-        private void ParseM303()
+        private void ParseM303(string dataReceived)
         {
-            ParseTemperatures();
-
-
-            var responceData = new ResponceData(_dataReceived);
+            var responceData = new ResponceData(dataReceived);
             OnM303Responce(responceData);
 
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            OnReadyForNextCommand(EventArgs.Empty);
+           
+            
         }
 
-        private void ParseM304()
+        private void ParseM304(string dataReceived)
         {
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            var responceData = new ResponceData(_dataReceived);
+            
+            var responceData = new ResponceData(dataReceived);
             OnM304Responce(responceData);
 
-            OnReadyForNextCommand(EventArgs.Empty);
+            
         }
 
-        private void ParseM500()
+        private void ParseM500(string dataReceived)
         {
-            ParseTemperatures();
-
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            var responceData = new ResponceData(_dataReceived);
+            var responceData = new ResponceData(dataReceived);
             OnM500Responce(responceData);
 
 
-            OnReadyForNextCommand(EventArgs.Empty);
+            
         }
 
-        private void ParseM501()
+        private void ParseM501(string dataReceived)
         {
-            ParseTemperatures();
-
-            // Return if The _dataReceived not contains ok\n
-            if (WaitForOkAndNewLineToBeReceived() == false) return;
-
-            var responceData = new ResponceData(_dataReceived);
-
-            ParseM851();
+            ParseInit(dataReceived);
+            var responceData = new ResponceData(dataReceived);
 
             OnM501Responce(responceData);
 
-            OnReadyForNextCommand(EventArgs.Empty);
+            
         }
 
-        private void ParseM851()
+        private void ParseM851(string dataReceived)
         {
             var m851Pattern = @"(?<=M851\sZ)[-|.|0-9]*";
+<<<<<<< HEAD
             var m851Match = Regex.Match(_dataReceived, m851Pattern);
             if (m851Match.Success)
             {
@@ -651,43 +556,28 @@ namespace MarlinComunicationHelper
 
             OnReadyForNextCommand(EventArgs.Empty);
         }
-
-        private string[] GetAllResponces()
-        {
-            // Get all data exlusive OK
-            var responce = ResponceUpToAndExlusiveOk();
-
-            // Responce contains each row in a responce.
-            // Split is done on \n
-            return responce.Split('\n');
-        }
-
-        private string ResponceUpToAndExlusiveOk()
-        {
-            try
+=======
+            var m851Match = Regex.Match(dataReceived, m851Pattern);
+            if (m851Match.Success)
             {
-                return _dataReceived.Substring(0, _dataReceived.ToLower().LastIndexOf("ok"));
-            }
-            catch (Exception)
-            {
-                return _dataReceived;
-            }
-        }
+                M851ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
+>>>>>>> develop
 
-        private bool WaitForOkAndNewLineToBeReceived()
-        {
-            // Remove: echo:busy: processing/n
-            while (_dataReceived.Contains("echo:busy: processing\n"))
-            {
-                _dataReceived = _dataReceived.Replace("echo:busy: processing\n", "");
+                OnM851Responce(new ResponceData(m851Match.Value.Replace(',', '.')));
             }
 
-
-            // Wait for OK\n to be received. 
-            //If OK\n is received a complete responce to a command is received
-            return _dataReceived.Contains("ok\n");
+            
         }
 
+        private void ParseDefault(string dataReceived)
+        {
+            
+            
+        }
+
+       
+
+       
 
         // Delete the respons up to and inclusive ok/n
         private string DeleteResponceUpToAndInclusiveOk(string responce)
@@ -707,86 +597,82 @@ namespace MarlinComunicationHelper
 
         #region Parse Temperature / Event on Temperatures
 
-        private void ParseTemperatures()
+        private bool ParseTemperatures(string temperatureLine)
         {
-            var pattern =
-                @"\sT:.[0-9]*.[0-9]*\s\/.[0-9]*.[0-9]*.\sB:.[0-9]*.[0-9]*.\s\/.[0-9]*.[0-9]*\s\@:.[0-9]*\sB\@:[0-9]*";
+            var pattern = @"\A\s*T:[0-9,-,.]*\s*/[0-9,.]*\s*B:[0-9,.]*\s/[0-9,.]*\s@:[0-9,.]*\s*B@:[0-9,.]*";
 
-            // Search for temperatures within _datareceived
-            foreach (Match m in Regex.Matches(_dataReceived, pattern))
+            if (Regex.Match(temperatureLine, pattern).Success)
             {
-                var eventTemperatures = ParseTemperatures(m.Value);
+                var extruderString =
+                    Regex.Match(temperatureLine, @"(?:T:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
+                        .Value
+                        .Replace(".", ",");
+                if (!extruderString.Contains(","))
+                {
+                    extruderString += ",0";
+                }
+                var setExtruderString =
+                    Regex.Match(temperatureLine, @"(?:T:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",
+                        RegexOptions.CultureInvariant)
+                        .Groups[1].Value.Replace(".", ",");
+                if (!setExtruderString.Contains(","))
+                {
+                    setExtruderString += ",0";
+                }
+                var heatbedTempString =
+                    Regex.Match(temperatureLine, @"(?:B:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
+                        .Value
+                        .Replace(".", ",");
+                if (!heatbedTempString.Contains(","))
+                {
+                    heatbedTempString += ",0";
+                }
+                var heatbedSetString =
+                    Regex.Match(temperatureLine, @"(?:B:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",
+                        RegexOptions.CultureInvariant)
+                        .Groups[1].Value.Replace(".", ",");
+                if (!heatbedSetString.Contains(","))
+                {
+                    heatbedSetString += ",0";
+                }
+                var extruder2TempString =
+                    Regex.Match(temperatureLine, @"(?:T0:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
+                        .Value
+                        .Replace(".", ",");
+                if (!extruder2TempString.Contains(","))
+                {
+                    extruder2TempString += ",0";
+                }
+                var extruder2SetString =
+                    Regex.Match(temperatureLine, @"(?:T0:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",
+                        RegexOptions.CultureInvariant)
+                        .Groups[1].Value.Replace(".", ",");
+                if (!extruder2SetString.Contains(","))
+                {
+                    extruder2SetString += ",0";
+                }
+
+                Temperatures eventTemperatures = new Temperatures(
+                    Convert.ToDouble(extruderString),
+                    Convert.ToDouble(setExtruderString),
+                    Convert.ToDouble(heatbedTempString),
+                    Convert.ToDouble(heatbedSetString),
+                    Convert.ToDouble(extruder2TempString),
+                    Convert.ToDouble(extruder2SetString)
+                    );
+
+
 
                 OnTemperature(eventTemperatures);
-            }
 
-            //Remove temperatures from _dataReceived
-            _dataReceived = Regex.Replace(_dataReceived, pattern, "");
+
+                return true;
+            }
+            else return false;
         }
 
         
-        private Temperatures ParseTemperatures(string temperatures)
-        {
-            //    // RECEIVED: ok T:195.2 / 195.0 B: 27.1 / 0.0 T0: 195.2 / 195.0 @:33 B@:0
-            //    //SENT: M105
-            //    //RECEIVED: ok T:195.4 / 195.0 B: 27.8 / 0.0 T0: 195.4 / 195.0 @:29 B@:0
-            //    //SENT: M105
-            //    //RECEIVED: ok T:195.5 / 195.0 B: 27.8 / 0.0 T0: 195.5 / 195.0 @:26 B@:0
-
-
-            var extruderString =
-                Regex.Match(temperatures, @"(?:T:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value
-                    .Replace(".", ",");
-            if (!extruderString.Contains(","))
-            {
-                extruderString += ",0";
-            }
-            var setExtruderString =
-                Regex.Match(temperatures, @"(?:T:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant)
-                    .Groups[1].Value.Replace(".", ",");
-            if (!setExtruderString.Contains(","))
-            {
-                setExtruderString += ",0";
-            }
-            var heatbedTempString =
-                Regex.Match(temperatures, @"(?:B:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value
-                    .Replace(".", ",");
-            if (!heatbedTempString.Contains(","))
-            {
-                heatbedTempString += ",0";
-            }
-            var heatbedSetString =
-                Regex.Match(temperatures, @"(?:B:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant)
-                    .Groups[1].Value.Replace(".", ",");
-            if (!heatbedSetString.Contains(","))
-            {
-                heatbedSetString += ",0";
-            }
-            var extruder2TempString =
-                Regex.Match(temperatures, @"(?:T0:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value
-                    .Replace(".", ",");
-            if (!extruder2TempString.Contains(","))
-            {
-                extruder2TempString += ",0";
-            }
-            var extruder2SetString =
-                Regex.Match(temperatures, @"(?:T0:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant)
-                    .Groups[1].Value.Replace(".", ",");
-            if (!extruder2SetString.Contains(","))
-            {
-                extruder2SetString += ",0";
-            }
-
-
-            return new Temperatures(
-                Convert.ToDouble(extruderString),
-                Convert.ToDouble(setExtruderString),
-                Convert.ToDouble(heatbedTempString),
-                Convert.ToDouble(heatbedSetString),
-                Convert.ToDouble(extruder2TempString),
-                Convert.ToDouble(extruder2SetString)
-                );
-        }
+       
 
         /// <summary>
         ///     Eventhandler for Tempertatures
@@ -815,6 +701,8 @@ namespace MarlinComunicationHelper
             {
                 try
                 {
+                    TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
+                    OnSending(cursorType);
                     IsPortOpen = false;
                     _serialPort.Disconnected += _serialPort_Disconnected;
                     _serialPort.Connected += _serialPort_Connected;
@@ -828,6 +716,7 @@ namespace MarlinComunicationHelper
                     _serialPort.DataWidth = SerialDataWidth.Dw8Bits;
                     _serialPort.ParityBits = SerialParityBits.None;
                     _serialPort.StopBits = SerialStopBits.Sb1Bit;
+                    _serialPort.AutoReceive = false;
 
                     CurrentPosition = new Position();
                     EndStopStatus = new EndStop();
@@ -846,13 +735,13 @@ namespace MarlinComunicationHelper
                     _serialPort.AutoReceive = false;
                     _serialPort.Open();
 
-                    _dataReceived = "";
+                    string dataReceived = "";
                     var rec = _serialPort.ReadLine(10); //TODO: Config of initial timeout
                     while (true)
                     {
                         var lastreceived = _serialPort.LastTimeReceived;
 
-                        _dataReceived += rec + Environment.NewLine;
+                        dataReceived += rec + Environment.NewLine;
 
                         var timeDiff = DateTime.Now - lastreceived;
                         if (timeDiff.Seconds >= 4) break; //TODO: Config of timeout
@@ -860,9 +749,11 @@ namespace MarlinComunicationHelper
                     }
 
                     if (!_serialPort.IsConnected()) return;
-                    ParseInit();
-                    _serialPort.AutoReceive = true;
-                    _serialPort.Received += _serialPort_Received;
+                    ParseInit(dataReceived);
+                    cursorType = new TypeOfCursor(Cursors.Default);
+                    OnSending(cursorType);
+
+
                 }
                 catch (Exception serialOpenException)
                 {
@@ -904,7 +795,7 @@ namespace MarlinComunicationHelper
 
             _serialPort.ClearInputBuffer();
 
-            OnReadyForNextCommand(EventArgs.Empty);
+            
             OnConnected(e);
         }
 
@@ -941,29 +832,15 @@ namespace MarlinComunicationHelper
         public void SendCommand(string command)
         {
 
-            // For the technically minded, Gcode line endings are Unix Line Endings (\n), 
-            // but will accept Windows Line Endings (\r\n), so you should not need to worry
-            // about converting between the two, but it is best practice to use Unix Line Endings where possible.
-            if (IsPortOpen)
-            {
-                //TODO: _serialPort.SendAsciiStringLine()
-                if (Kill) _serialPort.SendAsciiString("M112" + linuxNewline);
-
-                if (Showform != null)
-                {
-                    _showcom.AddSend = command;
-                }
-                // Extract the GCODE command without parameters
-                Gcode = command.IndexOf(" ", StringComparison.Ordinal) > 0
-                    ? command.Substring(0, command.IndexOf(" ", StringComparison.Ordinal)).Trim()
-                    : command;
-
-
-                // Send the command
-                //TODO: _serialPort.SendAsciiStringLine()
-                _serialPort.SendAsciiString(command + linuxNewline);
-            }
+            List<string> commands = new List<string>();
+            commands.Add(command);
+            SendCommand(commands);
         }
+
+       
+
+
+
 
         /// <summary>
         /// Send a list of commands . Each command uses SendCommand with the single GCODE
@@ -971,11 +848,192 @@ namespace MarlinComunicationHelper
         /// <param name="commands"></param>
         public void SendCommand(List<string> commands)
         {
-            _commands = commands;
 
-            var firstCommand = _commands[0];
-            _commands.RemoveAt(0);
-            SendCommand(firstCommand);
+
+            if (!IsReceivingOrSending)
+            {
+                BackgroundWorker serialBackgroundWorker = new BackgroundWorker();
+                serialBackgroundWorker.DoWork += SerialBackgroundWorker_DoWork;
+                serialBackgroundWorker.WorkerSupportsCancellation = true;
+                serialBackgroundWorker.RunWorkerAsync(commands);
+            }
+
+
+        }
+
+        private void SerialBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
+
+
+            if (Status != Feature.EndStop) // Reuce flicker cursor
+            {
+                OnSending(cursorType);
+            }
+            
+
+            IsReceivingOrSending = true;
+            List<string> commands = (List<string>)e.Argument;
+
+
+            foreach (string command in commands)
+            {
+                // For the technically minded, Gcode line endings are Unix Line Endings (\n), 
+                // but will accept Windows Line Endings (\r\n), so you should not need to worry
+                // about converting between the two, but it is best practice to use Unix Line Endings where possible.
+                if (IsPortOpen)
+                {
+
+
+
+                    // Stop executing commands on backgrounworkerCancel or KILL
+                    if (Kill || (worker != null && worker.CancellationPending))
+                    {
+                        // Kill the printer
+                        _serialPort.SendAsciiString("M112" + linuxNewline);
+                        Thread.Sleep(3000);
+                        //Dissconnect
+                        _serialPort.Close();
+                        break;
+                    }
+
+
+
+                    if (Showform != null)
+                    {
+                        _showcom.AddSend = command;
+                    }
+                    // Extract the GCODE command without parameters
+                    Gcode = command.IndexOf(" ", StringComparison.Ordinal) > 0
+                        ? command.Substring(0, command.IndexOf(" ", StringComparison.Ordinal)).Trim()
+                        : command;
+
+
+                    // Send the command
+                    //TODO: _serialPort.SendAsciiStringLine()
+                    _serialPort.SendAsciiString(command + linuxNewline);
+
+
+
+
+
+                    switch (Gcode)
+                    {
+                        case "G28":
+
+                            ParseG28(ReceiveDataUntilOk(30));
+                            break;
+                        case "G29":
+                            ParseG29(ReceiveDataUntilOk(30));
+                            break;
+                        case "G30":
+                            ParseG30(ReceiveDataUntilOk(30));
+                            break;
+                        case "M114":
+                            ParseM114(ReceiveDataUntilOk(30));
+                            break;
+
+                        case "M119":
+                            ParseM119(ReceiveDataUntilOk(30));
+                            break;
+
+                        case "M48":
+                            ParseM48(ReceiveDataUntilOk(30));
+                            break;
+
+                        case "M301":
+                            ParseM301(ReceiveDataUntilOk(30));
+                            break;
+
+
+                        case "M303":
+                            ParseM303(ReceiveDataUntilOk(30));
+                            break;
+
+                        case "M304":
+                            ParseM304(ReceiveDataUntilOk(30));
+                            break;
+
+                        case "M500":
+                            ParseM500(ReceiveDataUntilOk(30));
+                            break;
+
+                        case "M501":
+                            ParseM501(ReceiveDataUntilOk(30));
+                            break;
+
+                        default:
+                            ParseDefault(ReceiveDataUntilOk(30));
+                            break;
+                    }
+
+
+
+
+
+                }
+            }
+
+            IsReceivingOrSending = false;
+
+
+            OnCommandSequenceeDone(EventArgs.Empty);
+
+            cursorType = new TypeOfCursor(Cursors.Default);
+            OnSending(cursorType);
+            
+
+        }
+
+        private string ReceiveDataUntilOk(int timeout)
+        {
+            // Read all bytes in the buffer
+
+
+            string dataReceived = null;
+           
+            //string dataReceived = _serialPort.ReadStringUpToEndChars("ok\n", timeout);
+
+            while (true)
+            {
+                string line = _serialPort.ReadLine(timeout); //Delete all "Busy ..."
+
+                if (line.ToLower().Contains("busy"))
+                {
+                    continue;
+                }
+
+                if (ParseTemperatures(line)) continue; // Delete all temperatures
+
+                dataReceived += line + linuxNewline;
+                
+                ParseM114(line);
+
+                switch (Gcode)
+                {
+                    case "M303":
+                        var responceData = new ResponceData(dataReceived);
+                        OnM303Responce(responceData);
+                        break;
+                    case "G30":
+                        OnG30ProbeResponce(ProbeResponceList);
+                        break;
+                }
+
+                
+                if (dataReceived.ToLower().Contains("ok")) break;
+            }
+
+
+
+            if (Showform != null)
+            {
+                _showcom.AddReceived = dataReceived;
+            }
+
+
+            return dataReceived;
         }
         #endregion
 
@@ -993,17 +1051,29 @@ namespace MarlinComunicationHelper
         /// <param name="extrude">Amount of extruded filament in the test</param>
         /// <param name="oldSteps">Value for Steps-per-mm before the test</param>
         /// <param name="meassuredUsedFilament">Meassured filament that is used during the test</param>
-        /// <param name="updateEEprom">If the new Steps-Per-mm  should update the EEPROM</param>
-        public void ExtrudeCalculationUpdate(int extrude, double oldSteps, int meassuredUsedFilament, bool updateEEprom)
+        public void ExtrudeCalculationUpdate(int extrude, string oldSteps, int meassuredUsedFilament)
         {
+
+            double currentStepsPermm = Convert.ToDouble(oldSteps.Replace(".", ","));
+
             var commands = new List<string>
             {
-                $"M92 E{CalculateExtrusionSteps(extrude, oldSteps, meassuredUsedFilament)}" + Environment.NewLine
+                $"M92 E{CalculateExtrusionSteps(extrude, currentStepsPermm, meassuredUsedFilament)}" + Environment.NewLine
             };
 
 
-            if (updateEEprom)
+            DialogResult result =
+                MessageBox.Show(@"The old Steps-Per-mm.....: " + oldSteps + Environment.NewLine +
+                                @"Extruded filament........: " + extrude + Environment.NewLine +
+                                @"Meassured filament.......: " + meassuredUsedFilament + Environment.NewLine +
+                                @"Recalculated Steps-per-mm: " + CalculateExtrusionSteps(extrude, currentStepsPermm, meassuredUsedFilament) + Environment.NewLine +
+                                Environment.NewLine +
+                                @"Do you want to update EEPROM?",@"ReCalculation of Steps-per-mm",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
+                
+            if (result == DialogResult.Cancel) return;
+            if (result == DialogResult.Yes)
             {
+                commands.Add("M500");
                 commands.Add("M501");
             }
 
@@ -1123,14 +1193,14 @@ namespace MarlinComunicationHelper
         ///     Eventhandler for M119 EndstopStatus
         /// </summary>
         /// TODO: EndstopStatusList -> EndstopStatus
-        public event EventHandler<EndstopStatus> M119EndStopStatus;
+        public event EventHandler<EndStop> M119EndStopStatus;
 
         /// <summary>
         ///     Report result of M119 EndstopStatus
         /// </summary>
         /// <param name="endstopStatusList"></param>
         /// TODO: EndstopStatusList -> EndstopStatus
-        private void OnM119EndStopStatus(EndstopStatus endstopStatusList)
+        private void OnM119EndStopStatus(EndStop endstopStatusList)
         {
             var handler = M119EndStopStatus;
             handler?.Invoke(this, endstopStatusList);
@@ -1156,7 +1226,7 @@ namespace MarlinComunicationHelper
         #region M303Responce
 
         /// <summary>
-        ///     Eventhandler for M119 EndstopStatus
+        ///     Eventhandler for M303Responce
         /// </summary>
         public event EventHandler<ResponceData> M303Responce;
 
@@ -1211,37 +1281,28 @@ namespace MarlinComunicationHelper
             handler?.Invoke(this, responce);
         }
 
+
+
         #endregion
 
-        #region ReadyForNextCommand
-        /// <summary>
-        /// Handle event that rise after each command
-        /// </summary>
-        public event EventHandler ReadyForNextCommand;
+        #region M851Responce
 
         /// <summary>
-        /// Handle event that rise after each command
+        ///     Eventhandler for M501
         /// </summary>
-        private void OnReadyForNextCommand(EventArgs e)
+        public event EventHandler<ResponceData> M851Responce;
+
+        private void OnM851Responce(ResponceData responce)
         {
-            var handler = ReadyForNextCommand;
-
-            if ((_commands == null) || (_commands.Count == 0))
-            {
-                OnCommandSequenceeDone(EventArgs.Empty);
-                handler?.Invoke(this, e);
-            }
-            else
-            {
-                var firstCommand = _commands[0];
-                _commands.RemoveAt(0);
-                if (_commands.Count == 0)
-                {
-                    _commands = null;
-                }
-                SendCommand(firstCommand);
-            }
+            var handler = M851Responce;
+            handler?.Invoke(this, responce);
         }
+
+
+
+        #endregion
+
+
 
 
         /// <summary>
@@ -1256,21 +1317,51 @@ namespace MarlinComunicationHelper
         }
 
 
-
+       
         /// <summary>
-        ///     Clear all data in the received buffer
+        /// 
         /// </summary>
-        public void ClearReceived()
+        public event EventHandler Sending;
+
+        private void OnSending(EventArgs e)
         {
-            _serialPort.ClearInputBuffer();
-            _dataReceived = "";
+            var handler = Sending;
+            handler?.Invoke(this, e);
         }
 
-        #endregion
 
-        
 
+
+
+
+
+
+
+
+
+}
+
+    
+    /// <summary>
+    /// Generic responcedata
+    /// </summary>
+    public class TypeOfCursor : EventArgs
+    {
+        /// <summary>
+        /// Cursor during operations
+        /// </summary>
+        /// <param name="cursorType"></param>
+        public TypeOfCursor(Cursor cursorType)
+        {
+            CursorType = cursorType;
+        }
+
+        /// <summary>
+        /// Generic Responce Data
+        /// </summary>
+        public Cursor CursorType { get; }
     }
+
 
 
     #region EndStop/EndstopStatus
