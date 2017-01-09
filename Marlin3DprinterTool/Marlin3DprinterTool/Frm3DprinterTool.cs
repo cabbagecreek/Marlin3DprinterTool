@@ -2697,6 +2697,11 @@ namespace Marlin3DprinterTool
         {
             _com.SendCommand("M119");
         }
+
+        private void btnResetFactorySettings_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand(new List<string>(new[] { "M502" }));
+        }
     }
 
 
