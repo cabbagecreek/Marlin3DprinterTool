@@ -134,8 +134,6 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-<<<<<<< HEAD
-=======
         <member name="M:Marlin3DprinterTool.DelegateAndInvoke.VerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             
@@ -154,7 +152,6 @@
             <summary>
             </summary>
         </member>
->>>>>>> develop
         <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.#ctor">
             
         </member>
