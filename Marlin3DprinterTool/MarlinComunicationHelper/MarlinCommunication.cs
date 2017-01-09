@@ -310,11 +310,6 @@ namespace MarlinComunicationHelper
             var responces = dataReceived.Split('\n');
 
 
-            var probePosition = new Position();
-            string xstring = null;
-            string ystring = null;
-            string zstring = null;
-
 
             var probePosition = new Position();
             string xstring = null;
