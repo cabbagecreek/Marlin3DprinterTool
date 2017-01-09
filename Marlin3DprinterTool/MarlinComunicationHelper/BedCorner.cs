@@ -112,7 +112,6 @@ namespace MarlinComunicationHelper
 
 
         private void btnGoto_Click(object sender, EventArgs e)
-
         {
             List<string> commands = new List<string>();
             // Lift

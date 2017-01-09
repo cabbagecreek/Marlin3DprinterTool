@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             this.lblTurn = new System.Windows.Forms.Label();
             this.txtBxZ = new System.Windows.Forms.TextBox();
             this.picBxLeft = new System.Windows.Forms.PictureBox();

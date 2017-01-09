@@ -310,8 +310,6 @@ namespace MarlinComunicationHelper
             var responces = dataReceived.Split('\n');
 
 
-           
-
 
             var probePosition = new Position();
             string xstring = null;
@@ -535,6 +533,7 @@ namespace MarlinComunicationHelper
         private void ParseM851(string dataReceived)
         {
             var m851Pattern = @"(?<=M851\sZ)[-|.|0-9]*";
+
             var m851Match = Regex.Match(dataReceived, m851Pattern);
             if (m851Match.Success)
             {

@@ -161,7 +161,6 @@ namespace MarlinComunicationHelper
 
         }
 
-
         private void AdjusterPictureToTheLeft()
         {
             picBxLeft.BackgroundImage = Properties.Resources.adjuster;
@@ -211,7 +210,6 @@ namespace MarlinComunicationHelper
             var minutes = (int)(decimalpart * 60);
 
 
-
             DelegateVisible(picBxRight, true);
             DelegateVisible(picBxLeft,true);
 
@@ -222,7 +220,6 @@ namespace MarlinComunicationHelper
             switch (Adjuster)
             {
                 case AdjusterType.BackLeftAdjuster:
-
                     DelegateBackgroundImage(picBxRight, turnIndicator);
                     break;
                 case AdjusterType.BackRightAdjuster:
@@ -279,7 +276,6 @@ namespace MarlinComunicationHelper
             }
         }
 
-
         private delegate void DelegateVisibleCallback(Control control, bool visible);
         /// <summary>
         /// 
@@ -298,7 +294,6 @@ namespace MarlinComunicationHelper
                 control.Visible = visible;
             }
         }
-
 
         /// <summary>
         /// </summary>
