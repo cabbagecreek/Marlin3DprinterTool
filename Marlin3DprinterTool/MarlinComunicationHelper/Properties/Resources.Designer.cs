@@ -89,8 +89,6 @@ namespace MarlinComunicationHelper.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-<<<<<<< HEAD
-=======
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -131,6 +129,5 @@ namespace MarlinComunicationHelper.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
->>>>>>> develop
     }
 }

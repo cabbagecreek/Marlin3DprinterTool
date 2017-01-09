@@ -1,18 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
-<<<<<<< HEAD
-  <comport port="COM3" baudrate="250000" />
-  <bed bedtype="4point" />
-  <FrontLeftCorner x="0" y="0" />
-  <LowerRightCorner x="255" y="0" />
-  <UpperRightCorner x="255" y="170" />
-  <UpperLeftCorner x="0" y="170" />
-  <FrontLeftCorner x="0" y="0" />
-  <FrontRightCorner x="255" y="0" />
-  <BackRightCorner x="255" y="170" />
-  <BackLeftCorner x="0" y="170" />
-  <SafeHome x="100" y="100" />
-=======
   <comport port="COM13" baudrate="250000" />
   <bed bedtype="FourPoint" />
   <FrontRightCorner x="168" y="0" />
@@ -20,7 +7,6 @@
   <BackRightCorner x="168" y="180" />
   <BackLeftCorner x="0" y="180" />
   <SafeHome x="83" y="100" />
->>>>>>> develop
   <Adjuster type="M3" />
   <GcodeAssistZprobeEngage>
     <Row order="0">G91</Row>

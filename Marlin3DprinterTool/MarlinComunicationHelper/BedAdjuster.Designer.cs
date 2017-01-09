@@ -28,25 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            this.picBxRight = new System.Windows.Forms.PictureBox();
-            this.lblTurn = new System.Windows.Forms.Label();
-            this.picBxLeft = new System.Windows.Forms.PictureBox();
-            this.txtBxZ = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxRight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxLeft)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // picBxRight
-            // 
-            this.picBxRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picBxRight.Location = new System.Drawing.Point(139, 3);
-            this.picBxRight.Name = "picBxRight";
-            this.picBxRight.Size = new System.Drawing.Size(40, 40);
-            this.picBxRight.TabIndex = 6;
-            this.picBxRight.TabStop = false;
-            // 
-=======
+
             this.lblTurn = new System.Windows.Forms.Label();
             this.txtBxZ = new System.Windows.Forms.TextBox();
             this.picBxLeft = new System.Windows.Forms.PictureBox();
@@ -55,17 +37,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBxRight)).BeginInit();
             this.SuspendLayout();
             // 
->>>>>>> develop
             // lblTurn
             // 
             this.lblTurn.AutoSize = true;
             this.lblTurn.Location = new System.Drawing.Point(49, 26);
             this.lblTurn.Name = "lblTurn";
-<<<<<<< HEAD
-            this.lblTurn.Size = new System.Drawing.Size(29, 13);
-            this.lblTurn.TabIndex = 7;
-            this.lblTurn.Text = "Turn";
-=======
             this.lblTurn.Size = new System.Drawing.Size(0, 13);
             this.lblTurn.TabIndex = 7;
             // 
@@ -76,7 +52,6 @@
             this.txtBxZ.ReadOnly = true;
             this.txtBxZ.Size = new System.Drawing.Size(84, 20);
             this.txtBxZ.TabIndex = 9;
->>>>>>> develop
             // 
             // picBxLeft
             // 
@@ -87,15 +62,6 @@
             this.picBxLeft.TabIndex = 8;
             this.picBxLeft.TabStop = false;
             // 
-<<<<<<< HEAD
-            // txtBxZ
-            // 
-            this.txtBxZ.Location = new System.Drawing.Point(49, 3);
-            this.txtBxZ.Name = "txtBxZ";
-            this.txtBxZ.ReadOnly = true;
-            this.txtBxZ.Size = new System.Drawing.Size(84, 20);
-            this.txtBxZ.TabIndex = 9;
-=======
             // picBxRight
             // 
             this.picBxRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -104,7 +70,6 @@
             this.picBxRight.Size = new System.Drawing.Size(40, 40);
             this.picBxRight.TabIndex = 6;
             this.picBxRight.TabStop = false;
->>>>>>> develop
             // 
             // BedAdjuster
             // 
@@ -118,13 +83,8 @@
             this.MinimumSize = new System.Drawing.Size(180, 50);
             this.Name = "BedAdjuster";
             this.Size = new System.Drawing.Size(180, 50);
-<<<<<<< HEAD
-            ((System.ComponentModel.ISupportInitialize)(this.picBxRight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBxLeft)).EndInit();
-=======
             ((System.ComponentModel.ISupportInitialize)(this.picBxLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBxRight)).EndInit();
->>>>>>> develop
             this.ResumeLayout(false);
             this.PerformLayout();
 

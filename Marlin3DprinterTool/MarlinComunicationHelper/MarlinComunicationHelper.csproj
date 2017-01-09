@@ -126,6 +126,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BedCorner.resx">
       <DependentUpon>BedCorner.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmShowCommunication.resx">
       <DependentUpon>FrmShowCommunication.cs</DependentUpon>
@@ -136,6 +137,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="VerticalJogControl.resx">
       <DependentUpon>VerticalJogControl.cs</DependentUpon>
@@ -151,13 +153,10 @@
     <Content Include="MarlinCommunication.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-<<<<<<< HEAD
-=======
     <None Include="Resources\OK.png" />
     <None Include="Resources\GoTo.png" />
     <None Include="Resources\Save.png" />
     <None Include="Resources\pin.png" />
->>>>>>> develop
     <None Include="Resources\counterclockwise.jpg" />
     <None Include="Resources\clockwise.jpg" />
     <None Include="Resources\adjuster.gif" />
