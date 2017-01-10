@@ -554,18 +554,7 @@ namespace MarlinComunicationHelper
 
        
 
-        // Delete the respons up to and inclusive ok/n
-        private string DeleteResponceUpToAndInclusiveOk(string responce)
-        {
-            try
-            {
-                return responce.Substring(responce.ToLower().LastIndexOf("ok") + 3);
-            }
-            catch (Exception)
-            {
-                return responce;
-            }
-        }
+        
 
         #endregion
 
@@ -910,6 +899,7 @@ namespace MarlinComunicationHelper
                             break;
 
                         case "M119":
+                            Thread.Sleep(100);
                             ParseM119(ReceiveDataUntilOk(30));
                             break;
 

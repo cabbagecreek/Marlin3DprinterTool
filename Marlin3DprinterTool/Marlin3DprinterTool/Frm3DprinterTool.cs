@@ -151,7 +151,8 @@ namespace Marlin3DprinterTool
             if (selectedTab == tabPageEndstop.Name)
             {
                 _com.Status = MarlinCommunication.Feature.EndStop;
-                _com.SendCommand("M119");
+                List<string> commands = new List<string> { "M0 P50","M119" };
+                _com.SendCommand(commands);
             }
             else
             if (selectedTab == tabPageZoffset.Name)
@@ -758,7 +759,9 @@ namespace Marlin3DprinterTool
                 extrudeCalibration.Add($"T{comboboxItemTextValue.ToValue()}");
             }
 
+            extrudeCalibration.Add("G91");
             extrudeCalibration.Add($"G1 E{numUpDnExtrude.Value} F100");
+            extrudeCalibration.Add("G90");
             _com.SendCommand(extrudeCalibration);
         }
 
@@ -1069,7 +1072,8 @@ namespace Marlin3DprinterTool
             {
                 #region EndStop
                 case MarlinCommunication.Feature.EndStop:
-                    _com.SendCommand("M119");
+                    List<string> commands = new List<string> { "M0 P50","M119" };
+                    _com.SendCommand(commands);
                     break;
                 #endregion
 
@@ -1257,11 +1261,11 @@ namespace Marlin3DprinterTool
                     
                     if (_dockZprobeUpDown)
                     {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50",  "M114", "M119", });
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50",  "M119", "M114", });
                     }
                     else
                     {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M114", "M119", });
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} F100", "G90", "M0 P50", "M119", "M114", });
                     }
 
                     break;
@@ -2551,9 +2555,9 @@ namespace Marlin3DprinterTool
             AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
             if (probeRange != null) aGaugeProbe.GaugeRanges.Remove(probeRange);
             _com.Status = MarlinCommunication.Feature.DockZprobe;
-            
 
-            List<String> commands = new List<string> {"G28","G91", "G1 Z10","G90","M119", "M114"};
+            
+            List<String> commands = new List<string> {"G28","G91", "G1 Z10","G90","M0 P50", "M119", "M114"};
             _dockZprobePrecision = 0.5;
             _dockZprobeUpDown = true;
 
@@ -2693,10 +2697,6 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void timerEndstop_Tick(object sender, EventArgs e)
-        {
-            _com.SendCommand("M119");
-        }
 
         private void btnResetFactorySettings_Click(object sender, EventArgs e)
         {
