@@ -49,6 +49,12 @@ namespace MarlinComunicationHelper
             this.btnMinusX100 = new System.Windows.Forms.Button();
             this.btnPlusY100 = new System.Windows.Forms.Button();
             this.toolTipKompass = new System.Windows.Forms.ToolTip(this.components);
+            this.lblX = new System.Windows.Forms.Label();
+            this.lblY = new System.Windows.Forms.Label();
+            this.lblZ = new System.Windows.Forms.Label();
+            this.txtBxZ = new System.Windows.Forms.TextBox();
+            this.txtBxY = new System.Windows.Forms.TextBox();
+            this.txtBxX = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnPlusY10
@@ -243,10 +249,70 @@ namespace MarlinComunicationHelper
             this.btnPlusY100.UseVisualStyleBackColor = false;
             this.btnPlusY100.Click += new System.EventHandler(this.btnPlusY100_Click);
             // 
+            // lblX
+            // 
+            this.lblX.AutoSize = true;
+            this.lblX.Location = new System.Drawing.Point(88, 92);
+            this.lblX.Name = "lblX";
+            this.lblX.Size = new System.Drawing.Size(17, 13);
+            this.lblX.TabIndex = 21;
+            this.lblX.Text = "X:";
+            // 
+            // lblY
+            // 
+            this.lblY.AutoSize = true;
+            this.lblY.Location = new System.Drawing.Point(88, 116);
+            this.lblY.Name = "lblY";
+            this.lblY.Size = new System.Drawing.Size(17, 13);
+            this.lblY.TabIndex = 22;
+            this.lblY.Text = "Y;";
+            // 
+            // lblZ
+            // 
+            this.lblZ.AutoSize = true;
+            this.lblZ.Location = new System.Drawing.Point(88, 140);
+            this.lblZ.Name = "lblZ";
+            this.lblZ.Size = new System.Drawing.Size(17, 13);
+            this.lblZ.TabIndex = 23;
+            this.lblZ.Text = "Z:";
+            // 
+            // txtBxZ
+            // 
+            this.txtBxZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtBxZ.Location = new System.Drawing.Point(108, 137);
+            this.txtBxZ.Margin = new System.Windows.Forms.Padding(0);
+            this.txtBxZ.Name = "txtBxZ";
+            this.txtBxZ.Size = new System.Drawing.Size(49, 20);
+            this.txtBxZ.TabIndex = 20;
+            // 
+            // txtBxY
+            // 
+            this.txtBxY.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtBxY.Location = new System.Drawing.Point(108, 113);
+            this.txtBxY.Margin = new System.Windows.Forms.Padding(0);
+            this.txtBxY.Name = "txtBxY";
+            this.txtBxY.Size = new System.Drawing.Size(49, 20);
+            this.txtBxY.TabIndex = 19;
+            // 
+            // txtBxX
+            // 
+            this.txtBxX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtBxX.Location = new System.Drawing.Point(108, 89);
+            this.txtBxX.Margin = new System.Windows.Forms.Padding(0);
+            this.txtBxX.Name = "txtBxX";
+            this.txtBxX.Size = new System.Drawing.Size(49, 20);
+            this.txtBxX.TabIndex = 18;
+            // 
             // KompassControll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblZ);
+            this.Controls.Add(this.lblY);
+            this.Controls.Add(this.lblX);
+            this.Controls.Add(this.txtBxZ);
+            this.Controls.Add(this.txtBxY);
+            this.Controls.Add(this.txtBxX);
             this.Controls.Add(this.btnPlusY100);
             this.Controls.Add(this.btnMinusX100);
             this.Controls.Add(this.btnMinusX10);
@@ -269,6 +335,7 @@ namespace MarlinComunicationHelper
             this.Size = new System.Drawing.Size(246, 246);
             this.toolTipKompass.SetToolTip(this, "Move extruder in X and Y directions");
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -290,5 +357,11 @@ namespace MarlinComunicationHelper
         private Button btnMinusX100;
         private Button btnPlusY100;
         private ToolTip toolTipKompass;
+        private Label lblX;
+        private Label lblY;
+        private Label lblZ;
+        private TextBox txtBxZ;
+        private TextBox txtBxY;
+        private TextBox txtBxX;
     }
 }
