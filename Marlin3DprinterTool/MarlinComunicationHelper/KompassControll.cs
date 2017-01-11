@@ -9,6 +9,8 @@ namespace MarlinComunicationHelper
     /// </summary>
     public partial class KompassControll : UserControl
     {
+        private MarlinCommunication _marlinCommunication;
+
         /// <summary>
         /// Construktor
         /// </summary>
@@ -21,7 +23,22 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// Get and set the Comminication used for the MarlinCommunicationHelper
         /// </summary>
-        public MarlinCommunication MarlinCommunication { get; set; }
+        public MarlinCommunication MarlinCommunication
+        {
+            get { return _marlinCommunication; }
+            set
+            {
+                _marlinCommunication = value;
+                _marlinCommunication.M114GetCurrentPosition += _marlinCommunication_M114GetCurrentPosition;
+            }
+        }
+
+        private void _marlinCommunication_M114GetCurrentPosition(object sender, CurrentPosition e)
+        {
+            txtBxX.Text = MarlinCommunication.CurrentPosition.Xstring;
+            txtBxY.Text = MarlinCommunication.CurrentPosition.Ystring;
+            txtBxX.Text = MarlinCommunication.CurrentPosition.Zstring;
+        }
 
         /// <summary>
         /// Bool if current position should be sent after each movement
