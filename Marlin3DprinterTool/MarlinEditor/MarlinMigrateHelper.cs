@@ -173,6 +173,38 @@ namespace MarlinEditor
         }
 
 
+        public static void UpdateFeatureValue(string feature, string newValue, FastColoredTextBox fctbNewFirmware)
+        {
+
+            
+            // Get the last occurance for the feature in new firmware
+            int currentRow = MarlinMigrateHelper.GetFirmwareFeatureRow(fctbNewFirmware, feature);
+            string currentValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbNewFirmware, feature);
+            string correntRow = fctbNewFirmware.GetLineText(currentRow);
+
+
+
+           
+
+            
+            
+            fctbNewFirmware.Navigate(currentRow);
+            List<int> removeRow = new List<int>();
+
+            removeRow.Add(currentRow);
+            fctbNewFirmware.RemoveLines(removeRow);
+            fctbNewFirmware.Navigate(currentRow);
+            fctbNewFirmware.InsertText(correntRow.ReplaceFirst(currentValue, newValue) + Environment.NewLine);
+
+           
+
+            fctbNewFirmware.DoAutoIndent(currentRow);
+            fctbNewFirmware.DoAutoIndent(currentRow + 1);
+        }
+
+
+
+
         public static void UpdateFeatureValue(string feature, FastColoredTextBox fctbCurrentFirmware, FastColoredTextBox fctbNewFirmware)
         {
 

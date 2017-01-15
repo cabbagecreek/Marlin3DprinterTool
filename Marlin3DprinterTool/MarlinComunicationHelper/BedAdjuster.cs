@@ -69,7 +69,12 @@ namespace MarlinComunicationHelper
             set
             {
                 _y = value;
-                if (Position != null) Position.Y = _y;
+                if (Position != null)
+                {
+                    Position.Y = _y;
+
+                }
+
 
             }
             get { return _y; }
@@ -80,8 +85,12 @@ namespace MarlinComunicationHelper
             set
             {
                 _z = value;
-                if (Position != null) Position.Z = _z;
-                DelegateText(txtBxZ,_z.ToString().Replace(",", "."));
+                if (Position != null)
+                {
+                    Position.Z = _z;
+                    DelegateText(txtBxZ, _z.ToString().Replace(",", "."));
+                }
+                
             }
             get { return _z; }
         }

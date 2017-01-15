@@ -29,15 +29,18 @@ namespace MarlinComunicationHelper
             set
             {
                 _marlinCommunication = value;
-                _marlinCommunication.M114GetCurrentPosition += _marlinCommunication_M114GetCurrentPosition;
+                if (_marlinCommunication != null)
+                {
+                    _marlinCommunication.M114GetCurrentPosition += _marlinCommunication_M114GetCurrentPosition;
+                }
             }
         }
 
         private void _marlinCommunication_M114GetCurrentPosition(object sender, CurrentPosition e)
         {
-            txtBxX.Text = MarlinCommunication.CurrentPosition.Xstring;
-            txtBxY.Text = MarlinCommunication.CurrentPosition.Ystring;
-            txtBxX.Text = MarlinCommunication.CurrentPosition.Zstring;
+            DelegateText(txtBxX, MarlinCommunication.CurrentPosition.Xstring);
+            DelegateText(txtBxY, MarlinCommunication.CurrentPosition.Ystring);
+            DelegateText(txtBxZ, MarlinCommunication.CurrentPosition.Zstring);
         }
 
         /// <summary>
@@ -137,5 +140,26 @@ namespace MarlinComunicationHelper
         {
             MoveAxis("X", 100);
         }
+
+
+        private delegate void DelegateTextCallback(Control control, string text);
+        /// <summary>
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="text"></param>
+        public void DelegateText(Control control, string text)
+        {
+            if (control.InvokeRequired)
+            {
+                DelegateTextCallback d = DelegateText;
+                this.Invoke(d, control, text);
+            }
+            else
+            {
+                control.Text = text;
+            }
+        }
     }
+
+    
 }
