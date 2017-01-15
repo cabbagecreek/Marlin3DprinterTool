@@ -135,23 +135,18 @@ namespace MarlinEditor
             List<int> rows = new List<int>();
 
 
-            rows = fastColoredTextBoxNewFirmware.FindLines(@"^\s*\#define\s*" + feature,
-                RegexOptions.Singleline);
+            rows = fastColoredTextBoxNewFirmware.FindLines(@"^\s*\#define\s*" + feature,RegexOptions.Singleline);
             if (rows.Count > 0)
             {
 
                 fastColoredTextBoxNewFirmware.Navigate(rows[0]);
-                fastColoredTextBoxNewFirmware.CommentSelected("//");
-                fastColoredTextBoxNewFirmware.Navigate(rows[0] + 1);
-                fastColoredTextBoxNewFirmware.InsertText(
-                    string.Format("#define {0} {1} // Created by Marlin3DprinterTool {2} {3}\n",
-                        feature,
-                        value,
-                        DateTime.Now.ToShortDateString(),
-                        DateTime.Now.ToShortTimeString())
 
 
-                    );
+                // #Update Feature in Firmware BugFix
+                // Find value in rows[0]
+                // replace value with the new value
+                MarlinMigrateHelper.UpdateFeatureValue(feature, value, fastColoredTextBoxNewFirmware);
+                
 
                 fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0]);
                 fastColoredTextBoxNewFirmware.DoAutoIndent(rows[0] + 1);
