@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using FarsiLibrary.Win;
 using FastColoredTextBoxNS;
+using Marlin3DprinterToolConfiguration;
 using MarlinEditor.Properties;
 
 namespace MarlinEditor

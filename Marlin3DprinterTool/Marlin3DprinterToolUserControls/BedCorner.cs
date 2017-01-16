@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
 
 namespace Marlin3DprinterToolUserControls

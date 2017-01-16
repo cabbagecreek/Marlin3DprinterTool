@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Forms;
+using Marlin3DprinterToolConfiguration;
 
 namespace Marlin3DprinterStlViewer
 {
@@ -8,7 +9,7 @@ namespace Marlin3DprinterStlViewer
     /// </summary>
     public partial class FrmStlViewer : Form
     {
-        MarlinComunicationHelper.Configuration configuration = new MarlinComunicationHelper.Configuration();
+        Configuration configuration = new Configuration();
 
 
         /// <summary>

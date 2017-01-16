@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
+using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
 
 namespace Marlin3DprinterStlViewer
@@ -14,7 +15,7 @@ namespace Marlin3DprinterStlViewer
     public partial class StlViewerWPF : UserControl
     {
 
-        MarlinComunicationHelper.Configuration configuration = new Configuration();
+        Configuration configuration = new Configuration();
         private string modellColor = "Blue";
         /// <summary>
         /// Get and Set current visible 3D models filename

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
 using MarlinDocumentation;
 using Microsoft.Win32;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using FastColoredTextBoxNS;
+using Marlin3DprinterToolConfiguration;
 
 namespace MarlinEditor
 {

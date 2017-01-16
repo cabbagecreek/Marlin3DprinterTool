@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Marlin3DprinterToolConfiguration;
 using Marlin3DprinterToolUserControls.Properties;
-using MarlinComunicationHelper;
 
 namespace Marlin3DprinterToolUserControls
 {
