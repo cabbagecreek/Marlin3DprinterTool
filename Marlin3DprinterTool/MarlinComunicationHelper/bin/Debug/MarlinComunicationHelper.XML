@@ -4,64 +4,6 @@
         <name>MarlinComunicationHelper</name>
     </assembly>
     <members>
-        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateBackgroundImage(System.Windows.Forms.Control,System.Drawing.Image)">
-            <summary>
-            </summary>
-            <param name="control"></param>
-            <param name="image"></param>
-        </member>
-        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateVisible(System.Windows.Forms.Control,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="control"></param>
-            <param name="visible"></param>
-        </member>
-        <member name="M:MarlinComunicationHelper.BedAdjuster.DelegateText(System.Windows.Forms.Control,System.String)">
-            <summary>
-            </summary>
-            <param name="control"></param>
-            <param name="text"></param>
-        </member>
-        <member name="F:MarlinComunicationHelper.BedAdjuster.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.BedAdjuster.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:MarlinComunicationHelper.BedAdjuster.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:MarlinComunicationHelper.BedCornerControl">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.BedCornerControl.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.BedCornerControl.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:MarlinComunicationHelper.BedCornerControl.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="T:MarlinComunicationHelper.Configuration">
             <summary>
             Configuration of all storable values
@@ -214,6 +156,36 @@
             Delete all meassured Meshpoints
             </summary>
         </member>
+        <member name="T:MarlinComunicationHelper.BedTypeEnum">
+            <summary>
+            The types for different Bedtypes
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedTypeEnum.None">
+            <summary>
+            None = Not configured (yet)
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedTypeEnum.FourPoint">
+            <summary>
+            One adjuster in each corner
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedTypeEnum.ThreePointLeftSingle">
+            <summary>
+            3 Ponts adjuster with the single adjuster on the Left side
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedTypeEnum.ThreePointFrontSingle">
+            <summary>
+            3 Ponts adjuster with the single adjuster on the Front
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.BedTypeEnum.ThreePointRightSingle">
+            <summary>
+            3 Ponts adjuster with the single adjuster on the Right side
+            </summary>
+        </member>
         <member name="T:MarlinComunicationHelper.Position">
             <summary>
             Position with X/y/Z values
@@ -295,92 +267,6 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="T:MarlinComunicationHelper.KompassControll">
-            <summary>
-            User Control that shows a Marlin GCODE kompass for navigation
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.KompassControll.#ctor">
-            <summary>
-            Construktor
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.KompassControll.MarlinCommunication">
-            <summary>
-            Get and set the Comminication used for the MarlinCommunicationHelper
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.KompassControll.SendCurrentPosition">
-            <summary>
-            Bool if current position should be sent after each movement
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.KompassControll.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.KompassControll.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:MarlinComunicationHelper.KompassControll.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:MarlinComunicationHelper.LedBulb">
-            <summary>
-                The LEDBulb is a .Net control for Windows Forms that emulates an
-                LED light with two states On and Off.  The purpose of the control is to
-                provide a sleek looking representation of an LED light that is sizable,
-                has a transparent background and can be set to different colors.
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.LedBulb.#ctor">
-            <summary>
-            The constructor for the LedBuld
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.LedBulb.Color">
-            <summary>
-                Gets or Sets the color of the LED light
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.LedBulb.DarkColor">
-            <summary>
-                Dark shade of the LED color used for gradient
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.LedBulb.DarkDarkColor">
-            <summary>
-                Very dark shade of the LED color used for gradient
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.LedBulb.On">
-            <summary>
-                Gets or Sets whether the light is turned on
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.LedBulb.OnPaint(System.Windows.Forms.PaintEventArgs)">
-            <summary>
-                Handles the Paint event for this UserControl
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.LedBulb.drawControl(System.Drawing.Graphics,System.Boolean)">
-            <summary>
-                Renders the control to an image
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.LedBulb.Blink(System.Int32)">
-            <summary>
-                Causes the Led to start blinking
-            </summary>
-            <param name="milliseconds">Number of milliseconds to blink for. 0 stops blinking</param>
-        </member>
         <member name="T:MarlinComunicationHelper.MarlinCommunication">
             <summary>
             Class that do all communication thru ZylSerial 
@@ -434,7 +320,17 @@
         </member>
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibration">
             <summary>
-            Start of extruder Calibration
+            Start of extruder Calibration = Heating up
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibrationTest">
+            <summary>
+            Start of test extrudsion of 100mm filament
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.IsReceivingOrSending">
+            <summary>
+            If the communication is Sending and/or Receiving data
             </summary>
         </member>
         <member name="P:MarlinComunicationHelper.MarlinCommunication.M851ZprobeOffset">
@@ -921,84 +817,6 @@
         <member name="P:MarlinComunicationHelper.Properties.Resources.Save">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="T:MarlinComunicationHelper.VerticalJogControl">
-            <summary>
-            User Control that shows vertical movement
-            Useage for Z and extruder movement
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.VerticalJogControl.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.MarlinCommunication">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.SendCurrentPosition">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.ZeroPositionAfterEachMove">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.VisibleZero">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.Visible100Movement">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.Visible10Movement">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.NegativeButtonsFirst">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.StepperMotor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.TextUnder">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:MarlinComunicationHelper.VerticalJogControl.TextOver">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:MarlinComunicationHelper.VerticalJogControl.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:MarlinComunicationHelper.VerticalJogControl.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:MarlinComunicationHelper.VerticalJogControl.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
             </summary>
         </member>
     </members>

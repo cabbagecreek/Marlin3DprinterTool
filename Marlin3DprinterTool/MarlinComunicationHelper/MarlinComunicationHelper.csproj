@@ -78,33 +78,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BedAdjuster.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BedAdjuster.Designer.cs">
-      <DependentUpon>BedAdjuster.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BedCorner.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BedCorner.Designer.cs">
-      <DependentUpon>BedCorner.cs</DependentUpon>
-    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="FrmShowCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmShowCommunication.Designer.cs">
       <DependentUpon>FrmShowCommunication.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KompassControll.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="KompassControll.Designer.cs">
-      <DependentUpon>KompassControll.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LedBulb.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MarlinCommunication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,34 +92,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="VerticalJogControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="VerticalJogControl.Designer.cs">
-      <DependentUpon>VerticalJogControl.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BedAdjuster.resx">
-      <DependentUpon>BedAdjuster.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BedCorner.resx">
-      <DependentUpon>BedCorner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmShowCommunication.resx">
       <DependentUpon>FrmShowCommunication.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KompassControll.resx">
-      <DependentUpon>KompassControll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VerticalJogControl.resx">
-      <DependentUpon>VerticalJogControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -152,8 +152,7 @@ namespace MarlinEditor
             if (string.IsNullOrEmpty(feauture)) return 0;
 
             string row = "";
-            string featurevalue = "";
-
+            
             List<int> rows = new List<int>();
             rows = fctb.FindLines(@"\s*\#define\s*\b" + feauture + @"\b", RegexOptions.Singleline);
 

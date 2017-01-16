@@ -409,7 +409,7 @@ namespace MarlinEditor
             try
             {
                 List<ExplorerItem> list = new List<ExplorerItem>();
-                int lastClassIndex = -1;
+                //int lastClassIndex = -1;
                 //find classes, methods and properties
                 Regex regex = new Regex(@"^(?<range>[\w\s]+\b(class|struct|enum|interface)\s+[\w<>,\s]+)|^\s*(#define|//\s*#define|public|private|internal|protected)[^\n]+(\n?\s*{|;)?", RegexOptions.Multiline);
                 foreach (Match r in regex.Matches(text))
