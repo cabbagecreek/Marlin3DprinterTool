@@ -100,6 +100,10 @@
     <None Include="Resources\dialGauge.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
+      <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
+      <Name>Marlin3DprinterToolConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
       <Name>MarlinComunicationHelper</Name>

@@ -78,7 +78,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
     <Compile Include="FrmShowCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +122,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
+      <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
+      <Name>Marlin3DprinterToolConfiguration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

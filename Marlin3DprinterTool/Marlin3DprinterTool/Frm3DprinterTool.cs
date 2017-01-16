@@ -11,15 +11,16 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms.VisualStyles;
 using Marlin3DprinterTool.Properties;
+using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
 using MarlinEditor;
 using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
-using Configuration = MarlinComunicationHelper.Configuration;
+using Configuration = Marlin3DprinterToolConfiguration.Configuration;
 using Cursor = System.Windows.Forms.Cursor;
-using Position = MarlinComunicationHelper.Position;
+using Position = Marlin3DprinterToolConfiguration.Position;
 
 
 namespace Marlin3DprinterTool

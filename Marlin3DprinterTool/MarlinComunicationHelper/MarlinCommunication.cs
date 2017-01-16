@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using Marlin3DprinterToolConfiguration;
 using Microsoft.Win32;
 using ZylSoft.Serial;
 
