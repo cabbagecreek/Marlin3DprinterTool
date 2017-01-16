@@ -81,11 +81,6 @@ namespace SharpShellServerManager
 
         }
 
-        public class Nizze: ServerEntry
-        {
-
-             
-        }
 
        
         
