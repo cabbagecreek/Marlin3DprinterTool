@@ -337,7 +337,6 @@
             this.MinimumSize = new System.Drawing.Size(700, 400);
             this.Name = "FrmFirmware";
             this.Text = "Marlin Firmware";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFirmware_FormClosed);
             this.Load += new System.EventHandler(this.FrmFirmware_Load);
             this.SizeChanged += new System.EventHandler(this.FrmFirmware_SizeChanged);
             this.grpBxOldFirmware.ResumeLayout(false);

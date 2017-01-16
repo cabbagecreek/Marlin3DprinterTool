@@ -64,13 +64,20 @@ namespace MarlinComunicationHelper
             /// </summary>
             AutoPidTuneBed = 7,
             /// <summary>
-            /// Start of extruder Calibration
+            /// Start of extruder Calibration = Heating up
             /// </summary>
             ExtruderCalibration = 8,
+            /// <summary>
+            /// Start of test extrudsion of 100mm filament
+            /// </summary>
             ExtruderCalibrationTest = 9
         }
         
 
+
+        /// <summary>
+        /// If the communication is Sending and/or Receiving data
+        /// </summary>
         public bool IsReceivingOrSending { get; set; }
         
 

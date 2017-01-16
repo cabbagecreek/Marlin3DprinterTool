@@ -1,2 +1,0 @@
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.msi
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.wixpdb

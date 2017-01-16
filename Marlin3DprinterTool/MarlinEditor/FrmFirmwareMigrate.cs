@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using FastColoredTextBoxNS;
 
@@ -11,7 +9,7 @@ namespace MarlinEditor
 {
     public partial class FrmFirmware : Form
     {
-        private static FrmFirmware _instanceOfFrmFirmware;
+        
         private readonly Style _invisibleCharsStyle = new InvisibleCharsRenderer(Pens.Gray);
 
 
@@ -36,17 +34,6 @@ namespace MarlinEditor
 
         }
 
-        public static FrmFirmware InstanceFrmFirmware
-        {
-            get
-            {
-                if (_instanceOfFrmFirmware == null)
-                {
-                    _instanceOfFrmFirmware = new FrmFirmware();
-                }
-                return _instanceOfFrmFirmware;
-            }
-        }
 
 
         private void SearchAndCompare()
@@ -63,9 +50,11 @@ namespace MarlinEditor
             // create menuitems for each file
             foreach (FileInfo fileInfo in frmMigrationCompare.FileNames)
             {
-                ToolStripMenuItem tsmi = new ToolStripMenuItem();
-                tsmi.Tag = fileInfo;
-                tsmi.Text = fileInfo.Name;
+                ToolStripMenuItem tsmi = new ToolStripMenuItem
+                {
+                    Tag = fileInfo,
+                    Text = fileInfo.Name
+                };
                 tsmi.Click += Tsmi_Click;
                 filesWithDifferancesToolStripMenuItem.DropDownItems.Add(tsmi);
                     
@@ -88,10 +77,10 @@ namespace MarlinEditor
         {
             
             DialogResult result =
-                MessageBox.Show("Do you want to search for changes in *.h files?" + Environment.NewLine +
-                                "( This will take 5 minutes or more )", "Search for changes",
+                MessageBox.Show(@"Do you want to search for changes in *.h files?" + Environment.NewLine +
+                                @"( This will take 5 minutes or more )", @"Search for changes",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-            if (result == DialogResult.Cancel) this.Close();
+            if (result == DialogResult.Cancel) Close();
             if (result == DialogResult.Yes)
             {
                 SearchAndCompare();
@@ -108,14 +97,13 @@ namespace MarlinEditor
         private void ResizedFrame()
         {
             Configuration configuration = new Configuration();
-            string lastchar = "";
             int numberOfCharacters = grpBxOldFirmware.Width / 7;
-            lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
+            var lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
             grpBxOldFirmware.Text = $"Current Firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
             lastchar = Path.Combine(configuration.NewFirmware, ConfigurationFilename);
             grpBxNewFirmware.Text = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
 
-            this.Text = $"Marlin Firmware migration ({ ConfigurationFilename })";
+            Text = $"Marlin Firmware migration ({ ConfigurationFilename })";
         }
 
 
@@ -366,8 +354,7 @@ namespace MarlinEditor
                 Configuration configuration = new Configuration();
                 if (File.Exists(Path.Combine(configuration.NewFirmware, ConfigurationFilename)))
                 {
-                    string lastchar = "";
-                    lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
+                    var lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
                     lastchar = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - 40))} )";
 
                     fctbNewFirmware.SaveToFile(Path.Combine(configuration.NewFirmware, ConfigurationFilename), Encoding.UTF8);
@@ -408,10 +395,7 @@ namespace MarlinEditor
 
         
 
-        private void FrmFirmware_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _instanceOfFrmFirmware = null;
-        }
+        
 
         private void fctbCurrentFirmware_SelectionChanged(object sender, EventArgs e)
         {
@@ -466,7 +450,7 @@ namespace MarlinEditor
             {
                 DialogResult result =
                     MessageBox.Show($"The file {ConfigurationFilename} is changed! " + Environment.NewLine +
-                        $"Do you want to save {ConfigurationFilename}?", "File is changed",MessageBoxButtons.YesNoCancel );
+                        $"Do you want to save {ConfigurationFilename}?", @"File is changed",MessageBoxButtons.YesNoCancel );
                 if (result == DialogResult.Cancel || result == DialogResult.No) return;
                 SaveTheUpdatedFile();
 
@@ -513,7 +497,7 @@ namespace MarlinEditor
 
 
 
-            int pos = text.IndexOf(search);
+            int pos = text.IndexOf(search, StringComparison.Ordinal);
             if (pos < 0)
             {
                 return text;

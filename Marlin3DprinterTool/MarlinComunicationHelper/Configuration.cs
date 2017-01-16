@@ -908,12 +908,30 @@ namespace MarlinComunicationHelper
 
     }
 
+    /// <summary>
+    /// The types for different Bedtypes
+    /// </summary>
     public enum BedTypeEnum
     {
+        /// <summary>
+        /// None = Not configured (yet)
+        /// </summary>
         None = 0,
+        /// <summary>
+        /// One adjuster in each corner
+        /// </summary>
         FourPoint = 1,
+        /// <summary>
+        /// 3 Ponts adjuster with the single adjuster on the Left side
+        /// </summary>
         ThreePointLeftSingle = 2,
+        /// <summary>
+        /// 3 Ponts adjuster with the single adjuster on the Front
+        /// </summary>
         ThreePointFrontSingle = 3,
+        /// <summary>
+        /// 3 Ponts adjuster with the single adjuster on the Right side
+        /// </summary>
         ThreePointRightSingle = 4
     }
 

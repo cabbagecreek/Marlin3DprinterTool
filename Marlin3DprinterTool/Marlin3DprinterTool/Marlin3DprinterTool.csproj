@@ -227,6 +227,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Marlin3DprinterToolUserControls\Marlin3DprinterToolUserControls.csproj">
+      <Project>{d2627dfc-7450-4f41-8c80-a261bfd52d34}</Project>
+      <Name>Marlin3DprinterToolUserControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
       <Name>MarlinComunicationHelper</Name>

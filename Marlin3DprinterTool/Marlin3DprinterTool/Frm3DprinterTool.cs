@@ -1521,8 +1521,8 @@ namespace Marlin3DprinterTool
             DelegateAndInvoke.DelegateVisible(grpBxNavigation, true);
 
             //// Assign Marlincommunication
-            DelegateAndInvoke.DelegateKompassControll(kompass, _com);
-            DelegateAndInvoke.DelegateVerticalJogControl(verticalJogControlZprobeHeight, _com);
+            DelegateAndInvoke.DelegateKompass(kompass, _com);
+            DelegateAndInvoke.DelegateVerticalJog(verticalJogZprobeHeight, _com);
 
 
 
@@ -1620,8 +1620,8 @@ namespace Marlin3DprinterTool
             DelegateAndInvoke.DelegateVisible(grpBxNavigation,false);
 
             
-            DelegateAndInvoke.VerticalJogControl(verticalJogControlZprobeHeight, null);
-            DelegateAndInvoke.KompassControl(kompass, null);
+            DelegateAndInvoke.VerticalJog(verticalJogZprobeHeight, null);
+            DelegateAndInvoke.Kompass(kompass, null);
 
             // Show temperature Chart
             DelegateAndInvoke.DelegateVisible(chartTemperature, true);
