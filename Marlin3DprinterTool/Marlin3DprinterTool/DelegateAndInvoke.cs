@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FastColoredTextBoxNS;
+using Marlin3DprinterToolUserControls;
 using MarlinComunicationHelper;
 using Cursor = System.Windows.Forms.Cursor;
 
@@ -48,11 +49,11 @@ namespace Marlin3DprinterTool
         /// </summary>
         /// <param name="kompass"></param>
         /// <param name="marlin"></param>
-        public static void DelegateKompassControll(KompassControll kompass, MarlinCommunication marlin)
+        public static void DelegateKompass(Kompass kompass, MarlinCommunication marlin)
         {
             if (kompass.InvokeRequired)
             {
-                DelegateKompassControllCallback d = DelegateKompassControll;
+                DelegateKompassCallback d = DelegateKompass;
                 _frm3DprinterTool.Invoke(d, kompass, marlin);
             }
             else
@@ -65,18 +66,18 @@ namespace Marlin3DprinterTool
 
         /// <summary>
         /// </summary>
-        /// <param name="verticalJogControl"></param>
+        /// <param name="verticalJog"></param>
         /// <param name="marlin"></param>
-        public static void DelegateVerticalJogControl(VerticalJogControl verticalJogControl, MarlinCommunication marlin)
+        public static void DelegateVerticalJog(VerticalJog verticalJog, MarlinCommunication marlin)
         {
-            if (verticalJogControl.InvokeRequired)
+            if (verticalJog.InvokeRequired)
             {
-                DelegateVerticalJogControlCallback d = DelegateVerticalJogControl;
-                _frm3DprinterTool.Invoke(d, verticalJogControl, marlin);
+                DelegateVerticalJogCallback d = DelegateVerticalJog;
+                _frm3DprinterTool.Invoke(d, verticalJog, marlin);
             }
             else
             {
-                verticalJogControl.MarlinCommunication = marlin;
+                verticalJog.MarlinCommunication = marlin;
             }
         }
 
@@ -524,36 +525,36 @@ namespace Marlin3DprinterTool
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="verticalJogControl"></param>
+        /// <param name="verticalJog"></param>
         /// <param name="communication"></param>
-        public static void VerticalJogControl(VerticalJogControl verticalJogControl, MarlinCommunication communication)
+        public static void VerticalJog(VerticalJog verticalJog, MarlinCommunication communication)
         {
-            if (verticalJogControl.InvokeRequired)
+            if (verticalJog.InvokeRequired)
             {
-                VerticalJogControlCallback d = VerticalJogControl;
-                _frm3DprinterTool.Invoke(d, verticalJogControl, communication);
+                VerticalJogCallback d = VerticalJog;
+                _frm3DprinterTool.Invoke(d, verticalJog, communication);
             }
             else
             {
-                verticalJogControl.MarlinCommunication = communication;
+                verticalJog.MarlinCommunication = communication;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="kompassControl"></param>
+        /// <param name="kompass"></param>
         /// <param name="communication"></param>
-        public static void KompassControl(KompassControll kompassControl, MarlinCommunication communication)
+        public static void Kompass(Kompass kompass, MarlinCommunication communication)
         {
-            if (kompassControl.InvokeRequired)
+            if (kompass.InvokeRequired)
             {
-                KompassControlCallback d = KompassControl;
-                _frm3DprinterTool.Invoke(d, kompassControl, communication);
+                KompassCallback d = Kompass;
+                _frm3DprinterTool.Invoke(d, kompass, communication);
             }
             else
             {
-                kompassControl.MarlinCommunication = communication;
+                kompass.MarlinCommunication = communication;
             }
         }
 
@@ -561,10 +562,9 @@ namespace Marlin3DprinterTool
 
 
         // Delegate
-        private delegate void DelegateVerticalJogControlCallback(
-            VerticalJogControl verticalJogControl, MarlinCommunication marlin);
+        private delegate void DelegateVerticalJogCallback(VerticalJog verticalJog, MarlinCommunication marlin);
 
-        private delegate void DelegateKompassControllCallback(KompassControll kompass, MarlinCommunication marlin);
+        private delegate void DelegateKompassCallback(Kompass kompass, MarlinCommunication marlin);
 
         private delegate void DelegateEnabledCallback(Control control, bool enabled);
 
@@ -600,9 +600,9 @@ namespace Marlin3DprinterTool
 
         private delegate void CursorCallback(Cursor cursorType);
 
-        private delegate void VerticalJogControlCallback(VerticalJogControl verticalJogControl, MarlinCommunication communication);
+        private delegate void VerticalJogCallback(VerticalJog verticalJog, MarlinCommunication communication);
 
-        private delegate void KompassControlCallback(KompassControll kompassControl, MarlinCommunication communication);
+        private delegate void KompassCallback(Kompass kompass, MarlinCommunication communication);
 
         //!Delegate
 

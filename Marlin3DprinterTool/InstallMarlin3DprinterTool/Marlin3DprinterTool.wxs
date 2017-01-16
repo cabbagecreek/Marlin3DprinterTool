@@ -184,9 +184,11 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\FastColoredTextBox.dll" />
       </Component>
 
-     
 
-      
+      <!-- Marlin3DprinterToolUserControls.dll -->
+      <Component Id="Marlin3DprinterToolUserControls.dll" Guid="{8EBB75A1-205C-468D-9B31-9F303E4FF47C}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolUserControls.dll" />
+      </Component>
 
       <!--TabStrip.dll -->
       <Component Id="TabStrip.dll" Guid="{64EEE10E-C60C-4DBF-9B5F-387AD08B4CA0}">

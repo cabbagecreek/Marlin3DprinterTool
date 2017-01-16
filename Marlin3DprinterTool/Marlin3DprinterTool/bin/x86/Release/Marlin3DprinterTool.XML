@@ -24,16 +24,16 @@
             <param name="control"></param>
             <param name="visible"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateKompassControll(MarlinComunicationHelper.KompassControll,MarlinComunicationHelper.MarlinCommunication)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateKompass(Marlin3DprinterToolUserControls.Kompass,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             </summary>
             <param name="kompass"></param>
             <param name="marlin"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateVerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateVerticalJog(Marlin3DprinterToolUserControls.VerticalJog,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             </summary>
-            <param name="verticalJogControl"></param>
+            <param name="verticalJog"></param>
             <param name="marlin"></param>
         </member>
         <member name="M:Marlin3DprinterTool.DelegateAndInvoke.DelegateEnabled(System.Windows.Forms.Control,System.Boolean)">
@@ -134,18 +134,18 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.VerticalJogControl(MarlinComunicationHelper.VerticalJogControl,MarlinComunicationHelper.MarlinCommunication)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.VerticalJog(Marlin3DprinterToolUserControls.VerticalJog,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             
             </summary>
-            <param name="verticalJogControl"></param>
+            <param name="verticalJog"></param>
             <param name="communication"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.KompassControl(MarlinComunicationHelper.KompassControll,MarlinComunicationHelper.MarlinCommunication)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.Kompass(Marlin3DprinterToolUserControls.Kompass,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             
             </summary>
-            <param name="kompassControl"></param>
+            <param name="kompass"></param>
             <param name="communication"></param>
         </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">

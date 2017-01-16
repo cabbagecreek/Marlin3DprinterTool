@@ -169,8 +169,7 @@ namespace Marlin3DprinterTool
 
 
 
-            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-                "Marlin3DprinterToolStlThumbnail.dll");
+            string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),"Marlin3DprinterToolStlThumbnail.dll");
             //TODO: SharpShellServerManagerClass.Serverentries
             IEnumerable<ServerEntry> serverEntries = SharpShellServerManagerClass.UpdateServerStatus(stlViewerThumbnail);
 
@@ -178,8 +177,7 @@ namespace Marlin3DprinterTool
             {
                 foreach (ServerEntry serverEntry in serverEntries)
                 {
-                    SharpShellServerManagerClass.ServerInfo serverinfo =
-                        SharpShellServerManagerClass.GetServerinfo(serverEntry);
+                    SharpShellServerManagerClass.ServerInfo serverinfo = SharpShellServerManagerClass.GetServerinfo(serverEntry);
                     textBoxServerName.Text = serverinfo.ServerName;
                     textBoxServerType.Text = serverinfo.ServerType;
                     textBoxServerCLSID.Text = serverinfo.ClassId;
