@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms.VisualStyles;
 using Marlin3DprinterTool.Properties;
 using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
@@ -19,7 +17,6 @@ using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
 using Configuration = Marlin3DprinterToolConfiguration.Configuration;
-using Cursor = System.Windows.Forms.Cursor;
 using Position = Marlin3DprinterToolConfiguration.Position;
 
 
@@ -2498,7 +2495,7 @@ namespace Marlin3DprinterTool
 
         private void btnSetup_Click(object sender, EventArgs e)
         {
-            FrmSetup setup = new FrmSetup();
+            Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
             setup.ShowDialog();
         }
 

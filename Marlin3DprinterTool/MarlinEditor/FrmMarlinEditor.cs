@@ -782,7 +782,8 @@ namespace MarlinEditor
 
         private void toolStripSetup_Click(object sender, EventArgs e)
         {
-            FrmMarlinEditorSetup setup = new FrmMarlinEditorSetup();
+            
+            Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
             setup.ShowDialog();
             string fileName = Path.Combine(_configuration.CurrentFirmware, "configuration.h");
             if (File.Exists(fileName))

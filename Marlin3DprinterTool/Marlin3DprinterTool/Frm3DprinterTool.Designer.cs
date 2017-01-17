@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FastColoredTextBoxNS;
+using LedBulbUserControl;
 using Marlin3DprinterToolUserControls;
 using MarlinComunicationHelper;
 
@@ -332,13 +333,13 @@ namespace Marlin3DprinterTool
             this.grpBxTemperature = new System.Windows.Forms.GroupBox();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnPayPal = new System.Windows.Forms.Button();
-            this.ledZmax = new Marlin3DprinterToolUserControls.LedBulb();
-            this.ledZmin = new Marlin3DprinterToolUserControls.LedBulb();
-            this.ledYmax = new Marlin3DprinterToolUserControls.LedBulb();
-            this.ledYmin = new Marlin3DprinterToolUserControls.LedBulb();
-            this.ledXmax = new Marlin3DprinterToolUserControls.LedBulb();
-            this.ledXmin = new Marlin3DprinterToolUserControls.LedBulb();
-            this.ledBulbZprobeGauge = new Marlin3DprinterToolUserControls.LedBulb();
+            this.ledZmax = new LedBulbUserControl.LedBulb();
+            this.ledZmin = new LedBulbUserControl.LedBulb();
+            this.ledYmax = new LedBulbUserControl.LedBulb();
+            this.ledYmin = new LedBulbUserControl.LedBulb();
+            this.ledXmax = new LedBulbUserControl.LedBulb();
+            this.ledXmin = new LedBulbUserControl.LedBulb();
+            this.ledBulbZprobeGauge = new LedBulbUserControl.LedBulb();
             this.bedCornerControlFrontRight = new Marlin3DprinterToolUserControls.BedCorner();
             this.bedCornerControlFrontLeft = new Marlin3DprinterToolUserControls.BedCorner();
             this.bedAdjusterLeftSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
@@ -4558,12 +4559,12 @@ namespace Marlin3DprinterTool
         private GroupBox grpBxExtruderPID;
         private NumericUpDown numUpDownNumberOfRepetitions;
         private Label lblNumberOfRepetitions;
-        private LedBulb ledXmin;
-        private LedBulb ledZmax;
-        private LedBulb ledZmin;
-        private LedBulb ledYmax;
-        private LedBulb ledYmin;
-        private LedBulb ledXmax;
+        private LedBulbUserControl.LedBulb ledXmin;
+        private LedBulbUserControl.LedBulb ledZmax;
+        private LedBulbUserControl.LedBulb ledZmin;
+        private LedBulbUserControl.LedBulb ledYmax;
+        private LedBulbUserControl.LedBulb ledYmin;
+        private LedBulbUserControl.LedBulb ledXmax;
         private Button btnCalculateExtruderPid;
         private Button btnRetractZprobe;
         private NumericUpDown numUpDownPidExtruderTemp;

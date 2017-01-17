@@ -85,12 +85,6 @@
     <Compile Include="FrmMarlinEditor.Designer.cs">
       <DependentUpon>FrmMarlinEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMarlinEditorSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMarlinEditorSetup.Designer.cs">
-      <DependentUpon>FrmMarlinEditorSetup.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmMigrationCompare.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,9 +100,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMarlinEditor.resx">
       <DependentUpon>FrmMarlinEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMarlinEditorSetup.resx">
-      <DependentUpon>FrmMarlinEditorSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMigrationCompare.resx">
       <DependentUpon>FrmMigrationCompare.cs</DependentUpon>
