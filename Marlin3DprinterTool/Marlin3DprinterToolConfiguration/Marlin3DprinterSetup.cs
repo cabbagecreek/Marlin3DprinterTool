@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using MarlinDocumentation;
 using Microsoft.Win32;
 using ServerManager;
-using SharpShellServerManager;
+
 
 namespace Marlin3DprinterToolConfiguration
 {
@@ -182,8 +182,8 @@ namespace Marlin3DprinterToolConfiguration
                 {
                     foreach (ServerEntry serverEntry in serverEntries)
                     {
-                        SharpShellServerManagerClass.ServerInfo serverinfo =
-                            SharpShellServerManagerClass.GetServerinfo(serverEntry);
+                        
+                        Marlin3DprinterToolConfiguration.SharpShellServerManagerClass.ServerInfo serverinfo = SharpShellServerManagerClass.GetServerinfo(serverEntry);
                         textBoxServerName.Text = serverinfo.ServerName;
                         textBoxServerType.Text = serverinfo.ServerType;
                         textBoxServerCLSID.Text = serverinfo.ClassId;

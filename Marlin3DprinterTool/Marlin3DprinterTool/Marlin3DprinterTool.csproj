@@ -242,10 +242,6 @@
       <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
       <Name>MarlinEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharpShellServerManager\SharpShellServerManager.csproj">
-      <Project>{6db2edfd-193e-4e96-aae6-72f0d45fb5cd}</Project>
-      <Name>SharpShellServerManager</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
