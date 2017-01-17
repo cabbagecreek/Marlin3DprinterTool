@@ -173,6 +173,17 @@
         <File Source="$(var.Marlin3DprinterToolStlThumbnail.TargetDir)\Marlin3DprinterToolStlThumbnail.dll" />
       </Component>
 
+      
+      <!-- Marlin3DprinterToolConfiguration.dll -->
+      <Component Id="Marlin3DprinterToolConfiguration.dll" Guid="{04936735-1EB7-4F97-9FEC-C354CF15E8D5}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolConfiguration.dll" />
+      </Component>
+      
+
+      <!-- LedBulbUserControl.dll -->
+      <Component Id="LedBulbUserControl.dll" Guid="{4864D9FB-2DF2-481B-B266-4B26E6957EC3}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\LedBulbUserControl.dll" />
+      </Component>
 
       <!-- ZylSerialPort.dll -->
       <Component Id="ZylSerialPort.dll" Guid="{72BDBCEC-F730-4D80-8061-02AB5871536C}">

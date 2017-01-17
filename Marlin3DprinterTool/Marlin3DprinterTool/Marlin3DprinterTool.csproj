@@ -136,19 +136,10 @@
     <Compile Include="Frm3DprinterTool.Designer.cs">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmSetup.Designer.cs">
-      <DependentUpon>FrmSetup.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Frm3DprinterTool.resx">
       <DependentUpon>Frm3DprinterTool.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmSetup.resx">
-      <DependentUpon>FrmSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -227,6 +218,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LedBulbUserControl\LedBulbUserControl.csproj">
+      <Project>{696a3185-8566-4aca-a639-f57e2c4679dc}</Project>
+      <Name>LedBulbUserControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
       <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
       <Name>Marlin3DprinterToolConfiguration</Name>
