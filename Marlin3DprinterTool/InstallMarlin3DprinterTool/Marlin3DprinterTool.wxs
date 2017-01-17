@@ -213,13 +213,7 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Apex.WinForms.dll" />
       </Component>
 
-      
-
-      <!--SharpShellServerManager.dll -->
-      <Component Id="SharpShellServerManager.dll" Guid="{CCD0BB1B-020F-4632-B26D-DB435028748F}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\SharpShellServerManager.dll" />
-      </Component>
-
+     
       <!--Nevron.Chart.dll -->
       <Component Id="Nevron.Chart.dll" Guid="{313987B0-78A0-4435-AED8-C770C1C3D7A4}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Nevron.Chart.dll" />

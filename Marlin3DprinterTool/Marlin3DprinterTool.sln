@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolStlThumb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinDocumentation", "MarlinDocumentation\MarlinDocumentation.csproj", "{0909412D-4C12-49F6-9225-B60349C29D02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpShellServerManager", "SharpShellServerManager\SharpShellServerManager.csproj", "{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolUserControls", "Marlin3DprinterToolUserControls\Marlin3DprinterToolUserControls.csproj", "{D2627DFC-7450-4F41-8C80-A261BFD52D34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolConfiguration", "Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj", "{A8FE0E27-F9C1-466B-A404-28993E7F75CD}"
@@ -117,18 +115,6 @@ Global
 		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x64.Build.0 = Release|Any CPU
 		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x86.ActiveCfg = Release|x86
 		{0909412D-4C12-49F6-9225-B60349C29D02}.Release|x86.Build.0 = Release|x86
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Debug|x64.Build.0 = Debug|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Debug|x86.ActiveCfg = Debug|x86
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Debug|x86.Build.0 = Debug|x86
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Release|x64.ActiveCfg = Release|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Release|x64.Build.0 = Release|Any CPU
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Release|x86.ActiveCfg = Release|x86
-		{6DB2EDFD-193E-4E96-AAE6-72F0D45FB5CD}.Release|x86.Build.0 = Release|x86
 		{D2627DFC-7450-4F41-8C80-A261BFD52D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2627DFC-7450-4F41-8C80-A261BFD52D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2627DFC-7450-4F41-8C80-A261BFD52D34}.Debug|x64.ActiveCfg = Debug|Any CPU

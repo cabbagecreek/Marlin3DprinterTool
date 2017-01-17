@@ -14,7 +14,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlV
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\ZylSerialPort.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\LedBulbUserControl.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\ServerManager.exe
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\SharpShellServerManager.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\MarlinDocumentation.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\MarlinComunicationHelper.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\HelixToolkit.pdb
@@ -28,7 +27,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlV
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\ZylSerialPort.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\LedBulbUserControl.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\ServerManager.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\SharpShellServerManager.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\bin\x86\Release\MarlinDocumentation.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\x86\Release\Marlin3DprinterToolStlThumbnail.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\StlViewerThumbnailHandler\obj\x86\Release\Marlin3DprinterToolStlThumbnail.dll
