@@ -67,6 +67,8 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="Marlin3DprinterTool" />
+        
+        
       </Directory>
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="Marlin3DprinterTool" />
@@ -112,6 +114,12 @@
                   Name="Marlin3DprinterStl"
                   Description="STL viewer"
                   Target="[INSTALLFOLDER]Marlin3DprinterStlViewer.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon ="Marlin3DprinterTool.ico"  />
+        <Shortcut Id="ApplicationStartMenuShortcutMarlinStlViewerConfiguration"
+                  Name="Marlin3DprinterToolStlConfiguration"
+                  Description="STL configuration"
+                  Target="[INSTALLFOLDER]Marlin3DprinterToolStlConfiguration.exe"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon ="Marlin3DprinterTool.ico"  />
         <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
@@ -165,13 +173,17 @@
     <ComponentGroup Id="ProductDLL" Directory="INSTALLFOLDER">
       <!-- MarlinComunicationHelper.dll -->
       <Component Id="MarlinComunicationHelper.dll" Guid="{755DDFEC-39F6-4C3A-991F-56FDA1BDC1AA}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinComunicationHelper.dll" />
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinComunicationHelper.dll" /> 
       </Component>
 
+          
       <!-- Marlin3DprinterToolStlThumbnail.dll -->
-      <Component Id="Marlin3DprinterToolStlThumbnail.dll" Guid="{9B2C32B1-35EB-4B18-9A5C-8BC268506BA1}">
-        <File Source="$(var.Marlin3DprinterToolStlThumbnail.TargetDir)\Marlin3DprinterToolStlThumbnail.dll" />
-      </Component>
+      <Component Id="Marlin3DprinterToolStlThumbnail.dll" Guid="{9CD0BC04-9B3C-49E8-ABB2-A2B8D1EE6F2B}"> 
+        <File Source="$(var.Marlin3DprinterToolStlThumbnailProvider.TargetDir)\Marlin3DprinterToolStlThumbnail.dll" /> 
+      </Component> 
+      
+      
+     
 
       
       <!-- Marlin3DprinterToolConfiguration.dll -->
@@ -207,11 +219,11 @@
       </Component>
 
 
-
-      <!--Apex.WinForms.dll -->
-      <Component Id="Apex.WinForms.dll" Guid="{B9B62E1B-C071-4CB4-804E-C093E0369209}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Apex.WinForms.dll" />
+      <!--LogicNP.EZShellExtensions.dll -->
+      <Component Id="LogicNP.EZShellExtensions.dll" Guid="{1D6B189A-1F51-46F2-9613-D6AE4301A114}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\LogicNP.EZShellExtensions.dll" />
       </Component>
+      
 
      
       <!--Nevron.Chart.dll -->
@@ -242,30 +254,12 @@
       </Component>
       
         
-      
-      
-
-
       <!--HelixToolkit.Wpf.dll -->
       <Component Id="HelixToolkit.Wpf.dll" Guid="{8AF5F26B-E1FF-4194-B5FD-66D2FE9A14CC}">
         <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\HelixToolkit.Wpf.dll" />
       </Component>
 
-      <!--SharpShell.dll -->
-      <Component Id="SharpShell.dll" Guid="{BE48F854-BD58-4FC7-AFED-CBCF6AEDA3EE}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\SharpShell.dll" />
-      </Component>
-    
-      <!--ServerManager.exe -->
-      <Component Id="ServerManager.exe" Guid="{6594131E-6F30-41CD-9764-2347DA78AE20}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\ServerManager.exe" />
-      </Component>
-
-      <!--STL thumbnail debug.rtf -->
-      <Component Id="STL_thumbnail_debug.rtf" Guid="{7EF35A7B-43A5-4D33-B232-B79E352A1C01}">
-        <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\STL thumbnail debug.rtf" />
-      </Component>
-
+      
       <!--AGauge.dll -->
       <Component Id="AGauge.dll" Guid="{EB7A295F-4EDF-4D7E-937F-A4A7EEF31222}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\AGauge.dll" />
@@ -301,6 +295,21 @@
         <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\Marlin3DprinterStlViewer.exe" />
       </Component>
 
+      <!-- Marlin3DprinterToolStlConfiguration.exe -->
+      <Component Id="Marlin3DprinterToolStlConfiguration.exe" Guid="{9BB9435E-B50F-48F7-BCF1-73E8D34D083D}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\Marlin3DprinterToolStlConfiguration.exe" />
+      </Component>
+      
+      <!-- RestartExplorer.exe -->
+      <Component Id="RestartExplorer.exe" Guid="{149EFA5C-AD7B-4058-8F30-A2C8DC0924DB}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\RestartExplorer.exe" />
+      </Component>
+      
+      <!-- RegisterExtensionDotNet40.exe -->
+      <Component Id="RegisterExtensionDotNet40.exe" Guid="{996974BA-D0AF-4499-AD38-ACCF7E61226A}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\RegisterExtensionDotNet40.exe" />
+      </Component>
+      
 
       <!-- Marlin3DprinterTool.exe.config -->
       <Component Id="Marlin3DprinterTool.exe.config" NeverOverwrite="yes" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">

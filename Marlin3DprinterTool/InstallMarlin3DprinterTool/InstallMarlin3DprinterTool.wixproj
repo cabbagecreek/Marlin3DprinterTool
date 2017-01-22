@@ -30,32 +30,6 @@
     <Compile Include="Marlin3DprinterTool.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Marlin3DprinterStlViewer\Marlin3DprinterStlViewer.csproj">
-      <Name>Marlin3DprinterStlViewer</Name>
-      <Project>{cb7cdea2-d23a-4761-b7e8-e42e31cbf686}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\Marlin3DprinterTool\Marlin3DprinterTool.csproj">
-      <Name>Marlin3DprinterTool</Name>
-      <Project>{6093f344-229a-4e2e-9f74-a17f7ee61115}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\StlViewerThumbnailHandler\Marlin3DprinterToolStlThumbnail.csproj">
-      <Name>Marlin3DprinterToolStlThumbnail</Name>
-      <Project>{fea2a7bd-0a8e-48c2-969a-dd3ef6f3dcfc}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WixExtension Include="WixUtilExtension">
       <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
       <Name>WixUtilExtension</Name>
@@ -69,6 +43,40 @@
     <Content Include="Licence.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Marlin3DprinterStlViewer\Marlin3DprinterStlViewer.csproj">
+      <Name>Marlin3DprinterStlViewer</Name>
+      <Project>{cb7cdea2-d23a-4761-b7e8-e42e31cbf686}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Marlin3DprinterToolStlConfiguration\Marlin3DprinterToolStlConfiguration.csproj">
+      <Name>Marlin3DprinterToolStlConfiguration</Name>
+      <Project>{24a6d419-294c-4a8b-bcd2-233e2c9d55db}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Marlin3DprinterToolStlThumbnailProvider\Marlin3DprinterToolStlThumbnailProvider.csproj">
+      <Name>Marlin3DprinterToolStlThumbnailProvider</Name>
+      <Project>{7168404a-2b71-45e9-9bc7-c4e2277ae4b7}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Marlin3DprinterTool\Marlin3DprinterTool.csproj">
+      <Name>Marlin3DprinterTool</Name>
+      <Project>{6093f344-229a-4e2e-9f74-a17f7ee61115}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
