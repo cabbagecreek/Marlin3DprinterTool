@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Marlin3DprinterToolConfiguration;
-using Microsoft.Win32;
 using ZylSoft.Serial;
 
 namespace MarlinComunicationHelper
@@ -170,8 +169,8 @@ namespace MarlinComunicationHelper
                 _kill = value;
                 if (_kill)
                 {
-                    TypeOfCursor cursorType = new TypeOfCursor(Cursors.Default);
-                    OnSending(cursorType);
+                    //TODO: TypeOfCursor cursorType = new TypeOfCursor(Cursors.Default);
+                    //TODO: OnSending(cursorType);
                     SendCommand("M P50"); // Send a short wait    
                 }
                 
@@ -673,8 +672,8 @@ namespace MarlinComunicationHelper
             {
                 try
                 {
-                    TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
-                    OnSending(cursorType);
+                    //TODO: TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
+                    //TODO: OnSending(cursorType);
                     IsPortOpen = false;
                     _serialPort.Disconnected += _serialPort_Disconnected;
                     _serialPort.Connected += _serialPort_Connected;
@@ -722,8 +721,8 @@ namespace MarlinComunicationHelper
 
                     if (!_serialPort.IsConnected()) return;
                     ParseInit(dataReceived);
-                    cursorType = new TypeOfCursor(Cursors.Default);
-                    OnSending(cursorType);
+                    //TODO: cursorType = new TypeOfCursor(Cursors.Default);
+                    //TODO: OnSending(cursorType);
 
 
                 }
@@ -836,12 +835,12 @@ namespace MarlinComunicationHelper
         private void SerialBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
+            //TODO: TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
 
 
             if (Status != Feature.EndStop) // Reuce flicker cursor
             {
-                OnSending(cursorType);
+                //TODO: OnSending(cursorType);
             }
             
 
@@ -953,8 +952,8 @@ namespace MarlinComunicationHelper
 
             OnCommandSequenceeDone(EventArgs.Empty);
 
-            cursorType = new TypeOfCursor(Cursors.Default);
-            OnSending(cursorType);
+            //TODO: cursorType = new TypeOfCursor(Cursors.Default);
+            //TODO: OnSending(cursorType);
             
 
         }
@@ -1291,16 +1290,17 @@ namespace MarlinComunicationHelper
 
 
        
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler Sending;
+        //TODO: Cursor on Sending
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public event EventHandler Sending;
 
-        private void OnSending(EventArgs e)
-        {
-            var handler = Sending;
-            handler?.Invoke(this, e);
-        }
+        //private void OnSending(EventArgs e)
+        //{
+        //    var handler = Sending;
+        //    handler?.Invoke(this, e);
+        //}
 
 
 
@@ -1314,26 +1314,27 @@ namespace MarlinComunicationHelper
 
 }
 
-    
-    /// <summary>
-    /// Generic responcedata
-    /// </summary>
-    public class TypeOfCursor : EventArgs
-    {
-        /// <summary>
-        /// Cursor during operations
-        /// </summary>
-        /// <param name="cursorType"></param>
-        public TypeOfCursor(Cursor cursorType)
-        {
-            CursorType = cursorType;
-        }
 
-        /// <summary>
-        /// Generic Responce Data
-        /// </summary>
-        public Cursor CursorType { get; }
-    }
+    //TODO: Cursor 
+    ///// <summary>
+    ///// Generic responcedata
+    ///// </summary>
+    //public class TypeOfCursor : EventArgs
+    //{
+    //    /// <summary>
+    //    /// Cursor during operations
+    //    /// </summary>
+    //    /// <param name="cursorType"></param>
+    //    public TypeOfCursor(Cursor cursorType)
+    //    {
+    //        CursorType = cursorType;
+    //    }
+
+    //    /// <summary>
+    //    /// Generic Responce Data
+    //    /// </summary>
+    //    public Cursor CursorType { get; }
+    //}
 
 
 
