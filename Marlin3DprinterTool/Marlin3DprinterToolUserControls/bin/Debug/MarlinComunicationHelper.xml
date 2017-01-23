@@ -427,16 +427,10 @@
                 Temperature
             </summary>
         </member>
-        <member name="M:MarlinComunicationHelper.Temperatures.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:MarlinComunicationHelper.Temperatures.#ctor">
             <summary>
-            Temperature divided to there source
+            Temperature 
             </summary>
-            <param name="extruder"></param>
-            <param name="setExtruder"></param>
-            <param name="heatbed"></param>
-            <param name="setHeatbed"></param>
-            <param name="extruder2"></param>
-            <param name="extruder2Set"></param>
         </member>
         <member name="P:MarlinComunicationHelper.Temperatures.Extruder">
             <summary>
@@ -467,6 +461,35 @@
             <summary>
             Set extruder2 Temp
             </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.NumberConversion">
+            <summary>
+            Number Conversation 
+            String to Decimal
+            Decimal to String
+            String to String
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.NumberConversion.ConvertStringToDecimal(System.String)">
+            <summary>
+            Convert a string to Decimal
+            </summary>
+            <param name="stringNumeric"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MarlinComunicationHelper.NumberConversion.ConvertDecimalToString(System.Decimal)">
+            <summary>
+            Convert a decimal numeric to a String with decimal point.
+            </summary>
+            <param name="numericDecimal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MarlinComunicationHelper.NumberConversion.ConvertStringToString(System.String)">
+            <summary>
+            Converts a numeric string to a numeric string with decimals
+            </summary>
+            <param name="numericString"></param>
+            <returns></returns>
         </member>
         <member name="T:MarlinComunicationHelper.ResponceData">
             <summary>
@@ -513,17 +536,17 @@
             <param name="yposition"></param>
             <param name="zposition"></param>
         </member>
-        <member name="P:MarlinComunicationHelper.CurrentPosition.Xdouble">
+        <member name="P:MarlinComunicationHelper.CurrentPosition.Xdecimal">
             <summary>
             X as a Double
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.CurrentPosition.Ydouble">
+        <member name="P:MarlinComunicationHelper.CurrentPosition.Ydecimal">
             <summary>
             Y as a double
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.CurrentPosition.Zdouble">
+        <member name="P:MarlinComunicationHelper.CurrentPosition.Zdecimal">
             <summary>
             Z as a double
             </summary>

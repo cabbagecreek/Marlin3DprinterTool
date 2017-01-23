@@ -17,6 +17,7 @@ using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
 using Configuration = Marlin3DprinterToolConfiguration.Configuration;
+using NumberConversion = Marlin3DprinterToolConfiguration.NumberConversion;
 using Position = Marlin3DprinterToolConfiguration.Position;
 
 
@@ -35,8 +36,9 @@ namespace Marlin3DprinterTool
 
         private MarlinCommunication _com = new MarlinCommunication();
         
+        private NumberConversion _numberConversion = new NumberConversion();
 
-        private double _dockZprobePrecision;
+        private decimal _dockZprobePrecision;
         private bool _dockZprobeUpDown ;
 
         ///
@@ -201,9 +203,9 @@ namespace Marlin3DprinterTool
 
         private void _com_M114GetCurrentPosition(object sender, CurrentPosition currentPosition)
         {
-            _currectPosition.X = currentPosition.Xdouble;
-            _currectPosition.Y = currentPosition.Ydouble;
-            _currectPosition.Z = currentPosition.Zdouble;
+            _currectPosition.X = currentPosition.Xdecimal;
+            _currectPosition.Y = currentPosition.Ydecimal;
+            _currectPosition.Z = currentPosition.Zdecimal;
 
             // allways with decimalpoints
             DelegateAndInvoke.DelegateText(txtBxZprobePosition, _currectPosition.Zstring);
@@ -962,21 +964,6 @@ namespace Marlin3DprinterTool
             Kill();
         }
 
-        private void btnZprobeFirmwareUpdate_Click(object sender, EventArgs e)
-        {
-
-            //TODO: 
-            //_com.Firmware = FrmFirmware.InstanceFrmFirmware;
-
-            //// The found offset has wrong sing. Cahnge positive to negative
-            //var calcZProbeOffset = Convert.ToDecimal(txtBxCalculatedZProbeOffset.Text)*-1;
-
-            //// round to to decimals
-            //var round = decimal.Round(calcZProbeOffset, 2);
-
-            //// Format the round to a string with 2 decimals and decimalpoint. (Not decimal =, )
-            ////TODO: _com.Firmware.UpdateZprobeOffset($"{round:0.00}".Replace(",", "."));
-        }
 
         #region Communication
 
@@ -1139,7 +1126,7 @@ namespace Marlin3DprinterTool
 
 
 
-                            double fixedPoint;
+                            decimal fixedPoint;
 
                             switch (_configuration.BedType)
                             {
@@ -1215,10 +1202,12 @@ namespace Marlin3DprinterTool
 
                         foreach (var probePoint in _com.ProbeResponceList)
                         {
-                            if (zMin == null) zMin = probePoint.Z.ToString();
-                            if (Convert.ToDouble(zMin) <= probePoint.Z) zMin = probePoint.Z.ToString();
+                            if (zMin == null) zMin = probePoint.Zstring;
+                            if (_numberConversion.ConvertStringToDecimal(zMin) <= probePoint.Z) zMin = probePoint.Zstring;
                             if (zMax == null) zMax = probePoint.Z.ToString();
-                            if (Convert.ToDouble(zMax) >= probePoint.Z) zMax = probePoint.Z.ToString();
+                            if (_numberConversion.ConvertStringToDecimal(zMax) >= probePoint.Z) zMax = probePoint.Zstring;
+
+                            if (zMin == null) zMin = probePoint.Xstring;
                         }
                     }
                     CreateSurfaceChart(_com.ProbeResponceList);
@@ -1243,7 +1232,7 @@ namespace Marlin3DprinterTool
                     // Going Down and ZProbe triggered
                     if (_com.EndStopStatus.Zmin == _dockZprobeUpDown)
                     {
-                        if (_com.EndStopStatus.Zmin && _dockZprobeUpDown && _dockZprobePrecision <= 0.03)
+                        if (_com.EndStopStatus.Zmin && _dockZprobeUpDown && _dockZprobePrecision <= (decimal) 0.03)
                         {
                             DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
                             
@@ -1252,18 +1241,18 @@ namespace Marlin3DprinterTool
                             break;
                         }
 
-                        _dockZprobePrecision = Math.Max( _dockZprobePrecision/2.0, 0.025);
+                        _dockZprobePrecision = Math.Max( (_dockZprobePrecision/(decimal) 2.0), (decimal) 0.025);
                         _dockZprobeUpDown = !_dockZprobeUpDown; // Change direction
                     }
 
-                    
+                  
                     if (_dockZprobeUpDown)
                     {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_dockZprobePrecision.ToString().Replace(',', '.')} ", "G90", "M0 P100",  "M119", "M114", });
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_numberConversion.ConvertDecimalToString(_dockZprobePrecision)} ", "G90", "M0 P100",  "M119", "M114", });
                     }
                     else
                     {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_dockZprobePrecision.ToString().Replace(',', '.')} ", "G90", "M0 P100", "M119", "M114", });
+                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_numberConversion.ConvertDecimalToString(_dockZprobePrecision)} ", "G90", "M0 P100", "M119", "M114", });
                     }
 
                     break;
@@ -1555,7 +1544,7 @@ namespace Marlin3DprinterTool
 
             DelegateAndInvoke.SelectTabcontrol(tabControl3DprinterTool, tabPageParameters);
 
-            DelegateAndInvoke.DelegateText(txtBxM851, _com.M851ZprobeOffset.ToString().Replace(",","."));
+            DelegateAndInvoke.DelegateText(txtBxM851, _numberConversion.ConvertDecimalToString(_com.M851ZprobeOffset));
 
         }
 
@@ -1664,9 +1653,9 @@ namespace Marlin3DprinterTool
                 Match positionMatch = Regex.Match(row, positionPattern);
                 if (positionMatch.Success)
                 {
-                    double x = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    double y = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    double z = (double)Convert.ToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    decimal x = _numberConversion.ConvertStringToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value);
+                    decimal y = _numberConversion.ConvertStringToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value);
+                    decimal z = _numberConversion.ConvertStringToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value);
                     _probePoints.Add(new Position { X = x, Y = y, Z = z });
                 }
 
@@ -2032,15 +2021,15 @@ namespace Marlin3DprinterTool
 
             // Extruder steps/mm = ( extrude button clicks * extruded length per click * old extruder steps/mm ) / marked length on filament
 
-            int extrudedLength = (int) numUpDnExtruderExpectedValue.Value;
-            int oldStepsPerMM = (int) numUpDnExtruderOldFirmware.Value;
-            int meassuredExtrudedLength = (int) numUpDnExtruderMeassuredExtrusion.Value;
+            decimal extrudedLength =  numUpDnExtruderExpectedValue.Value;
+            decimal oldStepsPerMM =  numUpDnExtruderOldFirmware.Value;
+            decimal meassuredExtrudedLength = numUpDnExtruderMeassuredExtrusion.Value;
 
-            var stepsPerMM = extrudedLength*oldStepsPerMM/meassuredExtrudedLength;
+            decimal stepsPerMM = extrudedLength*oldStepsPerMM/meassuredExtrudedLength;
 
 
             fastColoredTextBoxExtruderStepsPerMM.Text = $"{stepsPerMM} steps/mm";
-            fastColoredTextBoxExtruderStepsPerMM.Tag = stepsPerMM.ToString(CultureInfo.InvariantCulture).Replace(',','.');
+            fastColoredTextBoxExtruderStepsPerMM.Tag = _numberConversion.ConvertDecimalToString(stepsPerMM);
         }
 
         private void btnExtruderOldFirmware_Click(object sender, EventArgs e)
@@ -2471,29 +2460,6 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void btnShowMeshInSurfaceChart_Click(object sender, EventArgs e)
-        {
-            
-
-            var xMin = (int)Convert.ToDecimal(_configuration.FrontLeftCorner.X);
-            var xMax = (int)Convert.ToDecimal(_configuration.FrontRightCorner.X);
-            var xStep = (xMax - xMin) / (Convert.ToUInt16( txtBxMeshBedLevelPointX.Text) - 1);
-
-            var yMin = (int)Convert.ToDecimal(_configuration.FrontLeftCorner.Y);
-            var yMax = (int)Convert.ToDecimal(_configuration.BackLeftCorner.Y);
-            var yStep = (yMax - yMin) / (Convert.ToUInt16(txtBxMeshBedLevelPointY.Text) - 1);
-
-
-
-            List<Position> positions = new List<Position>();
-
-
-            positions = _configuration.GetMeshpoints();
-            
-            CreateSurfaceChart(positions);
-
-           DelegateAndInvoke.SelectTabcontrol(tabControl3DprinterTool,tabPageScanSurface);
-        }
 
         private void btnSetup_Click(object sender, EventArgs e)
         {
@@ -2562,7 +2528,7 @@ namespace Marlin3DprinterTool
 
             
             List<String> commands = new List<string> {"G28","G91", "G1 Z10","G90","M0 P500", "M119", "M114"};
-            _dockZprobePrecision = 0.5;
+            _dockZprobePrecision = (decimal) 0.5;
             _dockZprobeUpDown = true;
 
             _com.SendCommand(commands);
@@ -2591,9 +2557,9 @@ namespace Marlin3DprinterTool
         {
             if (!string.IsNullOrEmpty(txtBxDockZprobe.Text))
             {
-                float dockedProbeHigh = (float) Convert.ToDecimal(txtBxDockZprobe.Text.Replace(".", ","));
-                float dockedProbeLow = (float) (dockedProbeHigh - 1);
-                AGaugeRange probeRange = new AGaugeRange(Color.Green, dockedProbeLow, dockedProbeHigh, 5, 80)
+                decimal dockedProbeHigh = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
+                decimal dockedProbeLow =  dockedProbeHigh - 1;
+                AGaugeRange probeRange = new AGaugeRange(Color.Green, (float) dockedProbeLow, (float) dockedProbeHigh, 5, 80)
                 {
                     Name = "Probe"
                 };
@@ -2608,28 +2574,32 @@ namespace Marlin3DprinterTool
 
         private void txtBxZprobePosition_TextChanged(object sender, EventArgs e)
         {
-            aGaugeProbe.Value = (float) Convert.ToDecimal(txtBxZprobePosition.Text.Replace(".", ","));
+            aGaugeProbe.Value = (float) _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
             if (_com.EndStopStatus.Zmin)
             {
                 AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
                 if (probeRange != null)
                 {
                     
-                    probeRange.StartValue = (float)Convert.ToDouble(txtBxZprobePosition.Text.Replace(".", ","));
+                    probeRange.StartValue = (float) _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
                 }
                 
             }
         }
 
+        
 
         private void btnNozzleIsTouchingBed_Click(object sender, EventArgs e)
         {
-            double zhome = Convert.ToDouble(txtBxDockZprobe.Text.Replace(".", ","));
-            double ztouch = Convert.ToDouble(txtBxZprobePosition.Text.Replace(".", ","));
 
-            double zProbeOffset = zhome - ztouch;
+            
 
-            zProbeOffset = zProbeOffset - (zProbeOffset * 2.0);
+            decimal zhome  = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
+            decimal ztouch = _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
+
+            decimal zProbeOffset = zhome - ztouch;
+
+            zProbeOffset = zProbeOffset - (zProbeOffset * (decimal) 2.0);
 
             DialogResult result = MessageBox.Show
                 ($"The probe is detecting the bed at {txtBxDockZprobe.Text}" + Environment.NewLine +
@@ -2643,8 +2613,8 @@ namespace Marlin3DprinterTool
             if (result == DialogResult.Yes)
             {
                 _com.Status = MarlinCommunication.Feature.Done;
-                UpdateZprobeOffset(zProbeOffset.ToString().Replace(",", "."));
-                UpdateEpromZprobeOffset(zProbeOffset.ToString().Replace(",", "."));
+                UpdateZprobeOffset(_numberConversion.ConvertDecimalToString(zProbeOffset));
+                UpdateEpromZprobeOffset(_numberConversion.ConvertDecimalToString(zProbeOffset));
             }
         }
 

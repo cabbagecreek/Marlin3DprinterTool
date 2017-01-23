@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -18,6 +19,7 @@ namespace MarlinComunicationHelper
         
         private readonly SerialPort _serialPort = new SerialPort();
         private FrmShowCommunication _showcom;
+        private NumberConversion _numberConversion = new NumberConversion();
 
         private string linuxNewline = "\n";
         private bool _kill;
@@ -288,12 +290,10 @@ namespace MarlinComunicationHelper
                 var positionMatch = Regex.Match(row, positionPattern);
                 if (positionMatch.Success)
                 {
-                    var x =
-                        (double) Convert.ToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    var y =
-                        (double) Convert.ToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
-                    var z =
-                        (double) Convert.ToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value.Replace('.', ','));
+                    var x = _numberConversion.ConvertStringToDecimal(Regex.Match(row, @"(?<=X:)[0-9]*\.[0-9]*").Value);
+                    var y = _numberConversion.ConvertStringToDecimal(Regex.Match(row, @"(?<=Y:)[0-9]*\.[0-9]*").Value);
+                    var z = _numberConversion.ConvertStringToDecimal(Regex.Match(row, @"(?<=Z:)[0-9]*\.[0-9]*").Value);
+
                     ProbeResponceList.Add(new Position {X = x, Y = y, Z = z});
                 }
             }
@@ -544,8 +544,8 @@ namespace MarlinComunicationHelper
             var m851Match = Regex.Match(dataReceived, m851Pattern);
             if (m851Match.Success)
             {
-                M851ZprobeOffset = Convert.ToDecimal(m851Match.Value.Replace('.', ','));
-                OnM851Responce(new ResponceData(m851Match.Value.Replace(',', '.')));
+                M851ZprobeOffset = _numberConversion.ConvertStringToDecimal(m851Match.Value);
+                OnM851Responce(new ResponceData(_numberConversion.ConvertDecimalToString( _numberConversion.ConvertStringToDecimal(m851Match.Value))));
             }
 
             
@@ -574,64 +574,23 @@ namespace MarlinComunicationHelper
 
             if (Regex.Match(temperatureLine, pattern).Success)
             {
-                var extruderString =
-                    Regex.Match(temperatureLine, @"(?:T:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
-                        .Value
-                        .Replace(".", ",");
-                if (!extruderString.Contains(","))
-                {
-                    extruderString += ",0";
-                }
-                var setExtruderString =
-                    Regex.Match(temperatureLine, @"(?:T:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",
-                        RegexOptions.CultureInvariant)
-                        .Groups[1].Value.Replace(".", ",");
-                if (!setExtruderString.Contains(","))
-                {
-                    setExtruderString += ",0";
-                }
-                var heatbedTempString =
-                    Regex.Match(temperatureLine, @"(?:B:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
-                        .Value
-                        .Replace(".", ",");
-                if (!heatbedTempString.Contains(","))
-                {
-                    heatbedTempString += ",0";
-                }
-                var heatbedSetString =
-                    Regex.Match(temperatureLine, @"(?:B:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",
-                        RegexOptions.CultureInvariant)
-                        .Groups[1].Value.Replace(".", ",");
-                if (!heatbedSetString.Contains(","))
-                {
-                    heatbedSetString += ",0";
-                }
-                var extruder2TempString =
-                    Regex.Match(temperatureLine, @"(?:T0:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
-                        .Value
-                        .Replace(".", ",");
-                if (!extruder2TempString.Contains(","))
-                {
-                    extruder2TempString += ",0";
-                }
-                var extruder2SetString =
-                    Regex.Match(temperatureLine, @"(?:T0:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",
-                        RegexOptions.CultureInvariant)
-                        .Groups[1].Value.Replace(".", ",");
-                if (!extruder2SetString.Contains(","))
-                {
-                    extruder2SetString += ",0";
-                }
+                var extruderString      = Regex.Match(temperatureLine, @"(?:T:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                var setExtruderString   = Regex.Match(temperatureLine, @"(?:T:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",RegexOptions.CultureInvariant).Groups[1].Value;
+                var heatbedTempString   = Regex.Match(temperatureLine, @"(?:B:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                var heatbedSetString    = Regex.Match(temperatureLine, @"(?:B:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",RegexOptions.CultureInvariant).Groups[1].Value;
+                var extruder2TempString = Regex.Match(temperatureLine, @"(?:T0:)([0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+                var extruder2SetString  = Regex.Match(temperatureLine, @"(?:T0:[0-9]*.[0-9]*\s\/)([0-9]*.[0-9]*)",RegexOptions.CultureInvariant).Groups[1].Value;
+                
 
-                Temperatures eventTemperatures = new Temperatures(
-                    Convert.ToDouble(extruderString),
-                    Convert.ToDouble(setExtruderString),
-                    Convert.ToDouble(heatbedTempString),
-                    Convert.ToDouble(heatbedSetString),
-                    Convert.ToDouble(extruder2TempString),
-                    Convert.ToDouble(extruder2SetString)
-                    );
-
+                Temperatures eventTemperatures = new Temperatures();
+                if(!string.IsNullOrEmpty(extruderString)) { eventTemperatures.Extruder = _numberConversion.ConvertStringToDecimal(extruderString);}
+                if (!string.IsNullOrEmpty(setExtruderString)) { eventTemperatures.SetExtruder = _numberConversion.ConvertStringToDecimal(setExtruderString);}
+                if (!string.IsNullOrEmpty(heatbedTempString)) { eventTemperatures.Heatbed = _numberConversion.ConvertStringToDecimal(heatbedTempString);}
+                if (!string.IsNullOrEmpty(heatbedSetString)) { eventTemperatures.SetHeatbed = _numberConversion.ConvertStringToDecimal(heatbedSetString);}
+                if (!string.IsNullOrEmpty(extruder2TempString)) { eventTemperatures.Extruder2 = _numberConversion.ConvertStringToDecimal(extruder2TempString);}
+                if (!string.IsNullOrEmpty(extruder2SetString)) { eventTemperatures.SetExtruder2 = _numberConversion.ConvertStringToDecimal(extruder2SetString);}
+                    
+                
 
 
                 OnTemperature(eventTemperatures);
@@ -639,7 +598,7 @@ namespace MarlinComunicationHelper
 
                 return true;
             }
-            else return false;
+            return false;
         }
 
         
@@ -1010,7 +969,7 @@ namespace MarlinComunicationHelper
         #endregion
 
 
-        private double CalculateExtrusionSteps(int extrude, double oldSteps, int meassuredUsedFilament)
+        private decimal CalculateExtrusionSteps(int extrude, decimal oldSteps, int meassuredUsedFilament)
         {
             // Extruder steps/mm = ( Testextruded length * old extruder steps/mm ) / used length on filament
             return Math.Round(extrude*oldSteps/meassuredUsedFilament, 3);
@@ -1026,7 +985,7 @@ namespace MarlinComunicationHelper
         public void ExtrudeCalculationUpdate(int extrude, string oldSteps, int meassuredUsedFilament)
         {
 
-            double currentStepsPermm = Convert.ToDouble(oldSteps.Replace(".", ","));
+            decimal currentStepsPermm = _numberConversion.ConvertStringToDecimal(oldSteps);
 
             var commands = new List<string>
             {
@@ -1406,54 +1365,134 @@ namespace MarlinComunicationHelper
     public class Temperatures : EventArgs
     {
         /// <summary>
-        /// Temperature divided to there source
+        /// Temperature 
         /// </summary>
-        /// <param name="extruder"></param>
-        /// <param name="setExtruder"></param>
-        /// <param name="heatbed"></param>
-        /// <param name="setHeatbed"></param>
-        /// <param name="extruder2"></param>
-        /// <param name="extruder2Set"></param>
-        public Temperatures(double extruder, double setExtruder, double heatbed, double setHeatbed, double extruder2,
-            double extruder2Set)
+       public Temperatures()
         {
-            Extruder = extruder;
-            SetExtruder = setExtruder;
-            Heatbed = heatbed;
-            SetHeatbed = setHeatbed;
-            Extruder2 = extruder2;
-            SetExtruder2 = extruder2Set;
+            
         }
 
         /// <summary>
         /// Extruder temp
         /// </summary>
-        public double Extruder { get; }
+        public decimal Extruder { get; set; }
+
         /// <summary>
         /// Set extruder Temp
         /// </summary>
-        public double SetExtruder { get; }
+        public decimal SetExtruder { get; set; }
 
         /// <summary>
         /// Heatbed temp
         /// </summary>
-        public double Heatbed { get; }
+        public decimal Heatbed { get; set; }
+
         /// <summary>
         /// Set heatbed Temp
         /// </summary>
-        public double SetHeatbed { get; }
+        public decimal SetHeatbed { get; set; }
 
         /// <summary>
         /// Extruder2 Temp
         /// </summary>
-        public double Extruder2 { get; }
+        public decimal Extruder2 { get; set; }
+
         /// <summary>
         /// Set extruder2 Temp
         /// </summary>
-        public double SetExtruder2 { get; }
+        public decimal SetExtruder2 { get; set; }
     }
     #endregion
-    
+
+
+    #region
+    /// <summary>
+    /// Number Conversation 
+    /// String to Decimal
+    /// Decimal to String
+    /// String to String
+    /// </summary>
+    public class NumberConversion
+    {
+        /// <summary>
+        /// Convert a string to Decimal
+        /// </summary>
+        /// <param name="stringNumeric"></param>
+        /// <returns></returns>
+        public decimal ConvertStringToDecimal(string stringNumeric)
+        {
+
+            if (stringNumeric == "") return 0;
+
+            string incommingNumeric = stringNumeric;
+
+
+
+            int findDot = stringNumeric.IndexOf('.');
+            int findComma = stringNumeric.IndexOf(',');
+
+            // Both dot and comma
+            if ((findDot != -1) && findComma != -1)
+            {
+                // Dot is 1000 divider
+                if (findDot < findComma)
+                {
+                    incommingNumeric = incommingNumeric.Replace(".", "");
+                    incommingNumeric = incommingNumeric.Replace(",", ".");
+                }
+
+                // Comma is 1000 divider
+                if (findDot > findComma)
+                {
+                    incommingNumeric = incommingNumeric.Replace(",", "");
+                }
+
+            }
+
+            if (findComma != -1)
+            {
+                incommingNumeric = incommingNumeric.Replace(",", ".");
+            }
+
+
+            decimal numericDecimal = Convert.ToDecimal(incommingNumeric, CultureInfo.InvariantCulture);
+
+            return numericDecimal;
+        }
+
+
+        /// <summary>
+        /// Convert a decimal numeric to a String with decimal point.
+        /// </summary>
+        /// <param name="numericDecimal"></param>
+        /// <returns></returns>
+        public string ConvertDecimalToString(decimal numericDecimal)
+        {
+
+
+            string numericString = numericDecimal.ToString(CultureInfo.InvariantCulture);
+
+            numericString = numericString.Replace(",", ".");
+            return numericString;
+
+
+        }
+
+        /// <summary>
+        /// Converts a numeric string to a numeric string with decimals
+        /// </summary>
+        /// <param name="numericString"></param>
+        /// <returns></returns>
+        public string ConvertStringToString(string numericString)
+        {
+            decimal numericDecimal = ConvertStringToDecimal(numericString);
+            return ConvertDecimalToString(numericDecimal);
+
+        }
+
+    }
+    #endregion
+
     #region ResponceData / generic responce
     /// <summary>
     /// Generic responcedata
@@ -1504,6 +1543,7 @@ namespace MarlinComunicationHelper
     /// </summary>
     public class CurrentPosition : EventArgs
     {
+        NumberConversion numberConversion = new NumberConversion();
         /// <summary>
         /// Current position where X/Y/Z is strings
         /// </summary>
@@ -1512,23 +1552,24 @@ namespace MarlinComunicationHelper
         /// <param name="zposition"></param>
         public CurrentPosition(string xposition, string yposition, string zposition)
         {
-            Xdouble = Convert.ToDouble(xposition.Replace(".", ","));
-            Ydouble = Convert.ToDouble(yposition.Replace(".", ","));
-            Zdouble = Convert.ToDouble(zposition.Replace(".", ","));
+            
+            Xdecimal = numberConversion.ConvertStringToDecimal(xposition);
+            Ydecimal = numberConversion.ConvertStringToDecimal(yposition);
+            Zdecimal = numberConversion.ConvertStringToDecimal(zposition);
         }
 
         /// <summary>
         /// X as a Double
         /// </summary>
-        public double Xdouble { get; }
+        public decimal Xdecimal { get; }
         /// <summary>
         /// Y as a double
         /// </summary>
-        public double Ydouble { get; }
+        public decimal Ydecimal { get; }
         /// <summary>
         /// Z as a double
         /// </summary>
-        public double Zdouble { get; }
+        public decimal Zdecimal { get; }
     }
     #endregion
 }

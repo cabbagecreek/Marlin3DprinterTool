@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using Marlin3DprinterToolConfiguration;
 using Marlin3DprinterToolUserControls.Properties;
@@ -8,15 +9,15 @@ namespace Marlin3DprinterToolUserControls
 {
     public partial class BedAdjuster : UserControl
     {
-
+        NumberConversion _numberConversion = new NumberConversion();
         private Configuration configuration = new Configuration();
         private AdjusterType _adjuster;
         private Position _position;
-        private double _z;
-        private double _x;
-        private double _y;
+        private decimal _z;
+        private decimal _x;
+        private decimal _y;
         private AdjusterThreadType _adjusterThreads;
-        private double _threadsPitch;
+        private decimal _threadsPitch;
 
 
         public AdjusterThreadType AdjusterThread
@@ -28,13 +29,13 @@ namespace Marlin3DprinterToolUserControls
                 switch (_adjusterThreads)
                 {
                     case AdjusterThreadType.M3:
-                        _threadsPitch = 0.5;
+                        _threadsPitch = new decimal(0.5);
                         break;
                     case AdjusterThreadType.M4:
-                        _threadsPitch = 0.7;
+                        _threadsPitch = new decimal(0.7);
                         break;
                     case AdjusterThreadType.M5:
-                        _threadsPitch = 0.8;
+                        _threadsPitch = new decimal(0.8);
                         break;
 
 
@@ -47,7 +48,7 @@ namespace Marlin3DprinterToolUserControls
             get { return _adjusterThreads; }
         }
 
-        public double X
+        public decimal X
         {
             set
             {
@@ -58,7 +59,7 @@ namespace Marlin3DprinterToolUserControls
             get { return _x; }
         }
 
-        public double Y
+        public decimal Y
         {
             set
             {
@@ -74,7 +75,7 @@ namespace Marlin3DprinterToolUserControls
             get { return _y; }
         }
 
-        public double Z
+        public decimal Z
         {
             set
             {
@@ -82,7 +83,7 @@ namespace Marlin3DprinterToolUserControls
                 if (Position != null)
                 {
                     Position.Z = _z;
-                    DelegateText(txtBxZ, _z.ToString().Replace(",", "."));
+                    DelegateText(txtBxZ, _numberConversion.ConvertDecimalToString(_z));
                 }
 
             }
@@ -186,7 +187,7 @@ namespace Marlin3DprinterToolUserControls
         }
 
 
-        public double Fix { get; set; }
+        public decimal Fix { get; set; }
 
 
 
@@ -195,10 +196,11 @@ namespace Marlin3DprinterToolUserControls
         {
 
 
-            DelegateText(txtBxZ, Z.ToString().Replace(",", "."));
-            double adjust;
-            var diff = (Fix - Z);
-            if (Math.Abs(diff) < 0.001)
+            DelegateText(txtBxZ, _numberConversion.ConvertDecimalToString(Z));
+            decimal adjust;
+            decimal diff = (Fix - Z);
+            
+            if (Math.Abs(diff) < (decimal) 0.001)
             {
                 adjust = 0;
             }
@@ -217,7 +219,7 @@ namespace Marlin3DprinterToolUserControls
             DelegateVisible(picBxLeft, true);
 
             Image turnIndicator = adjust <= 0 ? Resources.clockwise : Resources.counterclockwise;
-            if (Math.Abs(adjust) <= 0.05) turnIndicator = Resources.OK;
+            if (Math.Abs(adjust) <= (decimal) 0.05) turnIndicator = Resources.OK;
 
 
             switch (Adjuster)
@@ -337,4 +339,78 @@ namespace Marlin3DprinterToolUserControls
         FrontSingleAdjuster = 6,
         RightSingleAdjuster = 7
     }
+
+    public class NumberConversion
+    {
+        /// <summary>
+        /// Convert a string to Decimal
+        /// </summary>
+        /// <param name="numericString"></param>
+        /// <returns></returns>
+        public decimal ConvertStringToDecimal(string numericString)
+        {
+
+
+            string incommingString = numericString;
+
+
+
+            int findDot = numericString.IndexOf('.');
+            int findComma = numericString.IndexOf(',');
+
+            // Both dot and comma
+            if ((findDot != -1) && findComma != -1)
+            {
+                // Dot is 1000 divider
+                if (findDot < findComma)
+                {
+                    incommingString = incommingString.Replace(".", "");
+                    incommingString = incommingString.Replace(",", ".");
+                }
+
+                // Comma is 1000 divider
+                if (findDot > findComma)
+                {
+                    incommingString = incommingString.Replace(",", "");
+                }
+
+            }
+
+            if (findComma != -1)
+            {
+                incommingString = incommingString.Replace(",", ".");
+            }
+
+
+            decimal numericDecimal = Convert.ToDecimal(incommingString, CultureInfo.InvariantCulture);
+
+            return numericDecimal;
+        }
+
+        public string ConvertDecimalToString(decimal numericDecimal)
+        {
+
+
+            string numericString = numericDecimal.ToString(CultureInfo.InvariantCulture);
+
+            numericString = numericString.Replace(",", ".");
+            return numericString;
+
+
+        }
+        /// <summary>
+        /// Converts a numeric string to a numeric string with decimals
+        /// </summary>
+        /// <param name="numericString"></param>
+        /// <returns></returns>
+        public string ConvertStringToString(string numericString)
+        {
+            decimal numericDecimal = ConvertStringToDecimal(numericString);
+            return ConvertDecimalToString(numericDecimal);
+
+        }
+    }
+
+
+
 }

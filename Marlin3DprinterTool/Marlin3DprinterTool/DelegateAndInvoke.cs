@@ -325,44 +325,7 @@ namespace Marlin3DprinterTool
                     }
                 }
 
-                int minAxisX = 200;
-                int maxAxisX = 0;
-
-                if (chart.Series.IndexOf("Bed") != -1)
-                {
-                    foreach (DataPoint dataPoint in chart.Series["Bed"].Points)
-                    {
-                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
-                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
-                    }
-                }
-                if (chart.Series.IndexOf("SetBed") != -1)
-                {
-                    foreach (DataPoint dataPoint in chart.Series["SetBed"].Points)
-                    {
-                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
-                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
-                    }
-                }
-                if (chart.Series.IndexOf("Extruder") != -1)
-                {
-                    foreach (DataPoint dataPoint in chart.Series["Extruder"].Points)
-                    {
-                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
-                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
-                    }
-                }
-                if (chart.Series.IndexOf("SetExtruder") != -1)
-                {
-                    foreach (DataPoint dataPoint in chart.Series["SetExtruder"].Points)
-                    {
-                        minAxisX = (int) Math.Min(minAxisX, dataPoint.XValue - 10);
-                        maxAxisX = (int) Math.Max(maxAxisX, dataPoint.XValue + 10);
-                    }
-                }
-
-                
-
+               
 
 
 
@@ -391,8 +354,7 @@ namespace Marlin3DprinterTool
                 // area.AxisX.IntervalType = DateTimeIntervalType.Seconds;
 
                 chart.ResetAutoValues();
-                chart.ChartAreas[0].AxisX.Maximum = maxAxisX;
-                chart.ChartAreas[0].AxisX.Minimum = minAxisX;
+                
 
             }
         }
