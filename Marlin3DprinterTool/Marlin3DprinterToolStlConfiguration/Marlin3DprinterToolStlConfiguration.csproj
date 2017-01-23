@@ -100,6 +100,10 @@
       <Project>{7168404a-2b71-45e9-9bc7-c4e2277ae4b7}</Project>
       <Name>Marlin3DprinterToolStlThumbnailProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
+      <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
+      <Name>MarlinComunicationHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,7 +11,7 @@ namespace Marlin3DprinterToolConfiguration
 {
     public class Configuration
     {
-
+        readonly NumberConversion _numberConversion = new NumberConversion();
         public string CurrentFirmware
         {
             get
@@ -125,51 +125,7 @@ namespace Marlin3DprinterToolConfiguration
 
         }
 
-        //public void SetInitMeshpoint(int x, int y, double z)
-        //{
-        //    var xml = new XmlDocument();
-        //    xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-
-        //    XmlNode meshpointsXmlNode = xml.SelectSingleNode("/configuration/InitMeshPoints");
-        //    if (meshpointsXmlNode == null)
-        //    {
-        //        meshpointsXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "InitMeshPoints");
-        //    }
-
-
-        //    bool meshpointFound = false;
-
-        //    XmlNodeList meshpointXmlNodeList = xml.SelectNodes("/configuration/InitMeshPoints/MeshPoint");
-
-        //    if (meshpointXmlNodeList != null)
-        //    {
-        //        foreach (XmlElement meshPointXmlElement in meshpointXmlNodeList)
-        //        {
-        //            if (
-        //                Convert.ToInt16(meshPointXmlElement.Attributes["X"].Value) == x &&
-        //                Convert.ToInt16(meshPointXmlElement.Attributes["Y"].Value) == y
-        //                )
-        //            {
-        //                meshpointFound = true;
-        //                meshPointXmlElement.SetAttribute("Z", z.ToString().Replace(',', '.'));
-        //                break;
-        //            }
-
-        //        }
-
-        //    }
-        //    if (meshpointFound == false)
-        //    {
-        //        XmlElement meshpointXmlNode = (XmlElement) CreateMissingXmlNode(xml, meshpointsXmlNode, "MeshPoint");
-        //        meshpointXmlNode.SetAttribute("X", x.ToString());
-        //        meshpointXmlNode.SetAttribute("Y", y.ToString());
-        //        meshpointXmlNode.SetAttribute("Z", z.ToString().Replace(',','.'));
-        //    }
-
-
-        //    xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-
-        //}
+        
 
 
 
@@ -781,12 +737,8 @@ namespace Marlin3DprinterToolConfiguration
             {
                 var position = new Position
                 {
-                    X =
-                        Convert.ToDouble(xmlNodePosition.Attributes["x"].Value,
-                            CultureInfo.CreateSpecificCulture("en-GB")),
-                    Y =
-                        Convert.ToDouble(xmlNodePosition.Attributes["y"].Value,
-                            CultureInfo.CreateSpecificCulture("en-GB"))
+                    X = _numberConversion.ConvertStringToDecimal(xmlNodePosition.Attributes["x"].Value),
+                    Y = _numberConversion.ConvertStringToDecimal(xmlNodePosition.Attributes["y"].Value)
                 };
                 return position;
             }
@@ -808,8 +760,8 @@ namespace Marlin3DprinterToolConfiguration
 
             if (xmlNodePosition != null)
             {
-                xmlNodePosition.SetAttribute("x", position.X.ToString(CultureInfo.InvariantCulture).Replace(',', '.')); // Allways decimal point
-                xmlNodePosition.SetAttribute("y", position.Y.ToString(CultureInfo.InvariantCulture).Replace(',', '.')); // Allways decimal point
+                xmlNodePosition.SetAttribute("x", position.Xstring); // Allways decimal point
+                xmlNodePosition.SetAttribute("y", position.Ystring); // Allways decimal point
             }
 
             xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
@@ -826,148 +778,21 @@ namespace Marlin3DprinterToolConfiguration
             xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
 
             XmlNodeList meshPointXmlNodeList = xml.SelectNodes("/configuration/MeassuredMeshPoints/MeshPoint");
+            if (meshPointXmlNodeList == null) return meshPoints;
             foreach (XmlNode meshpoint in meshPointXmlNodeList)
             {
-                double x = Convert.ToDouble(meshpoint.Attributes["X"].Value.Replace('.', ','));
-                double y = Convert.ToDouble(meshpoint.Attributes["Y"].Value.Replace('.', ','));
-                double z = Convert.ToDouble(meshpoint.Attributes["Z"].Value.Replace('.', ','));
-
-                meshPoints.Add(new Position { X = x, Y = y, Z = z });
-            }
-
-
-            return meshPoints;
-        }
-
-
-        /// <summary>
-        /// Get the stored "Reset" Meshpoint
-        /// </summary>
-        /// <returns></returns>
-        public List<Position> GetTrueMeshpoints()
-        {
-            List<Position> meshPoints = new List<Position>();
-            var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-
-            XmlNodeList meshPointXmlNodeList = xml.SelectNodes("/configuration/TrueMeshPoints/MeshPoint");
-            foreach (XmlNode meshpoint in meshPointXmlNodeList)
-            {
-                double x = Convert.ToDouble(meshpoint.Attributes["X"].Value.Replace('.', ','));
-                double y = Convert.ToDouble(meshpoint.Attributes["Y"].Value.Replace('.', ','));
-                double z = Convert.ToDouble(meshpoint.Attributes["Z"].Value.Replace('.', ','));
-
-                meshPoints.Add(new Position { X = x, Y = y, Z = z });
-            }
-
-
-            return meshPoints;
-        }
-
-
-        /// <summary>
-        /// Set the MeshPoints
-        /// Saves recalculated MeshPoints
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        public void SetMeassuredMeshpoint(double x, double y, double z)
-        {
-            var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-
-            XmlNode meshpointsXmlNode = xml.SelectSingleNode("/configuration/MeassuredMeshPoints");
-            if (meshpointsXmlNode == null)
-            {
-                meshpointsXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "MeassuredMeshPoints");
-            }
-
-
-            bool meshpointFound = false;
-
-            XmlNodeList meshpointXmlNodeList = xml.SelectNodes("/configuration/MeassuredMeshPoints/MeshPoint");
-
-            if (meshpointXmlNodeList != null)
-            {
-                foreach (XmlElement meshPointXmlElement in meshpointXmlNodeList)
+                if (meshpoint.Attributes != null)
                 {
-                    if (
-                        Math.Abs(Convert.ToInt16(meshPointXmlElement.Attributes["X"].Value) - x) < 20 &&
-                        Math.Abs(Convert.ToInt16(meshPointXmlElement.Attributes["Y"].Value) - y) < 20
-                        )
-                    {
-                        meshpointFound = true;
-                        meshPointXmlElement.SetAttribute("Z", z.ToString().Replace(',', '.'));
-                        break;
-                    }
+                    decimal x = _numberConversion.ConvertStringToDecimal(meshpoint.Attributes["X"].Value);
+                    decimal y = _numberConversion.ConvertStringToDecimal(meshpoint.Attributes["Y"].Value);
+                    decimal z = _numberConversion.ConvertStringToDecimal(meshpoint.Attributes["Z"].Value);
 
+                    meshPoints.Add(new Position {X = x, Y = y, Z = z});
                 }
-
-            }
-            if (meshpointFound == false)
-            {
-                XmlElement meshpointXmlNode = (XmlElement)CreateMissingXmlNode(xml, meshpointsXmlNode, "MeshPoint");
-                meshpointXmlNode.SetAttribute("X", x.ToString());
-                meshpointXmlNode.SetAttribute("Y", y.ToString());
-                meshpointXmlNode.SetAttribute("Z", z.ToString().Replace(',', '.'));
             }
 
-
-            xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            return meshPoints;
         }
-
-
-        /// <summary>
-        /// Delete all meassured Meshpoints
-        /// </summary>
-        public void DeleteMeshPoints()
-        {
-            var xml = new XmlDocument();
-            xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-
-            XmlNode meshpointsXmlNode = xml.SelectSingleNode("/configuration/InitMeshPoints");
-            if (meshpointsXmlNode == null)
-            {
-                meshpointsXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "InitMeshPoints");
-            }
-
-            meshpointsXmlNode.RemoveAll();
-
-            XmlNode meassuredMeshXmlNode = xml.SelectSingleNode("/configuration/MeassuredMeshPoints");
-            if (meassuredMeshXmlNode == null)
-            {
-                meassuredMeshXmlNode = CreateMissingXmlNode(xml, xml.DocumentElement, "MeassuredMeshPoints");
-            }
-
-            meassuredMeshXmlNode.RemoveAll();
-
-
-
-
-
-            xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1012,15 +837,16 @@ namespace Marlin3DprinterToolConfiguration
     /// </summary>
     public class Position
     {
-        private double _x;
-        private double _y;
-        private double _z;
+        NumberConversion _numberConversion = new NumberConversion();
+        private decimal _x;
+        private decimal _y;
+        private decimal _z;
 
 
         /// <summary>
         /// Set/get the X value as double
         /// </summary>
-        public double X
+        public decimal X
         {
             get { return _x; }
             set { _x = value; }
@@ -1029,7 +855,7 @@ namespace Marlin3DprinterToolConfiguration
         /// <summary>
         /// Set/get the Y value as double
         /// </summary>
-        public double Y
+        public decimal Y
         {
             get { return _y; }
             set { _y = value; }
@@ -1038,7 +864,7 @@ namespace Marlin3DprinterToolConfiguration
         /// <summary>
         /// Set/get the Z value as double
         /// </summary>
-        public double Z
+        public decimal Z
         {
             get { return _z; }
             set { _z = value; }
@@ -1049,8 +875,8 @@ namespace Marlin3DprinterToolConfiguration
         /// </summary>
         public string Xstring
         {
-            get { return _x.ToString(CultureInfo.InvariantCulture).Replace(',', '.'); } // Always decimalpoint
-            set { _x = Convert.ToDouble(value.Replace('.', ',')); }
+            get { return _numberConversion.ConvertDecimalToString(_x); } // Always decimalpoint
+            set { _x = _numberConversion.ConvertStringToDecimal(value); }
         }
 
         /// <summary>
@@ -1058,8 +884,8 @@ namespace Marlin3DprinterToolConfiguration
         /// </summary>
         public string Ystring
         {
-            get { return _y.ToString(CultureInfo.InvariantCulture).Replace(',', '.'); } // Always decimalpoint
-            set { _y = Convert.ToDouble(value.Replace('.', ',')); }
+            get { return _numberConversion.ConvertDecimalToString(_y); } // Always decimalpoint
+            set { _y = _numberConversion.ConvertStringToDecimal(value); }
         }
 
         /// <summary>
@@ -1067,10 +893,73 @@ namespace Marlin3DprinterToolConfiguration
         /// </summary>
         public string Zstring
         {
-            get { return _z.ToString(CultureInfo.InvariantCulture).Replace(',', '.'); } // Always decimalpoint
-            set { _z = Convert.ToDouble(value.Replace('.', ',')); }
+            get { return _numberConversion.ConvertDecimalToString(_z); } // Always decimalpoint
+            set { _z = _numberConversion.ConvertStringToDecimal(value); }
         }
     }
 
+    #region
+
+    public class NumberConversion
+    {
+        /// <summary>
+        /// Convert a string to Decimal
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public decimal ConvertStringToDecimal(string text)
+        {
+
+
+            string incommingText = text;
+
+
+
+            int findDot = text.IndexOf('.');
+            int findComma = text.IndexOf(',');
+
+            // Both dot and comma
+            if ((findDot != -1) && findComma != -1)
+            {
+                // Dot is 1000 divider
+                if (findDot < findComma)
+                {
+                    incommingText = incommingText.Replace(".", "");
+                    incommingText = incommingText.Replace(",", ".");
+                }
+
+                // Comma is 1000 divider
+                if (findDot > findComma)
+                {
+                    incommingText = incommingText.Replace(",", "");
+                }
+
+            }
+
+            if (findComma != -1)
+            {
+                incommingText = incommingText.Replace(",", ".");
+            }
+
+
+            decimal tal = Convert.ToDecimal(incommingText, CultureInfo.InvariantCulture);
+
+            return tal;
+        }
+
+        public string ConvertDecimalToString(decimal numerDecimal)
+        {
+
+
+            string numericString = numerDecimal.ToString(CultureInfo.InvariantCulture);
+
+            numericString = numericString.Replace(",", ".");
+            return numericString;
+
+
+        }
+    }
+
+    #endregion
 
 }
