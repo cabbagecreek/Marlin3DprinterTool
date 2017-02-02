@@ -583,8 +583,8 @@ namespace MarlinComunicationHelper
                 
 
                 Temperatures eventTemperatures = new Temperatures();
-                if(!string.IsNullOrEmpty(extruderString)) { eventTemperatures.Extruder = _numberConversion.ConvertStringToDecimal(extruderString);}
-                if (!string.IsNullOrEmpty(setExtruderString)) { eventTemperatures.SetExtruder = _numberConversion.ConvertStringToDecimal(setExtruderString);}
+                if(!string.IsNullOrEmpty(extruderString)) { eventTemperatures.Extruder1 = _numberConversion.ConvertStringToDecimal(extruderString);}
+                if (!string.IsNullOrEmpty(setExtruderString)) { eventTemperatures.SetExtruder1 = _numberConversion.ConvertStringToDecimal(setExtruderString);}
                 if (!string.IsNullOrEmpty(heatbedTempString)) { eventTemperatures.Heatbed = _numberConversion.ConvertStringToDecimal(heatbedTempString);}
                 if (!string.IsNullOrEmpty(heatbedSetString)) { eventTemperatures.SetHeatbed = _numberConversion.ConvertStringToDecimal(heatbedSetString);}
                 if (!string.IsNullOrEmpty(extruder2TempString)) { eventTemperatures.Extruder2 = _numberConversion.ConvertStringToDecimal(extruder2TempString);}
@@ -1372,15 +1372,18 @@ namespace MarlinComunicationHelper
             
         }
 
+
+        NumberConversion numberConversion = new NumberConversion();
+
         /// <summary>
         /// Extruder temp
         /// </summary>
-        public decimal Extruder { get; set; }
+        public decimal Extruder1 { get; set; }
 
         /// <summary>
         /// Set extruder Temp
         /// </summary>
-        public decimal SetExtruder { get; set; }
+        public decimal SetExtruder1 { get; set; }
 
         /// <summary>
         /// Heatbed temp
@@ -1401,6 +1404,70 @@ namespace MarlinComunicationHelper
         /// Set extruder2 Temp
         /// </summary>
         public decimal SetExtruder2 { get; set; }
+
+
+
+
+
+
+
+        /// <summary>
+        /// Extruder temp
+        /// </summary>
+        public string Extruder1String
+        {
+            get { return numberConversion.ConvertDecimalToString(Extruder1); }
+            set { Extruder1 = numberConversion.ConvertStringToDecimal(value); }
+        }
+
+        /// <summary>
+        /// Set extruder Temp
+        /// </summary>
+        public string SetExtruder1String
+        {
+            get { return numberConversion.ConvertDecimalToString(SetExtruder1); }
+            set { SetExtruder1 = numberConversion.ConvertStringToDecimal(value); }
+        }
+
+        /// <summary>
+        /// Heatbed temp
+        /// </summary>
+        public string HeatbedString
+        {
+            get { return numberConversion.ConvertDecimalToString(Heatbed); }
+            set { Heatbed = numberConversion.ConvertStringToDecimal(value); }
+        }
+
+        /// <summary>
+        /// Set heatbed Temp
+        /// </summary>
+        public string SetHeatbedString
+        {
+            get { return numberConversion.ConvertDecimalToString(SetHeatbed); }
+            set { SetHeatbed = numberConversion.ConvertStringToDecimal(value); }
+        }
+
+        /// <summary>
+        /// Extruder2 Temp
+        /// </summary>
+        public string Extruder2String
+        {
+            get { return numberConversion.ConvertDecimalToString(Extruder2); }
+            set { Extruder2 = numberConversion.ConvertStringToDecimal(value); }
+        }
+
+        /// <summary>
+        /// Set extruder2 Temp
+        /// </summary>
+        public string SetExtruder2String
+        {
+            get { return numberConversion.ConvertDecimalToString(SetExtruder2); }
+            set { SetExtruder2 = numberConversion.ConvertStringToDecimal(value); }
+        }
+
+
+
+
     }
     #endregion
 

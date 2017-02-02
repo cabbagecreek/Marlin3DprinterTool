@@ -1279,8 +1279,17 @@ namespace Marlin3DprinterTool
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
         {
+            DelegateAndInvoke.DelegateText(txtBxCurrentExtruder1Temp,temperatures.Extruder1String);
+            DelegateAndInvoke.DelegateText(txtBxCurrentExtruder1Set, temperatures.SetExtruder1String);
+            DelegateAndInvoke.DelegateText(txtBxCurrentExtruder2Temp, temperatures.Extruder2String);
+            DelegateAndInvoke.DelegateText(txtBxCurrentExtruder2Temp, temperatures.SetExtruder2String);
+            DelegateAndInvoke.DelegateText(txtBxCurrentBedTemp, temperatures.HeatbedString);
+            DelegateAndInvoke.DelegateText(txtBxCurrentBedSet, temperatures.SetHeatbedString);
+
+
+
             DelegateAndInvoke.SetExtruderTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
-                (int) temperatures.Extruder, (int) temperatures.SetExtruder);
+                (int) temperatures.Extruder1, (int) temperatures.SetExtruder1);
 
             DelegateAndInvoke.SetBedTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
                 (int) temperatures.Heatbed, (int) temperatures.SetHeatbed);
