@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LedBulbUserControl
@@ -94,7 +89,7 @@ namespace LedBulbUserControl
             {
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 // Draw the control
-                drawControl(g, On);
+                DrawControl(g, On);
                 // Draw the image to the screen
                 e.Graphics.DrawImageUnscaled(offScreenBmp, 0, 0);
             }
@@ -103,7 +98,7 @@ namespace LedBulbUserControl
         /// <summary>
         ///     Renders the control to an image
         /// </summary>
-        private void drawControl(Graphics g, bool on)
+        private void DrawControl(Graphics g, bool on)
         {
             // Is the bulb on or off
             var lightColor = @on ? Color : Color.FromArgb(150, DarkColor);
