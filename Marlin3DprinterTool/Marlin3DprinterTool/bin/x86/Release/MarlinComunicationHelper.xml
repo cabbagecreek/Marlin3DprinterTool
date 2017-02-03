@@ -432,12 +432,12 @@
             Temperature 
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.Temperatures.Extruder">
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder1">
             <summary>
             Extruder temp
             </summary>
         </member>
-        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder">
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder1">
             <summary>
             Set extruder Temp
             </summary>
@@ -458,6 +458,36 @@
             </summary>
         </member>
         <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder2">
+            <summary>
+            Set extruder2 Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder1String">
+            <summary>
+            Extruder temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder1String">
+            <summary>
+            Set extruder Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.HeatbedString">
+            <summary>
+            Heatbed temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetHeatbedString">
+            <summary>
+            Set heatbed Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder2String">
+            <summary>
+            Extruder2 Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder2String">
             <summary>
             Set extruder2 Temp
             </summary>
