@@ -5,7 +5,6 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
 using Marlin3DprinterToolConfiguration;
-using MarlinComunicationHelper;
 
 namespace Marlin3DprinterStlViewer
 {

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
-
+using PayPal;
 
 
 namespace Marlin3DprinterToolConfiguration
@@ -40,16 +39,9 @@ namespace Marlin3DprinterToolConfiguration
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            var url = "https://www.paypal.com/cgi-bin/webscr" +
-                      @"?cmd=" + "_donations" +
-                      @"&business=" + "cabbagecreek@gmail.com" +
-                      @"&lc=" + "US" +
-                      @"&item_name=" + "Marlin 3D printer Tool Donation" +
-                      @"&amount=5" +
-                      @"&currency_code=" + "USD" +
-                      @"&bn=" + "PP%2dDonationsBF";
+            Donation paypal = new Donation();
 
-            Process.Start("IEXPLORE", url);
+            paypal.Donatebutton();
         }
 
         

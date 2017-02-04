@@ -104,6 +104,13 @@
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
       <Name>MarlinComunicationHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PayPal\PayPal.csproj">
+      <Project>{d55d589a-c4b7-414f-9b34-09c49ecf9afb}</Project>
+      <Name>PayPal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Donate.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

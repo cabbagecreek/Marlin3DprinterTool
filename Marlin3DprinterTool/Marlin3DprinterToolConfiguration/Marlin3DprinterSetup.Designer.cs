@@ -105,6 +105,7 @@ namespace Marlin3DprinterToolConfiguration
             // btnPayPal
             // 
             this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayPal.BackgroundImage = global::Marlin3DprinterToolConfiguration.Properties.Resources.Donate;
             this.btnPayPal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnPayPal.Location = new System.Drawing.Point(608, 217);
             this.btnPayPal.Name = "btnPayPal";
