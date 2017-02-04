@@ -775,48 +775,35 @@ namespace Marlin3DprinterTool
             _com.Status = MarlinCommunication.Feature.ExtruderCalibration;
             var commands = new List<string>();
 
-
-            if (chartTemperature.Series.IndexOf("Extruder") == -1)
-            {
-                chartTemperature.Series.Add("Extruder");
-                chartTemperature.Series["Extruder"].ChartType = SeriesChartType.Spline;
-                chartTemperature.Series["Extruder"].Color = Color.Red;
-                chartTemperature.Series["Extruder"].BorderWidth = 3;
-                chartTemperature.Series["Extruder"].BorderDashStyle = ChartDashStyle.Solid;
-                chartTemperature.Series["Extruder"].Points.Clear();
-            }
-            if (chartTemperature.Series.IndexOf("SetExtruder") == -1)
-            {
-                chartTemperature.Series.Add("SetExtruder");
-                chartTemperature.Series["SetExtruder"].ChartType = SeriesChartType.Spline;
-                chartTemperature.Series["SetExtruder"].Color = Color.Blue;
-                chartTemperature.Series["SetExtruder"].BorderWidth = 3;
-                chartTemperature.Series["SetExtruder"].BorderDashStyle = ChartDashStyle.Dash;
-                chartTemperature.Series["SetExtruder"].Points.Clear();
-            }
-            
-            
-
-            
-
-            
-            
-
-            
-            
-            
-            
-
-
-            _temperatureStopwatch.Reset();
-            _temperatureStopwatch.Start();
-
-
-            //SENT: M109 S195 T0
             var extruder = cmbBxExtruderCalibration.SelectedItem as ComboboxItemTextValue;
+
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder1Temp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder1Set");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder2Temp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder2Set");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesBedTemp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesBedSet");
 
             if (extruder != null)
             {
+                if ((int)extruder.ToValue() ==  0)
+                {
+                    DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder1Temp", Color.Red,ChartDashStyle.Solid);
+                    DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder1Set", Color.Red, ChartDashStyle.Dash);
+                }
+                else
+                {
+                    DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder2Temp", Color.BlueViolet,ChartDashStyle.Solid);
+                    DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder2Set", Color.BlueViolet,ChartDashStyle.Dash);
+                }
+                //DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesBedTemp", Color.DarkGreen, ChartDashStyle.Solid);
+                //DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesBedSet", Color.DarkGreen, ChartDashStyle.Dash);
+
+                _temperatureStopwatch.Reset();
+                _temperatureStopwatch.Start();
+
+
+                //SENT: M109 S195 T0
                 commands.Add($"M109 S{Convert.ToDouble(numUpDnCalibrateExtruderTemp.Value)} T{extruder.ToValue()}");
 
                 _com.SendCommand(commands);
@@ -836,36 +823,34 @@ namespace Marlin3DprinterTool
         {
             _com.Status = MarlinCommunication.Feature.AutoPidTuneExtruder;
             fctbPidResponce.Text = "";
-
-
-            
-            if (chartTemperature.Series.IndexOf("Extruder") == -1)
-            {
-                
-                chartTemperature.Series.Add("Extruder");
-                chartTemperature.Series["Extruder"].ChartType = SeriesChartType.Spline;
-                chartTemperature.Series["Extruder"].Color = Color.Red;
-                chartTemperature.Series["Extruder"].BorderWidth = 3;
-                chartTemperature.Series["Extruder"].BorderDashStyle = ChartDashStyle.Solid;
-                chartTemperature.Series["Extruder"].Points.Clear();
-            }
-            if (chartTemperature.Series.IndexOf("SetExtruder") == -1)
-            {
-                chartTemperature.Series.Add("SetExtruder");
-                chartTemperature.Series["SetExtruder"].ChartType = SeriesChartType.Spline;
-                chartTemperature.Series["SetExtruder"].Color = Color.Blue;
-                chartTemperature.Series["SetExtruder"].BorderWidth = 3;
-                chartTemperature.Series["SetExtruder"].BorderDashStyle = ChartDashStyle.Dash;
-                chartTemperature.Series["SetExtruder"].Points.Clear();
-            }
-            
-
-
-
-            _com.ClearCommunication();
             var comboboxItemTextValue = cmbBxPidExtruder.SelectedItem as ComboboxItemTextValue;
+
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder1Temp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder1Set");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder2Temp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder2Set");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesBedTemp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesBedSet");
+
             if (comboboxItemTextValue != null)
             {
+                if ((int)comboboxItemTextValue.ToValue() == 0)
+                {
+                    DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder1Temp", Color.Red, ChartDashStyle.Solid);
+                    //DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder1Set", Color.Red, ChartDashStyle.Dash);
+                }
+                else
+                {
+                    DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder2Temp", Color.BlueViolet, ChartDashStyle.Solid);
+                    //DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesExtruder2Set", Color.BlueViolet,ChartDashStyle.Dash);
+                }
+
+            
+
+
+                _com.ClearCommunication();
+            
+            
                 _com.SendCommand($"M303 E{(int) comboboxItemTextValue.ToValue()} S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
             }
         }
@@ -910,28 +895,31 @@ namespace Marlin3DprinterTool
         private void btnCalculateBedPid_Click(object sender, EventArgs e)
         {
             _com.Status = MarlinCommunication.Feature.AutoPidTuneBed;
-            if (chartTemperature.Series.IndexOf("Bed") == -1)
-            {
-               chartTemperature.Series.Add("Bed");
-                chartTemperature.Series["Bed"].ChartType = SeriesChartType.Spline;
-                chartTemperature.Series["Bed"].Color = Color.Red;
-                chartTemperature.Series["Bed"].BorderWidth = 3;
-                chartTemperature.Series["Bed"].BorderDashStyle = ChartDashStyle.Solid;
-                chartTemperature.Series["Bed"].Points.Clear();
-            }
-            if (chartTemperature.Series.IndexOf("SetBed") != -1)
-            {
-                chartTemperature.Series.Add("SetBed");
-                chartTemperature.Series["SetBed"].ChartType = SeriesChartType.Spline;
-                chartTemperature.Series["SetBed"].Color = Color.Blue;
-                chartTemperature.Series["SetBed"].BorderWidth = 3;
-                chartTemperature.Series["SetBed"].BorderDashStyle = ChartDashStyle.Dash;
-                chartTemperature.Series["SetBed"].Points.Clear();
-            }
+            var commands = new List<string>();
+
            
 
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder1Temp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder1Set");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder2Temp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesExtruder2Set");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesBedTemp");
+            DelegateAndInvoke.ChartRemoveSeries(chartTemperature, "SeriesBedSet");
+
+            
+            DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesBedTemp", Color.DarkGreen, ChartDashStyle.Solid);
+            //DelegateAndInvoke.ChartAddSeries(chartTemperature, "SeriesBedSet", Color.DarkGreen, ChartDashStyle.Dash);
+
+            _temperatureStopwatch.Reset();
+            _temperatureStopwatch.Start();
             fctbPidResponce.Text = "";
-            _com.SendCommand($"M303 E-1 S{numUpDownPidBedTemp.Value} C{numUpDownPidBedCykles.Value}");
+
+            //SENT: M303 E-1 S95 C5
+            commands.Add($"M303 E-1 S{Convert.ToDouble(numUpDownPidBedTemp.Value)} C{numUpDownPidBedCykles.Value}");
+
+            _com.SendCommand(commands);
+
+            
         }
 
         private void numUpDownPidBedCykles_ValueChanged(object sender, EventArgs e)
@@ -1288,11 +1276,35 @@ namespace Marlin3DprinterTool
 
 
 
-            DelegateAndInvoke.SetExtruderTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
-                (int) temperatures.Extruder1, (int) temperatures.SetExtruder1);
+           
 
-            DelegateAndInvoke.SetBedTemp(chartTemperature, (int) _temperatureStopwatch.Elapsed.TotalSeconds,
-                (int) temperatures.Heatbed, (int) temperatures.SetHeatbed);
+
+            // Create a new temperature reading
+            DelegateAndInvoke.SetTemp(chartTemperature,
+                "SeriesExtruder1Temp",
+                (int)_temperatureStopwatch.Elapsed.TotalSeconds,
+                (int) temperatures.Extruder1);
+            DelegateAndInvoke.SetTemp(chartTemperature,
+                "SeriesExtruder1Set",
+                (int)_temperatureStopwatch.Elapsed.TotalSeconds,
+                (int)temperatures.SetExtruder1);
+            DelegateAndInvoke.SetTemp(chartTemperature,
+                "SeriesExtruder2Temp",
+                (int)_temperatureStopwatch.Elapsed.TotalSeconds,
+                (int)temperatures.Extruder2);
+            DelegateAndInvoke.SetTemp(chartTemperature,
+                "SeriesExtruder2Set",
+                (int)_temperatureStopwatch.Elapsed.TotalSeconds,
+                (int)temperatures.SetExtruder2);
+            DelegateAndInvoke.SetTemp(chartTemperature,
+                "SeriesBedTemp",
+                (int)_temperatureStopwatch.Elapsed.TotalSeconds,
+                (int)temperatures.Heatbed);
+            DelegateAndInvoke.SetTemp(chartTemperature,
+                "SeriesBedSet",
+                (int)_temperatureStopwatch.Elapsed.TotalSeconds,
+                (int)temperatures.SetHeatbed);
+
         }
 
 
