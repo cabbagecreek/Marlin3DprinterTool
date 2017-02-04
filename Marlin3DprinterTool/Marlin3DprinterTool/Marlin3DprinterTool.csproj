@@ -193,6 +193,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+    <None Include="Resources\nozzle-temperature.png" />
     <None Include="Resources\Work_in_progress.png" />
     <None Include="Resources\dialGauge.jpg" />
     <None Include="Resources\Setting.png" />
@@ -234,6 +235,10 @@
     <ProjectReference Include="..\MarlinEditor\MarlinEditor.csproj">
       <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
       <Name>MarlinEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PayPal\PayPal.csproj">
+      <Project>{d55d589a-c4b7-414f-9b34-09c49ecf9afb}</Project>
+      <Name>PayPal</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

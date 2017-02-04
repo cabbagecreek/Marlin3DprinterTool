@@ -34,11 +34,13 @@
             this.btnRestartWindowsFileExplorer = new System.Windows.Forms.Button();
             this.btnUnInstallStlServer = new System.Windows.Forms.Button();
             this.btnInstallStlServer = new System.Windows.Forms.Button();
+            this.btnPayPal = new System.Windows.Forms.Button();
             this.grpBxInstallingStlThumbnailServer.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBxInstallingStlThumbnailServer
             // 
+            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnPayPal);
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnAssociateStlViewer);
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnColorStl);
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnRestartWindowsFileExplorer);
@@ -47,14 +49,14 @@
             this.grpBxInstallingStlThumbnailServer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBxInstallingStlThumbnailServer.Location = new System.Drawing.Point(0, 0);
             this.grpBxInstallingStlThumbnailServer.Name = "grpBxInstallingStlThumbnailServer";
-            this.grpBxInstallingStlThumbnailServer.Size = new System.Drawing.Size(428, 211);
+            this.grpBxInstallingStlThumbnailServer.Size = new System.Drawing.Size(428, 247);
             this.grpBxInstallingStlThumbnailServer.TabIndex = 7;
             this.grpBxInstallingStlThumbnailServer.TabStop = false;
             this.grpBxInstallingStlThumbnailServer.Text = "Installing the STL thumbnail Shell Extension";
             // 
             // btnAssociateStlViewer
             // 
-            this.btnAssociateStlViewer.Location = new System.Drawing.Point(218, 136);
+            this.btnAssociateStlViewer.Location = new System.Drawing.Point(218, 107);
             this.btnAssociateStlViewer.Name = "btnAssociateStlViewer";
             this.btnAssociateStlViewer.Size = new System.Drawing.Size(195, 23);
             this.btnAssociateStlViewer.TabIndex = 5;
@@ -102,14 +104,26 @@
             this.btnInstallStlServer.UseVisualStyleBackColor = true;
             this.btnInstallStlServer.Click += new System.EventHandler(this.btnInstallStlServer_Click);
             // 
+            // btnPayPal
+            // 
+            this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayPal.BackgroundImage = global::Marlin3DprinterToolStlConfiguration.Properties.Resources.Donate;
+            this.btnPayPal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPayPal.Location = new System.Drawing.Point(257, 163);
+            this.btnPayPal.Name = "btnPayPal";
+            this.btnPayPal.Size = new System.Drawing.Size(156, 78);
+            this.btnPayPal.TabIndex = 19;
+            this.btnPayPal.UseVisualStyleBackColor = true;
+            this.btnPayPal.Click += new System.EventHandler(this.btnPayPal_Click);
+            // 
             // FrmStlConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 211);
+            this.ClientSize = new System.Drawing.Size(428, 247);
             this.Controls.Add(this.grpBxInstallingStlThumbnailServer);
             this.Name = "FrmStlConfiguration";
-            this.Text = "Form1";
+            this.Text = "Configuration for STL thumbnails in Windows Explorer";
             this.grpBxInstallingStlThumbnailServer.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -123,6 +137,7 @@
         private System.Windows.Forms.Button btnRestartWindowsFileExplorer;
         private System.Windows.Forms.Button btnUnInstallStlServer;
         private System.Windows.Forms.Button btnInstallStlServer;
+        private System.Windows.Forms.Button btnPayPal;
     }
 }
 

@@ -428,6 +428,11 @@ namespace MarlinComunicationHelper
             
         }
 
+        private void ParseM105(string dataReceived)
+        {
+            //everything is allready done in ReceiveDataUntilOk()
+        }
+
         private void ParseM114(string dataReceived)
         {
             
@@ -570,7 +575,7 @@ namespace MarlinComunicationHelper
 
         private bool ParseTemperatures(string temperatureLine)
         {
-            var pattern = @"\A\s*T:[0-9,-,.]*\s*/[0-9,.]*\s*B:[0-9,.]*\s/[0-9,.]*\s@:[0-9,.]*\s*B@:[0-9,.]*";
+            var pattern = @"\s*T:[0-9,-,.]*\s*/[0-9,.]*\s*B:[0-9,.]*\s/[0-9,.]*\s@:[0-9,.]*\s*B@:[0-9,.]*";
 
             if (Regex.Match(temperatureLine, pattern).Success)
             {
@@ -860,6 +865,14 @@ namespace MarlinComunicationHelper
                         case "G30":
                             ParseG30(ReceiveDataUntilOk(30));
                             break;
+                        
+
+                        case "M48":
+                            ParseM48(ReceiveDataUntilOk(30));
+                            break;
+                        case "M105":
+                            ParseM105(ReceiveDataUntilOk(30));
+                            break;
                         case "M114":
                             ParseM114(ReceiveDataUntilOk(30));
                             break;
@@ -867,10 +880,6 @@ namespace MarlinComunicationHelper
                         case "M119":
                             Thread.Sleep(100);
                             ParseM119(ReceiveDataUntilOk(30));
-                            break;
-
-                        case "M48":
-                            ParseM48(ReceiveDataUntilOk(30));
                             break;
 
                         case "M301":
@@ -924,7 +933,8 @@ namespace MarlinComunicationHelper
 
             string dataReceived = null;
            
-            //string dataReceived = _serialPort.ReadStringUpToEndChars("ok\n", timeout);
+           
+
 
             while (true)
             {
@@ -935,6 +945,15 @@ namespace MarlinComunicationHelper
                     continue;
                 }
 
+
+                // Handle temperatureResponce and quit
+                if (Gcode == "M105")
+                {
+                    if (ParseTemperatures(line)) break;
+                }
+
+
+
                 if (ParseTemperatures(line)) continue; // Delete all temperatures
 
                 dataReceived += line + linuxNewline;
@@ -943,6 +962,7 @@ namespace MarlinComunicationHelper
 
                 switch (Gcode)
                 {
+                    
                     case "M303":
                         var responceData = new ResponceData(dataReceived);
                         OnM303Responce(responceData);

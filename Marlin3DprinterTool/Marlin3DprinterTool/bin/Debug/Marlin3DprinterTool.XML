@@ -96,21 +96,30 @@
             <param name="fastColoredTextBox"></param>
             <param name="row"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SetExtruderTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SetTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.String,System.Int32,System.Int32)">
             <summary>
+            Set the temp in a chart diagram
             </summary>
-            <param name="chart"></param>
-            <param name="time"></param>
-            <param name="extruderTemp"></param>
-            <param name="setExtruderTemp"></param>
+            <param name="chart">Chart control that holds the diagram</param>
+            <param name="serie">Serie in the diagram</param>
+            <param name="time">Time when the temp was captured</param>
+            <param name="temp">Temperature as integer</param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SetBedTemp(System.Windows.Forms.DataVisualization.Charting.Chart,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.ChartRemoveSeries(System.Windows.Forms.DataVisualization.Charting.Chart,System.String)">
             <summary>
+            
             </summary>
             <param name="chart"></param>
-            <param name="time"></param>
-            <param name="bedTemp"></param>
-            <param name="setBedTemp"></param>
+            <param name="serie"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.ChartAddSeries(System.Windows.Forms.DataVisualization.Charting.Chart,System.String,System.Drawing.Color,System.Windows.Forms.DataVisualization.Charting.ChartDashStyle)">
+            <summary>
+            
+            </summary>
+            <param name="chart"></param>
+            <param name="serie"></param>
+            <param name="color"></param>
+            <param name="dashStyle"></param>
         </member>
         <member name="M:Marlin3DprinterTool.DelegateAndInvoke.SelectTabcontrol(System.Windows.Forms.TabControl,System.Windows.Forms.TabPage)">
             <summary>
@@ -278,6 +287,11 @@
             </summary>
         </member>
         <member name="P:Marlin3DprinterTool.Properties.Resources.emargency_enabled">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:Marlin3DprinterTool.Properties.Resources.nozzle_temperature">
             <summary>
               Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>

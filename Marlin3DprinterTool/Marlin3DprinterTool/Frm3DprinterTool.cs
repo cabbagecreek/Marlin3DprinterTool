@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,6 +15,7 @@ using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
+using PayPal;
 using Configuration = Marlin3DprinterToolConfiguration.Configuration;
 using NumberConversion = Marlin3DprinterToolConfiguration.NumberConversion;
 using Position = Marlin3DprinterToolConfiguration.Position;
@@ -362,16 +362,9 @@ namespace Marlin3DprinterTool
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            var url = "https://www.paypal.com/cgi-bin/webscr" +
-                      @"?cmd=" + "_donations" +
-                      @"&business=" + "cabbagecreek@gmail.com" +
-                      @"&lc=" + "US" +
-                      @"&item_name=" + "Marlin 3D printer Tool Donation" +
-                      @"&amount=5" +
-                      @"&currency_code=" + "USD" +
-                      @"&bn=" + "PP%2dDonationsBF";
+            Donation paypal = new Donation();
 
-            Process.Start("IEXPLORE", url);
+            paypal.Donatebutton();
         }
 
 
@@ -2711,6 +2704,16 @@ namespace Marlin3DprinterTool
         {
             List<string> commands = new List<string> {"G28 Y", "G28 X", "G28 Z", $"M48 P{trackBarNumberOfM48Test.Value}"}; 
             _com.SendCommand(commands);
+        }
+
+        private void grpBxZ_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGetTemp_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand("M105");
         }
     }
 

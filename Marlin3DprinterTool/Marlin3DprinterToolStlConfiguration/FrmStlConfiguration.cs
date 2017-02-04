@@ -10,6 +10,7 @@ using LogicNP.EZShellExtensions;
 using Marlin3DprinterToolConfiguration;
 using Marlin3DprinterToolStlThumbnailProvider;
 using Microsoft.Win32;
+using PayPal;
 
 namespace Marlin3DprinterToolStlConfiguration
 {
@@ -437,6 +438,13 @@ namespace Marlin3DprinterToolStlConfiguration
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
+        }
+
+        private void btnPayPal_Click(object sender, EventArgs e)
+        {
+            Donation paypal = new Donation();
+
+            paypal.Donatebutton();
         }
     }
 }
