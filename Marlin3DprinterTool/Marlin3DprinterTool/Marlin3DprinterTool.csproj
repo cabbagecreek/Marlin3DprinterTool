@@ -193,6 +193,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+    <None Include="Resources\nozzle-temperature.png" />
     <None Include="Resources\Work_in_progress.png" />
     <None Include="Resources\dialGauge.jpg" />
     <None Include="Resources\Setting.png" />

@@ -2712,6 +2712,16 @@ namespace Marlin3DprinterTool
             List<string> commands = new List<string> {"G28 Y", "G28 X", "G28 Z", $"M48 P{trackBarNumberOfM48Test.Value}"}; 
             _com.SendCommand(commands);
         }
+
+        private void grpBxZ_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGetTemp_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand("M105");
+        }
     }
 
 

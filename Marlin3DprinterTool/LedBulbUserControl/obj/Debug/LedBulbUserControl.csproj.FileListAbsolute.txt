@@ -1,4 +1,5 @@
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\bin\Debug\LedBulbUserControl.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\bin\Debug\LedBulbUserControl.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\Debug\LedBulbUserControl.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\Debug\LedBulbUserControl.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\Debug\LedBulbUserControl.pdb
