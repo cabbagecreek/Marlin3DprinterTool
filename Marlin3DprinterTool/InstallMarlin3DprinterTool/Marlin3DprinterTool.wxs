@@ -265,6 +265,11 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\AGauge.dll" />
       </Component>
       
+      <!--PayPal.dll -->
+      <Component Id="PayPal.dll" Guid="{EB395271-506B-42C5-9F08-9C7B8B79C44D}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\PayPal.dll" />
+      </Component>
+      
       
     </ComponentGroup>
 
