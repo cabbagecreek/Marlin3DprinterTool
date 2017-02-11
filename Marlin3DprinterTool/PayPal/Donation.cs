@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace PayPal
 {
@@ -15,10 +16,39 @@ namespace PayPal
                      @"&currency_code=" + "USD" +
                      @"&bn=" + "PP%2dDonationsBF";
 
-            Process.Start("IEXPLORE", url);
+            launchBrowser(url);
 
 
+        }
 
+
+        private void launchBrowser(string url)
+        {
+            string browserName = null;
+            using (RegistryKey userChoiceKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice"))
+            {
+                if (userChoiceKey == null)
+                {
+                    browserName = "iexplore.exe";
+                }
+                else
+                {
+                    object progIdValue = userChoiceKey.GetValue("Progid");
+                    if (progIdValue != null)
+                    {
+                        if (progIdValue.ToString().ToLower().Contains("chrome"))
+                            browserName = "chrome.exe";
+                        else if (progIdValue.ToString().ToLower().Contains("firefox"))
+                            browserName = "firefox.exe";
+                        else if (progIdValue.ToString().ToLower().Contains("safari"))
+                            browserName = "safari.exe";
+                        else if (progIdValue.ToString().ToLower().Contains("opera"))
+                            browserName = "opera.exe";
+                    }
+                }
+            }
+
+            Process.Start(new ProcessStartInfo(browserName, url));
         }
     }
 }
