@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Marlin3DprinterTool.Properties;
@@ -38,8 +39,8 @@ namespace Marlin3DprinterTool
         
         private NumberConversion _numberConversion = new NumberConversion();
 
-        private decimal _dockZprobePrecision;
-        private bool _dockZprobeUpDown ;
+        //private decimal _dockZprobePrecision;
+        //private bool _dockZprobeUpDown ;
 
         ///
         public FrmMarlin3DprinterTool()
@@ -116,6 +117,13 @@ namespace Marlin3DprinterTool
                     chkListBxAdjustment.SetItemChecked(i, true);
                 }
             }
+
+            chkBxBlTouch.Checked = _configuration.BLTouch;
+            btnBlTouchSave.Visible = chkBxBlTouch.Checked;
+            btnBlTouchResetAlarm.Visible = chkBxBlTouch.Checked;
+            btnBlTouchSelftest.Visible = chkBxBlTouch.Checked;
+            btnBlTouchEngage.Visible = chkBxBlTouch.Checked;
+            btnBlTouchRelease.Visible = chkBxBlTouch.Checked;
         }
 
 
@@ -134,7 +142,7 @@ namespace Marlin3DprinterTool
         {
             trkBarTemperature.Value = (int) numUpDnCalibrateExtruderTemp.Value;
         }
-
+        
 
         private void tabControl3DprinterTool_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -147,12 +155,13 @@ namespace Marlin3DprinterTool
         {
             string selectedTab = DelegateAndInvoke.TabControl3DprinterToolSelected(tabControl3DprinterTool);
 
+            if (selectedTab != tabPageEndstop.Name) {timerEndstop.Stop();}
 
             if (selectedTab == tabPageEndstop.Name)
             {
                 _com.Status = MarlinCommunication.Feature.EndStop;
-                List<string> commands = new List<string> { "M0 P50","M119" };
-                _com.SendCommand(commands);
+                timerEndstop.Start();
+                
             }
             else
             if (selectedTab == tabPageZoffset.Name)
@@ -218,7 +227,12 @@ namespace Marlin3DprinterTool
 
         private void btnHomeZ_Click(object sender, EventArgs e)
         {
-            _com.SendCommand(new List<string>(new[] {"G28 Z", "M114"}));
+            List<string> commands = new List<string>();
+
+            
+            commands.Add("G28 Z");
+            commands.Add("M114");
+            _com.SendCommand(commands);
         }
 
         private void btnHomeY_Click(object sender, EventArgs e)
@@ -286,21 +300,12 @@ namespace Marlin3DprinterTool
 
         private void ScanSurface(List<Position> probePointsList, int numberOfRepetitions)
         {
-            var result = MessageBox.Show(@"Do you want to engare the Z-probe?", @"Engage Z-probe",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            switch (result)
-            {
-                case DialogResult.Cancel:
-                    return;
-                case DialogResult.OK:
-                    var conf = new Configuration();
-                    _com.SendCommand(conf.GcodeAssistZprobeEngage);
-                    break;
-            }
 
 
-            
-            var commands = new List<string> {"G28 Y", "G28 X", "G28 Z"};
+            string gcodeSpeed = "";
+
+            var commands = new List<string> {"G28 Y", "G28 X"};
+            commands.Add(@"G28 Z");
 
             _probePoints.Clear();
 
@@ -308,20 +313,45 @@ namespace Marlin3DprinterTool
 
             foreach (Position probePoint in probePointsList)
             {
-                
+
                 // move to X&Y
-                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} F6000");
+                
+                
+                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
                 //commands.Add("G1 Z40");
 
                 for (var i = 0; i < numberOfRepetitions; i++)
                 {
+                    //if (_configuration.GcodeAssistZprobeEngage.Count >= 1)
+                    //{
+                    //    foreach (string line in _configuration.GcodeAssistZprobeEngage )
+                    //    {
+                    //        commands.Add(line);
+                    //    }
+                    //}
                     // probe the point
-                    commands.Add("G30 S-1");
-                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} F6000");
+                    commands.Add("G30 S-1" );
+                    //if (_configuration.GcodeAssistZprobeRelease.Count >= 1)
+                    //{
+                    //    foreach (string line in _configuration.GcodeAssistZprobeRelease)
+                    //    {
+                    //        commands.Add(line);
+                    //    }
+                    //}
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
                 }
             }
 
-            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} F6000");
+            //if (_configuration.GcodeAssistZprobeRelease.Count >= 1)
+            //{
+            //    foreach (string line in _configuration.GcodeAssistZprobeRelease)
+            //    {
+            //        commands.Add(line);
+            //    }
+            //}
+            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+            
+
             _com.SendCommand(commands);
         }
 
@@ -1038,8 +1068,8 @@ namespace Marlin3DprinterTool
             {
                 #region EndStop
                 case MarlinCommunication.Feature.EndStop:
-                    List<string> commands = new List<string> { "M0 P500","M119" };
-                    _com.SendCommand(commands);
+                    //List<string> commands = new List<string> { "M0 P500","M119" };
+                    //_com.SendCommand(commands);
                     break;
                 #endregion
 
@@ -1195,7 +1225,7 @@ namespace Marlin3DprinterTool
                     _com.Status = MarlinCommunication.Feature.Done;
                     break;
 
-                    #endregion
+                    #endregion%
 
                 #region SurfaceScan
 
@@ -1208,36 +1238,14 @@ namespace Marlin3DprinterTool
 
                 #region DockZprobe
                 case MarlinCommunication.Feature.DockZprobe:
+
+
                     
 
-                    // Going Down and ZProbe triggered
-                    if (_com.EndStopStatus.Zmin == _dockZprobeUpDown)
-                    {
-                        if (_com.EndStopStatus.Zmin && _dockZprobeUpDown && _dockZprobePrecision <= (decimal) 0.03)
-                        {
-                            DelegateAndInvoke.DelegateText(txtBxDockZprobe, _com.CurrentPosition.Zstring);
-                            
-                            _com.Status = MarlinCommunication.Feature.Done;
-                            _com.SendCommand(new List<string> {  "M114", "M119", });
-                            break;
-                        }
-
-                        _dockZprobePrecision = Math.Max( (_dockZprobePrecision/(decimal) 2.0), (decimal) 0.025);
-                        _dockZprobeUpDown = !_dockZprobeUpDown; // Change direction
-                    }
-
-                  
-                    if (_dockZprobeUpDown)
-                    {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z-{_numberConversion.ConvertDecimalToString(_dockZprobePrecision)} ", "G90", "M0 P100",  "M119", "M114", });
-                    }
-                    else
-                    {
-                        _com.SendCommand(new List<string> { "G91", $"G1 Z{_numberConversion.ConvertDecimalToString(_dockZprobePrecision)} ", "G90", "M0 P100", "M119", "M114", });
-                    }
-
                     break;
-                    #endregion
+                #endregion
+
+                
 
                 #region ExtruderCalibration
                 case MarlinCommunication.Feature.ExtruderCalibration:
@@ -1433,6 +1441,7 @@ namespace Marlin3DprinterTool
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
         {
+            
 
             // Calculate the turns on each corner
             if (_com.ProbeResponceList != null)
@@ -1491,7 +1500,7 @@ namespace Marlin3DprinterTool
                         bedAdjusterRightSingle.Z = probeResponce.Z;
                     }
 
-
+                    DelegateAndInvoke.DelegateText(txtBxDockZprobe, probeResponce.Zstring);
 
                 }
             }
@@ -1541,7 +1550,11 @@ namespace Marlin3DprinterTool
 
             ShowInitAndM501(e.Data);
 
-            
+            if (_configuration.BLTouch)
+            {
+                
+                _com.SendCommand("M280 P0 S160");
+            }
             
         }
 
@@ -1681,11 +1694,12 @@ namespace Marlin3DprinterTool
         }
 
 
-        private void _com_M48ProbeStatus(object sender, Responce responce)
+        private void _com_M48ProbeStatus(object sender, ResponceData responce)
         {
 
+            string text = fctbM48Test.Text + responce.Data.Replace("\n","") + Environment.NewLine;
 
-            DelegateAndInvoke.FastColoredTextBox(fctbM48Test,responce.ResponsRowList);
+            DelegateAndInvoke.FastColoredTextBox(fctbM48Test,text);
             
            
 
@@ -2531,22 +2545,31 @@ namespace Marlin3DprinterTool
 
         private void btnDockZprobe_Click(object sender, EventArgs e)
         {
-            AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
-            if (probeRange != null)
-            {
+            
 
-                aGaugeProbe.GaugeRanges.Remove(probeRange);
-                aGaugeProbe.RepaintControl();
-            }
             _com.Status = MarlinCommunication.Feature.DockZprobe;
 
+            List<String> commands = new List<string>();
+            if (_configuration.GcodeAssistZprobeEngage.Count >= 1)
+            {
+                foreach (string line in _configuration.GcodeAssistZprobeRelease)
+                {
+                    commands.Add(line);
+                }
+
+            }
+
+            commands.Add("G28 Y");
+            commands.Add("G28 X");
             
-            List<String> commands = new List<string> {"G28","G91", "G1 Z10","G90","M0 P500", "M119", "M114"};
-            _dockZprobePrecision = (decimal) 0.5;
-            _dockZprobeUpDown = true;
+            
+
+            commands.Add(@"G28 Z");
+            commands.Add("G30 S-1 ");
+            
 
             _com.SendCommand(commands);
-            
+
 
         }
 
@@ -2569,19 +2592,19 @@ namespace Marlin3DprinterTool
 
         private void txtBxDockZprobe_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtBxDockZprobe.Text))
-            {
-                decimal dockedProbeHigh = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
-                decimal dockedProbeLow =  dockedProbeHigh - 1;
-                AGaugeRange probeRange = new AGaugeRange(Color.Green, (float) dockedProbeLow, (float) dockedProbeHigh, 5, 80)
-                {
-                    Name = "Probe"
-                };
+            //if (!string.IsNullOrEmpty(txtBxDockZprobe.Text))
+            //{
+            //    decimal dockedProbeHigh = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
+            //    decimal dockedProbeLow =  dockedProbeHigh - 1;
+            //    AGaugeRange probeRange = new AGaugeRange(Color.Green, (float) dockedProbeLow, (float) dockedProbeHigh, 5, 80)
+            //    {
+            //        Name = "Probe"
+            //    };
 
-                aGaugeProbe.GaugeRanges.Add(probeRange);
+            //    aGaugeProbe.GaugeRanges.Add(probeRange);
                 
 
-            }
+            //}
         }
 
        
@@ -2589,16 +2612,7 @@ namespace Marlin3DprinterTool
         private void txtBxZprobePosition_TextChanged(object sender, EventArgs e)
         {
             aGaugeProbe.Value = (float) _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
-            if (_com.EndStopStatus.Zmin)
-            {
-                AGaugeRange probeRange = aGaugeProbe.GaugeRanges.FindByName("Probe");
-                if (probeRange != null)
-                {
-                    
-                    probeRange.StartValue = (float) _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
-                }
-                
-            }
+            
         }
 
         
@@ -2702,8 +2716,21 @@ namespace Marlin3DprinterTool
 
         private void btnM48Test_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string> {"G28 Y", "G28 X", "G28 Z", $"M48 P{trackBarNumberOfM48Test.Value}"}; 
+
+            fctbM48Test.Clear();
+
+            List<string> commands = new List<string>();
+            
+           
+            commands.Add("G28 Y");
+            commands.Add("G28 X");
+            commands.Add("G28 Z");
+            commands.Add($"M48 P{trackBarNumberOfM48Test.Value} V4");
             _com.SendCommand(commands);
+
+            
+
+
         }
 
         private void grpBxZ_Enter(object sender, EventArgs e)
@@ -2714,6 +2741,70 @@ namespace Marlin3DprinterTool
         private void btnGetTemp_Click(object sender, EventArgs e)
         {
             _com.SendCommand("M105");
+        }
+
+        private void cmbBxComPort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkBxBlTouch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBxBlTouch.Checked)
+            {
+                txtBxGcodeAssistZprobeEngage.Clear();
+                txtBxGcodeAssistZprobeEngage.AppendText(@"M280 P0 S10");
+
+                txtBxGcodeAssistZprobeRelease.Clear();
+                txtBxGcodeAssistZprobeRelease.AppendText(@"M280 P0 S160");
+                txtBxGcodeAssistZprobeRelease.AppendText(@"M280 P0 S90");
+
+
+
+            }
+
+            btnBlTouchResetAlarm.Visible = chkBxBlTouch.Checked;
+            btnBlTouchSelftest.Visible = chkBxBlTouch.Checked;
+            btnBlTouchSave.Visible = chkBxBlTouch.Checked;
+            btnBlTouchEngage.Visible = chkBxBlTouch.Checked;
+            btnBlTouchRelease.Visible = chkBxBlTouch.Checked;
+
+            _configuration.BLTouch = (chkBxBlTouch.Checked);
+        }
+
+        private void btnBlTouchResetAlarm_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand(@"M280 P0 S160");
+        }
+
+        private void btnBlTouchSelftest_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand(@"M280 P0 S120");
+        }
+
+        private void btnBlTouchEngage_Click_1(object sender, EventArgs e)
+        {
+            _com.SendCommand(new List<string>(txtBxGcodeAssistZprobeEngage.Lines));
+        }
+
+        private void btnBlTouchRelease_Click(object sender, EventArgs e)
+        {
+            _com.SendCommand(new List<string>(txtBxGcodeAssistZprobeRelease.Lines));
+        }
+
+        private void btnBlTouchSave_Click(object sender, EventArgs e)
+        {
+            _configuration.GcodeAssistZprobeEngage = new List<string>(txtBxGcodeAssistZprobeEngage.Lines);
+            _configuration.GcodeAssistZprobeRelease = new List<string>(txtBxGcodeAssistZprobeRelease.Lines);
+        }
+
+        private void timerEndstop_Tick(object sender, EventArgs e)
+        {
+            if (_com.IsPortOpen)
+            {
+                List<string> commands = new List<string> {"M0 P500", "M119"};
+                _com.SendCommand(commands);
+            }
         }
     }
 
