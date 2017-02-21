@@ -48,9 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmArduinoIde.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FrmArduinoIde.cs" />
     <Compile Include="FrmArduinoIde.Designer.cs">
       <DependentUpon>FrmArduinoIde.cs</DependentUpon>
     </Compile>
@@ -60,23 +58,17 @@
     <Compile Include="FrmCurrentOrNewFirmware.Designer.cs">
       <DependentUpon>FrmCurrentOrNewFirmware.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarlinFirmware.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="MarlinFirmware.cs" />
     <Compile Include="MarlinFirmware.Designer.cs">
       <DependentUpon>MarlinFirmware.cs</DependentUpon>
     </Compile>
-    <Compile Include="New.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="New.cs" />
     <Compile Include="New.Designer.cs">
       <DependentUpon>New.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestArduinoIDE.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="TestArduinoIDE.cs" />
     <Compile Include="TestArduinoIDE.Designer.cs">
       <DependentUpon>TestArduinoIDE.cs</DependentUpon>
     </Compile>
