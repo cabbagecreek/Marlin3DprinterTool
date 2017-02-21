@@ -261,7 +261,7 @@
         </member>
         <member name="M:MarlinComunicationHelper.MarlinCommunication.SendCommand(System.Collections.Generic.List{System.String})">
             <summary>
-            Send a list of commands . Each command uses SendCommand with the single GCODE
+            Send a list of commands . 
             </summary>
             <param name="commands"></param>
         </member>
@@ -308,7 +308,7 @@
             Handle event that rise after M48
             </summary>
         </member>
-        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM48ProbeStatus(MarlinComunicationHelper.Responce)">
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM48ProbeStatus(MarlinComunicationHelper.ResponceData)">
             <summary>
             Handle event that rise after M48
             </summary>

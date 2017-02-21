@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArduinoIDE</RootNamespace>
+    <AssemblyName>ArduinoIDE</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ArduinoIDE.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmArduinoIde.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmArduinoIde.Designer.cs">
+      <DependentUpon>FrmArduinoIde.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCurrentOrNewFirmware.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCurrentOrNewFirmware.Designer.cs">
+      <DependentUpon>FrmCurrentOrNewFirmware.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarlinFirmware.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MarlinFirmware.Designer.cs">
+      <DependentUpon>MarlinFirmware.cs</DependentUpon>
+    </Compile>
+    <Compile Include="New.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="New.Designer.cs">
+      <DependentUpon>New.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestArduinoIDE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestArduinoIDE.Designer.cs">
+      <DependentUpon>TestArduinoIDE.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FrmArduinoIde.resx">
+      <DependentUpon>FrmArduinoIde.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCurrentOrNewFirmware.resx">
+      <DependentUpon>FrmCurrentOrNewFirmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarlinFirmware.resx">
+      <DependentUpon>MarlinFirmware.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="New.resx">
+      <DependentUpon>New.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="TestArduinoIDE.resx">
+      <DependentUpon>TestArduinoIDE.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
+      <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
+      <Name>Marlin3DprinterToolConfiguration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
+      <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
+      <Name>MarlinComunicationHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarlinEditor\MarlinEditor.csproj">
+      <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
+      <Name>MarlinEditor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new green.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

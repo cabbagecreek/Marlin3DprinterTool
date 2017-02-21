@@ -8,7 +8,7 @@ using FastColoredTextBoxNS;
 
 namespace MarlinEditor
 {
-    class MarlinMigrateHelper
+    public class MarlinMigrateHelper
     {
         public static List<string> FindFirmwareFeatures(FastColoredTextBox fastColoredTextBox)
         {
