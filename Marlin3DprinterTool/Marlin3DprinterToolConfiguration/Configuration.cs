@@ -700,6 +700,32 @@ namespace Marlin3DprinterToolConfiguration
             }
         }
 
+        public bool BLTouch {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null) return false;  // Default is false
+
+                return xmlNode.GetAttribute("BLTouch") == true.ToString();
+            }
+
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Zprobe");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Zprobe");
+                }
+                xmlNode?.SetAttribute("BLTouch", value.ToString());
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        } 
+
+
         /// <summary>
         /// Decrypt a string. Usage for license key
         /// </summary>

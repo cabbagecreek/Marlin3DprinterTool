@@ -120,24 +120,23 @@ namespace Marlin3DprinterTool
             this.rdoBn3pointLeft = new System.Windows.Forms.RadioButton();
             this.rdoBn4point = new System.Windows.Forms.RadioButton();
             this.tabPageConfigurationZprobe = new System.Windows.Forms.TabPage();
+            this.grpBxBlTouch = new System.Windows.Forms.GroupBox();
+            this.btnBlTouchSave = new System.Windows.Forms.Button();
+            this.btnBlTouchRelease = new System.Windows.Forms.Button();
+            this.btnBlTouchEngage = new System.Windows.Forms.Button();
+            this.btnBlTouchResetAlarm = new System.Windows.Forms.Button();
+            this.btnBlTouchSelftest = new System.Windows.Forms.Button();
+            this.chkBxBlTouch = new System.Windows.Forms.CheckBox();
             this.grpAutoBedLevel = new System.Windows.Forms.GroupBox();
             this.fctbAutoBedLevelResponce = new FastColoredTextBoxNS.FastColoredTextBox();
             this.btnAutoBedLevel = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnTestZprobeRelease = new System.Windows.Forms.Button();
             this.btnTestZprobeReleaseSave = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnCreateExampleForZprobeServoRelease = new System.Windows.Forms.Button();
-            this.btnCreateExampleForZprobeSledRelease = new System.Windows.Forms.Button();
-            this.btnCreateExampleForZprobePositionRelease = new System.Windows.Forms.Button();
             this.txtBxGcodeAssistZprobeRelease = new System.Windows.Forms.TextBox();
             this.grpBxEngageZprobe = new System.Windows.Forms.GroupBox();
             this.btnTestZprobeEngage = new System.Windows.Forms.Button();
             this.btnTestZprobeEngageSave = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnCreateExampleForZprobeServoEngage = new System.Windows.Forms.Button();
-            this.btnCreateExampleForZprobeSledEngage = new System.Windows.Forms.Button();
-            this.btnCreateExampleForZprobePositionEngage = new System.Windows.Forms.Button();
             this.txtBxGcodeAssistZprobeEngage = new System.Windows.Forms.TextBox();
             this.tabPageScanSurface = new System.Windows.Forms.TabPage();
             this.nChartControlSurface = new Nevron.Chart.WinForm.NChartControl();
@@ -365,6 +364,7 @@ namespace Marlin3DprinterTool
             this.btnEmergency = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
             this.btnPayPal = new System.Windows.Forms.Button();
+            this.timerEndstop = new System.Windows.Forms.Timer(this.components);
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -384,12 +384,11 @@ namespace Marlin3DprinterTool
             this.panelBed.SuspendLayout();
             this.grpBxAdjusters.SuspendLayout();
             this.tabPageConfigurationZprobe.SuspendLayout();
+            this.grpBxBlTouch.SuspendLayout();
             this.grpAutoBedLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbAutoBedLevelResponce)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.grpBxEngageZprobe.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.tabPageScanSurface.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownNumberOfRepetitions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownYpoints)).BeginInit();
@@ -1549,7 +1548,7 @@ namespace Marlin3DprinterTool
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointRight);
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointLeft);
             this.grpBxAdjusters.Controls.Add(this.rdoBn4point);
-            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 853);
+            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 925);
             this.grpBxAdjusters.Name = "grpBxAdjusters";
             this.grpBxAdjusters.Size = new System.Drawing.Size(253, 100);
             this.grpBxAdjusters.TabIndex = 20;
@@ -1620,6 +1619,7 @@ namespace Marlin3DprinterTool
             // 
             // tabPageConfigurationZprobe
             // 
+            this.tabPageConfigurationZprobe.Controls.Add(this.grpBxBlTouch);
             this.tabPageConfigurationZprobe.Controls.Add(this.grpAutoBedLevel);
             this.tabPageConfigurationZprobe.Controls.Add(this.groupBox3);
             this.tabPageConfigurationZprobe.Controls.Add(this.grpBxEngageZprobe);
@@ -1631,15 +1631,92 @@ namespace Marlin3DprinterTool
             this.toolTip3DprinterTool.SetToolTip(this.tabPageConfigurationZprobe, "Configuration and Test of the Z-probe");
             this.tabPageConfigurationZprobe.UseVisualStyleBackColor = true;
             // 
+            // grpBxBlTouch
+            // 
+            this.grpBxBlTouch.Controls.Add(this.btnBlTouchSave);
+            this.grpBxBlTouch.Controls.Add(this.btnBlTouchRelease);
+            this.grpBxBlTouch.Controls.Add(this.btnBlTouchEngage);
+            this.grpBxBlTouch.Controls.Add(this.btnBlTouchResetAlarm);
+            this.grpBxBlTouch.Controls.Add(this.btnBlTouchSelftest);
+            this.grpBxBlTouch.Controls.Add(this.chkBxBlTouch);
+            this.grpBxBlTouch.Location = new System.Drawing.Point(7, 237);
+            this.grpBxBlTouch.Name = "grpBxBlTouch";
+            this.grpBxBlTouch.Size = new System.Drawing.Size(636, 45);
+            this.grpBxBlTouch.TabIndex = 52;
+            this.grpBxBlTouch.TabStop = false;
+            this.grpBxBlTouch.Text = "BLTouch Z-probe";
+            // 
+            // btnBlTouchSave
+            // 
+            this.btnBlTouchSave.Location = new System.Drawing.Point(316, 14);
+            this.btnBlTouchSave.Name = "btnBlTouchSave";
+            this.btnBlTouchSave.Size = new System.Drawing.Size(53, 23);
+            this.btnBlTouchSave.TabIndex = 19;
+            this.btnBlTouchSave.Text = "Save";
+            this.btnBlTouchSave.UseVisualStyleBackColor = true;
+            this.btnBlTouchSave.Click += new System.EventHandler(this.btnBlTouchSave_Click);
+            // 
+            // btnBlTouchRelease
+            // 
+            this.btnBlTouchRelease.Location = new System.Drawing.Point(225, 14);
+            this.btnBlTouchRelease.Name = "btnBlTouchRelease";
+            this.btnBlTouchRelease.Size = new System.Drawing.Size(85, 23);
+            this.btnBlTouchRelease.TabIndex = 19;
+            this.btnBlTouchRelease.Text = "Test Release";
+            this.btnBlTouchRelease.UseVisualStyleBackColor = true;
+            this.btnBlTouchRelease.Click += new System.EventHandler(this.btnBlTouchRelease_Click);
+            // 
+            // btnBlTouchEngage
+            // 
+            this.btnBlTouchEngage.Location = new System.Drawing.Point(134, 14);
+            this.btnBlTouchEngage.Name = "btnBlTouchEngage";
+            this.btnBlTouchEngage.Size = new System.Drawing.Size(85, 23);
+            this.btnBlTouchEngage.TabIndex = 17;
+            this.btnBlTouchEngage.Text = "Test Engage";
+            this.btnBlTouchEngage.UseVisualStyleBackColor = true;
+            this.btnBlTouchEngage.Click += new System.EventHandler(this.btnBlTouchEngage_Click_1);
+            // 
+            // btnBlTouchResetAlarm
+            // 
+            this.btnBlTouchResetAlarm.Location = new System.Drawing.Point(555, 14);
+            this.btnBlTouchResetAlarm.Name = "btnBlTouchResetAlarm";
+            this.btnBlTouchResetAlarm.Size = new System.Drawing.Size(75, 23);
+            this.btnBlTouchResetAlarm.TabIndex = 19;
+            this.btnBlTouchResetAlarm.Text = "Reset Alarm";
+            this.btnBlTouchResetAlarm.UseVisualStyleBackColor = true;
+            this.btnBlTouchResetAlarm.Click += new System.EventHandler(this.btnBlTouchResetAlarm_Click);
+            // 
+            // btnBlTouchSelftest
+            // 
+            this.btnBlTouchSelftest.Location = new System.Drawing.Point(474, 14);
+            this.btnBlTouchSelftest.Name = "btnBlTouchSelftest";
+            this.btnBlTouchSelftest.Size = new System.Drawing.Size(75, 23);
+            this.btnBlTouchSelftest.TabIndex = 18;
+            this.btnBlTouchSelftest.Text = "Selftest";
+            this.btnBlTouchSelftest.UseVisualStyleBackColor = true;
+            this.btnBlTouchSelftest.Click += new System.EventHandler(this.btnBlTouchSelftest_Click);
+            // 
+            // chkBxBlTouch
+            // 
+            this.chkBxBlTouch.AutoSize = true;
+            this.chkBxBlTouch.Location = new System.Drawing.Point(6, 18);
+            this.chkBxBlTouch.Name = "chkBxBlTouch";
+            this.chkBxBlTouch.Size = new System.Drawing.Size(70, 17);
+            this.chkBxBlTouch.TabIndex = 17;
+            this.chkBxBlTouch.Text = "BLTouch";
+            this.toolTip3DprinterTool.SetToolTip(this.chkBxBlTouch, "Check this box if you have a BLTouch Z-probe");
+            this.chkBxBlTouch.UseVisualStyleBackColor = true;
+            this.chkBxBlTouch.CheckedChanged += new System.EventHandler(this.chkBxBlTouch_CheckedChanged);
+            // 
             // grpAutoBedLevel
             // 
             this.grpAutoBedLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAutoBedLevel.Controls.Add(this.fctbAutoBedLevelResponce);
             this.grpAutoBedLevel.Controls.Add(this.btnAutoBedLevel);
-            this.grpAutoBedLevel.Location = new System.Drawing.Point(7, 237);
+            this.grpAutoBedLevel.Location = new System.Drawing.Point(7, 288);
             this.grpAutoBedLevel.Name = "grpAutoBedLevel";
-            this.grpAutoBedLevel.Size = new System.Drawing.Size(636, 341);
+            this.grpAutoBedLevel.Size = new System.Drawing.Size(636, 290);
             this.grpAutoBedLevel.TabIndex = 49;
             this.grpAutoBedLevel.TabStop = false;
             this.grpAutoBedLevel.Text = "Auto Bed Level";
@@ -1676,7 +1753,7 @@ namespace Marlin3DprinterTool
             this.fctbAutoBedLevelResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbAutoBedLevelResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbAutoBedLevelResponce.ServiceColors")));
             this.fctbAutoBedLevelResponce.ShowLineNumbers = false;
-            this.fctbAutoBedLevelResponce.Size = new System.Drawing.Size(534, 316);
+            this.fctbAutoBedLevelResponce.Size = new System.Drawing.Size(552, 265);
             this.fctbAutoBedLevelResponce.TabIndex = 17;
             this.fctbAutoBedLevelResponce.Zoom = 100;
             // 
@@ -1695,11 +1772,10 @@ namespace Marlin3DprinterTool
             // 
             this.groupBox3.Controls.Add(this.btnTestZprobeRelease);
             this.groupBox3.Controls.Add(this.btnTestZprobeReleaseSave);
-            this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Controls.Add(this.txtBxGcodeAssistZprobeRelease);
             this.groupBox3.Location = new System.Drawing.Point(7, 126);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(640, 105);
+            this.groupBox3.Size = new System.Drawing.Size(636, 105);
             this.groupBox3.TabIndex = 51;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Release Z-probe";
@@ -1724,45 +1800,6 @@ namespace Marlin3DprinterTool
             this.btnTestZprobeReleaseSave.UseVisualStyleBackColor = true;
             this.btnTestZprobeReleaseSave.Click += new System.EventHandler(this.btnTestZprobeReleaseSave_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.btnCreateExampleForZprobeServoRelease);
-            this.groupBox4.Controls.Add(this.btnCreateExampleForZprobeSledRelease);
-            this.groupBox4.Controls.Add(this.btnCreateExampleForZprobePositionRelease);
-            this.groupBox4.Location = new System.Drawing.Point(433, 19);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(193, 52);
-            this.groupBox4.TabIndex = 15;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Create example for Z-probe Release";
-            // 
-            // btnCreateExampleForZprobeServoRelease
-            // 
-            this.btnCreateExampleForZprobeServoRelease.Location = new System.Drawing.Point(11, 19);
-            this.btnCreateExampleForZprobeServoRelease.Name = "btnCreateExampleForZprobeServoRelease";
-            this.btnCreateExampleForZprobeServoRelease.Size = new System.Drawing.Size(53, 23);
-            this.btnCreateExampleForZprobeServoRelease.TabIndex = 12;
-            this.btnCreateExampleForZprobeServoRelease.Text = "Servo";
-            this.btnCreateExampleForZprobeServoRelease.UseVisualStyleBackColor = true;
-            // 
-            // btnCreateExampleForZprobeSledRelease
-            // 
-            this.btnCreateExampleForZprobeSledRelease.Location = new System.Drawing.Point(66, 19);
-            this.btnCreateExampleForZprobeSledRelease.Name = "btnCreateExampleForZprobeSledRelease";
-            this.btnCreateExampleForZprobeSledRelease.Size = new System.Drawing.Size(53, 23);
-            this.btnCreateExampleForZprobeSledRelease.TabIndex = 14;
-            this.btnCreateExampleForZprobeSledRelease.Text = "Sled";
-            this.btnCreateExampleForZprobeSledRelease.UseVisualStyleBackColor = true;
-            // 
-            // btnCreateExampleForZprobePositionRelease
-            // 
-            this.btnCreateExampleForZprobePositionRelease.Location = new System.Drawing.Point(121, 19);
-            this.btnCreateExampleForZprobePositionRelease.Name = "btnCreateExampleForZprobePositionRelease";
-            this.btnCreateExampleForZprobePositionRelease.Size = new System.Drawing.Size(53, 23);
-            this.btnCreateExampleForZprobePositionRelease.TabIndex = 13;
-            this.btnCreateExampleForZprobePositionRelease.Text = "Position";
-            this.btnCreateExampleForZprobePositionRelease.UseVisualStyleBackColor = true;
-            // 
             // txtBxGcodeAssistZprobeRelease
             // 
             this.txtBxGcodeAssistZprobeRelease.Location = new System.Drawing.Point(6, 19);
@@ -1776,11 +1813,10 @@ namespace Marlin3DprinterTool
             // 
             this.grpBxEngageZprobe.Controls.Add(this.btnTestZprobeEngage);
             this.grpBxEngageZprobe.Controls.Add(this.btnTestZprobeEngageSave);
-            this.grpBxEngageZprobe.Controls.Add(this.groupBox1);
             this.grpBxEngageZprobe.Controls.Add(this.txtBxGcodeAssistZprobeEngage);
             this.grpBxEngageZprobe.Location = new System.Drawing.Point(7, 14);
             this.grpBxEngageZprobe.Name = "grpBxEngageZprobe";
-            this.grpBxEngageZprobe.Size = new System.Drawing.Size(640, 106);
+            this.grpBxEngageZprobe.Size = new System.Drawing.Size(636, 106);
             this.grpBxEngageZprobe.TabIndex = 50;
             this.grpBxEngageZprobe.TabStop = false;
             this.grpBxEngageZprobe.Text = "Engage Z-probe";
@@ -1805,48 +1841,6 @@ namespace Marlin3DprinterTool
             this.btnTestZprobeEngageSave.Text = "Save";
             this.btnTestZprobeEngageSave.UseVisualStyleBackColor = true;
             this.btnTestZprobeEngageSave.Click += new System.EventHandler(this.btnTestZprobeEngageSave_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnCreateExampleForZprobeServoEngage);
-            this.groupBox1.Controls.Add(this.btnCreateExampleForZprobeSledEngage);
-            this.groupBox1.Controls.Add(this.btnCreateExampleForZprobePositionEngage);
-            this.groupBox1.Location = new System.Drawing.Point(433, 19);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(193, 52);
-            this.groupBox1.TabIndex = 15;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Create example for Z-probe Engage";
-            // 
-            // btnCreateExampleForZprobeServoEngage
-            // 
-            this.btnCreateExampleForZprobeServoEngage.Location = new System.Drawing.Point(11, 19);
-            this.btnCreateExampleForZprobeServoEngage.Name = "btnCreateExampleForZprobeServoEngage";
-            this.btnCreateExampleForZprobeServoEngage.Size = new System.Drawing.Size(53, 23);
-            this.btnCreateExampleForZprobeServoEngage.TabIndex = 12;
-            this.btnCreateExampleForZprobeServoEngage.Text = "Servo";
-            this.btnCreateExampleForZprobeServoEngage.UseVisualStyleBackColor = true;
-            this.btnCreateExampleForZprobeServoEngage.Click += new System.EventHandler(this.btnCreateExampleForZprobeServo_Click);
-            // 
-            // btnCreateExampleForZprobeSledEngage
-            // 
-            this.btnCreateExampleForZprobeSledEngage.Location = new System.Drawing.Point(66, 19);
-            this.btnCreateExampleForZprobeSledEngage.Name = "btnCreateExampleForZprobeSledEngage";
-            this.btnCreateExampleForZprobeSledEngage.Size = new System.Drawing.Size(53, 23);
-            this.btnCreateExampleForZprobeSledEngage.TabIndex = 14;
-            this.btnCreateExampleForZprobeSledEngage.Text = "Sled";
-            this.btnCreateExampleForZprobeSledEngage.UseVisualStyleBackColor = true;
-            this.btnCreateExampleForZprobeSledEngage.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnCreateExampleForZprobePositionEngage
-            // 
-            this.btnCreateExampleForZprobePositionEngage.Location = new System.Drawing.Point(121, 19);
-            this.btnCreateExampleForZprobePositionEngage.Name = "btnCreateExampleForZprobePositionEngage";
-            this.btnCreateExampleForZprobePositionEngage.Size = new System.Drawing.Size(53, 23);
-            this.btnCreateExampleForZprobePositionEngage.TabIndex = 13;
-            this.btnCreateExampleForZprobePositionEngage.Text = "Position";
-            this.btnCreateExampleForZprobePositionEngage.UseVisualStyleBackColor = true;
-            this.btnCreateExampleForZprobePositionEngage.Click += new System.EventHandler(this.btnCreateExampleForZprobePosition_Click);
             // 
             // txtBxGcodeAssistZprobeEngage
             // 
@@ -1887,7 +1881,7 @@ namespace Marlin3DprinterTool
             this.nChartControlSurface.InputKeys = new System.Windows.Forms.Keys[0];
             this.nChartControlSurface.Location = new System.Drawing.Point(6, 70);
             this.nChartControlSurface.Name = "nChartControlSurface";
-            this.nChartControlSurface.Size = new System.Drawing.Size(643, 540);
+            this.nChartControlSurface.Size = new System.Drawing.Size(643, 612);
             this.nChartControlSurface.State = ((Nevron.Chart.WinForm.NState)(resources.GetObject("nChartControlSurface.State")));
             this.nChartControlSurface.TabIndex = 21;
             this.nChartControlSurface.Text = "nChartControl1";
@@ -2049,7 +2043,7 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbPidResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbPidResponce.ServiceColors")));
             this.fctbPidResponce.ShowLineNumbers = false;
-            this.fctbPidResponce.Size = new System.Drawing.Size(640, 226);
+            this.fctbPidResponce.Size = new System.Drawing.Size(640, 298);
             this.fctbPidResponce.TabIndex = 16;
             this.fctbPidResponce.Zoom = 100;
             // 
@@ -4321,9 +4315,9 @@ namespace Marlin3DprinterTool
             // 
             // btnEngageZprobe
             // 
-            this.btnEngageZprobe.Location = new System.Drawing.Point(258, 267);
+            this.btnEngageZprobe.Location = new System.Drawing.Point(256, 267);
             this.btnEngageZprobe.Name = "btnEngageZprobe";
-            this.btnEngageZprobe.Size = new System.Drawing.Size(57, 45);
+            this.btnEngageZprobe.Size = new System.Drawing.Size(52, 45);
             this.btnEngageZprobe.TabIndex = 13;
             this.btnEngageZprobe.Text = "Engage Z probe";
             this.toolTip3DprinterTool.SetToolTip(this.btnEngageZprobe, "Engage the Z-Probe ");
@@ -4453,6 +4447,7 @@ namespace Marlin3DprinterTool
             this.cmbBxComPort.Size = new System.Drawing.Size(66, 21);
             this.cmbBxComPort.TabIndex = 5;
             this.cmbBxComPort.Text = "COM10";
+            this.cmbBxComPort.SelectedIndexChanged += new System.EventHandler(this.cmbBxComPort_SelectedIndexChanged);
             // 
             // cmbBxBaud
             // 
@@ -4503,7 +4498,7 @@ namespace Marlin3DprinterTool
             this.btnGetTemp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnGetTemp.Location = new System.Drawing.Point(244, 9);
             this.btnGetTemp.Name = "btnGetTemp";
-            this.btnGetTemp.Size = new System.Drawing.Size(64, 34);
+            this.btnGetTemp.Size = new System.Drawing.Size(58, 34);
             this.btnGetTemp.TabIndex = 7;
             this.toolTip3DprinterTool.SetToolTip(this.btnGetTemp, "Get the current Temperature on all sensors");
             this.btnGetTemp.UseVisualStyleBackColor = true;
@@ -4605,7 +4600,7 @@ namespace Marlin3DprinterTool
             this.grpBxTemperature.Controls.Add(this.chartTemperature);
             this.grpBxTemperature.Location = new System.Drawing.Point(3, 331);
             this.grpBxTemperature.Name = "grpBxTemperature";
-            this.grpBxTemperature.Size = new System.Drawing.Size(298, 293);
+            this.grpBxTemperature.Size = new System.Drawing.Size(308, 293);
             this.grpBxTemperature.TabIndex = 22;
             this.grpBxTemperature.TabStop = false;
             this.grpBxTemperature.Text = "Extruder 1          Extruder 2           Bed";
@@ -4623,7 +4618,7 @@ namespace Marlin3DprinterTool
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Name = "Series1";
             this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Size = new System.Drawing.Size(292, 244);
+            this.chartTemperature.Size = new System.Drawing.Size(302, 244);
             this.chartTemperature.TabIndex = 0;
             this.chartTemperature.Text = "chart1";
             // 
@@ -4661,6 +4656,12 @@ namespace Marlin3DprinterTool
             this.btnPayPal.TabIndex = 17;
             this.btnPayPal.UseVisualStyleBackColor = true;
             this.btnPayPal.Click += new System.EventHandler(this.btnPayPal_Click);
+            // 
+            // timerEndstop
+            // 
+            this.timerEndstop.Enabled = true;
+            this.timerEndstop.Interval = 200;
+            this.timerEndstop.Tick += new System.EventHandler(this.timerEndstop_Tick);
             // 
             // FrmMarlin3DprinterTool
             // 
@@ -4706,14 +4707,14 @@ namespace Marlin3DprinterTool
             this.grpBxAdjusters.ResumeLayout(false);
             this.grpBxAdjusters.PerformLayout();
             this.tabPageConfigurationZprobe.ResumeLayout(false);
+            this.grpBxBlTouch.ResumeLayout(false);
+            this.grpBxBlTouch.PerformLayout();
             this.grpAutoBedLevel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fctbAutoBedLevelResponce)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
             this.grpBxEngageZprobe.ResumeLayout(false);
             this.grpBxEngageZprobe.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.tabPageScanSurface.ResumeLayout(false);
             this.tabPageScanSurface.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownNumberOfRepetitions)).EndInit();
@@ -4863,15 +4864,7 @@ namespace Marlin3DprinterTool
         private Button btnPayPal;
         private TabPage tabPageConfigurationZprobe;
         private GroupBox grpBxEngageZprobe;
-        private GroupBox groupBox1;
-        private Button btnCreateExampleForZprobeServoEngage;
-        private Button btnCreateExampleForZprobeSledEngage;
-        private Button btnCreateExampleForZprobePositionEngage;
         private GroupBox groupBox3;
-        private GroupBox groupBox4;
-        private Button btnCreateExampleForZprobeServoRelease;
-        private Button btnCreateExampleForZprobeSledRelease;
-        private Button btnCreateExampleForZprobePositionRelease;
         private TextBox txtBxGcodeAssistZprobeRelease;
         private Button btnTestZprobeRelease;
         private Button btnTestZprobeReleaseSave;
@@ -5141,5 +5134,13 @@ namespace Marlin3DprinterTool
         private TextBox txtBxCurrentExtruder1Set;
         private TextBox txtBxCurrentExtruder1Temp;
         private Button btnGetTemp;
+        private CheckBox chkBxBlTouch;
+        private GroupBox grpBxBlTouch;
+        private Button btnBlTouchResetAlarm;
+        private Button btnBlTouchSelftest;
+        private Button btnBlTouchRelease;
+        private Button btnBlTouchEngage;
+        private Button btnBlTouchSave;
+        private Timer timerEndstop;
     }
 }

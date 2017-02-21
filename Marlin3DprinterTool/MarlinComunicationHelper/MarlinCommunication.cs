@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Marlin3DprinterToolConfiguration;
 using ZylSoft.Serial;
 
@@ -16,7 +18,7 @@ namespace MarlinComunicationHelper
     public sealed class MarlinCommunication
     {
 
-        
+        private List<string> commandsInQueue = new List<string>();
         private readonly SerialPort _serialPort = new SerialPort();
         private FrmShowCommunication _showcom;
         private NumberConversion _numberConversion = new NumberConversion();
@@ -72,7 +74,8 @@ namespace MarlinComunicationHelper
             /// <summary>
             /// Start of test extrudsion of 100mm filament
             /// </summary>
-            ExtruderCalibrationTest = 9
+            ExtruderCalibrationTest = 9,
+            
         }
         
 
@@ -227,12 +230,13 @@ namespace MarlinComunicationHelper
             }
         }
 
+
         #endregion
 
 
 
 
-        
+
 
 
 
@@ -383,7 +387,7 @@ namespace MarlinComunicationHelper
         {
            
             // Get all responces
-            var responces = dataReceived.Split('\n');
+            // var responces = dataReceived.Split('\n');
 
 
             //ok
@@ -406,26 +410,20 @@ namespace MarlinComunicationHelper
             // The row begins with Mean: and then the calculated value 
             // (?<=^Mean:\s*)([-,0-9]*\.[0-9]*)
 
-            try
-            {
-                var meanProbeValue =
-                    Regex.Match(dataReceived, @"(?<=Mean:\s*)([-,0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1]
-                        .Value;
-                ProbeM48MeanValue = meanProbeValue;
-            }
-            catch (Exception parsException)
-            {
-                MessageBox.Show($"Error in parser of M48. Error: {parsException.Message}");
-            }
+            //try
+            //{
+            //    var meanProbeValue = Regex.Match(dataReceived, @"(?<=Mean:\s*)([-,0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
+            //    ProbeM48MeanValue = meanProbeValue;
+            //}
+            //catch (Exception parsException)
+            //{
+            //    MessageBox.Show($"Error in parser of M48. Error: {parsException.Message}");
+            //}
 
             // Create M48 responce Event
-            var eventM48Resonce = new Responce(new List<string>());
-            eventM48Resonce.ResponsRowList.AddRange(responces);
-
-            OnM48ProbeStatus(eventM48Resonce);
-
+            //ResponceData eventM48Resonce = new ResponceData(dataReceived);
             
-            
+            //OnM48ProbeStatus(eventM48Resonce);   
         }
 
         private void ParseM105(string dataReceived)
@@ -433,17 +431,18 @@ namespace MarlinComunicationHelper
             //everything is allready done in ReceiveDataUntilOk()
         }
 
-        private void ParseM114(string dataReceived)
+        private string ParseM114(string dataReceived)
         {
-            
+            string positionPattern = @"X:[-]*[0-9,.]*\s*Y:[-]*[0-9,.]*\s*Z:[-]*[0-9,.]*\s*E:[0-9,.]*\s*Count X:\s*[-]*[0-9]*\s*Y:[-]*[0-9]*\s*Z:[-]*[0-9]*";
+
             // Get all responces 
             var responces = dataReceived.Split('\n');
 
             // Create M114 responce Event
             foreach (var responce in responces)
             {
-                // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:4000
-                if (Regex.Match(responce, @"\AX:[0-9,-,.]*\s*Y:[0-9,-,.]*\s*Z:[0-9,-,.]*\s*E:[0-9,-,.]*\s*Count X:\s*[0-9,-]*\s*Y:[0-9,-]*\s*Z:[0-9,-]*").Success)
+                 // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:4000
+                if (Regex.Match(responce, positionPattern).Success)
                 {
                     var xstring =
                         Regex.Match(responce, @"(?:X:)([-,0-9]*.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
@@ -457,22 +456,19 @@ namespace MarlinComunicationHelper
                     CurrentPosition.Ystring = ystring;
                     CurrentPosition.Zstring = zstring;
                     OnM114GetCurrentPosition(currentPosition);
+
+                    
                 }
-
-
-                
-               
             }
+            string returnData = Regex.Replace(dataReceived, positionPattern, "");
+            return returnData;
+
         }
 
         private void ParseM119(string dataReceived)
         {
-            
             // Get all responces 
             var responces = dataReceived.Split('\n');
-
-
-
             foreach (var responce in responces)
             {
                 if (responce.Contains("x_min")) EndStopStatus.Xmin = responce.ToLower().Contains("triggered");
@@ -482,18 +478,17 @@ namespace MarlinComunicationHelper
                 if (responce.Contains("z_min")) EndStopStatus.Zmin = responce.ToLower().Contains("triggered");
                 if (responce.Contains("z_max")) EndStopStatus.Zmax = responce.ToLower().Contains("triggered");
             }
+            OnM119EndStopStatus(EndStopStatus); 
+        }
 
-
-
-
-
-
-
-            
-            OnM119EndStopStatus(EndStopStatus);
+        private void ParseM280(string dataReceived)
+        {
 
             
-            
+            Thread.Sleep(200);
+            var responceData = new ResponceData(dataReceived);
+           
+
         }
 
         private void ParseM301(string dataReceived)
@@ -772,37 +767,67 @@ namespace MarlinComunicationHelper
             SendCommand(commands);
         }
 
-       
+
 
 
 
 
         /// <summary>
-        /// Send a list of commands . Each command uses SendCommand with the single GCODE
+        /// Send a list of commands . 
         /// </summary>
         /// <param name="commands"></param>
         public void SendCommand(List<string> commands)
         {
 
+            if (IsReceivingOrSending)
+            {
+                
+                foreach (string command in commands)
+                {
+                    if (Status == Feature.EndStop)
+                    {
+                        if (command.Trim().StartsWith("M119")) continue;
+                        if (command.Trim().StartsWith("M0")) continue;
+
+                    }
+                    commandsInQueue.Add(command);
+                }
+            }
 
             if (!IsReceivingOrSending)
             {
-                BackgroundWorker serialBackgroundWorker = new BackgroundWorker();
-                serialBackgroundWorker.DoWork += SerialBackgroundWorker_DoWork;
-                serialBackgroundWorker.WorkerSupportsCancellation = true;
-                serialBackgroundWorker.RunWorkerAsync(commands);
+                
+                List<string> commList = new List<string>();
+                commList.AddRange(commandsInQueue);
+                foreach (string command in commands)
+                {
+                    commList.Add(command);
+                }
+                
+                commandsInQueue.Clear();
+                BackgroundWorker serialBackgroundWorker1 = new BackgroundWorker();
+                serialBackgroundWorker1.DoWork += SerialBackgroundWorker_DoWork1;
+                serialBackgroundWorker1.WorkerSupportsCancellation = true;
+                serialBackgroundWorker1.RunWorkerAsync(commList);
+
             }
+
+
+
+            
 
 
         }
 
-        private void SerialBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+
+
+        private void SerialBackgroundWorker_DoWork1(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             //TODO: TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
 
 
-            if (Status != Feature.EndStop) // Reuce flicker cursor
+            if (Status != MarlinCommunication.Feature.EndStop) // Reuce flicker cursor
             {
                 //TODO: OnSending(cursorType);
             }
@@ -850,7 +875,7 @@ namespace MarlinComunicationHelper
                     _serialPort.SendAsciiString(command + linuxNewline);
 
 
-
+                    
 
 
                     switch (Gcode)
@@ -868,7 +893,7 @@ namespace MarlinComunicationHelper
                         
 
                         case "M48":
-                            ParseM48(ReceiveDataUntilOk(30));
+                            ParseM48(ReceiveDataUntilOk(10000));
                             break;
                         case "M105":
                             ParseM105(ReceiveDataUntilOk(30));
@@ -878,8 +903,19 @@ namespace MarlinComunicationHelper
                             break;
 
                         case "M119":
-                            Thread.Sleep(100);
-                            ParseM119(ReceiveDataUntilOk(30));
+                            ParseM119(ReceiveDataUntilOk(90));
+                            break;
+
+                        case "M280":
+                            if (command == "M280 P0 S160")
+                            {
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(100);
+                                    _serialPort.SendAsciiString(command + linuxNewline);
+                                }
+                            }
+                            ParseM280(ReceiveDataUntilOk(90));
                             break;
 
                         case "M301":
@@ -926,6 +962,9 @@ namespace MarlinComunicationHelper
 
         }
 
+
+
+
         private string ReceiveDataUntilOk(int timeout)
         {
             // Read all bytes in the buffer
@@ -958,7 +997,7 @@ namespace MarlinComunicationHelper
 
                 dataReceived += line + linuxNewline;
                 
-                ParseM114(line);
+                line = ParseM114(line);
 
                 switch (Gcode)
                 {
@@ -970,6 +1009,19 @@ namespace MarlinComunicationHelper
                     case "G30":
                         OnG30ProbeResponce(ProbeResponceList);
                         break;
+                    case "M48":
+
+                        if (line.ToLower().Trim() == "ok") continue;
+
+                        var responceDataM48 = new ResponceData(line);
+                        OnM48ProbeStatus(responceDataM48);
+                        if (line.ToLower().Contains("standard deviation:"))
+                        {
+                            dataReceived += Environment.NewLine + "ok";
+                            break;
+                        }
+                        continue;
+                        
                 }
 
                 
@@ -1108,12 +1160,12 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// Handle event that rise after M48
         /// </summary>
-        public event EventHandler<Responce> M48ProbeStatus;
+        public event EventHandler<ResponceData> M48ProbeStatus;
 
         /// <summary>
         /// Handle event that rise after M48
         /// </summary>
-        private void OnM48ProbeStatus(Responce probeResponceList)
+        private void OnM48ProbeStatus(ResponceData probeResponceList)
         {
             var handler = M48ProbeStatus;
             handler?.Invoke(this, probeResponceList);

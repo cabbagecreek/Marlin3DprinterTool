@@ -154,22 +154,7 @@ namespace Marlin3DprinterTool
             return tabControl.SelectedTab.Name;
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="textbox"></param>
-        /// <param name="text"></param>
-        public void TextBoxAdd(TextBox textbox, string text)
-        {
-            if (textbox.InvokeRequired)
-            {
-                TextBoxAddCallback d = TextBoxAdd;
-                _frm3DprinterTool.Invoke(d, textbox, text);
-            }
-            else
-            {
-                textbox.Text += text;
-            }
-        }
+       
 
         /// <summary>
         /// </summary>
@@ -188,22 +173,7 @@ namespace Marlin3DprinterTool
             }
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="textBox"></param>
-        /// <param name="responce"></param>
-        public static void MultiTextLines(TextBox textBox, List<string> responce)
-        {
-            if (textBox.InvokeRequired)
-            {
-                MultiTextLinesCallback d = MultiTextLines;
-                _frm3DprinterTool.Invoke(d, textBox, responce);
-            }
-            else
-            {
-                textBox.Lines = responce.ToArray();
-            }
-        }
+        
 
         /// <summary>
         /// </summary>
@@ -273,155 +243,7 @@ namespace Marlin3DprinterTool
         }
 
 
-        ///// <summary>
-        ///// </summary>
-        ///// <param name="chart"></param>
-        ///// <param name="time"></param>
-        ///// <param name="extruderTemp"></param>
-        ///// <param name="setExtruderTemp"></param>
-        //public static void SetExtruderTemp(Chart chart, int time, int extruderTemp, int setExtruderTemp)
-        //{
-        //    if (chart.InvokeRequired)
-        //    {
-        //        SetExtruderTempCallback d = SetExtruderTemp;
-        //        _frm3DprinterTool.Invoke(d, chart, time, extruderTemp, setExtruderTemp);
-        //    }
-        //    else
-        //    {
-
-        //        if (chart.Series.IndexOf("Extruder") != -1)
-        //        {
-        //            if (chart.Series["Extruder"].Points.Count >= 21)
-        //            {
-        //                chart.Series["Extruder"].Points.RemoveAt(0);
-        //            }
-
-        //        }
-
-
-        //        if (chart.Series.IndexOf("SetExtruder") != -1)
-        //        {
-        //            if (chart.Series["SetExtruder"].Points.Count >= 21)
-        //            {
-        //                chart.Series["SetExtruder"].Points.RemoveAt(0);
-        //            }
-        //        }
-
-
-                
-        //        if (chart.Series.IndexOf("Bed") != -1)
-        //        {
-        //            if (chart.Series["Bed"].Points.Count >= 21)
-        //            {
-        //                chart.Series["Bed"].Points.RemoveAt(0);
-        //            }
-        //        }
-
-        //        if (chart.Series.IndexOf("SetBed") != -1)
-        //        {
-        //            if (chart.Series["SetBed"].Points.Count >= 21)
-        //            {
-        //                chart.Series["SetBed"].Points.RemoveAt(0);
-        //            }
-        //        }
-
-               
-
-
-
-
-        //        var area = chart.ChartAreas[0];
-        //        area.AxisX.Maximum = time;
-        //        area.AxisX.Minimum = Math.Max(0, time - 20);
-        //        if (chart.Series.IndexOf("Extruder") != -1)
-        //        {
-        //            if (extruderTemp > 0)
-        //                chart.Series["Extruder"].Points.AddXY(time, extruderTemp);
-        //        }
-
-        //        if (chart.Series.IndexOf("SetExtruder") != -1)
-        //        {
-        //            if (setExtruderTemp > 0)
-        //                chart.Series["SetExtruder"].Points.AddXY(time, setExtruderTemp);
-        //        }
-
-
-
-
-
-
-        //        //TODO: 
-        //        // area.AxisX.IntervalType = DateTimeIntervalType.Seconds;
-
-        //        chart.ResetAutoValues();
-                
-
-        //    }
-        //}
-
-        ///// <summary>
-        ///// </summary>
-        ///// <param name="chart"></param>
-        ///// <param name="time"></param>
-        ///// <param name="bedTemp"></param>
-        ///// <param name="setBedTemp"></param>
-        //public static void SetBedTemp(Chart chart, int time, int bedTemp, int setBedTemp)
-        //{
-        //    if (chart.InvokeRequired)
-        //    {
-        //        SetBedTempCallback d = SetBedTemp;
-        //        _frm3DprinterTool.Invoke(d, chart, time, bedTemp, setBedTemp);
-        //    }
-        //    else
-        //    {
-        //        if (chart.Series.IndexOf("Extruder") != -1)
-        //        {
-        //            if (chart.Series["Extruder"].Points.Count >= 21)
-        //            {
-        //                chart.Series["Extruder"].Points.RemoveAt(0);
-        //            }
-        //        }
-        //        if (chart.Series.IndexOf("SetExtruder") != -1)
-        //        {
-        //            if (chart.Series["SetExtruder"].Points.Count >= 21)
-        //            {
-        //                chart.Series["SetExtruder"].Points.RemoveAt(0);
-        //            }
-        //        }
-        //        if (chart.Series.IndexOf("Bed") != -1)
-        //        {
-        //            if (chart.Series["Bed"].Points.Count >= 21)
-        //            {
-        //                chart.Series["Bed"].Points.RemoveAt(0);
-        //            }
-        //        }
-        //        if (chart.Series.IndexOf("SetBed") != -1)
-        //        {
-        //            if (chart.Series["SetBed"].Points.Count >= 21)
-        //            {
-        //                chart.Series["SetBed"].Points.RemoveAt(0);
-        //            }
-        //        }
-
-        //        var area = chart.ChartAreas[0];
-        //        area.AxisX.Maximum = time;
-        //        area.AxisX.Minimum = Math.Max(0, time - 20);
-        //        if (chart.Series.IndexOf("Bed") != -1)
-        //        {
-        //            if (bedTemp > 0)
-        //                chart.Series["Bed"].Points.AddXY(time, bedTemp);
-        //        }
-        //        if (chart.Series.IndexOf("SetBed") != -1)
-        //        {
-        //            if (setBedTemp > 0)
-        //                chart.Series["SetBed"].Points.AddXY(time, setBedTemp);
-        //            area.AxisX.IntervalType = DateTimeIntervalType.Seconds;
-        //        }
-        //        chart.ResetAutoValues();
-        //    }
-        //}
-
-
+       
 
         private delegate void SetTempCallback(Chart chart, string serie, int time, int temp);
 
