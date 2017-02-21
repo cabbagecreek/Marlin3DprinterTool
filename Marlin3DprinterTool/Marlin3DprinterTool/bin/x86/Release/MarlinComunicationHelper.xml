@@ -1,0 +1,636 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MarlinComunicationHelper</name>
+    </assembly>
+    <members>
+        <member name="T:MarlinComunicationHelper.FrmShowCommunication">
+            <summary>
+            Frame that shows the communication To and From the Marlin FW
+            Possible to Send commands and se the responce
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.FrmShowCommunication.Communication">
+            <summary>
+            The communication that is setup in the calling program
+            This is the communication that is monitored
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.FrmShowCommunication.InstanceFrmShowForm">
+            <summary>
+            Create Singleton for this window
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.FrmShowCommunication.AddReceived">
+            <summary>
+            Add a row with Received data from Marlin FW
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.FrmShowCommunication.AddSend">
+            <summary>
+            Add command thats been sent
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.FrmShowCommunication.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.FrmShowCommunication.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MarlinComunicationHelper.FrmShowCommunication.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.MarlinCommunication">
+            <summary>
+            Class that do all communication thru ZylSerial 
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.MarlinCommunication.Feature">
+            <summary>
+            Used to communicate the ongoing feature. 
+            Use done when the feature is finished
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.Done">
+            <summary>
+            Done = The feature is Done
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.EndStop">
+            <summary>
+            The Feature is testing Endstops
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.Bedlevel">
+            <summary>
+            Feature is trying to do a Bedlevel
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.SurfaceScan">
+            <summary>
+            Doing Surface Scan
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutoBedLevel">
+            <summary>
+            Process that do AutoBedLevel
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.DockZprobe">
+            <summary>
+            Search for where the Probe touch the bed
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutoPidTuneExtruder">
+            <summary>
+            Auto Tune PID for Exctruder
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutoPidTuneBed">
+            <summary>
+            Auto Tune PID for Bed
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibration">
+            <summary>
+            Start of extruder Calibration = Heating up
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibrationTest">
+            <summary>
+            Start of test extrudsion of 100mm filament
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.IsReceivingOrSending">
+            <summary>
+            If the communication is Sending and/or Receiving data
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.M851ZprobeOffset">
+            <summary>
+            The ZprobeOffset that is found in M851
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.StepsPerUnitX">
+            <summary>
+            The Steps per Unit X that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.StepsPerUnitY">
+            <summary>
+            The Steps per Unit Y that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.StepsPerUnitZ">
+            <summary>
+            The Steps per Unit Z that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.StepsPerUnitE">
+            <summary>
+            The Steps per Unit E that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.PidExtruderKp">
+            <summary>
+            The PidExtruder Kp that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.PidExtruderKi">
+            <summary>
+            The PidExtruder Ki that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.PidExtruderKd">
+            <summary>
+            The PidExtruder Kd that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.PidBedKp">
+            <summary>
+            The PidBed Kp that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.PidBedKi">
+            <summary>
+            The PidBed Ki that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.PidBedKd">
+            <summary>
+            The PidBed Kd that is found during INIT
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.ProbeM48MeanValue">
+            <summary>
+            The mean value of a M48
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.Status">
+            <summary>
+            The feature that is processing
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.CurrentPosition">
+            <summary>
+            The current position that are parsed from many GCODE
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.EndStopStatus">
+            <summary>
+            The staus of all endstops
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.Kill">
+            <summary>
+                Kill the commandstream at next command
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.Gcode">
+            <summary>
+                The Gcode without argument
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.BaudRate">
+            <summary>
+                Baudrate
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.Port">
+            <summary>
+                Set the serial com port from a string like COM10
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.ProbeResponceList">
+            <summary>
+            All the proberesponces from a features ( many G30 )
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.IsPortOpen">
+            <summary>
+                If the serial port is open
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.MarlinCommunication.Showform">
+            <summary>
+            Show a form of the communication and allow send commands
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.Temperatures">
+            <summary>
+                Eventhandler for Tempertatures
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.Connect">
+            <summary>
+            Connect and get the INIT without events..
+            Timeout on first responce is 10s
+            The following has 4s (Test of SD is slow)
+            
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.DisConnect">
+            <summary>
+            Close the Comport and wait for it to be done
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.GetExistingSerialPorts">
+            <summary>
+            Get the existing Comports
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.ClearCommunication">
+            <summary>
+            Clear the communication
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.SendCommand(System.String)">
+            <summary>
+            Send a single GCODE. Check for each command if Kill signal is received
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.SendCommand(System.Collections.Generic.List{System.String})">
+            <summary>
+            Send a list of commands . 
+            </summary>
+            <param name="commands"></param>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.ExtrudeCalculationUpdate(System.Int32,System.String,System.Int32)">
+            <summary>
+                Update the uploaded Firmware with new calibrated value
+            </summary>
+            <param name="extrude">Amount of extruded filament in the test</param>
+            <param name="oldSteps">Value for Steps-per-mm before the test</param>
+            <param name="meassuredUsedFilament">Meassured filament that is used during the test</param>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.Connected">
+            <summary>
+            Event when the ZylSerial is connected
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.DisConnected">
+            <summary>
+            Event when ZylSerial is disConnected
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.Init">
+            <summary>
+            Handle Init event that rise after startup of Marlin FW
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.G29Responce">
+            <summary>
+            Handle event that rise after G29
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnG29Responce(MarlinComunicationHelper.Responce)">
+            <summary>
+            Handle event that rise after G29
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.G30ProbeResponce">
+            <summary>
+            Handle event that rise after G30
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M48ProbeStatus">
+            <summary>
+            Handle event that rise after M48
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM48ProbeStatus(MarlinComunicationHelper.ResponceData)">
+            <summary>
+            Handle event that rise after M48
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M114GetCurrentPosition">
+            <summary>
+            Handle event that rise after M114
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM114GetCurrentPosition(MarlinComunicationHelper.CurrentPosition)">
+            <summary>
+            Handle event that rise after M114
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M119EndStopStatus">
+            <summary>
+                Eventhandler for M119 EndstopStatus
+            </summary>
+            TODO: EndstopStatusList -> EndstopStatus
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.OnM119EndStopStatus(MarlinComunicationHelper.EndStop)">
+            <summary>
+                Report result of M119 EndstopStatus
+            </summary>
+            <param name="endstopStatusList"></param>
+            TODO: EndstopStatusList -> EndstopStatus
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M301Responce">
+            <summary>
+                Eventhandler for M301
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M303Responce">
+            <summary>
+                Eventhandler for M303Responce
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M304Responce">
+            <summary>
+                Eventhandler for M304
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M500Responce">
+            <summary>
+                Eventhandler for M500
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M501Responce">
+            <summary>
+                Eventhandler for M501
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.M851Responce">
+            <summary>
+                Eventhandler for M501
+            </summary>
+        </member>
+        <member name="E:MarlinComunicationHelper.MarlinCommunication.CommandSequenceeDone">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.EndstopStatus">
+            <summary>
+                Endstop Argument
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.EndstopStatus.#ctor(MarlinComunicationHelper.EndStop)">
+            <summary>
+            Endstop Status
+            </summary>
+            <param name="endstop"></param>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndstopStatus.Status">
+            <summary>
+            The status for all endstops
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.EndStop">
+            <summary>
+            Endstop with the status of all endstops
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndStop.Xmin">
+            <summary>
+            status for Xmin
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndStop.Xmax">
+            <summary>
+            status for Xmax
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndStop.Ymin">
+            <summary>
+            status for Ymin
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndStop.Ymax">
+            <summary>
+            status for Ymax
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndStop.Zmin">
+            <summary>
+            status for Zmin
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.EndStop.Zmax">
+            <summary>
+            status for Zmax
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.Temperatures">
+            <summary>
+                Temperature
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.Temperatures.#ctor">
+            <summary>
+            Temperature 
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder1">
+            <summary>
+            Extruder temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder1">
+            <summary>
+            Set extruder Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Heatbed">
+            <summary>
+            Heatbed temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetHeatbed">
+            <summary>
+            Set heatbed Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder2">
+            <summary>
+            Extruder2 Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder2">
+            <summary>
+            Set extruder2 Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder1String">
+            <summary>
+            Extruder temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder1String">
+            <summary>
+            Set extruder Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.HeatbedString">
+            <summary>
+            Heatbed temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetHeatbedString">
+            <summary>
+            Set heatbed Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.Extruder2String">
+            <summary>
+            Extruder2 Temp
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Temperatures.SetExtruder2String">
+            <summary>
+            Set extruder2 Temp
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.NumberConversion">
+            <summary>
+            Number Conversation 
+            String to Decimal
+            Decimal to String
+            String to String
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.NumberConversion.ConvertStringToDecimal(System.String)">
+            <summary>
+            Convert a string to Decimal
+            </summary>
+            <param name="stringNumeric"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MarlinComunicationHelper.NumberConversion.ConvertDecimalToString(System.Decimal)">
+            <summary>
+            Convert a decimal numeric to a String with decimal point.
+            </summary>
+            <param name="numericDecimal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MarlinComunicationHelper.NumberConversion.ConvertStringToString(System.String)">
+            <summary>
+            Converts a numeric string to a numeric string with decimals
+            </summary>
+            <param name="numericString"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MarlinComunicationHelper.ResponceData">
+            <summary>
+            Generic responcedata
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.ResponceData.#ctor(System.String)">
+            <summary>
+            Generic Responce Data
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:MarlinComunicationHelper.ResponceData.Data">
+            <summary>
+            Generic Responce Data
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.Responce">
+            <summary>
+            Responce with many lines
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.Responce.#ctor(System.Collections.Generic.List{System.String})">
+            <summary>
+            List of responce rows
+            </summary>
+            <param name="responceRowList"></param>
+        </member>
+        <member name="P:MarlinComunicationHelper.Responce.ResponsRowList">
+            <summary>
+            Responce list of rows
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.CurrentPosition">
+            <summary>
+            Current Position
+            </summary>
+        </member>
+        <member name="M:MarlinComunicationHelper.CurrentPosition.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Current position where X/Y/Z is strings
+            </summary>
+            <param name="xposition"></param>
+            <param name="yposition"></param>
+            <param name="zposition"></param>
+        </member>
+        <member name="P:MarlinComunicationHelper.CurrentPosition.Xdecimal">
+            <summary>
+            X as a Double
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.CurrentPosition.Ydecimal">
+            <summary>
+            Y as a double
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.CurrentPosition.Zdecimal">
+            <summary>
+            Z as a double
+            </summary>
+        </member>
+        <member name="T:MarlinComunicationHelper.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.adjuster">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.clockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.counterclockwise">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.GoTo">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.OK">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.pin">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:MarlinComunicationHelper.Properties.Resources.Save">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+    </members>
+</doc>
