@@ -28,6 +28,8 @@ namespace Marlin3DprinterTool
     /// </summary>
     public partial class FrmMarlin3DprinterTool : Form
     {
+
+        
         private readonly Configuration _configuration = new Configuration();
 
         private readonly Position _currectPosition = new Position();
@@ -260,23 +262,33 @@ namespace Marlin3DprinterTool
 
 
            
+            List<Position> probePointsList = PointProbeList();
+
+            ScanSurface(probePointsList, 1);
+        }
+
+        private List<Position> PointProbeList()
+        {
+           
+
+
             List<Position> probePointsList = new List<Position>();
             if (_configuration.BedType == BedTypeEnum.FourPoint)
             {
-                probePointsList.Add( bedAdjusterFrontLeft.Position);
-                probePointsList.Add( bedAdjusterFrontRight.Position);
+                probePointsList.Add(bedAdjusterFrontLeft.Position);
+                probePointsList.Add(bedAdjusterFrontRight.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
                 probePointsList.Add(bedAdjusterBackLeft.Position);
             }
             else
-            if (_configuration.BedType ==   BedTypeEnum.ThreePointLeftSingle)
+            if (_configuration.BedType == BedTypeEnum.ThreePointLeftSingle)
             {
                 probePointsList.Add(bedAdjusterLeftSingle.Position);
                 probePointsList.Add(bedAdjusterFrontRight.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
             }
             else
-            if (_configuration.BedType ==   BedTypeEnum.ThreePointFrontSingle)
+            if (_configuration.BedType == BedTypeEnum.ThreePointFrontSingle)
             {
                 probePointsList.Add(bedAdjusterFrontSingle.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
@@ -292,17 +304,14 @@ namespace Marlin3DprinterTool
 
             }
 
-
-
-
-            ScanSurface(probePointsList, 1);
+            return probePointsList;
         }
 
         private void ScanSurface(List<Position> probePointsList, int numberOfRepetitions)
         {
 
 
-            string gcodeSpeed = "";
+            string gcodeSpeed = "F6000";
 
             var commands = new List<string> {"G28 Y", "G28 X"};
             commands.Add(@"G28 Z");
@@ -322,33 +331,15 @@ namespace Marlin3DprinterTool
 
                 for (var i = 0; i < numberOfRepetitions; i++)
                 {
-                    //if (_configuration.GcodeAssistZprobeEngage.Count >= 1)
-                    //{
-                    //    foreach (string line in _configuration.GcodeAssistZprobeEngage )
-                    //    {
-                    //        commands.Add(line);
-                    //    }
-                    //}
+                   
                     // probe the point
                     commands.Add("G30 S-1" );
-                    //if (_configuration.GcodeAssistZprobeRelease.Count >= 1)
-                    //{
-                    //    foreach (string line in _configuration.GcodeAssistZprobeRelease)
-                    //    {
-                    //        commands.Add(line);
-                    //    }
-                    //}
+                    
                     commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
                 }
             }
 
-            //if (_configuration.GcodeAssistZprobeRelease.Count >= 1)
-            //{
-            //    foreach (string line in _configuration.GcodeAssistZprobeRelease)
-            //    {
-            //        commands.Add(line);
-            //    }
-            //}
+           
             commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
             
 
@@ -460,10 +451,41 @@ namespace Marlin3DprinterTool
         {
             var commands = new List<string> {"G28 Y", "G28 X", "G28 Z"};
 
+            _com.Status = MarlinCommunication.Feature.Zmaintenance;
+            chartBinding.Series["FrontLeft"].Points.Clear();
+            chartBinding.Series["FrontRight"].Points.Clear();
+            chartBinding.Series["BackLeft"].Points.Clear();
+            chartBinding.Series["BackRight"].Points.Clear();
+
+
+
+            List<Position> probePointsList = PointProbeList();
+            string gcodeSpeed = "F6000";
+
+           
             for (var i = 0; i < numUpDnZmaintenanceRepetitions.Value; i++)
             {
                 commands.Add($"G1 Z{trackBarZmaintenanceMax.Value}"); // Max value
                 commands.Add($"G1 Z{trackBarZmaintenanceMin.Value}"); // MIN VALUE
+
+                foreach (Position probePoint in probePointsList)
+                {
+
+                    // move to X&Y
+
+
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+                    //commands.Add("G1 Z40");
+
+                   
+
+                    // probe the point
+                    commands.Add("G30 S-1");
+
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+                   
+                }
+
             }
 
             _com.SendCommand(commands);
@@ -744,7 +766,7 @@ namespace Marlin3DprinterTool
 
         private void btnScanSurface_Click(object sender, EventArgs e)
         {
-            
+            _com.Status = MarlinCommunication.Feature.SurfaceScan;
             nChartControlSurface.Charts[0].Series.Clear();
             nChartControlSurface.Refresh();
 
@@ -1236,14 +1258,7 @@ namespace Marlin3DprinterTool
 
                 #endregion
 
-                #region DockZprobe
-                case MarlinCommunication.Feature.DockZprobe:
-
-
-                    
-
-                    break;
-                #endregion
+               
 
                 
 
@@ -1263,7 +1278,8 @@ namespace Marlin3DprinterTool
                     break;
 
                  #endregion
-            }   
+            } 
+              
         }
 
         private void _com_Temperatures(object sender, Temperatures temperatures)
@@ -1441,7 +1457,77 @@ namespace Marlin3DprinterTool
 
         private void _com_G30ProbeResponce(object sender, List<Position> probePositions)
         {
-            
+            if (_com.Status == MarlinCommunication.Feature.Zmaintenance)
+            {
+                if (_com.ProbeResponceList != null)
+                {
+                    foreach (var probeResponce in _com.ProbeResponceList)
+                    {
+                        _probePoints.Add(new Position
+                        {
+                            X = probeResponce.X,
+                            Y = probeResponce.Y,
+                            Z = probeResponce.Z
+                        });
+
+                       // // Find control that match the X and Y
+                       // // Assign the Z
+                       // if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 50) &&
+                       //     (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 50))
+                       // {
+                       //     bedAdjusterBackLeft.Z = probeResponce.Z;
+                       //     DelegateAndInvoke.ChartAddBinding(chartBinding, "BackLeft", probeResponce.Z);
+                       // }
+
+                       // if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 50) &&
+                       //(Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 50))
+                       // {
+                       //     bedAdjusterBackRight.Z = probeResponce.Z;
+                       //     DelegateAndInvoke.ChartAddBinding(chartBinding, "BackRight", probeResponce.Z);
+                       // }
+
+                        //if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 50) &&
+                        //    (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 50))
+                        //{
+
+                        //    bedAdjusterFrontLeft.Z = probeResponce.Z;
+                        //    DelegateAndInvoke.ChartAddBinding(chartBinding, "FrontLeft", probeResponce.Z);
+                        //}
+
+                        //if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 50) &&
+                        //    (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 50))
+                        //{
+                        //    bedAdjusterFrontRight.Z = probeResponce.Z;
+                        //    DelegateAndInvoke.ChartAddBinding(chartBinding, "FrontRight", probeResponce.Z);
+                        //}
+
+                        if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 50) &&
+                            (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 50))
+                        {
+                            bedAdjusterLeftSingle.Z = probeResponce.Z;
+                        }
+
+                        if ((Math.Abs(bedAdjusterFrontSingle.X - probeResponce.X) < 50) &&
+                            (Math.Abs(bedAdjusterFrontSingle.Y - probeResponce.Y) < 50))
+                        {
+                            bedAdjusterFrontSingle.Z = probeResponce.Z;
+                        }
+
+                        if ((Math.Abs(bedAdjusterRightSingle.X - probeResponce.X) < 50) &&
+                            (Math.Abs(bedAdjusterRightSingle.Y - probeResponce.Y) < 50))
+                        {
+                            bedAdjusterRightSingle.Z = probeResponce.Z;
+                        }
+
+
+                    }
+
+                    _com.ProbeResponceList.Clear();
+                }
+                return;
+            }
+
+
 
             // Calculate the turns on each corner
             if (_com.ProbeResponceList != null)
@@ -1455,6 +1541,8 @@ namespace Marlin3DprinterTool
                         Z = probeResponce.Z
                     });
 
+
+                    
 
                     // Find control that match the X and Y
                     // Assign the Z
@@ -1473,6 +1561,7 @@ namespace Marlin3DprinterTool
                     if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 50) &&
                         (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 50))
                     {
+                        
                         bedAdjusterFrontLeft.Z = probeResponce.Z;
                     }
 
@@ -1547,14 +1636,10 @@ namespace Marlin3DprinterTool
             _temperatureStopwatch.Reset();
             _temperatureStopwatch.Start();
 
-
+            
             ShowInitAndM501(e.Data);
 
-            if (_configuration.BLTouch)
-            {
-                
-                _com.SendCommand("M280 P0 S160");
-            }
+           
             
         }
 
@@ -2545,9 +2630,9 @@ namespace Marlin3DprinterTool
 
         private void btnDockZprobe_Click(object sender, EventArgs e)
         {
-            
 
-            _com.Status = MarlinCommunication.Feature.DockZprobe;
+
+            _com.Status = MarlinCommunication.Feature.Done;
 
             List<String> commands = new List<string>();
             if (_configuration.GcodeAssistZprobeEngage.Count >= 1)
@@ -2559,11 +2644,9 @@ namespace Marlin3DprinterTool
 
             }
 
+            _com.Clear();
             commands.Add("G28 Y");
             commands.Add("G28 X");
-            
-            
-
             commands.Add(@"G28 Z");
             commands.Add("G30 S-1 ");
             
@@ -2575,17 +2658,18 @@ namespace Marlin3DprinterTool
 
         private void btnProbeUp_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string> {"G91","G1 Z0.05 F500","G90", "M119","M114"};
+            
+            List<string> commands = new List<string> {"G91","G1 Z0.05 F500","G90", "M114", "M119" };
             
 
             _com.SendCommand(commands);
         }
 
-        private void btnProbeDown_Click_2(object sender, EventArgs e)
+        private void btnProbeDown_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string> { "G91", "G1 Z-0.05 F500", "G90", "M119", "M114" };
-            
+            List<string> commands = new List<string> { "G91", "G1 Z-0.05 F500", "G90", "M114","M119" };
 
+            
             _com.SendCommand(commands);
             
         }
@@ -2648,7 +2732,9 @@ namespace Marlin3DprinterTool
 
         private void UpdateEpromZprobeOffset(string zProbeOffset)
         {
+            _com.Clear();
             List<string> commands = new List<string>();
+            
             commands.Add($"M851 Z{zProbeOffset}");
             commands.Add("M500");
             commands.Add("M501");
@@ -2657,7 +2743,9 @@ namespace Marlin3DprinterTool
 
         private void btnM851_Click(object sender, EventArgs e)
         {
+            _com.Clear();
             List<string> commands = new List<string>();
+            commands.Add("CLEAR");
             commands.Add($"M851 Z{txtBxM851.Text}");
             commands.Add("M500");
             commands.Add("M501");
@@ -2757,6 +2845,7 @@ namespace Marlin3DprinterTool
 
                 txtBxGcodeAssistZprobeRelease.Clear();
                 txtBxGcodeAssistZprobeRelease.AppendText(@"M280 P0 S160");
+                txtBxGcodeAssistZprobeRelease.AppendText(Environment.NewLine);
                 txtBxGcodeAssistZprobeRelease.AppendText(@"M280 P0 S90");
 
 
@@ -2802,9 +2891,14 @@ namespace Marlin3DprinterTool
         {
             if (_com.IsPortOpen)
             {
-                List<string> commands = new List<string> {"M0 P500", "M119"};
+                List<string> commands = new List<string> {"M119"};
                 _com.SendCommand(commands);
             }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

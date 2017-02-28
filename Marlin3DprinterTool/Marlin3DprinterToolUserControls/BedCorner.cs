@@ -112,7 +112,7 @@ namespace Marlin3DprinterToolUserControls
             List<string> commands = new List<string>();
             // Lift
 
-            commands.Add($"G1 X{maskedTxtBxX.Text} Y{maskedTxtBxY.Text}");
+            commands.Add($"G1 X{maskedTxtBxX.Text} Y{maskedTxtBxY.Text} F6000" );
             Communication.SendCommand(commands);
 
         }

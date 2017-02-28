@@ -55,11 +55,6 @@ namespace MarlinComunicationHelper
             /// </summary>
             AutoBedLevel = 4,
             /// <summary>
-            /// Search for where the Probe touch the bed
-            /// </summary>
-            DockZprobe = 5,
-            
-            /// <summary>
             /// Auto Tune PID for Exctruder
             /// </summary>
             AutoPidTuneExtruder = 6,
@@ -75,7 +70,10 @@ namespace MarlinComunicationHelper
             /// Start of test extrudsion of 100mm filament
             /// </summary>
             ExtruderCalibrationTest = 9,
-            
+            /// <summary>
+            /// Z maintenance and bindings control
+            /// </summary>
+            Zmaintenance = 10
         }
         
 
@@ -367,14 +365,14 @@ namespace MarlinComunicationHelper
                     {
                         probePosition.Xstring = xstring;
                     }
-                    
+                    ProbeResponceList.Add(probePosition);
                 }
                 
 
                 
             }
 
-            ProbeResponceList.Add(probePosition);
+            //ProbeResponceList.Add(probePosition);
 
             // Create G30 responce Event
             OnG30ProbeResponce(ProbeResponceList);
@@ -433,6 +431,9 @@ namespace MarlinComunicationHelper
 
         private string ParseM114(string dataReceived)
         {
+
+            string returnData = dataReceived;
+
             string positionPattern = @"X:[-]*[0-9,.]*\s*Y:[-]*[0-9,.]*\s*Z:[-]*[0-9,.]*\s*E:[0-9,.]*\s*Count X:\s*[-]*[0-9]*\s*Y:[-]*[0-9]*\s*Z:[-]*[0-9]*";
 
             // Get all responces 
@@ -457,12 +458,12 @@ namespace MarlinComunicationHelper
                     CurrentPosition.Zstring = zstring;
                     OnM114GetCurrentPosition(currentPosition);
 
-                    
+                    returnData = Regex.Replace(dataReceived, positionPattern, "");
+
                 }
             }
-            string returnData = Regex.Replace(dataReceived, positionPattern, "");
-            return returnData;
 
+            return returnData;
         }
 
         private void ParseM119(string dataReceived)
@@ -520,6 +521,7 @@ namespace MarlinComunicationHelper
 
         private void ParseM500(string dataReceived)
         {
+            
             var responceData = new ResponceData(dataReceived);
             OnM500Responce(responceData);
 
@@ -768,7 +770,17 @@ namespace MarlinComunicationHelper
         }
 
 
-
+        public void Clear()
+        {
+            commandsInQueue.Clear();
+            
+            if (IsPortOpen)
+            {
+                _serialPort.ClearOutputBuffer();
+                _serialPort.ClearInputBuffer();
+                
+            }
+        }
 
 
 
@@ -778,16 +790,17 @@ namespace MarlinComunicationHelper
         /// <param name="commands"></param>
         public void SendCommand(List<string> commands)
         {
+            List<string> commList = new List<string>();
 
             if (IsReceivingOrSending)
             {
-                
+
                 foreach (string command in commands)
                 {
                     if (Status == Feature.EndStop)
                     {
                         if (command.Trim().StartsWith("M119")) continue;
-                        if (command.Trim().StartsWith("M0")) continue;
+                       
 
                     }
                     commandsInQueue.Add(command);
@@ -796,17 +809,13 @@ namespace MarlinComunicationHelper
 
             if (!IsReceivingOrSending)
             {
+
                 
-                List<string> commList = new List<string>();
                 commList.AddRange(commandsInQueue);
-                foreach (string command in commands)
-                {
-                    commList.Add(command);
-                }
-                
+                commList.AddRange(commands);
                 commandsInQueue.Clear();
                 BackgroundWorker serialBackgroundWorker1 = new BackgroundWorker();
-                serialBackgroundWorker1.DoWork += SerialBackgroundWorker_DoWork1;
+                serialBackgroundWorker1.DoWork += SerialBackgroundWorker_DoWork;
                 serialBackgroundWorker1.WorkerSupportsCancellation = true;
                 serialBackgroundWorker1.RunWorkerAsync(commList);
 
@@ -821,7 +830,7 @@ namespace MarlinComunicationHelper
 
 
 
-        private void SerialBackgroundWorker_DoWork1(object sender, DoWorkEventArgs e)
+        private void SerialBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             //TODO: TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
@@ -836,6 +845,7 @@ namespace MarlinComunicationHelper
             IsReceivingOrSending = true;
             List<string> commands = (List<string>)e.Argument;
 
+            
 
             foreach (string command in commands)
             {
@@ -882,28 +892,29 @@ namespace MarlinComunicationHelper
                     {
                         case "G28":
 
-                            ParseG28(ReceiveDataUntilOk(30));
+                            ParseG28(ReceiveDataUntilOk());
                             break;
                         case "G29":
-                            ParseG29(ReceiveDataUntilOk(30));
+                            ParseG29(ReceiveDataUntilOk());
                             break;
                         case "G30":
-                            ParseG30(ReceiveDataUntilOk(30));
+                            ParseG30(ReceiveDataUntilOk());
                             break;
                         
 
                         case "M48":
-                            ParseM48(ReceiveDataUntilOk(10000));
+                            ParseM48(ReceiveDataUntilOk());
                             break;
                         case "M105":
-                            ParseM105(ReceiveDataUntilOk(30));
+                            ParseM105(ReceiveDataUntilOk());
                             break;
                         case "M114":
-                            ParseM114(ReceiveDataUntilOk(30));
+                            ParseM114(ReceiveDataUntilOk());
                             break;
 
                         case "M119":
-                            ParseM119(ReceiveDataUntilOk(90));
+                            Thread.Sleep(100);
+                            ParseM119(ReceiveDataUntilOk());
                             break;
 
                         case "M280":
@@ -915,32 +926,32 @@ namespace MarlinComunicationHelper
                                     _serialPort.SendAsciiString(command + linuxNewline);
                                 }
                             }
-                            ParseM280(ReceiveDataUntilOk(90));
+                            ParseM280(ReceiveDataUntilOk());
                             break;
 
                         case "M301":
-                            ParseM301(ReceiveDataUntilOk(30));
+                            ParseM301(ReceiveDataUntilOk());
                             break;
 
 
                         case "M303":
-                            ParseM303(ReceiveDataUntilOk(30));
+                            ParseM303(ReceiveDataUntilOk());
                             break;
 
                         case "M304":
-                            ParseM304(ReceiveDataUntilOk(30));
+                            ParseM304(ReceiveDataUntilOk());
                             break;
 
                         case "M500":
-                            ParseM500(ReceiveDataUntilOk(30));
+                            ParseM500(ReceiveDataUntilOk());
                             break;
 
                         case "M501":
-                            ParseM501(ReceiveDataUntilOk(30));
+                            ParseM501(ReceiveDataUntilOk());
                             break;
 
                         default:
-                            ParseDefault(ReceiveDataUntilOk(30));
+                            ParseDefault(ReceiveDataUntilOk());
                             break;
                     }
 
@@ -953,9 +964,9 @@ namespace MarlinComunicationHelper
 
             IsReceivingOrSending = false;
 
-
+            
             OnCommandSequenceeDone(EventArgs.Empty);
-
+            Clear();
             //TODO: cursorType = new TypeOfCursor(Cursors.Default);
             //TODO: OnSending(cursorType);
             
@@ -965,7 +976,7 @@ namespace MarlinComunicationHelper
 
 
 
-        private string ReceiveDataUntilOk(int timeout)
+        private string ReceiveDataUntilOk()
         {
             // Read all bytes in the buffer
 
@@ -977,7 +988,7 @@ namespace MarlinComunicationHelper
 
             while (true)
             {
-                string line = _serialPort.ReadLine(timeout); //Delete all "Busy ..."
+                string line = _serialPort.ReadLine(1000); //Delete all "Busy ..."
 
                 if (line.ToLower().Contains("busy"))
                 {
@@ -997,18 +1008,37 @@ namespace MarlinComunicationHelper
 
                 dataReceived += line + linuxNewline;
                 
-                line = ParseM114(line);
+                ParseM114(line);
 
                 switch (Gcode)
                 {
-                    
+                    case "M851":
+                        
+                        break;
+                    case "M500":
+                        
+                        break;
+                    case "M501":
+                        
+                        break;
+
+
+
                     case "M303":
                         var responceData = new ResponceData(dataReceived);
                         OnM303Responce(responceData);
                         break;
                     case "G30":
-                        OnG30ProbeResponce(ProbeResponceList);
-                        break;
+                        if (line.ToLower().Trim() == "ok") continue;
+                        if (line.ToLower().Contains("bed"))
+                        {
+                            dataReceived += Environment.NewLine + "ok";
+                            break;
+                        }
+                        
+                            OnG30ProbeResponce(ProbeResponceList);
+                            continue;
+                        
                     case "M48":
 
                         if (line.ToLower().Trim() == "ok") continue;
