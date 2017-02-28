@@ -6,7 +6,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using FastColoredTextBoxNS;
 using Marlin3DprinterToolUserControls;
 using MarlinComunicationHelper;
-using Cursor = System.Windows.Forms.Cursor;
+
 
 namespace Marlin3DprinterTool
 {
@@ -420,24 +420,7 @@ namespace Marlin3DprinterTool
 
 
 
-        /// <summary>
-        /// Change the cursor
-        /// </summary>
-        /// <param name="cursorType"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public static void Cursor(Cursor cursorType)
-        {
-            if (_frm3DprinterTool.InvokeRequired)
-            {
-                CursorCallback d = Cursor;
-                try{_frm3DprinterTool.Invoke(d, cursorType);} catch (Exception){}
-            }
-            else
-            {
-                try{_frm3DprinterTool.Cursor = cursorType; } catch (Exception) { }
-            }
-        }
+
 
 
         /// <summary>
@@ -477,7 +460,25 @@ namespace Marlin3DprinterTool
         }
 
 
+        /// <summary>
+        /// Adds data to the Chart for BindingControl
+        /// </summary>
+        /// <param name="chartBinding"></param>
+        /// <param name="corner"></param>
+        /// <param name="zDecimal"></param>
+        public static void ChartAddBinding(Chart chartBinding, string corner,  decimal zDecimal)
+        {
 
+            if (chartBinding.InvokeRequired)
+            {
+                ChartAddBindingCallback d = ChartAddBinding;
+                _frm3DprinterTool.Invoke(d, chartBinding, corner,  zDecimal);
+            }
+            else
+            {
+                chartBinding.Series[corner].Points.AddY(zDecimal);
+            }
+        }
 
         // Delegate
         private delegate void DelegateVerticalJogCallback(VerticalJog verticalJog, MarlinCommunication marlin);
@@ -493,22 +494,12 @@ namespace Marlin3DprinterTool
         private delegate void DisableTabsCallback(TabControl tabControl, bool enable);
 
         private delegate void DelegateTextCallback(Control control, string text);
-
-        private delegate void TextBoxAddCallback(TextBox textbox, string text);
-
-        private delegate void MultiTextLinesCallback(TextBox textBox, List<string> responce);
-
+        
         private delegate void FastColoredTextBoxCallback(FastColoredTextBox marlinSyntaxTextBox, List<string> responces);
 
         private delegate void FastColoredTextBoxCallbackText(FastColoredTextBox marlinSyntaxTextBox, string text);
-
-        private delegate void SetBedTempCallback(Chart chart, int time, int bedTemp, int setBedTemp);
-
-        private delegate void SetExtruderTempCallback(Chart chart, int time, int extruderTemp, int setExtruderTemp);
-
+        
         private delegate string TabControl3DprinterToolSelectedCallback(TabControl tabControl);
-
-        //TODO: TABORT private delegate void TabPageEnableCallback(TabPage tabPage, bool enable);
 
         private delegate void ScrollToCallback(FastColoredTextBox marlinSyntaxTextBox, int row);
 
@@ -516,13 +507,14 @@ namespace Marlin3DprinterTool
 
         private delegate TabPage GetSelectedTabCallback(TabControl tabControl);
 
-        private delegate void CursorCallback(Cursor cursorType);
-
         private delegate void VerticalJogCallback(VerticalJog verticalJog, MarlinCommunication communication);
 
         private delegate void KompassCallback(Kompass kompass, MarlinCommunication communication);
 
+        private delegate void ChartAddBindingCallback(Chart chartBinding, string corner, decimal zDecimal);
+
         //!Delegate
+
 
 
     }

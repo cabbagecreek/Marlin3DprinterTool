@@ -206,7 +206,7 @@ namespace Marlin3DprinterToolUserControls
             }
             else
             {
-                adjust = (Fix - Z) / _threadsPitch;
+                adjust = diff / _threadsPitch;
             }
 
             var sign = adjust <= 0 ? "+" : "-";
@@ -219,7 +219,7 @@ namespace Marlin3DprinterToolUserControls
             DelegateVisible(picBxLeft, true);
 
             Image turnIndicator = adjust <= 0 ? Resources.clockwise : Resources.counterclockwise;
-            if (Math.Abs(adjust) <= (decimal) 0.05) turnIndicator = Resources.OK;
+            if (Math.Abs(diff) <= (decimal) 0.05) turnIndicator = Resources.OK;
 
 
             switch (Adjuster)

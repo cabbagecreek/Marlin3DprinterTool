@@ -46,7 +46,14 @@ namespace Marlin3DprinterTool
             Marlin3DprinterToolConfiguration.Position position6 = new Marlin3DprinterToolConfiguration.Position();
             Marlin3DprinterToolConfiguration.Position position7 = new Marlin3DprinterToolConfiguration.Position();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
             this.grpBxZ = new System.Windows.Forms.GroupBox();
@@ -216,6 +223,7 @@ namespace Marlin3DprinterTool
             this.lblZmaxTravel = new System.Windows.Forms.Label();
             this.numUpDnZmaxTravel = new System.Windows.Forms.NumericUpDown();
             this.trkBrZmaxTravel = new System.Windows.Forms.TrackBar();
+            this.chartBinding = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPageCalculations = new System.Windows.Forms.TabPage();
             this.grpBxFeedRate = new System.Windows.Forms.GroupBox();
             this.numUpDnFeedRateMMperMinute = new System.Windows.Forms.NumericUpDown();
@@ -429,6 +437,7 @@ namespace Marlin3DprinterTool
             this.grpZprobeConfigMax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnZmaxTravel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkBrZmaxTravel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartBinding)).BeginInit();
             this.tabPageCalculations.SuspendLayout();
             this.grpBxFeedRate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperMinute)).BeginInit();
@@ -886,7 +895,7 @@ namespace Marlin3DprinterTool
             this.btnProbeDown.TabIndex = 6;
             this.btnProbeDown.Text = "Probe Down";
             this.btnProbeDown.UseVisualStyleBackColor = true;
-            this.btnProbeDown.Click += new System.EventHandler(this.btnProbeDown_Click_2);
+            this.btnProbeDown.Click += new System.EventHandler(this.btnProbeDown_Click);
             // 
             // txtBxDockZprobe
             // 
@@ -1548,7 +1557,7 @@ namespace Marlin3DprinterTool
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointRight);
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointLeft);
             this.grpBxAdjusters.Controls.Add(this.rdoBn4point);
-            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 925);
+            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 997);
             this.grpBxAdjusters.Name = "grpBxAdjusters";
             this.grpBxAdjusters.Size = new System.Drawing.Size(253, 100);
             this.grpBxAdjusters.TabIndex = 20;
@@ -1881,7 +1890,7 @@ namespace Marlin3DprinterTool
             this.nChartControlSurface.InputKeys = new System.Windows.Forms.Keys[0];
             this.nChartControlSurface.Location = new System.Drawing.Point(6, 70);
             this.nChartControlSurface.Name = "nChartControlSurface";
-            this.nChartControlSurface.Size = new System.Drawing.Size(643, 612);
+            this.nChartControlSurface.Size = new System.Drawing.Size(643, 684);
             this.nChartControlSurface.State = ((Nevron.Chart.WinForm.NState)(resources.GetObject("nChartControlSurface.State")));
             this.nChartControlSurface.TabIndex = 21;
             this.nChartControlSurface.Text = "nChartControl1";
@@ -2036,14 +2045,14 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbPidResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.fctbPidResponce.IsReplaceMode = false;
-            this.fctbPidResponce.Location = new System.Drawing.Point(3, 384);
+            this.fctbPidResponce.Location = new System.Drawing.Point(7, 376);
             this.fctbPidResponce.Name = "fctbPidResponce";
             this.fctbPidResponce.Paddings = new System.Windows.Forms.Padding(0);
             this.fctbPidResponce.ReadOnly = true;
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbPidResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbPidResponce.ServiceColors")));
             this.fctbPidResponce.ShowLineNumbers = false;
-            this.fctbPidResponce.Size = new System.Drawing.Size(640, 298);
+            this.fctbPidResponce.Size = new System.Drawing.Size(640, 263);
             this.fctbPidResponce.TabIndex = 16;
             this.fctbPidResponce.Zoom = 100;
             // 
@@ -2655,6 +2664,7 @@ namespace Marlin3DprinterTool
             this.tabPageZMaintenance.Controls.Add(this.pictureBox5);
             this.tabPageZMaintenance.Controls.Add(this.grpBxZMaintenance);
             this.tabPageZMaintenance.Controls.Add(this.grpZprobeConfigMax);
+            this.tabPageZMaintenance.Controls.Add(this.chartBinding);
             this.tabPageZMaintenance.Location = new System.Drawing.Point(4, 40);
             this.tabPageZMaintenance.Name = "tabPageZMaintenance";
             this.tabPageZMaintenance.Size = new System.Drawing.Size(652, 577);
@@ -2667,11 +2677,12 @@ namespace Marlin3DprinterTool
             // 
             this.pictureBox5.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Work_in_progress;
             this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox5.Location = new System.Drawing.Point(258, 329);
+            this.pictureBox5.Location = new System.Drawing.Point(522, 438);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(116, 103);
             this.pictureBox5.TabIndex = 29;
             this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
             // 
             // grpBxZMaintenance
             // 
@@ -2732,12 +2743,12 @@ namespace Marlin3DprinterTool
             // 
             this.trackBarZmaintenanceMin.Location = new System.Drawing.Point(12, 18);
             this.trackBarZmaintenanceMin.Maximum = 100;
-            this.trackBarZmaintenanceMin.Minimum = 2;
+            this.trackBarZmaintenanceMin.Minimum = 10;
             this.trackBarZmaintenanceMin.Name = "trackBarZmaintenanceMin";
             this.trackBarZmaintenanceMin.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarZmaintenanceMin.Size = new System.Drawing.Size(45, 258);
             this.trackBarZmaintenanceMin.TabIndex = 1;
-            this.trackBarZmaintenanceMin.Value = 2;
+            this.trackBarZmaintenanceMin.Value = 10;
             this.trackBarZmaintenanceMin.Scroll += new System.EventHandler(this.trackBarZmaintenanceMin_Scroll);
             // 
             // grpBxZmaintMax
@@ -2754,7 +2765,7 @@ namespace Marlin3DprinterTool
             // 
             this.trackBarZmaintenanceMax.Location = new System.Drawing.Point(6, 20);
             this.trackBarZmaintenanceMax.Maximum = 250;
-            this.trackBarZmaintenanceMax.Minimum = 100;
+            this.trackBarZmaintenanceMax.Minimum = 30;
             this.trackBarZmaintenanceMax.Name = "trackBarZmaintenanceMax";
             this.trackBarZmaintenanceMax.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarZmaintenanceMax.Size = new System.Drawing.Size(45, 256);
@@ -2797,9 +2808,9 @@ namespace Marlin3DprinterTool
             this.grpZprobeConfigMax.Controls.Add(this.lblZmaxTravel);
             this.grpZprobeConfigMax.Controls.Add(this.numUpDnZmaxTravel);
             this.grpZprobeConfigMax.Controls.Add(this.trkBrZmaxTravel);
-            this.grpZprobeConfigMax.Location = new System.Drawing.Point(11, 329);
+            this.grpZprobeConfigMax.Location = new System.Drawing.Point(11, 328);
             this.grpZprobeConfigMax.Name = "grpZprobeConfigMax";
-            this.grpZprobeConfigMax.Size = new System.Drawing.Size(241, 335);
+            this.grpZprobeConfigMax.Size = new System.Drawing.Size(160, 213);
             this.grpZprobeConfigMax.TabIndex = 52;
             this.grpZprobeConfigMax.TabStop = false;
             this.grpZprobeConfigMax.Text = "Max Z travel";
@@ -2850,15 +2861,56 @@ namespace Marlin3DprinterTool
             // 
             this.trkBrZmaxTravel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.trkBrZmaxTravel.Location = new System.Drawing.Point(14, 19);
+            this.trkBrZmaxTravel.Location = new System.Drawing.Point(6, 28);
             this.trkBrZmaxTravel.Maximum = 300;
             this.trkBrZmaxTravel.Minimum = 100;
             this.trkBrZmaxTravel.Name = "trkBrZmaxTravel";
             this.trkBrZmaxTravel.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkBrZmaxTravel.Size = new System.Drawing.Size(45, 310);
+            this.trkBrZmaxTravel.Size = new System.Drawing.Size(45, 176);
             this.trkBrZmaxTravel.TabIndex = 0;
             this.trkBrZmaxTravel.Value = 100;
             this.trkBrZmaxTravel.Scroll += new System.EventHandler(this.trkBrZmaxTravel_Scroll);
+            // 
+            // chartBinding
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartBinding.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartBinding.Legends.Add(legend1);
+            this.chartBinding.Location = new System.Drawing.Point(177, 334);
+            this.chartBinding.Name = "chartBinding";
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "FrontLeft";
+            series2.BorderWidth = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.IsXValueIndexed = true;
+            series2.Legend = "Legend1";
+            series2.Name = "FrontRight";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.IsXValueIndexed = true;
+            series3.Legend = "Legend1";
+            series3.Name = "BackLeft";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.IsXValueIndexed = true;
+            series4.Legend = "Legend1";
+            series4.Name = "BackRight";
+            this.chartBinding.Series.Add(series1);
+            this.chartBinding.Series.Add(series2);
+            this.chartBinding.Series.Add(series3);
+            this.chartBinding.Series.Add(series4);
+            this.chartBinding.Size = new System.Drawing.Size(472, 228);
+            this.chartBinding.TabIndex = 53;
+            this.chartBinding.Text = "chart1";
+            title1.Name = "Title1";
+            title1.Text = "Binding Control";
+            this.chartBinding.Titles.Add(title1);
             // 
             // tabPageCalculations
             // 
@@ -4600,7 +4652,7 @@ namespace Marlin3DprinterTool
             this.grpBxTemperature.Controls.Add(this.chartTemperature);
             this.grpBxTemperature.Location = new System.Drawing.Point(3, 331);
             this.grpBxTemperature.Name = "grpBxTemperature";
-            this.grpBxTemperature.Size = new System.Drawing.Size(308, 293);
+            this.grpBxTemperature.Size = new System.Drawing.Size(290, 293);
             this.grpBxTemperature.TabIndex = 22;
             this.grpBxTemperature.TabStop = false;
             this.grpBxTemperature.Text = "Extruder 1          Extruder 2           Bed";
@@ -4610,15 +4662,15 @@ namespace Marlin3DprinterTool
             this.chartTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea2);
             this.chartTemperature.Location = new System.Drawing.Point(3, 46);
             this.chartTemperature.Name = "chartTemperature";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Name = "Series1";
-            this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Size = new System.Drawing.Size(302, 244);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Name = "Series1";
+            this.chartTemperature.Series.Add(series5);
+            this.chartTemperature.Size = new System.Drawing.Size(284, 244);
             this.chartTemperature.TabIndex = 0;
             this.chartTemperature.Text = "chart1";
             // 
@@ -4768,6 +4820,7 @@ namespace Marlin3DprinterTool
             this.grpZprobeConfigMax.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnZmaxTravel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkBrZmaxTravel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartBinding)).EndInit();
             this.tabPageCalculations.ResumeLayout(false);
             this.grpBxFeedRate.ResumeLayout(false);
             this.grpBxFeedRate.PerformLayout();
@@ -5142,5 +5195,6 @@ namespace Marlin3DprinterTool
         private Button btnBlTouchEngage;
         private Button btnBlTouchSave;
         private Timer timerEndstop;
+        private Chart chartBinding;
     }
 }

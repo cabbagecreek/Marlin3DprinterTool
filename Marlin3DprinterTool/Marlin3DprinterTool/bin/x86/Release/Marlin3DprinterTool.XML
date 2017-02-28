@@ -123,14 +123,6 @@
             <param name="tabControl3DprinterTool"></param>
             <returns></returns>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.Cursor(System.Windows.Forms.Cursor)">
-            <summary>
-            Change the cursor
-            </summary>
-            <param name="cursorType"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
         <member name="M:Marlin3DprinterTool.DelegateAndInvoke.VerticalJog(Marlin3DprinterToolUserControls.VerticalJog,MarlinComunicationHelper.MarlinCommunication)">
             <summary>
             
@@ -144,6 +136,14 @@
             </summary>
             <param name="kompass"></param>
             <param name="communication"></param>
+        </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.ChartAddBinding(System.Windows.Forms.DataVisualization.Charting.Chart,System.String,System.Decimal)">
+            <summary>
+            Adds data to the Chart for BindingControl
+            </summary>
+            <param name="chartBinding"></param>
+            <param name="corner"></param>
+            <param name="zDecimal"></param>
         </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>

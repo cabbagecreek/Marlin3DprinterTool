@@ -51,18 +51,20 @@ namespace MarlinComunicationHelper
             get { return fctbMarlinCommunication.Text; }
             set
             {
-                string text = value;
-                if (chkBxRemoveProcessing.Checked)
+                if (value != null)
                 {
-                    text = text.Replace("busy: processing", "");
-                    text = text.Replace("echo:", "");
-                    text = text.Replace("  ", "");
-                    
-                }
-                if ((string.IsNullOrEmpty(text)) || (string.IsNullOrEmpty(text.Replace("\n","")))) return;
+                    string text = value;
+                    if (chkBxRemoveProcessing.Checked)
+                    {
+                        text = text.Replace("busy: processing", "");
+                        text = text.Replace("echo:", "");
+                        text = text.Replace("  ", "");
 
-                MarlinSyntaxTextBox(fctbMarlinCommunication, "Receive " + text + Environment.NewLine);
-                
+                    }
+                    if ((string.IsNullOrEmpty(text)) || (string.IsNullOrEmpty(text.Replace("\n", "")))) return;
+
+                    MarlinSyntaxTextBox(fctbMarlinCommunication, "Receive " + text + Environment.NewLine);
+                }
             }
         }
 
