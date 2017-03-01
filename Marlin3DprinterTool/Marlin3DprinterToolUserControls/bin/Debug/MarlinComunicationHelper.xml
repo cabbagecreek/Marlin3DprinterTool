@@ -84,11 +84,6 @@
             Process that do AutoBedLevel
             </summary>
         </member>
-        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.DockZprobe">
-            <summary>
-            Search for where the Probe touch the bed
-            </summary>
-        </member>
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.AutoPidTuneExtruder">
             <summary>
             Auto Tune PID for Exctruder
@@ -107,6 +102,11 @@
         <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.ExtruderCalibrationTest">
             <summary>
             Start of test extrudsion of 100mm filament
+            </summary>
+        </member>
+        <member name="F:MarlinComunicationHelper.MarlinCommunication.Feature.Zmaintenance">
+            <summary>
+            Z maintenance and bindings control
             </summary>
         </member>
         <member name="P:MarlinComunicationHelper.MarlinCommunication.IsReceivingOrSending">
@@ -258,6 +258,11 @@
             Send a single GCODE. Check for each command if Kill signal is received
             </summary>
             <param name="command"></param>
+        </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.Clear">
+            <summary>
+            Clear RS232
+            </summary>
         </member>
         <member name="M:MarlinComunicationHelper.MarlinCommunication.SendCommand(System.Collections.Generic.List{System.String})">
             <summary>

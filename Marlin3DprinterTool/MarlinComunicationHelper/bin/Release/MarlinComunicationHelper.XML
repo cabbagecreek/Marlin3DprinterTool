@@ -259,6 +259,11 @@
             </summary>
             <param name="command"></param>
         </member>
+        <member name="M:MarlinComunicationHelper.MarlinCommunication.Clear">
+            <summary>
+            Clear RS232
+            </summary>
+        </member>
         <member name="M:MarlinComunicationHelper.MarlinCommunication.SendCommand(System.Collections.Generic.List{System.String})">
             <summary>
             Send a list of commands . 
