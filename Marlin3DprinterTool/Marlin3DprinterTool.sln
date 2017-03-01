@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal", "PayPal\PayPal.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoIDE", "ArduinoIDE\ArduinoIDE.csproj", "{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPalWebBrowser", "PayPalWebBrowser\PayPalWebBrowser.csproj", "{985751E8-4566-4669-948D-134B33980087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,18 @@ Global
 		{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}.Release|x64.Build.0 = Release|Any CPU
 		{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}.Release|x86.ActiveCfg = Release|Any CPU
 		{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}.Release|x86.Build.0 = Release|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{985751E8-4566-4669-948D-134B33980087}.Debug|Any CPU.Build.0 = Debug|x86
+		{985751E8-4566-4669-948D-134B33980087}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Debug|x64.Build.0 = Debug|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Debug|x86.Build.0 = Debug|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Release|Any CPU.ActiveCfg = Release|x86
+		{985751E8-4566-4669-948D-134B33980087}.Release|Any CPU.Build.0 = Release|x86
+		{985751E8-4566-4669-948D-134B33980087}.Release|x64.ActiveCfg = Release|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Release|x64.Build.0 = Release|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Release|x86.ActiveCfg = Release|Any CPU
+		{985751E8-4566-4669-948D-134B33980087}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
