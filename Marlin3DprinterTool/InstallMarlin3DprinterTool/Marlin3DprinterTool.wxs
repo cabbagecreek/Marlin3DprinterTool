@@ -40,6 +40,8 @@
 
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="ProductDLL"/>
+      <ComponentGroupRef Id="PayPalBrowser"/>
+      <ComponentGroupRef Id="locales"/>
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="ApplicationShortcutDesktop" />
       <ComponentGroupRef Id="ProgramDataPermission"/>
@@ -66,7 +68,10 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="Marlin3DprinterTool" />
+        <Directory Id="INSTALLFOLDER" Name="Marlin3DprinterTool" >
+
+          <Directory Id="locales" Name="locales" />
+        </Directory>
         
         
       </Directory>
@@ -276,6 +281,423 @@
   </Fragment>
 
 
+  <Fragment>
+
+    <ComponentGroup Id="PayPalBrowser" Directory="INSTALLFOLDER">
+
+      <!-- PayPalWebBrowser.exe-->
+      <Component Id="PayPalWebBrowser.exe" Guid="{CBCD266F-578A-4301-AD95-2652ED7C3714}">
+        <File Source="$(var.PayPalWebBrowser.TargetPath)"  />
+      </Component>
+
+      <!-- cef.pak-->
+      <Component Id="cef.pak" Guid="{394AB392-0FA7-46CA-9F56-3B89FFC3BB7F}">
+        <File Source="$(var.PayPalWebBrowser.TargetDir)\cef.pak" />
+      </Component>
+
+      <!-- CefSharp.BrowserSubprocess.Core.dll-->
+      <Component Id="CefSharp.BrowserSubprocess.Core.dll" Guid="{5E2C88E9-6718-4D3B-8BC3-B8A2686BA5B1}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.BrowserSubprocess.Core.dll" />
+      </Component>
+
+      <!-- CefSharp.BrowserSubprocess.exe-->
+      <Component Id="CefSharp.BrowserSubprocess.exe" Guid="{47FB15A4-3098-411C-8166-C05979E4DAA0}">
+        <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.BrowserSubprocess.exe" />
+      </Component>
+
+      
+      <!-- CefSharp.Core.dll-->
+      <Component Id="CefSharp.Core.dll" Guid="{D01B9EF6-CB52-4207-85C8-241AE10CF30D}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.Core.dll" />
+      </Component>
+
+      
+      <!-- CefSharp.Core.xml -->
+      <Component Id="CefSharp.Core.xml" Guid="{A69A3130-8E2F-4D95-8F59-D4048FD6572E}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.Core.xml" />
+      </Component>
+
+      <!-- CefSharp.dll -->
+      <Component Id="CefSharp.dll" Guid="{349B083B-DEB3-4524-92F4-F9F2D88A604D}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.dll" />
+      </Component>
+
+      
+      <!-- CefSharp.WinForms.dll -->
+      <Component Id="CefSharp.WinForms.dll" Guid="{CA3908AD-FFA5-49A8-B877-3D7B31F0EF45}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.WinForms.dll" />
+      </Component>
+
+     
+      <!-- CefSharp.WinForms.xml -->
+      <Component Id="CefSharp.WinForms.xml" Guid="{99ED2BD4-FE2A-4D0D-B05A-EEC612753D31}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.WinForms.xml" />
+      </Component>
+
+      <!-- CefSharp.xml -->
+      <Component Id="CefSharp.xml" Guid="{B8A55F1E-ADD9-4E28-A5C4-F9BE564249C3}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.xml" />
+      </Component>
+
+      <!-- cef_100_percent.pak-->
+      <Component Id="cef_100_percent.pak" Guid="{C4F5606D-83B9-438C-9E3C-CC6A28A9AF26}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\cef_100_percent.pak" />
+      </Component>
+
+      <!--  cef_200_percent.pak -->
+      <Component Id="cef_200_percent.pak" Guid="{D3533031-1572-4731-B03F-D1F09BC2994E}">
+        <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\cef_200_percent.pak" />
+      </Component>
+
+      <!-- cef_extensions.pak -->
+      <Component Id="cef_extensions.pak" Guid="{7E5592A2-2BC1-4C86-8007-166AC26CE82A}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\cef_extensions.pak" />
+      </Component>
+
+      <!--  chrome_elf.dll-->
+      <Component Id="chrome_elf.dll" Guid="{7DB125E6-9543-4A7A-8278-14A9EE13A048}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\chrome_elf.dll" />
+      </Component>
+
+      <!--  d3dcompiler_47.dll-->
+      <Component Id="d3dcompiler_47.dll" Guid="{BEA73A08-2429-4C84-A5E0-E190DC852E7C}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\d3dcompiler_47.dll" />
+      </Component>
+
+      <!-- devtools_resources.pak -->
+      <Component Id="devtools_resources.pak" Guid="{D0D296BF-DC50-469C-AEE1-527FE7A14964}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\devtools_resources.pak" />
+      </Component>
+
+      <!-- icudtl.dat -->
+      <Component Id="icudtl.dat" Guid="{4253FD53-CE3B-4F0F-AB42-D0C70B94F7CD}">
+        <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\icudtl.dat" />
+      </Component>
+
+      <!--  libcef.dll -->
+      <Component Id="libcef.dll" Guid="{3676CF5B-A5E2-41EA-8F6C-2FA753BFCE24}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\libcef.dll" />
+      </Component>
+
+      <!-- libEGL.dll -->
+      <Component Id="libEGL.dll" Guid="{B64F97CC-D26C-48BA-BFC3-6A9285FFE29A}">
+        <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\libEGL.dll" />
+      </Component>
+
+      <!-- libGLESv2.dll -->
+      <Component Id="libGLESv2.dll" Guid="{04D6F2FA-66A1-4E97-88EC-967F2E5FE9B6}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\libGLESv2.dll" />
+      </Component>
+
+      <!-- natives_blob.bin -->
+      <Component Id="natives_blob.bin" Guid="{1A86FD1F-DDB8-4F86-B79B-196B009F0106}">
+        <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\natives_blob.bin" />
+      </Component>
+
+      
+      <!-- PayPalWebBrowser.exe.config-->
+      <Component Id="PayPalWebBrowser.exe.config" Guid="{83D8C432-B6E3-4805-B568-C3D8276D0A51}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\PayPalWebBrowser.exe.config" />
+      </Component>
+
+     
+      <!-- snapshot_blob.bin -->
+      <Component Id="snapshot_blob.bin" Guid="{7502AB7E-91E0-4211-BC2A-10D8B15DD40C}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\snapshot_blob.bin" />
+      </Component>
+
+      <!-- widevinecdmadapter.dll -->
+      <Component Id="widevinecdmadapter.dll" Guid="{B7F807AF-E234-4C80-B4AA-0E6CA70D36E6}">
+        <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\widevinecdmadapter.dll" />
+      </Component>
+
+
+
+      
+
+      
+      
+
+
+
+    </ComponentGroup>
+
+    <ComponentGroup Id="locales" Directory="locales">
+
+      <!-- am.pak -->
+      <Component Id="am.pak" Guid="{C125DE6B-87A4-467C-A16A-7DE579D3BE74}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\am.pak" />
+      </Component>
+
+      <!-- ar.pak -->
+      <Component Id="ar.pak" Guid="{8FCB09C1-0EAB-42C5-B5CC-EA7BDBCAAE91}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ar.pak" />
+      </Component>
+
+      <!-- bg.pak -->
+      <Component Id="bg.pak" Guid="{96A97854-9FA1-46DF-AB05-5E5CA2D026BA}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\bg.pak" />
+      </Component>
+
+      <!-- bn.pak -->
+      <Component Id="bn.pak" Guid="{BD59DBAF-1D1D-46CB-969C-8C472B6ED444}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\bn.pak" />
+      </Component>
+
+      <!-- ca.pak -->
+      <Component Id="ca.pak" Guid="{82E84359-DF63-44F5-BD91-0A339BA6F376}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ca.pak" />
+      </Component>
+
+      <!-- cs.pak -->
+      <Component Id="cs.pak" Guid="{DCBC7F4D-ECFA-4437-BF76-9BB4F6013B63}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\cs.pak" />
+      </Component>
+
+      <!-- da.pak -->
+      <Component Id="da.pak" Guid="{650C5954-5C91-4686-A636-1B146FE540D9}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\da.pak" />
+      </Component>
+
+      <!-- de.pak -->
+      <Component Id="de.pak" Guid="{91A8BF74-7BE6-4B1A-BA48-8F429F7D4470}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\de.pak" />
+      </Component>
+
+      <!-- el.pak -->
+      <Component Id="el.pak" Guid="{E9CEEE3A-F05E-4F1D-9C25-EC6D95013AA2}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\el.pak" />
+      </Component>
+
+      <!-- en-GB.pak -->
+      <Component Id="enGB.pak" Guid="{66AC1D90-DAE8-4577-A213-E079AEBE3DDF}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\en-GB.pak" />
+      </Component>
+
+      <!-- en-US.pak -->
+      <Component Id="enUS.pak" Guid="{FB2A8CD8-A96C-4D81-9DF4-8AA7AE66E4B4}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\en-US.pak" />
+      </Component>
+
+      <!-- es-419.pak -->
+      <Component Id="es419.pak" Guid="{6693E087-DA18-4E05-92FD-3832E8A668A9}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\es-419.pak" />
+      </Component>
+
+      <!-- es.pak -->
+      <Component Id="es.pak" Guid="{A149B559-30AC-4CE7-8F2E-2E3ED7166618}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\es.pak" />
+      </Component>
+
+      <!-- et.pak -->
+      <Component Id="et.pak" Guid="{81648CB7-8CFA-4303-AB8D-1401DBA720C2}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\et.pak" />
+      </Component>
+
+      <!-- fa.pak -->
+      <Component Id="fa.pak" Guid="{72F3E98D-C778-4DEE-BF05-7AF612F5DB5D}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\fa.pak" />
+      </Component>
+
+      <!-- fi.pak -->
+      <Component Id="fi.pak" Guid="{BC94341E-6DF0-451B-85C4-37C5A9ED3B7D}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\fi.pak" />
+      </Component>
+
+      <!-- fil.pak -->
+      <Component Id="fil.pak" Guid="{C5D220C0-AA26-4AAE-BE71-CC11CAF20483}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\fil.pak" />
+      </Component>
+
+      <!-- fr.pak -->
+      <Component Id="fr.pak" Guid="{97983D2B-DB09-4E85-82A3-87CC776BA6E0}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\fr.pak" />
+      </Component>
+
+      <!-- gu.pak -->
+      <Component Id="gu.pak" Guid="{9621F98E-742F-44C4-9866-158763E1C156}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\gu.pak" />
+      </Component>
+
+      <!-- he.pak -->
+      <Component Id="he.pak" Guid="{BD694DFB-07EB-41C2-9A14-F90626D2BD05}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\he.pak" />
+      </Component>
+
+      <!-- hi.pak -->
+      <Component Id="hi.pak" Guid="{5746540C-14C2-427C-B54B-CEC26ACDB2FC}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\hi.pak" />
+      </Component>
+
+      <!-- hr.pak -->
+      <Component Id="hr.pak" Guid="{311F2302-99F4-4E8D-807F-62EED8E7476B}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\hr.pak" />
+      </Component>
+
+      <!-- hu.pak -->
+      <Component Id="hu.pak" Guid="{8C1F16E7-B6FC-45B4-B06F-40ABCBA02937}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\hu.pak" />
+      </Component>
+
+      <!-- id.pak -->
+      <Component Id="id.pak" Guid="{A33A6625-8515-4E9D-9C4D-DB3C02A2F56E}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\id.pak" />
+      </Component>
+
+      <!-- it.pak -->
+      <Component Id="it.pak" Guid="{5A8EB944-BB73-46DC-94F5-D335CD3AE018}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\it.pak" />
+      </Component>
+
+      <!-- ja.pak -->
+      <Component Id="ja.pak" Guid="{424A32E9-0D2A-40FE-96FC-435B84A8C0AC}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ja.pak" />
+      </Component>
+
+      <!-- kn.pak -->
+      <Component Id="kn.pak" Guid="{6C6EAD2A-AB7C-4552-AF59-014DE7EC83C9}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\kn.pak" />
+      </Component>
+
+      <!-- ko.pak -->
+      <Component Id="ko.pak" Guid="{E64C9E1C-1B16-4FDD-B9C3-A76BC4A8A5EF}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ko.pak" />
+      </Component>
+
+      <!-- lt.pak -->
+      <Component Id="lt.pak" Guid="{C123D86C-1EB7-45AC-8C9E-8EC80BA8ADB3}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\lt.pak" />
+      </Component>
+
+      <!-- lv.pak -->
+      <Component Id="lv.pak" Guid="{2E023FCF-491E-4FBC-B04B-D8DD5591D929}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\lv.pak" />
+      </Component>
+
+      <!-- ml.pak -->
+      <Component Id="ml.pak" Guid="{467E6D83-77AF-4FDA-94F3-2A140C093CD2}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ml.pak" />
+      </Component>
+
+      <!-- mr.pak -->
+      <Component Id="mr.pak" Guid="{08B6AFFB-76BB-4960-9B2C-761D9BB948A5}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\mr.pak" />
+      </Component>
+
+      <!-- ms.pak -->
+      <Component Id="ms.pak" Guid="{5A6826CA-8B90-4A21-B28C-5FF0250B1474}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ms.pak" />
+      </Component>
+
+      <!-- nb.pak -->
+      <Component Id="nb.pak" Guid="{1C4F791A-9855-458A-8AD7-29285CBE4D3B}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\nb.pak" />
+      </Component>
+
+      <!-- nl.pak -->
+      <Component Id="nl.pak" Guid="{1782F323-C372-424B-A5ED-36D2EFD26EDF}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\nl.pak" />
+      </Component>
+
+      <!-- pl.pak -->
+      <Component Id="pl.pak" Guid="{2076BC0A-BFE5-41B0-8CA7-680540C50DC0}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\pl.pak" />
+      </Component>
+
+      <!-- pt-BR.pak -->
+      <Component Id="ptBR.pak" Guid="{9CD7C052-64E8-4463-A894-6393671EDA30}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\pt-BR.pak" />
+      </Component>
+
+      <!-- pt-PT.pak -->
+      <Component Id="ptPT.pak" Guid="{6D47307A-215E-4EC4-9BB9-8212AA9B6F59}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\pt-PT.pak" />
+      </Component>
+
+      <!-- ro.pak -->
+      <Component Id="ro.pak" Guid="{8FC10E87-ADFE-4B24-993A-A70003871A26}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ro.pak" />
+      </Component>
+
+      <!-- ru.pak -->
+      <Component Id="ru.pak" Guid="{9A984A10-2ED2-401A-B951-8E2F8F8141C0}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ru.pak" />
+      </Component>
+
+      <!-- sk.pak -->
+      <Component Id="sk.pak" Guid="{0D8E05A5-B145-42E9-A23F-4828F88B9565}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\sk.pak" />
+      </Component>
+
+      <!-- sl.pak -->
+      <Component Id="sl.pak" Guid="{D156285E-82F0-4FD6-9F6C-F12366F13EA9}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\sl.pak" />
+      </Component>
+
+      <!-- sr.pak -->
+      <Component Id="sr.pak" Guid="{68AECDD1-A6A7-4627-98CB-779A103EE985}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\sr.pak" />
+      </Component>
+
+      <!-- sv.pak -->
+      <Component Id="sv.pak" Guid="{1F082EA5-D4F8-45D6-9B91-93358BEBB642}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\sv.pak" />
+      </Component>
+
+      <!-- sw.pak -->
+      <Component Id="sw.pak" Guid="{6BD2AC88-8C43-4CA9-806A-C1020E0C8F77}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\sw.pak" />
+      </Component>
+
+      <!-- ta.pak -->
+      <Component Id="ta.pak" Guid="{34D0920F-79FB-4C67-8114-F9D88DA32322}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\ta.pak" />
+      </Component>
+
+      <!-- te.pak -->
+      <Component Id="te.pak" Guid="{2AA1DDA0-BA71-4EA8-85E6-63F602A00FDF}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\te.pak" />
+      </Component>
+
+      <!-- th.pak -->
+      <Component Id="th.pak" Guid="{DB192736-B378-4D28-B697-4523412EED64}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\th.pak" />
+      </Component>
+
+      <!-- tr.pak -->
+      <Component Id="tr.pak" Guid="{56B30E4E-2E19-44AC-8C02-7720FAA19BB9}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\tr.pak" />
+      </Component>
+
+      <!-- uk.pak -->
+      <Component Id="uk.pak" Guid="{FAF0BF4E-9FB9-4218-B67A-E87E4D5DC5C1}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\uk.pak" />
+      </Component>
+
+      <!-- vi.pak -->
+      <Component Id="vi.pak" Guid="{38C789C3-6F2C-485E-9D7D-FE3C430C395F}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\vi.pak" />
+      </Component>
+
+      <!-- zh-CN.pak -->
+      <Component Id="zhCN.pak" Guid="{6D34E316-E74C-4F41-8674-4667CC0DD710}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\zh-CN.pak" />
+      </Component>
+
+      <!-- zh-TW.pak -->
+      <Component Id="zhTW.pak" Guid="{6FF31B7E-EF1C-44F3-87BD-2C0D61E36037}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\locales\zh-TW.pak" />
+      </Component>
+
+
+
+    </ComponentGroup>
+  </Fragment>
+
+ 
+  
+  
+  
   <Fragment>
 
 

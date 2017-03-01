@@ -74,7 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmPayPal.cs" />
+    <Compile Include="FrmPayPal.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmPayPal.Designer.cs">
       <DependentUpon>FrmPayPal.cs</DependentUpon>
     </Compile>

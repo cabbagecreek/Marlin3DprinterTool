@@ -769,7 +769,9 @@ namespace MarlinComunicationHelper
             SendCommand(commands);
         }
 
-
+        /// <summary>
+        /// Clear RS232
+        /// </summary>
         public void Clear()
         {
             commandsInQueue.Clear();
