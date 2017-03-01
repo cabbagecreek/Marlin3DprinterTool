@@ -1,0 +1,2 @@
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\obj\x86\Release\PayPalWebBrowser.exe
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\obj\x86\Release\PayPalWebBrowser.pdb
