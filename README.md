@@ -22,7 +22,7 @@ The main features are:
 
 # Installing
 
-the installer can be found at https://github.com/cabbagecreek/Marlin3DprinterTool/releases/tag/v0.1-beta
+the installer can be found at https://github.com/cabbagecreek/Marlin3DprinterTool/releases/
 
 1. Press download
 2. Run the MSI
