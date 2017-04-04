@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using AutoUpdater;
 using Marlin3DprinterTool.Properties;
 using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
@@ -60,7 +61,11 @@ namespace Marlin3DprinterTool
         {
 
             UpdateFrameHeader();
-            AutoUpdaterDotNET();
+            AutoUpdater.Updater autoUpdater = new Updater();
+            if (autoUpdater.SearchForUpdate() == DialogResult.Yes) Close();
+            
+            
+             
 
             Delegate.DisableTabs(tabControl3DprinterTool, false);
 
@@ -74,10 +79,6 @@ namespace Marlin3DprinterTool
 
         }
 
-        private void AutoUpdaterDotNET()
-        {
-            
-        }
 
         private void UpdateFrameHeader()
         {
@@ -163,8 +164,11 @@ namespace Marlin3DprinterTool
             if (selectedTab == tabPageEndstop.Name)
             {
                 _com.Status = MarlinCommunication.Feature.EndStop;
-                timerEndstop.Start();
-                
+                if (_com.IsPortOpen)
+                {
+                    timerEndstop.Start();
+                }
+
             }
             else
             if (selectedTab == tabPageZoffset.Name)

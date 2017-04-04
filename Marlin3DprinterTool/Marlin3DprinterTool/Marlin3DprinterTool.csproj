@@ -219,6 +219,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj">
+      <Project>{91df7112-9b3c-4315-9d8a-b55b056d8d1f}</Project>
+      <Name>AutoUpdater</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LedBulbUserControl\LedBulbUserControl.csproj">
       <Project>{696a3185-8566-4aca-a639-f57e2c4679dc}</Project>
       <Name>LedBulbUserControl</Name>

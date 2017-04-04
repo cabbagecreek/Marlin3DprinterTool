@@ -277,10 +277,13 @@
       <Component Id="AGauge.dll" Guid="{EB7A295F-4EDF-4D7E-937F-A4A7EEF31222}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\AGauge.dll" />
       </Component>
+
       
-      
-      
-      
+      <!--AutoUpdater.dll -->
+      <Component Id="AutoUpdater.dll" Guid="{{BDC38DA6-9A6F-4B06-B22F-B57A37D67BBC}}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\AutoUpdater.dll" />
+      </Component>
+
     </ComponentGroup>
 
   </Fragment>
