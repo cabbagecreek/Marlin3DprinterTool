@@ -86,7 +86,7 @@ namespace Marlin3DprinterTool
             {
                 FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
                 string version = fvi.ProductVersion;
-                Text = $"Marlin3DprinterTool Version: {version}";
+                Text = $@"Marlin3DprinterTool Version: {version}";
             }
         }
 
@@ -310,8 +310,7 @@ namespace Marlin3DprinterTool
 
             string gcodeSpeed = "F6000";
 
-            var commands = new List<string> {"G28 Y", "G28 X"};
-            commands.Add(@"G28 Z");
+            var commands = new List<string> {@"G28 Y", @"G28 X", @"G28 Z"};
 
             _probePoints.Clear();
 
@@ -404,7 +403,7 @@ namespace Marlin3DprinterTool
         {
             txtBxZmaintenanceDescription.Text = "";
             txtBxZmaintenanceDescription.Text +=
-                $"Z max is {trackBarZmaintenanceMax.Value} and Z low is {trackBarZmaintenanceMin.Value}" +
+                $@"Z max is {trackBarZmaintenanceMax.Value} and Z low is {trackBarZmaintenanceMin.Value}" +
                 Environment.NewLine;
         }
 
@@ -1195,7 +1194,7 @@ namespace Marlin3DprinterTool
                         {
                             if (zMin == null) zMin = probePoint.Zstring;
                             if (_numberConversion.ConvertStringToDecimal(zMin) <= probePoint.Z) zMin = probePoint.Zstring;
-                            if (zMax == null) zMax = probePoint.Z.ToString();
+                            if (zMax == null) zMax = probePoint.Zstring;
                             if (_numberConversion.ConvertStringToDecimal(zMax) >= probePoint.Z) zMax = probePoint.Zstring;
 
                             if (zMin == null) zMin = probePoint.Xstring;
@@ -1785,36 +1784,8 @@ namespace Marlin3DprinterTool
             _com.SendCommand(commands);
         }
 
-        private void btnTransferExtruderPid_Click(object sender, EventArgs e)
-        {
-            _com.Port = cmbBxComPort.Text;
-            _com.DisConnect();
+        
 
-
-            btnConnect.Text = @"Connect";
-
-            // Update Firmware)
-
-            FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
-            marlinEditor.UpdateAndSavePidExtruder(txtBxKpExtruder.Text, txtBxKiExtruder.Text, txtBxKdExtruder.Text);
-            marlinEditor.ShowDialog();
-
-        }
-
-        private void btnTransferBedPid_Click(object sender, EventArgs e)
-        {
-            _com.Port = cmbBxComPort.Text;
-            _com.DisConnect();
-
-
-            btnConnect.Text = @"Connect";
-
-            FrmMarlinEditor marlinEditor = new FrmMarlinEditor();
-            marlinEditor.UpdateAndSavePidBed(txtBxKpBed.Text, txtBxKiBed.Text, txtBxKdBed.Text);
-
-            marlinEditor = new FrmMarlinEditor();
-            marlinEditor.ShowDialog();
-        }
 
 
 
@@ -1996,9 +1967,9 @@ namespace Marlin3DprinterTool
             }
 
 
-            var stepsPerMM = (int) (stepsPerRevolution*(microStep/pitch)*gear);
+            var stepsPerMilliMeter = (int) (stepsPerRevolution*(microStep/pitch)*gear);
 
-            fastColoredTextBoxLeadScrewStepsPerMM.Text = $"{stepsPerMM} steps/mm";
+            fastColoredTextBoxLeadScrewStepsPerMM.Text = $@"{stepsPerMilliMeter} steps/mm";
 
         }
 
@@ -2076,10 +2047,10 @@ namespace Marlin3DprinterTool
             }
 
 
-            var stepsPerMM =
+            var stepsPerMilliMeter =
                 (int) (stepsPerRevolution*(microStep/(pitch*(double) numUpDnBeltPulleyTeethCount.Value)))*gear;
 
-            fastColoredTextBoxBeltStepsPerMM.Text = $"{stepsPerMM} steps/mm";
+            fastColoredTextBoxBeltStepsPerMM.Text = $@"{stepsPerMilliMeter} steps/mm";
         }
 
         private void numUpDnExtruderExpectedValue_ValueChanged(object sender, EventArgs e)
@@ -2093,30 +2064,19 @@ namespace Marlin3DprinterTool
             // Extruder steps/mm = ( extrude button clicks * extruded length per click * old extruder steps/mm ) / marked length on filament
 
             decimal extrudedLength =  numUpDnExtruderExpectedValue.Value;
-            decimal oldStepsPerMM =  numUpDnExtruderOldFirmware.Value;
+            decimal oldStepsPerMilliMeter =  numUpDnExtruderOldFirmware.Value;
             decimal meassuredExtrudedLength = numUpDnExtruderMeassuredExtrusion.Value;
 
-            decimal stepsPerMM = extrudedLength*oldStepsPerMM/meassuredExtrudedLength;
+            decimal stepsPerMilliMeter = extrudedLength*oldStepsPerMilliMeter/meassuredExtrudedLength;
 
 
-            fastColoredTextBoxExtruderStepsPerMM.Text = $"{stepsPerMM} steps/mm";
-            fastColoredTextBoxExtruderStepsPerMM.Tag = _numberConversion.ConvertDecimalToString(stepsPerMM);
+            fastColoredTextBoxExtruderStepsPerMM.Text = $@"{stepsPerMilliMeter} steps/mm";
+            fastColoredTextBoxExtruderStepsPerMM.Tag = _numberConversion.ConvertDecimalToString(stepsPerMilliMeter);
         }
 
-        private void btnExtruderOldFirmware_Click(object sender, EventArgs e)
-        {
-            // TODO: Get extruder Steps Per MM from EEPROM
-            // get the OldFirmware settings from EEPROM
-            // M501 without a Responce shown
-            // Only Parse responce 
+       
 
-        }
-
-        private void btnExtruderUpdateStepsPerMMinFirmware_Click(object sender, EventArgs e)
-        {
-            //TODO: Update current Firmware
-            MessageBox.Show(@"Not implemented (yet)");
-        }
+       
 
         private void btnExtruderUpdateStepsPerMMinEEPROM_Click(object sender, EventArgs e)
         {
@@ -2290,10 +2250,9 @@ namespace Marlin3DprinterTool
         {
             foreach (string line in fctbInit.Lines)
             {
-                string linePattern = "";
-                Match rowMatch = null;
+                Match rowMatch;
 
-                linePattern = @"M92\s*X[0-9]*\.[0-9]*\s*Y[0-9]*\.[0-9]*\s*Z[0-9]*\.[0-9]*\sE[0-9]*\.[0-9]*";
+                var linePattern = @"M92\s*X[0-9]*\.[0-9]*\s*Y[0-9]*\.[0-9]*\s*Z[0-9]*\.[0-9]*\sE[0-9]*\.[0-9]*";
                 rowMatch = Regex.Match(line, linePattern);
                 if (rowMatch.Success)
                 {
@@ -2672,9 +2631,9 @@ namespace Marlin3DprinterTool
             zProbeOffset = zProbeOffset - (zProbeOffset * (decimal) 2.0);
 
             DialogResult result = MessageBox.Show
-                ($"The probe is detecting the bed at {txtBxDockZprobe.Text}" + Environment.NewLine +
-                 $"and the nozzle is touching the bed at {txtBxZprobePosition.Text}." + Environment.NewLine + Environment.NewLine +
-                 $"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
+                ($@"The probe is detecting the bed at {txtBxDockZprobe.Text}" + Environment.NewLine +
+                 $@"and the nozzle is touching the bed at {txtBxZprobePosition.Text}." + Environment.NewLine + Environment.NewLine +
+                 $@"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
                  @"Do you want to update EEPROM with this value?", @"Z Probe offset", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1
 
 
@@ -2757,7 +2716,7 @@ namespace Marlin3DprinterTool
 
         private void trackBarNumberOfM48Test_Scroll(object sender, EventArgs e)
         {
-            lblNumberOfM48Test.Text = $"Perform {trackBarNumberOfM48Test.Value} test(s)"; 
+            lblNumberOfM48Test.Text = $@"Perform {trackBarNumberOfM48Test.Value} test(s)"; 
         }
 
         private void btnM48Test_Click(object sender, EventArgs e)
@@ -2905,20 +2864,20 @@ namespace Marlin3DprinterTool
         /// 
         /// </summary>
         /// <param name="extension"></param>
-        /// <param name="progID"></param>
+        /// <param name="progId"></param>
         /// <param name="description"></param>
         /// <param name="icon"></param>
         /// <param name="application"></param>
         // Associate file extension with progID, description, icon and application
         public static void Associate(string extension,
-               string progID, string description, string icon, string application)
+               string progId, string description, string icon, string application)
         {
             RegistryKey registryKey = Registry.ClassesRoot.CreateSubKey(extension);
-            registryKey?.SetValue("", progID);
+            registryKey?.SetValue("", progId);
 
 
-            if (string.IsNullOrEmpty(progID)) return;
-            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progID))
+            if (string.IsNullOrEmpty(progId)) return;
+            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progId))
             {
                 if (description != null)
                 {
