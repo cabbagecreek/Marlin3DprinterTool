@@ -1,7 +1,0 @@
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\bin\Debug\AutoUpdater.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\bin\Debug\AutoUpdater.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\Debug\AutoUpdater.csprojResolveAssemblyReference.cache
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\Debug\AutoUpdater.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\Debug\AutoUpdater.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\Debug\AutoUpdater.FrmAutoUpdate.resources
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\Debug\AutoUpdater.csproj.GenerateResource.Cache

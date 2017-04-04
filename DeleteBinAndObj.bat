@@ -32,6 +32,9 @@ DEL /F /S /Q  "C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3Dprin
 DEL /F /S /Q  "C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolUserControls\bin"
 DEL /F /S /Q  "C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolUserControls\obj"
 
+DEL /F /S /Q  "C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\bin"
+DEL /F /S /Q  "C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj"
+
 
 
 pause
