@@ -463,20 +463,35 @@ namespace Marlin3DprinterTool
         /// <summary>
         /// Adds data to the Chart for BindingControl
         /// </summary>
-        /// <param name="chartBinding"></param>
+        /// <param name="bindingControl"></param>
         /// <param name="corner"></param>
         /// <param name="zDecimal"></param>
-        public static void ChartAddBinding(Chart chartBinding, string corner,  decimal zDecimal)
+        public static void BindingControl(BindingControl bindingControl, string corner,  decimal zDecimal)
         {
 
-            if (chartBinding.InvokeRequired)
+            if (bindingControl.InvokeRequired)
             {
-                ChartAddBindingCallback d = ChartAddBinding;
-                _frm3DprinterTool.Invoke(d, chartBinding, corner,  zDecimal);
+                BindingControlCallback d = BindingControl;
+                _frm3DprinterTool.Invoke(d, bindingControl, corner,  zDecimal);
             }
             else
             {
-                chartBinding.Series[corner].Points.AddY(zDecimal);
+                switch (corner)
+                {
+                    case "Front Left Corner":
+                        bindingControl.FrontLeftCorner(zDecimal);
+                        break;
+                    case "Front Right Corner":
+                        bindingControl.FrontRightCorner(zDecimal);
+                        break;
+                    case "Back Left Corner":
+                        bindingControl.BackLeftCorner(zDecimal);
+                        break;
+                    case "Back Right Corner":
+                        bindingControl.BackRightCorner(zDecimal);
+                        break;
+                }
+                
             }
         }
 
@@ -511,7 +526,7 @@ namespace Marlin3DprinterTool
 
         private delegate void KompassCallback(Kompass kompass, MarlinCommunication communication);
 
-        private delegate void ChartAddBindingCallback(Chart chartBinding, string corner, decimal zDecimal);
+        private delegate void BindingControlCallback(BindingControl chartBinding, string corner, decimal zDecimal);
 
         //!Delegate
 

@@ -9,9 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Marlin3DprinterToolConfiguration</RootNamespace>
     <AssemblyName>Marlin3DprinterToolConfiguration</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,9 +96,9 @@
       <Project>{0909412d-4c12-49f6-9225-b60349c29d02}</Project>
       <Name>MarlinDocumentation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PayPal\PayPal.csproj">
-      <Project>{d55d589a-c4b7-414f-9b34-09c49ecf9afb}</Project>
-      <Name>PayPal</Name>
+    <ProjectReference Include="..\PayPalWebBrowser\PayPalWebBrowser.csproj">
+      <Project>{3ec5189f-b615-4abe-807a-b25ece129b42}</Project>
+      <Name>PayPalWebBrowser</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

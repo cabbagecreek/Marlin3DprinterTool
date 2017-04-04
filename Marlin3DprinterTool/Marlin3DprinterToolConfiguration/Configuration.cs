@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.XPath;
 
@@ -729,19 +730,108 @@ namespace Marlin3DprinterToolConfiguration
         /// <summary>
         /// Decrypt a string. Usage for license key
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="cryptoText"></param>
         /// <returns>Decrypted sting or null if nota able to Decrypt</returns>
-        public static string Decrypt(string text)
+        public static string Decrypt(string cryptoText)
         {
+            //try
+            //{
+            //    byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            //    byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            //    SymmetricAlgorithm algorithm = DES.Create();
+            //    ICryptoTransform transform = algorithm.CreateDecryptor(key, iv);
+            //    byte[] inputbuffer = Convert.FromBase64String(text);
+            //    byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
+
+
+            //    return Encoding.Unicode.GetString(outputBuffer);
+            //}
+            //catch (Exception)
+            //{
+
+            //    return null;
+            //}
+
+
+            string decrypted_text = "";
             try
             {
-                byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
-                byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+                byte[] keyDes = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+                byte[] ivDes = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
                 SymmetricAlgorithm algorithm = DES.Create();
-                ICryptoTransform transform = algorithm.CreateDecryptor(key, iv);
-                byte[] inputbuffer = Convert.FromBase64String(text);
+                ICryptoTransform transform = algorithm.CreateDecryptor(keyDes, ivDes);
+                byte[] inputbuffer = Convert.FromBase64String(cryptoText);
                 byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
-                return Encoding.Unicode.GetString(outputBuffer);
+
+
+                decrypted_text = Encoding.Unicode.GetString(outputBuffer);
+                //TODO: Update to new licensekey
+
+                // Create a new license key from the old license-key
+                byte[] decrypted_bytes = Encoding.UTF8.GetBytes(decrypted_text);
+                RijndaelManaged aes = new RijndaelManaged();
+                aes.KeySize = 256;
+                aes.BlockSize = 256;
+                aes.Padding = PaddingMode.Zeros;
+                aes.Mode = CipherMode.CBC;
+
+                aes.Key = Encoding.Default.GetBytes("12345678123456781234567812345678");
+                aes.GenerateIV();
+
+                string IV = ("-[--IV-[-" + Encoding.Default.GetString(aes.IV));
+
+                ICryptoTransform AESEncrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+                byte[] buffer = decrypted_bytes;
+
+                string new_license = Convert.ToBase64String(Encoding.Default.GetBytes(Encoding.Default.GetString(AESEncrypt.TransformFinalBlock(buffer, 0, buffer.Length)) + IV));
+
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/LicenseKey");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "LicenseKey");
+                }
+                xmlNode?.SetAttribute("key", new_license);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+
+
+
+                return decrypted_text;
+            }
+            catch (Exception)
+            {
+
+                
+            }
+
+
+            try
+            {
+                
+                RijndaelManaged aes = new RijndaelManaged();
+                aes.KeySize = 256;
+                aes.BlockSize = 256;
+                aes.Padding = PaddingMode.Zeros;
+                aes.Mode = CipherMode.CBC;
+
+                aes.Key = Encoding.Default.GetBytes("12345678123456781234567812345678");
+
+                cryptoText = Encoding.Default.GetString(Convert.FromBase64String(cryptoText));
+
+                string IV = cryptoText;
+                IV = IV.Substring(IV.IndexOf("-[--IV-[-", StringComparison.Ordinal) + 9);
+                cryptoText = cryptoText.Replace("-[--IV-[-" + IV, "");
+
+                cryptoText = Convert.ToBase64String(Encoding.Default.GetBytes(cryptoText));
+                aes.IV = Encoding.Default.GetBytes(IV);
+
+                ICryptoTransform aesDecrypt = aes.CreateDecryptor(aes.Key, aes.IV);
+                byte[] buffer = Convert.FromBase64String(cryptoText);
+
+                return Encoding.UTF8.GetString(aesDecrypt.TransformFinalBlock(buffer, 0, buffer.Length));
+
+                
             }
             catch (Exception)
             {
@@ -749,7 +839,10 @@ namespace Marlin3DprinterToolConfiguration
                 return null;
             }
 
+
+
         }
+        
 
 
 

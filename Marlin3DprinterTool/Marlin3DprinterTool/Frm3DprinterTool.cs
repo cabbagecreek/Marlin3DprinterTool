@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Marlin3DprinterTool.Properties;
@@ -16,7 +15,7 @@ using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
-using PayPal;
+using PayPalWebBrowser;
 using Configuration = Marlin3DprinterToolConfiguration.Configuration;
 using NumberConversion = Marlin3DprinterToolConfiguration.NumberConversion;
 using Position = Marlin3DprinterToolConfiguration.Position;
@@ -39,10 +38,9 @@ namespace Marlin3DprinterTool
 
         private MarlinCommunication _com = new MarlinCommunication();
         
-        private NumberConversion _numberConversion = new NumberConversion();
+        private readonly NumberConversion _numberConversion = new NumberConversion();
 
-        //private decimal _dockZprobePrecision;
-        //private bool _dockZprobeUpDown ;
+        
 
         ///
         public FrmMarlin3DprinterTool()
@@ -55,7 +53,7 @@ namespace Marlin3DprinterTool
         /// <summary>
         ///     All Delegates, Callback and Invoke is in separate class
         /// </summary>
-        private DelegateAndInvoke Delegate { set; get; }
+        private DelegateAndInvoke Delegate { get; }
 
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
@@ -84,9 +82,12 @@ namespace Marlin3DprinterTool
         private void UpdateFrameHeader()
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fvi.ProductVersion;
-            Text = $"Marlin3DprinterTool Version: {version}";
+            if (assembly.Location != null)
+            {
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                string version = fvi.ProductVersion;
+                Text = $"Marlin3DprinterTool Version: {version}";
+            }
         }
 
 
@@ -229,11 +230,7 @@ namespace Marlin3DprinterTool
 
         private void btnHomeZ_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string>();
-
-            
-            commands.Add("G28 Z");
-            commands.Add("M114");
+            List<string> commands = new List<string> {"G28 Z", "M114"};
             _com.SendCommand(commands);
         }
 
@@ -383,46 +380,11 @@ namespace Marlin3DprinterTool
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            Donation paypal = new Donation();
-
-            paypal.Donatebutton();
+            FrmPayPal payPal = new FrmPayPal();
+            payPal.ShowDialog();
         }
 
 
-        private void btnCreateExampleForZprobePosition_Click(object sender, EventArgs e)
-        {
-            txtBxGcodeAssistZprobeEngage.Lines = new[]
-            {
-                @"G90",
-                @"G1 Z20",
-                @"G91",
-                @"G28 X",
-                @"G1 X300"
-            };
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            txtBxGcodeAssistZprobeEngage.Lines = new[]
-            {
-                @"G90",
-                @"G1 Z20",
-                @"G91",
-                @"G31"
-            };
-        }
-
-        private void btnCreateExampleForZprobeServo_Click(object sender, EventArgs e)
-        {
-            //TODO:
-            txtBxGcodeAssistZprobeEngage.Lines = new[]
-            {
-                @"G90",
-                @"G1 Z20",
-                @"G91",
-                @"G31"
-            };
-        }
 
         private void btnAutoBedLevel_Click(object sender, EventArgs e)
         {
@@ -452,12 +414,8 @@ namespace Marlin3DprinterTool
             var commands = new List<string> {"G28 Y", "G28 X", "G28 Z"};
 
             _com.Status = MarlinCommunication.Feature.Zmaintenance;
-            chartBinding.Series["FrontLeft"].Points.Clear();
-            chartBinding.Series["FrontRight"].Points.Clear();
-            chartBinding.Series["BackLeft"].Points.Clear();
-            chartBinding.Series["BackRight"].Points.Clear();
-
-
+            bindingControl.Clear();
+            
 
             List<Position> probePointsList = PointProbeList();
             string gcodeSpeed = "F6000";
@@ -1470,36 +1428,36 @@ namespace Marlin3DprinterTool
                             Z = probeResponce.Z
                         });
 
-                       // // Find control that match the X and Y
-                       // // Assign the Z
-                       // if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 50) &&
-                       //     (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 50))
-                       // {
-                       //     bedAdjusterBackLeft.Z = probeResponce.Z;
-                       //     DelegateAndInvoke.ChartAddBinding(chartBinding, "BackLeft", probeResponce.Z);
-                       // }
+                        // Find control that match the X and Y
+                        // Assign the Z
+                        if ((Math.Abs(bedAdjusterBackLeft.X - probeResponce.X) < 50) &&
+                            (Math.Abs(bedAdjusterBackLeft.Y - probeResponce.Y) < 50))
+                        {
+                            bedAdjusterBackLeft.Z = probeResponce.Z;
+                            DelegateAndInvoke.BindingControl(bindingControl, "Back Left Corner", probeResponce.Z);
+                        }
 
-                       // if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 50) &&
-                       //(Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 50))
-                       // {
-                       //     bedAdjusterBackRight.Z = probeResponce.Z;
-                       //     DelegateAndInvoke.ChartAddBinding(chartBinding, "BackRight", probeResponce.Z);
-                       // }
+                        if ((Math.Abs(bedAdjusterBackRight.X - probeResponce.X) < 50) &&
+                       (Math.Abs(bedAdjusterBackRight.Y - probeResponce.Y) < 50))
+                        {
+                            bedAdjusterBackRight.Z = probeResponce.Z;
+                            DelegateAndInvoke.BindingControl(bindingControl, "Back Right Corner", probeResponce.Z);
+                        }
 
-                        //if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 50) &&
-                        //    (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 50))
-                        //{
+                        if ((Math.Abs(bedAdjusterFrontLeft.X - probeResponce.X) < 50) &&
+                            (Math.Abs(bedAdjusterFrontLeft.Y - probeResponce.Y) < 50))
+                        {
 
-                        //    bedAdjusterFrontLeft.Z = probeResponce.Z;
-                        //    DelegateAndInvoke.ChartAddBinding(chartBinding, "FrontLeft", probeResponce.Z);
-                        //}
+                            bedAdjusterFrontLeft.Z = probeResponce.Z;
+                            DelegateAndInvoke.BindingControl(bindingControl, "Front Left Corner", probeResponce.Z);
+                        }
 
-                        //if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 50) &&
-                        //    (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 50))
-                        //{
-                        //    bedAdjusterFrontRight.Z = probeResponce.Z;
-                        //    DelegateAndInvoke.ChartAddBinding(chartBinding, "FrontRight", probeResponce.Z);
-                        //}
+                        if ((Math.Abs(bedAdjusterFrontRight.X - probeResponce.X) < 50) &&
+                            (Math.Abs(bedAdjusterFrontRight.Y - probeResponce.Y) < 50))
+                        {
+                            bedAdjusterFrontRight.Z = probeResponce.Z;
+                            DelegateAndInvoke.BindingControl(bindingControl, "Front Right Corner", probeResponce.Z);
+                        }
 
                         if ((Math.Abs(bedAdjusterLeftSingle.X - probeResponce.X) < 50) &&
                             (Math.Abs(bedAdjusterLeftSingle.Y - probeResponce.Y) < 50))

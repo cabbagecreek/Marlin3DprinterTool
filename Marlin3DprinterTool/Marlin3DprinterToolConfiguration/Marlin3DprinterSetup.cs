@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using PayPal;
+using PayPalWebBrowser;
 
 
 namespace Marlin3DprinterToolConfiguration
@@ -39,9 +39,9 @@ namespace Marlin3DprinterToolConfiguration
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            Donation paypal = new Donation();
+            FrmPayPal payPal = new FrmPayPal();
+            payPal.ShowDialog();
 
-            paypal.Donatebutton();
         }
 
         

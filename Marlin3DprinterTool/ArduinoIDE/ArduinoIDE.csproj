@@ -35,6 +35,26 @@
   <PropertyGroup>
     <StartupObject>ArduinoIDE.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
@@ -48,7 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmArduinoIde.cs" />
+    <Compile Include="FrmArduinoIde.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmArduinoIde.Designer.cs">
       <DependentUpon>FrmArduinoIde.cs</DependentUpon>
     </Compile>
@@ -58,17 +80,23 @@
     <Compile Include="FrmCurrentOrNewFirmware.Designer.cs">
       <DependentUpon>FrmCurrentOrNewFirmware.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarlinFirmware.cs" />
+    <Compile Include="MarlinFirmware.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="MarlinFirmware.Designer.cs">
       <DependentUpon>MarlinFirmware.cs</DependentUpon>
     </Compile>
-    <Compile Include="New.cs" />
+    <Compile Include="New.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="New.Designer.cs">
       <DependentUpon>New.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestArduinoIDE.cs" />
+    <Compile Include="TestArduinoIDE.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TestArduinoIDE.Designer.cs">
       <DependentUpon>TestArduinoIDE.cs</DependentUpon>
     </Compile>

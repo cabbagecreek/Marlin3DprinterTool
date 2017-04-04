@@ -10,7 +10,8 @@ using LogicNP.EZShellExtensions;
 using Marlin3DprinterToolConfiguration;
 using Marlin3DprinterToolStlThumbnailProvider;
 using Microsoft.Win32;
-using PayPal;
+using PayPalWebBrowser;
+
 
 namespace Marlin3DprinterToolStlConfiguration
 {
@@ -29,7 +30,7 @@ namespace Marlin3DprinterToolStlConfiguration
             try
             {
                 ThumbnailProvider.RegisterExtension(typeof (StlThumbnailProvider));
-                MessageBox.Show("Registration done with RegisterExtension ");
+                MessageBox.Show(@"Registration done with RegisterExtension ");
 
             }
             catch (Exception ex1)
@@ -51,7 +52,7 @@ namespace Marlin3DprinterToolStlConfiguration
             try
             {
                 Register();
-                MessageBox.Show("Registration done with Shell Register ");
+                MessageBox.Show(@"Registration done with Shell Register ");
             }
             catch (Exception ex3)
             {
@@ -92,7 +93,8 @@ namespace Marlin3DprinterToolStlConfiguration
                 string executingRegister = "\"" +Path.Combine(executingDirectory, "RegisterExtensionDotNet40.exe") + "\"";
                 string stlThumbnail = "\"" + Path.Combine(executingDirectory, "Marlin3DprinterToolStlThumbnail.dll") + "\"";
 
-                string argument = $" -i {stlThumbnail} ";
+                
+                string argument = string.Format(" -i {0} ",stlThumbnail);
 
                 Process process = new Process();
                 ProcessStartInfo startInfo = new ProcessStartInfo
@@ -442,9 +444,9 @@ namespace Marlin3DprinterToolStlConfiguration
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            Donation paypal = new Donation();
-
-            paypal.Donatebutton();
+            FrmPayPal paypal =new FrmPayPal();
+            paypal.ShowDialog();
+            
         }
     }
 }

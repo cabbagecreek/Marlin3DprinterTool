@@ -1,5 +1,10 @@
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\bin\x86\Release\LedBulbUserControl.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\bin\x86\Release\LedBulbUserControl.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.csprojResolveAssemblyReference.cache
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\bin\x86\Release\LedBulbUserControl.dll
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\bin\x86\Release\LedBulbUserControl.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.csprojResolveAssemblyReference.cache
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.dll
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\LedBulbUserControl\obj\x86\Release\LedBulbUserControl.pdb

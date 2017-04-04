@@ -15,7 +15,7 @@ namespace MarlinComunicationHelper
     /// <summary>
     /// Class that do all communication thru ZylSerial 
     /// </summary>
-    public sealed class MarlinCommunication
+    public  class MarlinCommunication
     {
 
         private List<string> commandsInQueue = new List<string>();

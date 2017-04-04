@@ -137,11 +137,11 @@
             <param name="kompass"></param>
             <param name="communication"></param>
         </member>
-        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.ChartAddBinding(System.Windows.Forms.DataVisualization.Charting.Chart,System.String,System.Decimal)">
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.BindingControl(Marlin3DprinterToolUserControls.BindingControl,System.String,System.Decimal)">
             <summary>
             Adds data to the Chart for BindingControl
             </summary>
-            <param name="chartBinding"></param>
+            <param name="bindingControl"></param>
             <param name="corner"></param>
             <param name="zDecimal"></param>
         </member>

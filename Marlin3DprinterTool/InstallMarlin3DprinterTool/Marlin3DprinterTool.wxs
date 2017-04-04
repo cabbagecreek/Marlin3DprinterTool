@@ -8,27 +8,32 @@
            Language="1033"
            Version="!(bind.fileVersion.Marlin3DprinterTool.exe)"
            Manufacturer="Cabbagecreek"  
-           UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1">
+           UpgradeCode="949b3c33-bdd2-4519-b2e1-823cfc2806f1"
+           
+    >
 
    
-
-
+    
     <Package InstallerVersion="200" 
              Compressed="yes" 
              InstallScope="perMachine" />
     
-    
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Marlin3DprinterTool" />
+    <Property Id="WixShellExecTarget" Value="[#Marlin3DprinterTool.exe]" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
     
     <WixVariable Id="WixUILicenseRtf" Value="$(var.Marlin3DprinterTool.TargetDir)\Licence.rtf" />
 
 
     <Icon Id='Marlin3DprinterTool.ico' SourceFile="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.ico" />
     <Property Id="ARPPRODUCTICON" Value="Marlin3DprinterTool.ico" />
-
+    
 
     <MajorUpgrade
-      Schedule="afterInstallInitialize"  
-      DowngradeErrorMessage="A newer version of Marlin3DprinterTool is already installed." />
+      Schedule="afterInstallInitialize" 
+      AllowDowngrades="no"
+      DowngradeErrorMessage="A newer version of Marlin3DprinterTool is already installed. Uninstall and delete C:\program Files(86)\Marlin3dprinterTool."
+      AllowSameVersionUpgrades ="no" />
     
     <MediaTemplate EmbedCab="yes" />
 
@@ -54,7 +59,10 @@
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <UI>
       <UIRef Id="WixUI_Minimal" />
-
+      <Publish Dialog="ExitDialog" 
+            Control="Finish" 
+            Event="DoAction" 
+            Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
 
     </UI>
 
@@ -270,25 +278,24 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\AGauge.dll" />
       </Component>
       
-      <!--PayPal.dll -->
-      <Component Id="PayPal.dll" Guid="{EB395271-506B-42C5-9F08-9C7B8B79C44D}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\PayPal.dll" />
-      </Component>
+      
       
       
     </ComponentGroup>
 
   </Fragment>
 
-
+  
+    
+    
   <Fragment>
 
     <ComponentGroup Id="PayPalBrowser" Directory="INSTALLFOLDER">
 
-      <!-- PayPalWebBrowser.exe-->
-      <Component Id="PayPalWebBrowser.exe" Guid="{CBCD266F-578A-4301-AD95-2652ED7C3714}">
-        <File Source="$(var.PayPalWebBrowser.TargetPath)"  />
-      </Component>
+      <!-- PayPalWebBrowser.dll-->
+      <Component Id="PayPalWebBrowser.dll" Guid="{CBCD266F-578A-4301-AD95-2652ED7C3714}"> 
+        <File Source="$(var.PayPalWebBrowser.TargetPath)"  /> 
+      </Component> 
 
       <!-- cef.pak-->
       <Component Id="cef.pak" Guid="{394AB392-0FA7-46CA-9F56-3B89FFC3BB7F}">
@@ -328,16 +335,17 @@
         <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.WinForms.dll" />
       </Component>
 
-     
+      <!-- TODO: tabort -->
       <!-- CefSharp.WinForms.xml -->
-      <Component Id="CefSharp.WinForms.xml" Guid="{99ED2BD4-FE2A-4D0D-B05A-EEC612753D31}">
-        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.WinForms.xml" />
-      </Component>
+      <!-- <Component Id="CefSharp.WinForms.xml" Guid="{99ED2BD4-FE2A-4D0D-B05A-EEC612753D31}"> -->
+      <!--   <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.WinForms.xml" /> -->
+      <!-- </Component> -->
 
-      <!-- CefSharp.xml -->
-      <Component Id="CefSharp.xml" Guid="{B8A55F1E-ADD9-4E28-A5C4-F9BE564249C3}">
-        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.xml" />
-      </Component>
+      <!-- TODO: tabort -->
+      <!-- CefSharp.xml --> 
+      <!-- <Component Id="CefSharp.xml" Guid="{B8A55F1E-ADD9-4E28-A5C4-F9BE564249C3}"> -->
+      <!--   <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\CefSharp.xml" /> -->
+      <!-- </Component> -->
 
       <!-- cef_100_percent.pak-->
       <Component Id="cef_100_percent.pak" Guid="{C4F5606D-83B9-438C-9E3C-CC6A28A9AF26}">
@@ -395,9 +403,9 @@
       </Component>
 
       
-      <!-- PayPalWebBrowser.exe.config-->
-      <Component Id="PayPalWebBrowser.exe.config" Guid="{83D8C432-B6E3-4805-B568-C3D8276D0A51}">
-        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\PayPalWebBrowser.exe.config" />
+      <!-- PayPalWebBrowser.dll.config-->
+      <Component Id="PayPalWebBrowser.dll.config" Guid="{83D8C432-B6E3-4805-B568-C3D8276D0A51}">
+        <File  KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\PayPalWebBrowser.dll.config" />
       </Component>
 
      
@@ -410,15 +418,6 @@
       <Component Id="widevinecdmadapter.dll" Guid="{B7F807AF-E234-4C80-B4AA-0E6CA70D36E6}">
         <File KeyPath="yes" Source="$(var.PayPalWebBrowser.TargetDir)\widevinecdmadapter.dll" />
       </Component>
-
-
-
-      
-
-      
-      
-
-
 
     </ComponentGroup>
 
@@ -694,6 +693,7 @@
     </ComponentGroup>
   </Fragment>
 
+  
  
   
   

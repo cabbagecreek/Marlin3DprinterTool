@@ -38,6 +38,8 @@ namespace Marlin3DprinterTool
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMarlin3DprinterTool));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             Marlin3DprinterToolConfiguration.Position position1 = new Marlin3DprinterToolConfiguration.Position();
             Marlin3DprinterToolConfiguration.Position position2 = new Marlin3DprinterToolConfiguration.Position();
             Marlin3DprinterToolConfiguration.Position position3 = new Marlin3DprinterToolConfiguration.Position();
@@ -45,15 +47,6 @@ namespace Marlin3DprinterTool
             Marlin3DprinterToolConfiguration.Position position5 = new Marlin3DprinterToolConfiguration.Position();
             Marlin3DprinterToolConfiguration.Position position6 = new Marlin3DprinterToolConfiguration.Position();
             Marlin3DprinterToolConfiguration.Position position7 = new Marlin3DprinterToolConfiguration.Position();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
             this.grpBxZ = new System.Windows.Forms.GroupBox();
@@ -108,18 +101,6 @@ namespace Marlin3DprinterTool
             this.panelConfigurationBedTab = new System.Windows.Forms.Panel();
             this.btnProbeTheBed = new System.Windows.Forms.Button();
             this.panelBed = new System.Windows.Forms.Panel();
-            this.bedCornerControlFrontRight = new Marlin3DprinterToolUserControls.BedCorner();
-            this.bedCornerControlFrontLeft = new Marlin3DprinterToolUserControls.BedCorner();
-            this.bedAdjusterLeftSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.bedCornerControlBackRight = new Marlin3DprinterToolUserControls.BedCorner();
-            this.bedAdjusterFrontSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.bedCornerControlBackLeft = new Marlin3DprinterToolUserControls.BedCorner();
-            this.bedAdjusterRightSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.bedAdjusterBackRight = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.bedAdjusterFrontRight = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.bedAdjusterFrontLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.bedCornerControlSafeHome = new Marlin3DprinterToolUserControls.BedCorner();
-            this.bedAdjusterBackLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
             this.grpBxAdjusters = new System.Windows.Forms.GroupBox();
             this.rdoBn3pointFront = new System.Windows.Forms.RadioButton();
             this.chkListBxAdjustment = new System.Windows.Forms.CheckedListBox();
@@ -212,7 +193,6 @@ namespace Marlin3DprinterTool
             this.txtBxZmaintenanceDescription = new System.Windows.Forms.TextBox();
             this.btnZmaintenanceRun = new System.Windows.Forms.Button();
             this.btnZmaintenanceCancel = new System.Windows.Forms.Button();
-            this.grpBxZmaintMin = new System.Windows.Forms.GroupBox();
             this.trackBarZmaintenanceMin = new System.Windows.Forms.TrackBar();
             this.grpBxZmaintMax = new System.Windows.Forms.GroupBox();
             this.trackBarZmaintenanceMax = new System.Windows.Forms.TrackBar();
@@ -223,7 +203,6 @@ namespace Marlin3DprinterTool
             this.lblZmaxTravel = new System.Windows.Forms.Label();
             this.numUpDnZmaxTravel = new System.Windows.Forms.NumericUpDown();
             this.trkBrZmaxTravel = new System.Windows.Forms.TrackBar();
-            this.chartBinding = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPageCalculations = new System.Windows.Forms.TabPage();
             this.grpBxFeedRate = new System.Windows.Forms.GroupBox();
             this.numUpDnFeedRateMMperMinute = new System.Windows.Forms.NumericUpDown();
@@ -343,12 +322,10 @@ namespace Marlin3DprinterTool
             this.fctbInit = new FastColoredTextBoxNS.FastColoredTextBox();
             this.grpBxNavigation = new System.Windows.Forms.GroupBox();
             this.btnRetractZprobe = new System.Windows.Forms.Button();
-            this.kompass = new Marlin3DprinterToolUserControls.Kompass();
             this.btnEngageZprobe = new System.Windows.Forms.Button();
             this.grpBxBed = new System.Windows.Forms.Button();
             this.btnHomeY = new System.Windows.Forms.Button();
             this.btnHomeX = new System.Windows.Forms.Button();
-            this.verticalJogZprobeHeight = new Marlin3DprinterToolUserControls.VerticalJog();
             this.btnOpenMarlin = new System.Windows.Forms.Button();
             this.btnSaveArduinoIDE = new System.Windows.Forms.Button();
             this.txtBxArduinoIDE = new System.Windows.Forms.TextBox();
@@ -373,6 +350,21 @@ namespace Marlin3DprinterTool
             this.btnFirmware = new System.Windows.Forms.Button();
             this.btnPayPal = new System.Windows.Forms.Button();
             this.timerEndstop = new System.Windows.Forms.Timer(this.components);
+            this.bedCornerControlFrontRight = new Marlin3DprinterToolUserControls.BedCorner();
+            this.bedCornerControlFrontLeft = new Marlin3DprinterToolUserControls.BedCorner();
+            this.bedAdjusterLeftSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bedCornerControlBackRight = new Marlin3DprinterToolUserControls.BedCorner();
+            this.bedAdjusterFrontSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bedCornerControlBackLeft = new Marlin3DprinterToolUserControls.BedCorner();
+            this.bedAdjusterRightSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bedAdjusterBackRight = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bedAdjusterFrontRight = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bedAdjusterFrontLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bedCornerControlSafeHome = new Marlin3DprinterToolUserControls.BedCorner();
+            this.bedAdjusterBackLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
+            this.bindingControl = new Marlin3DprinterToolUserControls.BindingControl();
+            this.kompass = new Marlin3DprinterToolUserControls.Kompass();
+            this.verticalJogZprobeHeight = new Marlin3DprinterToolUserControls.VerticalJog();
             this.tabControl3DprinterTool.SuspendLayout();
             this.tabPageEndstop.SuspendLayout();
             this.grpBxZ.SuspendLayout();
@@ -429,7 +421,6 @@ namespace Marlin3DprinterTool
             this.tabPageZMaintenance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.grpBxZMaintenance.SuspendLayout();
-            this.grpBxZmaintMin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZmaintenanceMin)).BeginInit();
             this.grpBxZmaintMax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZmaintenanceMax)).BeginInit();
@@ -437,7 +428,6 @@ namespace Marlin3DprinterTool
             this.grpZprobeConfigMax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnZmaxTravel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkBrZmaxTravel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBinding)).BeginInit();
             this.tabPageCalculations.SuspendLayout();
             this.grpBxFeedRate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperMinute)).BeginInit();
@@ -1105,7 +1095,7 @@ namespace Marlin3DprinterTool
             // btnProbeTheBed
             // 
             this.btnProbeTheBed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnProbeTheBed.Location = new System.Drawing.Point(3, 495);
+            this.btnProbeTheBed.Location = new System.Drawing.Point(3, 531);
             this.btnProbeTheBed.Name = "btnProbeTheBed";
             this.btnProbeTheBed.Size = new System.Drawing.Size(164, 79);
             this.btnProbeTheBed.TabIndex = 0;
@@ -1133,421 +1123,8 @@ namespace Marlin3DprinterTool
             this.panelBed.Controls.Add(this.bedAdjusterBackLeft);
             this.panelBed.Location = new System.Drawing.Point(6, 13);
             this.panelBed.Name = "panelBed";
-            this.panelBed.Size = new System.Drawing.Size(633, 475);
+            this.panelBed.Size = new System.Drawing.Size(633, 511);
             this.panelBed.TabIndex = 30;
-            // 
-            // bedCornerControlFrontRight
-            // 
-            this.bedCornerControlFrontRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bedCornerControlFrontRight.Communication = null;
-            this.bedCornerControlFrontRight.Corner = Marlin3DprinterToolUserControls.CornerType.FrontRightCorner;
-            this.bedCornerControlFrontRight.Location = new System.Drawing.Point(430, 394);
-            this.bedCornerControlFrontRight.MaximumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlFrontRight.MinimumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlFrontRight.Name = "bedCornerControlFrontRight";
-            this.bedCornerControlFrontRight.Size = new System.Drawing.Size(195, 65);
-            this.bedCornerControlFrontRight.TabIndex = 28;
-            // 
-            // bedCornerControlFrontLeft
-            // 
-            this.bedCornerControlFrontLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bedCornerControlFrontLeft.Communication = null;
-            this.bedCornerControlFrontLeft.Corner = Marlin3DprinterToolUserControls.CornerType.FrontLeftCorner;
-            this.bedCornerControlFrontLeft.Location = new System.Drawing.Point(16, 394);
-            this.bedCornerControlFrontLeft.MaximumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlFrontLeft.MinimumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlFrontLeft.Name = "bedCornerControlFrontLeft";
-            this.bedCornerControlFrontLeft.Size = new System.Drawing.Size(195, 65);
-            this.bedCornerControlFrontLeft.TabIndex = 27;
-            // 
-            // bedAdjusterLeftSingle
-            // 
-            this.bedAdjusterLeftSingle.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.LeftSingleAdjuster;
-            this.bedAdjusterLeftSingle.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterLeftSingle.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterLeftSingle.Location = new System.Drawing.Point(12, 193);
-            this.bedAdjusterLeftSingle.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterLeftSingle.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterLeftSingle.Name = "bedAdjusterLeftSingle";
-            position1.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position1.Xstring = "0";
-            position1.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position1.Ystring = "0";
-            position1.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position1.Zstring = "0";
-            this.bedAdjusterLeftSingle.Position = position1;
-            this.bedAdjusterLeftSingle.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterLeftSingle.TabIndex = 36;
-            this.bedAdjusterLeftSingle.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterLeftSingle.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterLeftSingle.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // bedCornerControlBackRight
-            // 
-            this.bedCornerControlBackRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bedCornerControlBackRight.Communication = null;
-            this.bedCornerControlBackRight.Corner = Marlin3DprinterToolUserControls.CornerType.BackRightCorner;
-            this.bedCornerControlBackRight.Location = new System.Drawing.Point(429, 13);
-            this.bedCornerControlBackRight.MaximumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlBackRight.MinimumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlBackRight.Name = "bedCornerControlBackRight";
-            this.bedCornerControlBackRight.Size = new System.Drawing.Size(195, 65);
-            this.bedCornerControlBackRight.TabIndex = 26;
-            // 
-            // bedAdjusterFrontSingle
-            // 
-            this.bedAdjusterFrontSingle.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.FrontSingleAdjuster;
-            this.bedAdjusterFrontSingle.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterFrontSingle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bedAdjusterFrontSingle.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontSingle.Location = new System.Drawing.Point(245, 409);
-            this.bedAdjusterFrontSingle.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontSingle.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontSingle.Name = "bedAdjusterFrontSingle";
-            position2.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position2.Xstring = "0";
-            position2.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position2.Ystring = "0";
-            position2.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position2.Zstring = "0";
-            this.bedAdjusterFrontSingle.Position = position2;
-            this.bedAdjusterFrontSingle.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontSingle.TabIndex = 35;
-            this.bedAdjusterFrontSingle.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontSingle.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontSingle.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // bedCornerControlBackLeft
-            // 
-            this.bedCornerControlBackLeft.Communication = null;
-            this.bedCornerControlBackLeft.Corner = Marlin3DprinterToolUserControls.CornerType.BackLeftCorner;
-            this.bedCornerControlBackLeft.Location = new System.Drawing.Point(14, 13);
-            this.bedCornerControlBackLeft.MaximumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlBackLeft.MinimumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlBackLeft.Name = "bedCornerControlBackLeft";
-            this.bedCornerControlBackLeft.Size = new System.Drawing.Size(195, 65);
-            this.bedCornerControlBackLeft.TabIndex = 25;
-            // 
-            // bedAdjusterRightSingle
-            // 
-            this.bedAdjusterRightSingle.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.RightSingleAdjuster;
-            this.bedAdjusterRightSingle.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterRightSingle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bedAdjusterRightSingle.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterRightSingle.Location = new System.Drawing.Point(444, 193);
-            this.bedAdjusterRightSingle.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterRightSingle.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterRightSingle.Name = "bedAdjusterRightSingle";
-            position3.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position3.Xstring = "0";
-            position3.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position3.Ystring = "0";
-            position3.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position3.Zstring = "0";
-            this.bedAdjusterRightSingle.Position = position3;
-            this.bedAdjusterRightSingle.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterRightSingle.TabIndex = 34;
-            this.bedAdjusterRightSingle.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterRightSingle.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterRightSingle.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // bedAdjusterBackRight
-            // 
-            this.bedAdjusterBackRight.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.BackRightAdjuster;
-            this.bedAdjusterBackRight.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterBackRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bedAdjusterBackRight.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterBackRight.Location = new System.Drawing.Point(444, 77);
-            this.bedAdjusterBackRight.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterBackRight.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterBackRight.Name = "bedAdjusterBackRight";
-            position4.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position4.Xstring = "0";
-            position4.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position4.Ystring = "0";
-            position4.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position4.Zstring = "0";
-            this.bedAdjusterBackRight.Position = position4;
-            this.bedAdjusterBackRight.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterBackRight.TabIndex = 33;
-            this.bedAdjusterBackRight.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterBackRight.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterBackRight.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // bedAdjusterFrontRight
-            // 
-            this.bedAdjusterFrontRight.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.FrontRightAdjuster;
-            this.bedAdjusterFrontRight.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterFrontRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bedAdjusterFrontRight.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontRight.Location = new System.Drawing.Point(442, 349);
-            this.bedAdjusterFrontRight.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontRight.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontRight.Name = "bedAdjusterFrontRight";
-            position5.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position5.Xstring = "0";
-            position5.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position5.Ystring = "0";
-            position5.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position5.Zstring = "0";
-            this.bedAdjusterFrontRight.Position = position5;
-            this.bedAdjusterFrontRight.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontRight.TabIndex = 32;
-            this.bedAdjusterFrontRight.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontRight.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontRight.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // bedAdjusterFrontLeft
-            // 
-            this.bedAdjusterFrontLeft.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.FrontLeftAdjuster;
-            this.bedAdjusterFrontLeft.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterFrontLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bedAdjusterFrontLeft.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontLeft.Location = new System.Drawing.Point(14, 349);
-            this.bedAdjusterFrontLeft.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontLeft.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontLeft.Name = "bedAdjusterFrontLeft";
-            position6.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position6.Xstring = "0";
-            position6.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position6.Ystring = "0";
-            position6.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position6.Zstring = "0";
-            this.bedAdjusterFrontLeft.Position = position6;
-            this.bedAdjusterFrontLeft.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterFrontLeft.TabIndex = 31;
-            this.bedAdjusterFrontLeft.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontLeft.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterFrontLeft.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // bedCornerControlSafeHome
-            // 
-            this.bedCornerControlSafeHome.Communication = null;
-            this.bedCornerControlSafeHome.Corner = Marlin3DprinterToolUserControls.CornerType.SafeHome;
-            this.bedCornerControlSafeHome.Location = new System.Drawing.Point(232, 193);
-            this.bedCornerControlSafeHome.MaximumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlSafeHome.MinimumSize = new System.Drawing.Size(195, 65);
-            this.bedCornerControlSafeHome.Name = "bedCornerControlSafeHome";
-            this.bedCornerControlSafeHome.Size = new System.Drawing.Size(195, 65);
-            this.bedCornerControlSafeHome.TabIndex = 30;
-            // 
-            // bedAdjusterBackLeft
-            // 
-            this.bedAdjusterBackLeft.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.BackLeftAdjuster;
-            this.bedAdjusterBackLeft.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
-            this.bedAdjusterBackLeft.Fix = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterBackLeft.Location = new System.Drawing.Point(12, 77);
-            this.bedAdjusterBackLeft.MaximumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterBackLeft.MinimumSize = new System.Drawing.Size(180, 50);
-            this.bedAdjusterBackLeft.Name = "bedAdjusterBackLeft";
-            position7.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position7.Xstring = "0";
-            position7.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position7.Ystring = "0";
-            position7.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            position7.Zstring = "0";
-            this.bedAdjusterBackLeft.Position = position7;
-            this.bedAdjusterBackLeft.Size = new System.Drawing.Size(180, 50);
-            this.bedAdjusterBackLeft.TabIndex = 29;
-            this.bedAdjusterBackLeft.X = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterBackLeft.Y = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.bedAdjusterBackLeft.Z = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             // 
             // grpBxAdjusters
             // 
@@ -1557,7 +1134,7 @@ namespace Marlin3DprinterTool
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointRight);
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointLeft);
             this.grpBxAdjusters.Controls.Add(this.rdoBn4point);
-            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 997);
+            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 1051);
             this.grpBxAdjusters.Name = "grpBxAdjusters";
             this.grpBxAdjusters.Size = new System.Drawing.Size(253, 100);
             this.grpBxAdjusters.TabIndex = 20;
@@ -1890,7 +1467,7 @@ namespace Marlin3DprinterTool
             this.nChartControlSurface.InputKeys = new System.Windows.Forms.Keys[0];
             this.nChartControlSurface.Location = new System.Drawing.Point(6, 70);
             this.nChartControlSurface.Name = "nChartControlSurface";
-            this.nChartControlSurface.Size = new System.Drawing.Size(643, 684);
+            this.nChartControlSurface.Size = new System.Drawing.Size(643, 738);
             this.nChartControlSurface.State = ((Nevron.Chart.WinForm.NState)(resources.GetObject("nChartControlSurface.State")));
             this.nChartControlSurface.TabIndex = 21;
             this.nChartControlSurface.Text = "nChartControl1";
@@ -2052,7 +1629,7 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbPidResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbPidResponce.ServiceColors")));
             this.fctbPidResponce.ShowLineNumbers = false;
-            this.fctbPidResponce.Size = new System.Drawing.Size(640, 263);
+            this.fctbPidResponce.Size = new System.Drawing.Size(640, 317);
             this.fctbPidResponce.TabIndex = 16;
             this.fctbPidResponce.Zoom = 100;
             // 
@@ -2663,8 +2240,7 @@ namespace Marlin3DprinterTool
             // 
             this.tabPageZMaintenance.Controls.Add(this.pictureBox5);
             this.tabPageZMaintenance.Controls.Add(this.grpBxZMaintenance);
-            this.tabPageZMaintenance.Controls.Add(this.grpZprobeConfigMax);
-            this.tabPageZMaintenance.Controls.Add(this.chartBinding);
+            this.tabPageZMaintenance.Controls.Add(this.bindingControl);
             this.tabPageZMaintenance.Location = new System.Drawing.Point(4, 40);
             this.tabPageZMaintenance.Name = "tabPageZMaintenance";
             this.tabPageZMaintenance.Size = new System.Drawing.Size(652, 577);
@@ -2677,7 +2253,7 @@ namespace Marlin3DprinterTool
             // 
             this.pictureBox5.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.Work_in_progress;
             this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox5.Location = new System.Drawing.Point(522, 438);
+            this.pictureBox5.Location = new System.Drawing.Point(515, 450);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(116, 103);
             this.pictureBox5.TabIndex = 29;
@@ -2687,31 +2263,31 @@ namespace Marlin3DprinterTool
             // grpBxZMaintenance
             // 
             this.grpBxZMaintenance.Controls.Add(this.txtBxZmaintenanceDescription);
+            this.grpBxZMaintenance.Controls.Add(this.grpZprobeConfigMax);
             this.grpBxZMaintenance.Controls.Add(this.btnZmaintenanceRun);
             this.grpBxZMaintenance.Controls.Add(this.btnZmaintenanceCancel);
-            this.grpBxZMaintenance.Controls.Add(this.grpBxZmaintMin);
             this.grpBxZMaintenance.Controls.Add(this.grpBxZmaintMax);
             this.grpBxZMaintenance.Controls.Add(this.lblZmaintenanceRepetitions);
             this.grpBxZMaintenance.Controls.Add(this.numUpDnZmaintenanceRepetitions);
             this.grpBxZMaintenance.Location = new System.Drawing.Point(11, 15);
             this.grpBxZMaintenance.Name = "grpBxZMaintenance";
-            this.grpBxZMaintenance.Size = new System.Drawing.Size(482, 308);
+            this.grpBxZMaintenance.Size = new System.Drawing.Size(638, 308);
             this.grpBxZMaintenance.TabIndex = 3;
             this.grpBxZMaintenance.TabStop = false;
             this.grpBxZMaintenance.Text = "Travel up and Down";
             // 
             // txtBxZmaintenanceDescription
             // 
-            this.txtBxZmaintenanceDescription.Location = new System.Drawing.Point(259, 61);
+            this.txtBxZmaintenanceDescription.Location = new System.Drawing.Point(321, 55);
             this.txtBxZmaintenanceDescription.Multiline = true;
             this.txtBxZmaintenanceDescription.Name = "txtBxZmaintenanceDescription";
             this.txtBxZmaintenanceDescription.ReadOnly = true;
-            this.txtBxZmaintenanceDescription.Size = new System.Drawing.Size(215, 205);
+            this.txtBxZmaintenanceDescription.Size = new System.Drawing.Size(311, 205);
             this.txtBxZmaintenanceDescription.TabIndex = 4;
             // 
             // btnZmaintenanceRun
             // 
-            this.btnZmaintenanceRun.Location = new System.Drawing.Point(333, 272);
+            this.btnZmaintenanceRun.Location = new System.Drawing.Point(391, 274);
             this.btnZmaintenanceRun.Name = "btnZmaintenanceRun";
             this.btnZmaintenanceRun.Size = new System.Drawing.Size(75, 23);
             this.btnZmaintenanceRun.TabIndex = 6;
@@ -2721,7 +2297,7 @@ namespace Marlin3DprinterTool
             // 
             // btnZmaintenanceCancel
             // 
-            this.btnZmaintenanceCancel.Location = new System.Drawing.Point(259, 272);
+            this.btnZmaintenanceCancel.Location = new System.Drawing.Point(321, 274);
             this.btnZmaintenanceCancel.Name = "btnZmaintenanceCancel";
             this.btnZmaintenanceCancel.Size = new System.Drawing.Size(68, 23);
             this.btnZmaintenanceCancel.TabIndex = 7;
@@ -2729,19 +2305,9 @@ namespace Marlin3DprinterTool
             this.btnZmaintenanceCancel.UseVisualStyleBackColor = true;
             this.btnZmaintenanceCancel.Click += new System.EventHandler(this.btnZmaintenanceCancel_Click);
             // 
-            // grpBxZmaintMin
-            // 
-            this.grpBxZmaintMin.Controls.Add(this.trackBarZmaintenanceMin);
-            this.grpBxZmaintMin.Location = new System.Drawing.Point(122, 19);
-            this.grpBxZmaintMin.Name = "grpBxZmaintMin";
-            this.grpBxZmaintMin.Size = new System.Drawing.Size(119, 282);
-            this.grpBxZmaintMin.TabIndex = 7;
-            this.grpBxZmaintMin.TabStop = false;
-            this.grpBxZmaintMin.Text = "Move Z Lower Limit";
-            // 
             // trackBarZmaintenanceMin
             // 
-            this.trackBarZmaintenanceMin.Location = new System.Drawing.Point(12, 18);
+            this.trackBarZmaintenanceMin.Location = new System.Drawing.Point(6, 18);
             this.trackBarZmaintenanceMin.Maximum = 100;
             this.trackBarZmaintenanceMin.Minimum = 10;
             this.trackBarZmaintenanceMin.Name = "trackBarZmaintenanceMin";
@@ -2753,17 +2319,18 @@ namespace Marlin3DprinterTool
             // 
             // grpBxZmaintMax
             // 
+            this.grpBxZmaintMax.Controls.Add(this.trackBarZmaintenanceMin);
             this.grpBxZmaintMax.Controls.Add(this.trackBarZmaintenanceMax);
-            this.grpBxZmaintMax.Location = new System.Drawing.Point(6, 19);
+            this.grpBxZmaintMax.Location = new System.Drawing.Point(161, 21);
             this.grpBxZmaintMax.Name = "grpBxZmaintMax";
-            this.grpBxZmaintMax.Size = new System.Drawing.Size(110, 282);
+            this.grpBxZmaintMax.Size = new System.Drawing.Size(151, 282);
             this.grpBxZmaintMax.TabIndex = 6;
             this.grpBxZmaintMax.TabStop = false;
-            this.grpBxZmaintMax.Text = "Move Z High Limit";
+            this.grpBxZmaintMax.Text = "Move Z Between limits";
             // 
             // trackBarZmaintenanceMax
             // 
-            this.trackBarZmaintenanceMax.Location = new System.Drawing.Point(6, 20);
+            this.trackBarZmaintenanceMax.Location = new System.Drawing.Point(100, 18);
             this.trackBarZmaintenanceMax.Maximum = 250;
             this.trackBarZmaintenanceMax.Minimum = 30;
             this.trackBarZmaintenanceMax.Name = "trackBarZmaintenanceMax";
@@ -2776,7 +2343,7 @@ namespace Marlin3DprinterTool
             // lblZmaintenanceRepetitions
             // 
             this.lblZmaintenanceRepetitions.AutoSize = true;
-            this.lblZmaintenanceRepetitions.Location = new System.Drawing.Point(256, 19);
+            this.lblZmaintenanceRepetitions.Location = new System.Drawing.Point(318, 15);
             this.lblZmaintenanceRepetitions.Name = "lblZmaintenanceRepetitions";
             this.lblZmaintenanceRepetitions.Size = new System.Drawing.Size(107, 13);
             this.lblZmaintenanceRepetitions.TabIndex = 5;
@@ -2784,7 +2351,7 @@ namespace Marlin3DprinterTool
             // 
             // numUpDnZmaintenanceRepetitions
             // 
-            this.numUpDnZmaintenanceRepetitions.Location = new System.Drawing.Point(259, 35);
+            this.numUpDnZmaintenanceRepetitions.Location = new System.Drawing.Point(321, 31);
             this.numUpDnZmaintenanceRepetitions.Minimum = new decimal(new int[] {
             1,
             0,
@@ -2802,24 +2369,23 @@ namespace Marlin3DprinterTool
             // 
             // grpZprobeConfigMax
             // 
-            this.grpZprobeConfigMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpZprobeConfigMax.Controls.Add(this.btnZmaxTravel);
+            this.grpZprobeConfigMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.grpZprobeConfigMax.Controls.Add(this.lblZmaxTravel);
+            this.grpZprobeConfigMax.Controls.Add(this.btnZmaxTravel);
             this.grpZprobeConfigMax.Controls.Add(this.numUpDnZmaxTravel);
             this.grpZprobeConfigMax.Controls.Add(this.trkBrZmaxTravel);
-            this.grpZprobeConfigMax.Location = new System.Drawing.Point(11, 328);
+            this.grpZprobeConfigMax.Location = new System.Drawing.Point(6, 20);
             this.grpZprobeConfigMax.Name = "grpZprobeConfigMax";
-            this.grpZprobeConfigMax.Size = new System.Drawing.Size(160, 213);
+            this.grpZprobeConfigMax.Size = new System.Drawing.Size(135, 283);
             this.grpZprobeConfigMax.TabIndex = 52;
             this.grpZprobeConfigMax.TabStop = false;
             this.grpZprobeConfigMax.Text = "Max Z travel";
             // 
             // btnZmaxTravel
             // 
-            this.btnZmaxTravel.Location = new System.Drawing.Point(68, 70);
+            this.btnZmaxTravel.Location = new System.Drawing.Point(59, 35);
             this.btnZmaxTravel.Name = "btnZmaxTravel";
-            this.btnZmaxTravel.Size = new System.Drawing.Size(75, 23);
+            this.btnZmaxTravel.Size = new System.Drawing.Size(67, 23);
             this.btnZmaxTravel.TabIndex = 3;
             this.btnZmaxTravel.Text = "Save";
             this.btnZmaxTravel.UseVisualStyleBackColor = true;
@@ -2828,7 +2394,7 @@ namespace Marlin3DprinterTool
             // lblZmaxTravel
             // 
             this.lblZmaxTravel.AutoSize = true;
-            this.lblZmaxTravel.Location = new System.Drawing.Point(65, 28);
+            this.lblZmaxTravel.Location = new System.Drawing.Point(59, 18);
             this.lblZmaxTravel.Name = "lblZmaxTravel";
             this.lblZmaxTravel.Size = new System.Drawing.Size(67, 13);
             this.lblZmaxTravel.TabIndex = 2;
@@ -2836,7 +2402,7 @@ namespace Marlin3DprinterTool
             // 
             // numUpDnZmaxTravel
             // 
-            this.numUpDnZmaxTravel.Location = new System.Drawing.Point(68, 44);
+            this.numUpDnZmaxTravel.Location = new System.Drawing.Point(59, 64);
             this.numUpDnZmaxTravel.Maximum = new decimal(new int[] {
             300,
             0,
@@ -2848,7 +2414,7 @@ namespace Marlin3DprinterTool
             0,
             0});
             this.numUpDnZmaxTravel.Name = "numUpDnZmaxTravel";
-            this.numUpDnZmaxTravel.Size = new System.Drawing.Size(84, 20);
+            this.numUpDnZmaxTravel.Size = new System.Drawing.Size(67, 20);
             this.numUpDnZmaxTravel.TabIndex = 1;
             this.numUpDnZmaxTravel.Value = new decimal(new int[] {
             100,
@@ -2861,56 +2427,15 @@ namespace Marlin3DprinterTool
             // 
             this.trkBrZmaxTravel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.trkBrZmaxTravel.Location = new System.Drawing.Point(6, 28);
+            this.trkBrZmaxTravel.Location = new System.Drawing.Point(8, 18);
             this.trkBrZmaxTravel.Maximum = 300;
             this.trkBrZmaxTravel.Minimum = 100;
             this.trkBrZmaxTravel.Name = "trkBrZmaxTravel";
             this.trkBrZmaxTravel.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trkBrZmaxTravel.Size = new System.Drawing.Size(45, 176);
+            this.trkBrZmaxTravel.Size = new System.Drawing.Size(45, 258);
             this.trkBrZmaxTravel.TabIndex = 0;
             this.trkBrZmaxTravel.Value = 100;
             this.trkBrZmaxTravel.Scroll += new System.EventHandler(this.trkBrZmaxTravel_Scroll);
-            // 
-            // chartBinding
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartBinding.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartBinding.Legends.Add(legend1);
-            this.chartBinding.Location = new System.Drawing.Point(177, 334);
-            this.chartBinding.Name = "chartBinding";
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "FrontLeft";
-            series2.BorderWidth = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.IsXValueIndexed = true;
-            series2.Legend = "Legend1";
-            series2.Name = "FrontRight";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.IsXValueIndexed = true;
-            series3.Legend = "Legend1";
-            series3.Name = "BackLeft";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.IsXValueIndexed = true;
-            series4.Legend = "Legend1";
-            series4.Name = "BackRight";
-            this.chartBinding.Series.Add(series1);
-            this.chartBinding.Series.Add(series2);
-            this.chartBinding.Series.Add(series3);
-            this.chartBinding.Series.Add(series4);
-            this.chartBinding.Size = new System.Drawing.Size(472, 228);
-            this.chartBinding.TabIndex = 53;
-            this.chartBinding.Text = "chart1";
-            title1.Name = "Title1";
-            title1.Text = "Binding Control";
-            this.chartBinding.Titles.Add(title1);
             // 
             // tabPageCalculations
             // 
@@ -4331,9 +3856,9 @@ namespace Marlin3DprinterTool
             this.grpBxNavigation.Controls.Add(this.btnHomeX);
             this.grpBxNavigation.Controls.Add(this.verticalJogZprobeHeight);
             this.grpBxNavigation.Location = new System.Drawing.Point(3, 5);
-            this.grpBxNavigation.MinimumSize = new System.Drawing.Size(320, 320);
+            this.grpBxNavigation.MinimumSize = new System.Drawing.Size(310, 320);
             this.grpBxNavigation.Name = "grpBxNavigation";
-            this.grpBxNavigation.Size = new System.Drawing.Size(320, 320);
+            this.grpBxNavigation.Size = new System.Drawing.Size(310, 320);
             this.grpBxNavigation.TabIndex = 0;
             this.grpBxNavigation.TabStop = false;
             this.grpBxNavigation.Text = "Navigation";
@@ -4343,7 +3868,7 @@ namespace Marlin3DprinterTool
             // 
             // btnRetractZprobe
             // 
-            this.btnRetractZprobe.Location = new System.Drawing.Point(195, 267);
+            this.btnRetractZprobe.Location = new System.Drawing.Point(191, 267);
             this.btnRetractZprobe.Name = "btnRetractZprobe";
             this.btnRetractZprobe.Size = new System.Drawing.Size(57, 45);
             this.btnRetractZprobe.TabIndex = 28;
@@ -4352,22 +3877,9 @@ namespace Marlin3DprinterTool
             this.btnRetractZprobe.UseVisualStyleBackColor = true;
             this.btnRetractZprobe.Click += new System.EventHandler(this.btnRetractZprobe_Click);
             // 
-            // kompass
-            // 
-            this.kompass.Location = new System.Drawing.Point(6, 15);
-            this.kompass.MarlinCommunication = null;
-            this.kompass.MaximumSize = new System.Drawing.Size(246, 246);
-            this.kompass.MinimumSize = new System.Drawing.Size(246, 246);
-            this.kompass.Name = "kompass";
-            this.kompass.SendCurrentPosition = true;
-            this.kompass.Size = new System.Drawing.Size(246, 246);
-            this.kompass.TabIndex = 4;
-            this.toolTip3DprinterTool.SetToolTip(this.kompass, "Navigate the 3D printer in X and Y direction");
-            this.kompass.Load += new System.EventHandler(this.txtBxProbeLift_Load);
-            // 
             // btnEngageZprobe
             // 
-            this.btnEngageZprobe.Location = new System.Drawing.Point(256, 267);
+            this.btnEngageZprobe.Location = new System.Drawing.Point(253, 267);
             this.btnEngageZprobe.Name = "btnEngageZprobe";
             this.btnEngageZprobe.Size = new System.Drawing.Size(52, 45);
             this.btnEngageZprobe.TabIndex = 13;
@@ -4378,7 +3890,7 @@ namespace Marlin3DprinterTool
             // 
             // grpBxBed
             // 
-            this.grpBxBed.Location = new System.Drawing.Point(132, 267);
+            this.grpBxBed.Location = new System.Drawing.Point(129, 267);
             this.grpBxBed.Name = "grpBxBed";
             this.grpBxBed.Size = new System.Drawing.Size(57, 45);
             this.grpBxBed.TabIndex = 2;
@@ -4389,7 +3901,7 @@ namespace Marlin3DprinterTool
             // 
             // btnHomeY
             // 
-            this.btnHomeY.Location = new System.Drawing.Point(69, 267);
+            this.btnHomeY.Location = new System.Drawing.Point(67, 267);
             this.btnHomeY.Name = "btnHomeY";
             this.btnHomeY.Size = new System.Drawing.Size(57, 45);
             this.btnHomeY.TabIndex = 1;
@@ -4408,26 +3920,6 @@ namespace Marlin3DprinterTool
             this.toolTip3DprinterTool.SetToolTip(this.btnHomeX, "Home X");
             this.btnHomeX.UseVisualStyleBackColor = true;
             this.btnHomeX.Click += new System.EventHandler(this.btnHomeX_Click);
-            // 
-            // verticalJogZprobeHeight
-            // 
-            this.verticalJogZprobeHeight.Location = new System.Drawing.Point(258, 15);
-            this.verticalJogZprobeHeight.MarlinCommunication = null;
-            this.verticalJogZprobeHeight.MaximumSize = new System.Drawing.Size(50, 250);
-            this.verticalJogZprobeHeight.MinimumSize = new System.Drawing.Size(50, 250);
-            this.verticalJogZprobeHeight.Name = "verticalJogZprobeHeight";
-            this.verticalJogZprobeHeight.NegativeButtonsFirst = false;
-            this.verticalJogZprobeHeight.SendCurrentPosition = false;
-            this.verticalJogZprobeHeight.Size = new System.Drawing.Size(50, 250);
-            this.verticalJogZprobeHeight.StepperMotor = "Z";
-            this.verticalJogZprobeHeight.TabIndex = 27;
-            this.verticalJogZprobeHeight.TextOver = "Z+";
-            this.verticalJogZprobeHeight.TextUnder = "Z-";
-            this.toolTip3DprinterTool.SetToolTip(this.verticalJogZprobeHeight, "Move the Nozzle Up and Down");
-            this.verticalJogZprobeHeight.Visible100Movement = true;
-            this.verticalJogZprobeHeight.Visible10Movement = true;
-            this.verticalJogZprobeHeight.VisibleZero = true;
-            this.verticalJogZprobeHeight.ZeroPositionAfterEachMove = true;
             // 
             // btnOpenMarlin
             // 
@@ -4548,9 +4040,9 @@ namespace Marlin3DprinterTool
             // 
             this.btnGetTemp.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.nozzle_temperature;
             this.btnGetTemp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGetTemp.Location = new System.Drawing.Point(244, 9);
+            this.btnGetTemp.Location = new System.Drawing.Point(247, 11);
             this.btnGetTemp.Name = "btnGetTemp";
-            this.btnGetTemp.Size = new System.Drawing.Size(58, 34);
+            this.btnGetTemp.Size = new System.Drawing.Size(62, 34);
             this.btnGetTemp.TabIndex = 7;
             this.toolTip3DprinterTool.SetToolTip(this.btnGetTemp, "Get the current Temperature on all sensors");
             this.btnGetTemp.UseVisualStyleBackColor = true;
@@ -4652,7 +4144,7 @@ namespace Marlin3DprinterTool
             this.grpBxTemperature.Controls.Add(this.chartTemperature);
             this.grpBxTemperature.Location = new System.Drawing.Point(3, 331);
             this.grpBxTemperature.Name = "grpBxTemperature";
-            this.grpBxTemperature.Size = new System.Drawing.Size(290, 293);
+            this.grpBxTemperature.Size = new System.Drawing.Size(310, 293);
             this.grpBxTemperature.TabIndex = 22;
             this.grpBxTemperature.TabStop = false;
             this.grpBxTemperature.Text = "Extruder 1          Extruder 2           Bed";
@@ -4662,15 +4154,15 @@ namespace Marlin3DprinterTool
             this.chartTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea1);
             this.chartTemperature.Location = new System.Drawing.Point(3, 46);
             this.chartTemperature.Name = "chartTemperature";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Name = "Series1";
-            this.chartTemperature.Series.Add(series5);
-            this.chartTemperature.Size = new System.Drawing.Size(284, 244);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "Series1";
+            this.chartTemperature.Series.Add(series1);
+            this.chartTemperature.Size = new System.Drawing.Size(304, 244);
             this.chartTemperature.TabIndex = 0;
             this.chartTemperature.Text = "chart1";
             // 
@@ -4714,6 +4206,462 @@ namespace Marlin3DprinterTool
             this.timerEndstop.Enabled = true;
             this.timerEndstop.Interval = 200;
             this.timerEndstop.Tick += new System.EventHandler(this.timerEndstop_Tick);
+            // 
+            // bedCornerControlFrontRight
+            // 
+            this.bedCornerControlFrontRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bedCornerControlFrontRight.Communication = null;
+            this.bedCornerControlFrontRight.Corner = Marlin3DprinterToolUserControls.CornerType.FrontRightCorner;
+            this.bedCornerControlFrontRight.Location = new System.Drawing.Point(430, 430);
+            this.bedCornerControlFrontRight.MaximumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlFrontRight.MinimumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlFrontRight.Name = "bedCornerControlFrontRight";
+            this.bedCornerControlFrontRight.Size = new System.Drawing.Size(195, 65);
+            this.bedCornerControlFrontRight.TabIndex = 28;
+            // 
+            // bedCornerControlFrontLeft
+            // 
+            this.bedCornerControlFrontLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bedCornerControlFrontLeft.Communication = null;
+            this.bedCornerControlFrontLeft.Corner = Marlin3DprinterToolUserControls.CornerType.FrontLeftCorner;
+            this.bedCornerControlFrontLeft.Location = new System.Drawing.Point(16, 430);
+            this.bedCornerControlFrontLeft.MaximumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlFrontLeft.MinimumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlFrontLeft.Name = "bedCornerControlFrontLeft";
+            this.bedCornerControlFrontLeft.Size = new System.Drawing.Size(195, 65);
+            this.bedCornerControlFrontLeft.TabIndex = 27;
+            // 
+            // bedAdjusterLeftSingle
+            // 
+            this.bedAdjusterLeftSingle.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.LeftSingleAdjuster;
+            this.bedAdjusterLeftSingle.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterLeftSingle.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterLeftSingle.Location = new System.Drawing.Point(12, 193);
+            this.bedAdjusterLeftSingle.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterLeftSingle.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterLeftSingle.Name = "bedAdjusterLeftSingle";
+            position1.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position1.Xstring = "0";
+            position1.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position1.Ystring = "0";
+            position1.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position1.Zstring = "0";
+            this.bedAdjusterLeftSingle.Position = position1;
+            this.bedAdjusterLeftSingle.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterLeftSingle.TabIndex = 36;
+            this.bedAdjusterLeftSingle.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterLeftSingle.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterLeftSingle.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bedCornerControlBackRight
+            // 
+            this.bedCornerControlBackRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bedCornerControlBackRight.Communication = null;
+            this.bedCornerControlBackRight.Corner = Marlin3DprinterToolUserControls.CornerType.BackRightCorner;
+            this.bedCornerControlBackRight.Location = new System.Drawing.Point(429, 13);
+            this.bedCornerControlBackRight.MaximumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlBackRight.MinimumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlBackRight.Name = "bedCornerControlBackRight";
+            this.bedCornerControlBackRight.Size = new System.Drawing.Size(195, 65);
+            this.bedCornerControlBackRight.TabIndex = 26;
+            // 
+            // bedAdjusterFrontSingle
+            // 
+            this.bedAdjusterFrontSingle.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.FrontSingleAdjuster;
+            this.bedAdjusterFrontSingle.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterFrontSingle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bedAdjusterFrontSingle.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontSingle.Location = new System.Drawing.Point(245, 445);
+            this.bedAdjusterFrontSingle.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontSingle.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontSingle.Name = "bedAdjusterFrontSingle";
+            position2.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position2.Xstring = "0";
+            position2.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position2.Ystring = "0";
+            position2.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position2.Zstring = "0";
+            this.bedAdjusterFrontSingle.Position = position2;
+            this.bedAdjusterFrontSingle.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontSingle.TabIndex = 35;
+            this.bedAdjusterFrontSingle.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontSingle.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontSingle.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bedCornerControlBackLeft
+            // 
+            this.bedCornerControlBackLeft.Communication = null;
+            this.bedCornerControlBackLeft.Corner = Marlin3DprinterToolUserControls.CornerType.BackLeftCorner;
+            this.bedCornerControlBackLeft.Location = new System.Drawing.Point(14, 13);
+            this.bedCornerControlBackLeft.MaximumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlBackLeft.MinimumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlBackLeft.Name = "bedCornerControlBackLeft";
+            this.bedCornerControlBackLeft.Size = new System.Drawing.Size(195, 65);
+            this.bedCornerControlBackLeft.TabIndex = 25;
+            // 
+            // bedAdjusterRightSingle
+            // 
+            this.bedAdjusterRightSingle.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.RightSingleAdjuster;
+            this.bedAdjusterRightSingle.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterRightSingle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bedAdjusterRightSingle.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterRightSingle.Location = new System.Drawing.Point(444, 193);
+            this.bedAdjusterRightSingle.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterRightSingle.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterRightSingle.Name = "bedAdjusterRightSingle";
+            position3.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position3.Xstring = "0";
+            position3.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position3.Ystring = "0";
+            position3.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position3.Zstring = "0";
+            this.bedAdjusterRightSingle.Position = position3;
+            this.bedAdjusterRightSingle.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterRightSingle.TabIndex = 34;
+            this.bedAdjusterRightSingle.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterRightSingle.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterRightSingle.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bedAdjusterBackRight
+            // 
+            this.bedAdjusterBackRight.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.BackRightAdjuster;
+            this.bedAdjusterBackRight.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterBackRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bedAdjusterBackRight.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterBackRight.Location = new System.Drawing.Point(444, 77);
+            this.bedAdjusterBackRight.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterBackRight.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterBackRight.Name = "bedAdjusterBackRight";
+            position4.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position4.Xstring = "0";
+            position4.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position4.Ystring = "0";
+            position4.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position4.Zstring = "0";
+            this.bedAdjusterBackRight.Position = position4;
+            this.bedAdjusterBackRight.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterBackRight.TabIndex = 33;
+            this.bedAdjusterBackRight.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterBackRight.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterBackRight.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bedAdjusterFrontRight
+            // 
+            this.bedAdjusterFrontRight.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.FrontRightAdjuster;
+            this.bedAdjusterFrontRight.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterFrontRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bedAdjusterFrontRight.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontRight.Location = new System.Drawing.Point(442, 385);
+            this.bedAdjusterFrontRight.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontRight.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontRight.Name = "bedAdjusterFrontRight";
+            position5.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position5.Xstring = "0";
+            position5.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position5.Ystring = "0";
+            position5.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position5.Zstring = "0";
+            this.bedAdjusterFrontRight.Position = position5;
+            this.bedAdjusterFrontRight.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontRight.TabIndex = 32;
+            this.bedAdjusterFrontRight.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontRight.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontRight.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bedAdjusterFrontLeft
+            // 
+            this.bedAdjusterFrontLeft.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.FrontLeftAdjuster;
+            this.bedAdjusterFrontLeft.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterFrontLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bedAdjusterFrontLeft.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontLeft.Location = new System.Drawing.Point(14, 385);
+            this.bedAdjusterFrontLeft.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontLeft.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontLeft.Name = "bedAdjusterFrontLeft";
+            position6.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position6.Xstring = "0";
+            position6.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position6.Ystring = "0";
+            position6.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position6.Zstring = "0";
+            this.bedAdjusterFrontLeft.Position = position6;
+            this.bedAdjusterFrontLeft.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterFrontLeft.TabIndex = 31;
+            this.bedAdjusterFrontLeft.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontLeft.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterFrontLeft.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bedCornerControlSafeHome
+            // 
+            this.bedCornerControlSafeHome.Communication = null;
+            this.bedCornerControlSafeHome.Corner = Marlin3DprinterToolUserControls.CornerType.SafeHome;
+            this.bedCornerControlSafeHome.Location = new System.Drawing.Point(232, 193);
+            this.bedCornerControlSafeHome.MaximumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlSafeHome.MinimumSize = new System.Drawing.Size(195, 65);
+            this.bedCornerControlSafeHome.Name = "bedCornerControlSafeHome";
+            this.bedCornerControlSafeHome.Size = new System.Drawing.Size(195, 65);
+            this.bedCornerControlSafeHome.TabIndex = 30;
+            // 
+            // bedAdjusterBackLeft
+            // 
+            this.bedAdjusterBackLeft.Adjuster = Marlin3DprinterToolUserControls.AdjusterType.BackLeftAdjuster;
+            this.bedAdjusterBackLeft.AdjusterThread = Marlin3DprinterToolUserControls.AdjusterThreadType.M3;
+            this.bedAdjusterBackLeft.Fix = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterBackLeft.Location = new System.Drawing.Point(12, 77);
+            this.bedAdjusterBackLeft.MaximumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterBackLeft.MinimumSize = new System.Drawing.Size(180, 50);
+            this.bedAdjusterBackLeft.Name = "bedAdjusterBackLeft";
+            position7.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position7.Xstring = "0";
+            position7.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position7.Ystring = "0";
+            position7.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            position7.Zstring = "0";
+            this.bedAdjusterBackLeft.Position = position7;
+            this.bedAdjusterBackLeft.Size = new System.Drawing.Size(180, 50);
+            this.bedAdjusterBackLeft.TabIndex = 29;
+            this.bedAdjusterBackLeft.X = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterBackLeft.Y = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.bedAdjusterBackLeft.Z = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // bindingControl
+            // 
+            this.bindingControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bindingControl.Location = new System.Drawing.Point(4, 334);
+            this.bindingControl.Name = "bindingControl";
+            this.bindingControl.Size = new System.Drawing.Size(645, 240);
+            this.bindingControl.TabIndex = 53;
+            // 
+            // kompass
+            // 
+            this.kompass.Location = new System.Drawing.Point(6, 15);
+            this.kompass.MarlinCommunication = null;
+            this.kompass.MaximumSize = new System.Drawing.Size(246, 246);
+            this.kompass.MinimumSize = new System.Drawing.Size(246, 246);
+            this.kompass.Name = "kompass";
+            this.kompass.SendCurrentPosition = true;
+            this.kompass.Size = new System.Drawing.Size(246, 246);
+            this.kompass.TabIndex = 4;
+            this.toolTip3DprinterTool.SetToolTip(this.kompass, "Navigate the 3D printer in X and Y direction");
+            this.kompass.Load += new System.EventHandler(this.txtBxProbeLift_Load);
+            // 
+            // verticalJogZprobeHeight
+            // 
+            this.verticalJogZprobeHeight.Location = new System.Drawing.Point(254, 15);
+            this.verticalJogZprobeHeight.MarlinCommunication = null;
+            this.verticalJogZprobeHeight.MaximumSize = new System.Drawing.Size(50, 250);
+            this.verticalJogZprobeHeight.MinimumSize = new System.Drawing.Size(50, 250);
+            this.verticalJogZprobeHeight.Name = "verticalJogZprobeHeight";
+            this.verticalJogZprobeHeight.NegativeButtonsFirst = false;
+            this.verticalJogZprobeHeight.SendCurrentPosition = false;
+            this.verticalJogZprobeHeight.Size = new System.Drawing.Size(50, 250);
+            this.verticalJogZprobeHeight.StepperMotor = "Z";
+            this.verticalJogZprobeHeight.TabIndex = 27;
+            this.verticalJogZprobeHeight.TextOver = "Z+";
+            this.verticalJogZprobeHeight.TextUnder = "Z-";
+            this.toolTip3DprinterTool.SetToolTip(this.verticalJogZprobeHeight, "Move the Nozzle Up and Down");
+            this.verticalJogZprobeHeight.Visible100Movement = true;
+            this.verticalJogZprobeHeight.Visible10Movement = true;
+            this.verticalJogZprobeHeight.VisibleZero = true;
+            this.verticalJogZprobeHeight.ZeroPositionAfterEachMove = true;
             // 
             // FrmMarlin3DprinterTool
             // 
@@ -4809,8 +4757,6 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.grpBxZMaintenance.ResumeLayout(false);
             this.grpBxZMaintenance.PerformLayout();
-            this.grpBxZmaintMin.ResumeLayout(false);
-            this.grpBxZmaintMin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZmaintenanceMin)).EndInit();
             this.grpBxZmaintMax.ResumeLayout(false);
             this.grpBxZmaintMax.PerformLayout();
@@ -4820,7 +4766,6 @@ namespace Marlin3DprinterTool
             this.grpZprobeConfigMax.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnZmaxTravel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkBrZmaxTravel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBinding)).EndInit();
             this.tabPageCalculations.ResumeLayout(false);
             this.grpBxFeedRate.ResumeLayout(false);
             this.grpBxFeedRate.PerformLayout();
@@ -4946,7 +4891,6 @@ namespace Marlin3DprinterTool
         private GroupBox grpBxAdjusters;
         private VerticalJog verticalJogZprobeHeight;
         private Kompass kompass;
-        private GroupBox grpBxZmaintMin;
         private GroupBox grpBxZmaintMax;
         private TabPage tabPageScanSurface;
         private Button btnEngageZprobe;
@@ -5195,6 +5139,6 @@ namespace Marlin3DprinterTool
         private Button btnBlTouchEngage;
         private Button btnBlTouchSave;
         private Timer timerEndstop;
-        private Chart chartBinding;
+        private BindingControl bindingControl;
     }
 }
