@@ -17,3 +17,4 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\bin\x86\Release\HelixToolkit.Wpf.xml
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\obj\x86\Release\Marlin3DprinterToolStlThumbnail.dll
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\obj\x86\Release\Marlin3DprinterToolStlThumbnail.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\obj\x86\Release\Marlin3DprinterToolStlThumbnailProvider.csprojResolveAssemblyReference.cache
