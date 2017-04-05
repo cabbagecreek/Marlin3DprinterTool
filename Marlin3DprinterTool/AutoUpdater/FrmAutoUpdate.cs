@@ -60,10 +60,12 @@ namespace AutoUpdater
 
                 if (downlaodUrl != null)
                 {
-                    var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                    if (currentDirectory != null)
+                    //var downloadDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    var downloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                    if (downloadDirectory != null)
                     {
-                        DownloadMsiTo = Path.Combine(currentDirectory, @"Marlin3DprinterTool.msi");
+                        DownloadMsiTo = Path.Combine(downloadDirectory, @"Marlin3DprinterTool.msi");
 
                         if (File.Exists(DownloadMsiTo))
                         {
@@ -102,28 +104,33 @@ namespace AutoUpdater
 
                 
 
-                Process scheduler = new Process();
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = "schtasks";
-                startInfo.Arguments = $"  /create /tn \"Marlin3DprinterTool Update\" /tr \"{DownloadMsiTo}\" /sc once /sd {DateTime.Now.ToShortDateString()} /st {DateTime.Now.AddMinutes(1).ToShortTimeString()} /f";
-                startInfo.UseShellExecute = false;
-                startInfo.CreateNoWindow = false;
-                startInfo.WorkingDirectory = Path.GetDirectoryName(DownloadMsiTo);
-                startInfo.RedirectStandardError = true;
-                startInfo.RedirectStandardOutput = true;
-                scheduler.StartInfo = startInfo;
-                scheduler.Start();
+                //Process scheduler = new Process();
+                //ProcessStartInfo startInfo = new ProcessStartInfo();
+                //startInfo.FileName = "schtasks";
+                //startInfo.Arguments = $"  /create /tn \"Marlin3DprinterTool Update\" /tr \"{DownloadMsiTo}\" /sc once /sd {DateTime.Now.ToShortDateString()} /st {DateTime.Now.AddMinutes(2).ToShortTimeString()} /f";
+                //startInfo.UseShellExecute = false;
+                //startInfo.CreateNoWindow = false;
+                //startInfo.WorkingDirectory = Path.GetDirectoryName(DownloadMsiTo);
+                //startInfo.RedirectStandardError = true;
+                //startInfo.RedirectStandardOutput = true;
+                //scheduler.StartInfo = startInfo;
+                //scheduler.Start();
 
                
-                scheduler.WaitForExit();
-                string stdoutx = scheduler.StandardOutput.ReadToEnd();
+                //scheduler.WaitForExit();
+                //string stdoutx = scheduler.StandardOutput.ReadToEnd();
                 
 
-                if (!string.IsNullOrEmpty(stdoutx))
-                {
-                    MessageBox.Show("Installation of the new version will start en a minute");
-                }
+                //if (!string.IsNullOrEmpty(stdoutx))
+                //{
+                //    MessageBox.Show("Installation of the new version will start en a minute");
+                //}
                 
+
+
+                MessageBox.Show("The Marlin3Dprinter.msi is downloaded to your desktop!" + Environment.NewLine + Environment.NewLine +
+                    "Close this message and start the installation from the Desktop","Marlin3DprinterTool - AutoUpdate",MessageBoxButtons.OK,MessageBoxIcon.Information); 
+                    
                 
 
                 // Close and assign yes to the closing window
