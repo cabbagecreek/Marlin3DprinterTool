@@ -64,8 +64,10 @@ namespace Marlin3DprinterTool
             AutoUpdater.Updater autoUpdater = new Updater();
             if (autoUpdater.SearchForUpdate() == DialogResult.Yes) Close();
             
-            
-             
+            string location = autoUpdater.GetLocation();
+            bool isDonator = autoUpdater.IsDonator();
+
+            autoUpdater.UpdateMapMarkers();
 
             Delegate.DisableTabs(tabControl3DprinterTool, false);
 
@@ -2476,6 +2478,7 @@ namespace Marlin3DprinterTool
             if (!string.IsNullOrEmpty(txtBxPidExtruderKd.Text)) command += $" D{txtBxPidExtruderKd.Text}";
 
             commands.Add(command);
+            commands.Add("M500");
             commands.Add("M501"); // Read parameters from EEPROM (and update fctbInit)
             _com.SendCommand(commands);
         }

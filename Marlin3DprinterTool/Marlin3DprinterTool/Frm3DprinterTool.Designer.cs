@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FastColoredTextBoxNS;
@@ -25,7 +26,16 @@ namespace Marlin3DprinterTool
             {
                 components.Dispose();
             }
-            base.Dispose(disposing);
+            
+            //TODO: Detta är fel i AGauge
+            try
+            {
+                base.Dispose(disposing);
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         #region Windows Form Designer generated code
