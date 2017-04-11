@@ -384,44 +384,7 @@ namespace MarlinComunicationHelper
         private void ParseM48(string dataReceived)
         {
            
-            // Get all responces
-            // var responces = dataReceived.Split('\n');
-
-
-            //ok
-            //ok
-            //ok
-            //M48 Z - Probe Repeatability test.   Version 2.00
-            //Full support at: http://3dprintboard.com/forum.php
-            //Positioning probe for the test.
-            //1 of 4   z: 8.705000 mean: 8.705000   sigma: 0.000000
-            //2 of 4   z: 8.706875 mean: 8.705938   sigma: 0.000937
-            //3 of 4   z: 8.705313 mean: 8.705730   sigma: 0.000820
-            //4 of 4   z: 8.707813 mean: 8.706251   sigma: 0.001148
-            //Mean: 8.706251
-            //Standard Deviation: 0.001148
-            //            ok
-            //            echo:endstops hit:  Z:8.71
-            //            ok
-
-            // The M48 ends with a calculation of all probes test.
-            // The row begins with Mean: and then the calculated value 
-            // (?<=^Mean:\s*)([-,0-9]*\.[0-9]*)
-
-            //try
-            //{
-            //    var meanProbeValue = Regex.Match(dataReceived, @"(?<=Mean:\s*)([-,0-9]*\.[0-9]*)", RegexOptions.CultureInvariant).Groups[1].Value;
-            //    ProbeM48MeanValue = meanProbeValue;
-            //}
-            //catch (Exception parsException)
-            //{
-            //    MessageBox.Show($"Error in parser of M48. Error: {parsException.Message}");
-            //}
-
-            // Create M48 responce Event
-            //ResponceData eventM48Resonce = new ResponceData(dataReceived);
-            
-            //OnM48ProbeStatus(eventM48Resonce);   
+             
         }
 
         private void ParseM105(string dataReceived)
@@ -799,8 +762,10 @@ namespace MarlinComunicationHelper
 
                 foreach (string command in commands)
                 {
+                    
                     if (Status == Feature.EndStop)
                     {
+                        
                         if (command.Trim().StartsWith("M119")) continue;
                        
 
@@ -816,10 +781,10 @@ namespace MarlinComunicationHelper
                 commList.AddRange(commandsInQueue);
                 commList.AddRange(commands);
                 commandsInQueue.Clear();
-                BackgroundWorker serialBackgroundWorker1 = new BackgroundWorker();
-                serialBackgroundWorker1.DoWork += SerialBackgroundWorker_DoWork;
-                serialBackgroundWorker1.WorkerSupportsCancellation = true;
-                serialBackgroundWorker1.RunWorkerAsync(commList);
+                BackgroundWorker serialBackgroundWorker = new BackgroundWorker();
+                serialBackgroundWorker.DoWork += SerialBackgroundWorker_DoWork;
+                serialBackgroundWorker.WorkerSupportsCancellation = true;
+                serialBackgroundWorker.RunWorkerAsync(commList);
 
             }
 
@@ -835,13 +800,8 @@ namespace MarlinComunicationHelper
         private void SerialBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            //TODO: TypeOfCursor cursorType = new TypeOfCursor(Cursors.WaitCursor);
-
-
-            if (Status != MarlinCommunication.Feature.EndStop) // Reuce flicker cursor
-            {
-                //TODO: OnSending(cursorType);
-            }
+            
+            
             
 
             IsReceivingOrSending = true;
@@ -858,7 +818,7 @@ namespace MarlinComunicationHelper
                 {
 
 
-
+                    
                     // Stop executing commands on backgrounworkerCancel or KILL
                     if (Kill || (worker != null && worker.CancellationPending))
                     {
@@ -887,8 +847,8 @@ namespace MarlinComunicationHelper
                     _serialPort.SendAsciiString(command + linuxNewline);
 
 
-                    
 
+                    
 
                     switch (Gcode)
                     {
@@ -915,7 +875,7 @@ namespace MarlinComunicationHelper
                             break;
 
                         case "M119":
-                            Thread.Sleep(100);
+                            
                             ParseM119(ReceiveDataUntilOk());
                             break;
 
@@ -1227,14 +1187,12 @@ namespace MarlinComunicationHelper
         /// <summary>
         ///     Eventhandler for M119 EndstopStatus
         /// </summary>
-        /// TODO: EndstopStatusList -> EndstopStatus
         public event EventHandler<EndStop> M119EndStopStatus;
 
         /// <summary>
         ///     Report result of M119 EndstopStatus
         /// </summary>
         /// <param name="endstopStatusList"></param>
-        /// TODO: EndstopStatusList -> EndstopStatus
         private void OnM119EndStopStatus(EndStop endstopStatusList)
         {
             var handler = M119EndStopStatus;
