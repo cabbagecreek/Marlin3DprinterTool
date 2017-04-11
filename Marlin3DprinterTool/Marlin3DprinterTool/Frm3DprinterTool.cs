@@ -1053,8 +1053,7 @@ namespace Marlin3DprinterTool
             {
                 #region EndStop
                 case MarlinCommunication.Feature.EndStop:
-                    //List<string> commands = new List<string> { "M0 P500","M119" };
-                    //_com.SendCommand(commands);
+                    
                     break;
                 #endregion
 
@@ -2583,17 +2582,27 @@ namespace Marlin3DprinterTool
         private void btnProbeUp_Click(object sender, EventArgs e)
         {
             
-            List<string> commands = new List<string> {"G91","G1 Z0.05 F500","G90", "M114", "M119" };
-            
+            List<string> commands = new List<string>();
+            commands.Add("G91");
+            commands.Add("G1 Z0.05 F500");
+            commands.Add("G90");
+            commands.Add("M119");
+            commands.Add("M114");
+
 
             _com.SendCommand(commands);
         }
 
         private void btnProbeDown_Click(object sender, EventArgs e)
         {
-            List<string> commands = new List<string> { "G91", "G1 Z-0.05 F500", "G90", "M114","M119" };
+            List<string> commands = new List<string>();
+            commands.Add("G91");
+            commands.Add("G1 Z-0.05 F500");
+            commands.Add("G90");
+            commands.Add("M114");
+            commands.Add("M119");
 
-            
+
             _com.SendCommand(commands);
             
         }
@@ -2813,17 +2822,13 @@ namespace Marlin3DprinterTool
 
         private void timerEndstop_Tick(object sender, EventArgs e)
         {
-            if (_com.IsPortOpen)
-            {
-                List<string> commands = new List<string> {"M119"};
-                _com.SendCommand(commands);
-            }
+            List<string> commands = new List<string>();
+            commands.Add("M119");
+            _com.SendCommand(commands);
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
+        
 
-        }
     }
 
 
