@@ -219,6 +219,7 @@ Global
 		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|x64.ActiveCfg = Release|x86
 		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|x86.ActiveCfg = Release|x86
 		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|x86.Build.0 = Release|x86
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
