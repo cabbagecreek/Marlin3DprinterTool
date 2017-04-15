@@ -45,17 +45,17 @@
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -76,6 +76,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrmStlConfiguration.cs">
@@ -114,21 +115,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
-      <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
-      <Name>Marlin3DprinterToolConfiguration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Marlin3DprinterToolStlThumbnailProvider\Marlin3DprinterToolStlThumbnailProvider.csproj">
       <Project>{7168404a-2b71-45e9-9bc7-c4e2277ae4b7}</Project>
       <Name>Marlin3DprinterToolStlThumbnailProvider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
-      <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
-      <Name>MarlinComunicationHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PayPalWebBrowser\PayPalWebBrowser.csproj">
-      <Project>{3ec5189f-b615-4abe-807a-b25ece129b42}</Project>
-      <Name>PayPalWebBrowser</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

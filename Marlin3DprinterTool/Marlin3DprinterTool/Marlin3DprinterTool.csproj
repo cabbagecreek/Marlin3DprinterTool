@@ -92,9 +92,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="AGauge">
-      <HintPath>..\packages\Agauge\AGauge_Bin\AGauge.dll</HintPath>
-    </Reference>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
       <Private>True</Private>
@@ -200,6 +197,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Marlin3DprinterToolNoFrame.ico" />
+    <None Include="Resources\ApprovedByBLTouch.png" />
     <None Include="Resources\nozzle-temperature.png" />
     <None Include="Resources\Work_in_progress.png" />
     <None Include="Resources\dialGauge.jpg" />
@@ -219,6 +217,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AGauge\AGauge.csproj">
+      <Project>{CBDB1D25-5A95-43D4-A958-BF6AE65C6C3F}</Project>
+      <Name>AGauge</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj">
       <Project>{91df7112-9b3c-4315-9d8a-b55b056d8d1f}</Project>
       <Name>AutoUpdater</Name>
