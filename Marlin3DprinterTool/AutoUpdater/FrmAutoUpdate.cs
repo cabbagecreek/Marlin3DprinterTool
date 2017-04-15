@@ -60,10 +60,12 @@ namespace AutoUpdater
 
                 if (downlaodUrl != null)
                 {
-                    var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                    if (currentDirectory != null)
+                    var downloadDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    //var downloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                    if (downloadDirectory != null)
                     {
-                        DownloadMsiTo = Path.Combine(currentDirectory, @"Marlin3DprinterTool.msi");
+                        DownloadMsiTo = Path.Combine(downloadDirectory, @"Marlin3DprinterTool.msi");
 
                         if (File.Exists(DownloadMsiTo))
                         {
@@ -103,26 +105,21 @@ namespace AutoUpdater
                 
 
                 Process scheduler = new Process();
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = "schtasks";
-                startInfo.Arguments = $"  /create /tn \"Marlin3DprinterTool Update\" /tr \"{DownloadMsiTo}\" /sc once /sd {DateTime.Now.ToShortDateString()} /st {DateTime.Now.AddMinutes(1).ToShortTimeString()} /f";
-                startInfo.UseShellExecute = false;
-                startInfo.CreateNoWindow = false;
-                startInfo.WorkingDirectory = Path.GetDirectoryName(DownloadMsiTo);
-                startInfo.RedirectStandardError = true;
-                startInfo.RedirectStandardOutput = true;
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = @"msiexec",
+                    Arguments = @"/a " + DownloadMsiTo,
+                    UseShellExecute = false,
+                    CreateNoWindow = false,
+                    WorkingDirectory = Path.GetDirectoryName(DownloadMsiTo),
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
+                };
                 scheduler.StartInfo = startInfo;
                 scheduler.Start();
 
                
-                scheduler.WaitForExit();
-                string stdoutx = scheduler.StandardOutput.ReadToEnd();
-                
 
-                if (!string.IsNullOrEmpty(stdoutx))
-                {
-                    MessageBox.Show("Installation of the new version will start en a minute");
-                }
                 
                 
 
