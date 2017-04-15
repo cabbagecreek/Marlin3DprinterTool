@@ -10,7 +10,6 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalW
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\bin\x86\Debug\CefSharp.xml
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\bin\x86\Debug\CefSharp.Core.pdb
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\bin\x86\Debug\CefSharp.Core.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\obj\x86\Debug\PayPalWebBrowser.csprojResolveAssemblyReference.cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\obj\x86\Debug\PayPalWebBrowser.FrmPayPal.resources
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\obj\x86\Debug\PayPalWebBrowser.Properties.Resources.resources
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\PayPalWebBrowser\obj\x86\Debug\PayPalWebBrowser.csproj.GenerateResource.Cache

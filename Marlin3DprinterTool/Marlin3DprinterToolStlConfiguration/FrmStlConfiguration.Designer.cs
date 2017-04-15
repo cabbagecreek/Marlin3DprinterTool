@@ -34,13 +34,11 @@
             this.btnRestartWindowsFileExplorer = new System.Windows.Forms.Button();
             this.btnUnInstallStlServer = new System.Windows.Forms.Button();
             this.btnInstallStlServer = new System.Windows.Forms.Button();
-            this.btnPayPal = new System.Windows.Forms.Button();
             this.grpBxInstallingStlThumbnailServer.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBxInstallingStlThumbnailServer
             // 
-            this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnPayPal);
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnAssociateStlViewer);
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnColorStl);
             this.grpBxInstallingStlThumbnailServer.Controls.Add(this.btnRestartWindowsFileExplorer);
@@ -104,18 +102,6 @@
             this.btnInstallStlServer.UseVisualStyleBackColor = true;
             this.btnInstallStlServer.Click += new System.EventHandler(this.btnInstallStlServer_Click);
             // 
-            // btnPayPal
-            // 
-            this.btnPayPal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPayPal.BackgroundImage = global::Marlin3DprinterToolStlConfiguration.Properties.Resources.Donate;
-            this.btnPayPal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPayPal.Location = new System.Drawing.Point(257, 163);
-            this.btnPayPal.Name = "btnPayPal";
-            this.btnPayPal.Size = new System.Drawing.Size(156, 78);
-            this.btnPayPal.TabIndex = 19;
-            this.btnPayPal.UseVisualStyleBackColor = true;
-            this.btnPayPal.Click += new System.EventHandler(this.btnPayPal_Click);
-            // 
             // FrmStlConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,7 +123,6 @@
         private System.Windows.Forms.Button btnRestartWindowsFileExplorer;
         private System.Windows.Forms.Button btnUnInstallStlServer;
         private System.Windows.Forms.Button btnInstallStlServer;
-        private System.Windows.Forms.Button btnPayPal;
     }
 }
 

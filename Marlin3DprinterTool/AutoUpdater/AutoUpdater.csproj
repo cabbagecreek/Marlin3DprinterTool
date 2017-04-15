@@ -66,6 +66,7 @@
     <Compile Include="FrmAutoUpdate.Designer.cs">
       <DependentUpon>FrmAutoUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

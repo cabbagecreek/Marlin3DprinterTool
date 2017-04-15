@@ -9,7 +9,9 @@ namespace AutoUpdater
 {
     public class Updater
     {
+        
 
+        
 
         private string XmlUrl = "http://www.Marlin3DprinterTool.se/LatestVersion/LatestVersion.xml";
 
@@ -18,49 +20,64 @@ namespace AutoUpdater
 
         public DialogResult SearchForUpdate()
         {
-            
-            XmlDocument xml = new XmlDocument();
-            xml.Load(XmlUrl);
-
-            XmlNode latestVersion = xml.SelectSingleNode("/Marlin3DprinterTool/Version");
-            if (latestVersion != null)
+            try
             {
-                _newVersion = new Version(latestVersion.InnerText);
+                if ((Location != null)
+                    &&
+                    (IsDonator().ToString().ToLower() == Location.IsDonator.ToString().ToLower())
+                )
+                {
+                    // The user has allready set a maker and donation status is not changed from that point    
+                }
+                else
+                {
+                    MapInfo mapInfo = new MapInfo();
+                    MarkerPoint myLocation = mapInfo.GetMyLocation();
+                    var xmlMarkers = mapInfo.GetAllExistingMarkers();
+                    mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
+                }
+            }
+            catch (Exception)
+            {
+
+               
             }
 
-            Version currentVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version;
-
-            if (currentVersion.CompareTo(_newVersion) < 0)
+            try
             {
-                FrmAutoUpdate autoUpdate = new FrmAutoUpdate();
-                autoUpdate.CurrentVersion = currentVersion;
-                autoUpdate.NewVersion = _newVersion;
-                autoUpdate.XmlUrl = XmlUrl;
-                return autoUpdate.ShowDialog();
-                
+                XmlDocument xml = new XmlDocument();
+                xml.Load(XmlUrl);
 
+                XmlNode latestVersion = xml.SelectSingleNode("/Marlin3DprinterTool/Version");
+                if (latestVersion != null)
+                {
+                    _newVersion = new Version(latestVersion.InnerText);
+                }
+
+                Version currentVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version;
+
+                if (currentVersion.CompareTo(_newVersion) < 0)
+                {
+                    FrmAutoUpdate autoUpdate = new FrmAutoUpdate();
+                    autoUpdate.CurrentVersion = currentVersion;
+                    autoUpdate.NewVersion = _newVersion;
+                    autoUpdate.XmlUrl = XmlUrl;
+                    return autoUpdate.ShowDialog();
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                return DialogResult.No;
             }
             return  DialogResult.No;
             
         }
 
 
-        public string GetLocation()
-        {
-            try
-            {
-                WebClient client = new WebClient();
-                string url = @"http://Marlin3DprinterTool.se/MapInfo/GetUserLocation.php";
-                byte[] locationBytes = client.DownloadData(url);
-                return Encoding.UTF8.GetString(locationBytes);
-
-            }
-            catch (Exception)
-            {
-                return null;
-
-            }
-        }
+        
 
         public bool IsDonator()
         {
@@ -68,24 +85,8 @@ namespace AutoUpdater
 
         }
 
-        public void UpdateMapMarkers()
-        {
-            //// Get the object used to communicate with the server.  
-            //FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://marlin3dprintertool.se/wp-content/uploads/wp-google-maps/1markers.xml");
-            //request.Method = WebRequestMethods.Ftp.DownloadFile;
-
-            //// This example assumes the FTP site uses anonymous logon.  
-            //request.Credentials = new NetworkCredential("137900_master", "1qaz2wsx3edc!");
-
-            //FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-
-            //Stream responseStream = response.GetResponseStream();
-           
-
-            //XmlDocument xml = new XmlDocument();
-            //xml.Load(responseStream);
-            //response.Close();
-        }
+        
+        
 
 
 
@@ -101,8 +102,7 @@ namespace AutoUpdater
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/LicenseKey");
                 if (xmlNode == null) return "";
-
-
+                
                 return xmlNode.GetAttribute("key");
 
             }
@@ -116,6 +116,47 @@ namespace AutoUpdater
                     xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "LicenseKey");
                 }
                 xmlNode?.SetAttribute("key", value);
+                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+            }
+        }
+
+        /// <summary>
+        /// Licensekey
+        /// </summary>
+        public MarkerPoint Location
+        {
+            get
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location");
+                if (xmlNode == null) return null;
+
+                MarkerPoint returnMarkerPoint = new MarkerPoint();
+                returnMarkerPoint.City = xmlNode.GetAttribute("City");
+                returnMarkerPoint.CountryName = xmlNode.GetAttribute("CountryName");
+                returnMarkerPoint.Latitude = xmlNode.GetAttribute("Latitude");
+                returnMarkerPoint.Longitude = xmlNode.GetAttribute("Longitude");
+                returnMarkerPoint.IsDonator = xmlNode.GetAttribute("IsDonator").ToLower() == "true";
+
+                return returnMarkerPoint;
+
+            }
+            set
+            {
+                var xml = new XmlDocument();
+                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
+                }
+                xmlNode?.SetAttribute("City", value.City);
+                xmlNode?.SetAttribute("City", value.CountryName);
+                xmlNode?.SetAttribute("City", value.Latitude);
+                xmlNode?.SetAttribute("City", value.Latitude);
+                xmlNode?.SetAttribute("City", value.Longitude);
+                xmlNode?.SetAttribute("IsDonator", value.IsDonator.ToString().ToLower());
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }

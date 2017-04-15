@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -34,6 +35,9 @@ namespace Marlin3DprinterTool
 
         private readonly Position _currectPosition = new Position();
 
+
+        // TODO: Utrota _probePoints
+
         private readonly List<Position> _probePoints = new List<Position>();
         private readonly Stopwatch _temperatureStopwatch = new Stopwatch();
 
@@ -59,15 +63,16 @@ namespace Marlin3DprinterTool
 
         private void Frm3DprinterTool_Load(object sender, EventArgs e)
         {
-
             UpdateFrameHeader();
-            AutoUpdater.Updater autoUpdater = new Updater();
-            if (autoUpdater.SearchForUpdate() == DialogResult.Yes) Close();
-            
-            string location = autoUpdater.GetLocation();
-            bool isDonator = autoUpdater.IsDonator();
 
-            autoUpdater.UpdateMapMarkers();
+            #region Check for updates and Update Marlin3DprinterTool.se in the background 
+            // Check for updates and Update Marlin3DprinterTool.se in the background 
+            BackgroundWorker autoUpdate = new BackgroundWorker();
+            autoUpdate.RunWorkerCompleted += AutoUpdate_RunWorkerCompleted;
+            autoUpdate.DoWork += AutoUpdate_DoWork;
+            autoUpdate.RunWorkerAsync();
+            // end of Check for updates and Update Marlin3DprinterTool.se in the background 
+            #endregion
 
             Delegate.DisableTabs(tabControl3DprinterTool, false);
 
@@ -80,6 +85,21 @@ namespace Marlin3DprinterTool
             fctbInit.DescriptionFile = "MarlinCommunication.xml";
 
         }
+
+        #region AutoUpdater and MapInfo for Marlin3DprinterTool.se
+        private void AutoUpdate_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+            if ((DialogResult)e.Result == DialogResult.Yes) Close();
+        }
+
+        private void AutoUpdate_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Updater autoUpdater = new Updater();
+            e.Result = autoUpdater.SearchForUpdate();
+
+        }
+        #endregion
 
 
         private void UpdateFrameHeader()
@@ -1853,9 +1873,11 @@ namespace Marlin3DprinterTool
             bedAdjusterFrontSingle.Clear();
             bedAdjusterRightSingle.Clear();
 
+            //TODO: Utrota probePoints
             List<Position> probePointsList = new List<Position>();
             if (_configuration.BedType ==  BedTypeEnum.FourPoint)
             {
+                //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterFrontLeft.Position);
                 probePointsList.Add(bedAdjusterFrontRight.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
@@ -1871,6 +1893,7 @@ namespace Marlin3DprinterTool
             else
             if (_configuration.BedType == BedTypeEnum.ThreePointLeftSingle)
             {
+                //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterLeftSingle.Position);
                 probePointsList.Add(bedAdjusterFrontRight.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
@@ -1886,6 +1909,7 @@ namespace Marlin3DprinterTool
             else
             if (_configuration.BedType ==  BedTypeEnum.ThreePointFrontSingle)
             {
+                //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterFrontSingle.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
                 probePointsList.Add(bedAdjusterBackLeft.Position);
@@ -1901,6 +1925,7 @@ namespace Marlin3DprinterTool
             else
             if (_configuration.BedType ==   BedTypeEnum.ThreePointRightSingle)
             {
+                //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterRightSingle.Position);
                 probePointsList.Add(bedAdjusterFrontLeft.Position);
                 probePointsList.Add(bedAdjusterBackLeft.Position);
@@ -2866,78 +2891,7 @@ namespace Marlin3DprinterTool
 
 
 
-    //TODO:: Move to Class for STL thumbnails
-    /// <summary>
-    /// 
-    /// </summary>
-    public class FileAssociation
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="extension"></param>
-        /// <param name="progId"></param>
-        /// <param name="description"></param>
-        /// <param name="icon"></param>
-        /// <param name="application"></param>
-        // Associate file extension with progID, description, icon and application
-        public static void Associate(string extension,
-               string progId, string description, string icon, string application)
-        {
-            RegistryKey registryKey = Registry.ClassesRoot.CreateSubKey(extension);
-            registryKey?.SetValue("", progId);
-
-
-            if (string.IsNullOrEmpty(progId)) return;
-            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progId))
-            {
-                if (description != null)
-                {
-                    key?.SetValue("", description);
-                }
-                if (icon != null)
-                {
-                    var subKey = key?.CreateSubKey("DefaultIcon");
-                    subKey?.SetValue("", ToShortPathName(icon));
-                }
-                if (application != null)
-                {
-                    var subKey = key?.CreateSubKey(@"Shell\Open\Command");
-                    subKey?.SetValue("",ToShortPathName(application) + " \"%1\"");
-                }
-            }
-            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="extension"></param>
-        /// <returns></returns>
-        // Return true if extension already associated in registry
-        public static bool IsAssociated(string extension)
-        {
-            return (Registry.ClassesRoot.OpenSubKey(extension, false) != null);
-        }
-
-        [DllImport("Kernel32.dll")]
-        private static extern uint GetShortPathName(string lpszLongPath,
-            [Out] StringBuilder lpszShortPath, uint cchBuffer);
-
-        // Return short path format of a file name
-        private static string ToShortPathName(string longName)
-        {
-            StringBuilder s = new StringBuilder(1000);
-            uint iSize = (uint)s.Capacity;
-            GetShortPathName(longName, s, iSize);
-            return s.ToString();
-        }
-
-        //    // Tell explorer the file association has been changed
-        //    SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
-        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
-    }
+    
 
         
 }
