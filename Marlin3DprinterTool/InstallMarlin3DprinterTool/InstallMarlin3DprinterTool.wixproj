@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>e1afa47a-61a0-4c47-8794-7497241a8300</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>InstallMarlin3DprinterTool</OutputName>
+    <OutputName>Marlin3DprinterTool</OutputName>
     <OutputType>Package</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

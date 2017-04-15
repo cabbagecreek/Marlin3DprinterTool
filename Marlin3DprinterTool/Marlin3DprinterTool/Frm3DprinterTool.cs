@@ -71,6 +71,7 @@ namespace Marlin3DprinterTool
             autoUpdate.RunWorkerCompleted += AutoUpdate_RunWorkerCompleted;
             autoUpdate.DoWork += AutoUpdate_DoWork;
             autoUpdate.RunWorkerAsync();
+            
             // end of Check for updates and Update Marlin3DprinterTool.se in the background 
             #endregion
 
