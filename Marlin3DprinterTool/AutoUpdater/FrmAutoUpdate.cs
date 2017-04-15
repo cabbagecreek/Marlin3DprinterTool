@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -51,30 +45,38 @@ namespace AutoUpdater
 
         private void btnYes_Click(object sender, EventArgs e)
         {
+
+            
             try
             {
+
+                
                 XmlDocument xml = new XmlDocument();
+                
                 xml.Load(XmlUrl);
-
+               
                 XmlNode downlaodUrl = xml.SelectSingleNode("/Marlin3DprinterTool/DownloadUrl");
-
+                
                 if (downlaodUrl != null)
                 {
-                    var downloadDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                    //var downloadDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                    if (downloadDirectory != null)
+                    
+                    var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    
+                    if (currentDirectory != null)
                     {
-                        DownloadMsiTo = Path.Combine(downloadDirectory, @"Marlin3DprinterTool.msi");
-
+                        
+                        DownloadMsiTo = Path.Combine(currentDirectory, @"Marlin3DprinterTool.msi");
+                        
                         if (File.Exists(DownloadMsiTo))
                         {
+                            
                             File.Delete(DownloadMsiTo);
                         }
 
-
+                        
                         using (WebClient wc = new WebClient())
                         {
+                            
                             progressBarDownload.Visible = true;
                             wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
                             wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
@@ -87,45 +89,42 @@ namespace AutoUpdater
                     }
                 }
 
+
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                Close();
+                
                 DialogResult = DialogResult.Cancel;
+                Close();
             }
             
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
+            
             if (File.Exists(DownloadMsiTo))
             {
+                
+                
+                Process runWinInstallProcess = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = DownloadMsiTo;
+                startInfo.Arguments = "";
+                startInfo.WorkingDirectory = Path.GetDirectoryName(DownloadMsiTo);
+                runWinInstallProcess.StartInfo = startInfo;
 
                 
-
-                Process scheduler = new Process();
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = @"msiexec",
-                    Arguments = @"/a " + DownloadMsiTo,
-                    UseShellExecute = false,
-                    CreateNoWindow = false,
-                    WorkingDirectory = Path.GetDirectoryName(DownloadMsiTo),
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true
-                };
-                scheduler.StartInfo = startInfo;
-                scheduler.Start();
+                runWinInstallProcess.Start();
 
                
-
                 
                 
 
                 // Close and assign yes to the closing window
-                Close();
                 DialogResult = DialogResult.Yes;
+                Close();
             }
         }
 
