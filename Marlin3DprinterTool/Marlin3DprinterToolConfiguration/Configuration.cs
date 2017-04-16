@@ -1037,14 +1037,23 @@ namespace Marlin3DprinterToolConfiguration
             int findDot = text.IndexOf('.');
             int findComma = text.IndexOf(',');
 
-            // Both dot and comma
-            if ((findDot != -1) && findComma != -1)
+            bool dotExist = text.Contains(".");
+            bool commaExist = text.Contains(",");
+
+            // Both dot and comma exist
+            // this valie nust be over 1000
+            if (dotExist && commaExist)
             {
-                // Dot is 1000 divider
                 if (findDot < findComma)
                 {
                     incommingText = incommingText.Replace(".", "");
                     incommingText = incommingText.Replace(",", ".");
+
+                }
+                // Dot is 1000 divider
+                if (findComma < findDot)
+                {
+                    incommingText = incommingText.Replace(",", "");
                 }
 
                 // Comma is 1000 divider
@@ -1053,15 +1062,35 @@ namespace Marlin3DprinterToolConfiguration
                     incommingText = incommingText.Replace(",", "");
                 }
 
+
             }
 
-            if (findComma != -1)
+            if (commaExist)
             {
                 incommingText = incommingText.Replace(",", ".");
             }
 
 
-            decimal tal = Convert.ToDecimal(incommingText, CultureInfo.InvariantCulture);
+            decimal tal = 0;
+            try
+            {
+                tal = Convert.ToDecimal(incommingText);
+            }
+            catch (Exception e)
+            {
+                try
+                {
+                    tal = Convert.ToDecimal(incommingText, CultureInfo.InvariantCulture);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(@"Cant convert string" + incommingText + @" to a decimal value" + Environment.NewLine +
+                        exception.Message);
+                }
+
+            }
+
+
 
             return tal;
         }

@@ -495,6 +495,25 @@ namespace Marlin3DprinterTool
             }
         }
 
+        /// <summary>
+        /// Delegate for aGauge values
+        /// </summary>
+        /// <param name="aGauge"></param>
+        /// <param name="value"></param>
+        public static void  Gauge(AGauge aGauge, decimal value)
+        {
+            if (aGauge.InvokeRequired)
+            {
+                GaugeCallback d = Gauge;
+                _frm3DprinterTool.Invoke(d, aGauge, value);
+
+            }
+            else
+            {
+                aGauge.Value = (float) value;
+            }
+        }
+
         // Delegate
         private delegate void DelegateVerticalJogCallback(VerticalJog verticalJog, MarlinCommunication marlin);
 
@@ -527,6 +546,8 @@ namespace Marlin3DprinterTool
         private delegate void KompassCallback(Kompass kompass, MarlinCommunication communication);
 
         private delegate void BindingControlCallback(BindingControl chartBinding, string corner, decimal zDecimal);
+
+        private delegate void GaugeCallback(AGauge aGauge, decimal value);
 
         //!Delegate
 

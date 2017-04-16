@@ -52,9 +52,9 @@ namespace Marlin3DprinterToolUserControls
             var commands = new List<string>();
             var value = amount.ToString().Replace(",", "."); //Allways decimalpoint
 
-            commands.Add("G91");
+            commands.Add(@"G91");
             commands.Add($"G1 {stepperMotor}{value}");
-            commands.Add("G90");
+            commands.Add(@"G90");
             if (SendCurrentPosition) commands.Add("M114");
             MarlinCommunication.SendCommand(commands);
         }

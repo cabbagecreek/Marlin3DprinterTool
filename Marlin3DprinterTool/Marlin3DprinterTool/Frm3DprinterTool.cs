@@ -248,6 +248,7 @@ namespace Marlin3DprinterTool
 
             // allways with decimalpoints
             DelegateAndInvoke.DelegateText(txtBxZprobePosition, _currectPosition.Zstring);
+            DelegateAndInvoke.Gauge(aGaugeProbe, _currectPosition.Z);
         }
 
 
@@ -2652,11 +2653,6 @@ namespace Marlin3DprinterTool
 
        
 
-        private void txtBxZprobePosition_TextChanged(object sender, EventArgs e)
-        {
-            aGaugeProbe.Value = (float) _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
-            
-        }
 
         
 
@@ -2666,15 +2662,16 @@ namespace Marlin3DprinterTool
             
 
             decimal zhome  = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
-            decimal ztouch = _numberConversion.ConvertStringToDecimal(txtBxZprobePosition.Text);
+            //decimal ztouch = _numberConversion.ConvertStringToDecimal(1txtBxZprobePosition.Text);
+            decimal ztouch = _currectPosition.Z;
 
-            decimal zProbeOffset = zhome - ztouch;
+            decimal zProbeOffset = ztouch - zhome;
 
-            zProbeOffset = zProbeOffset - (zProbeOffset * (decimal) 2.0);
+            //zProbeOffset = zProbeOffset - (zProbeOffset * (decimal) 2.0);
 
             DialogResult result = MessageBox.Show
                 ($@"The probe is detecting the bed at {txtBxDockZprobe.Text}" + Environment.NewLine +
-                 $@"and the nozzle is touching the bed at {txtBxZprobePosition.Text}." + Environment.NewLine + Environment.NewLine +
+                 $@"and the nozzle is touching the bed at {_currectPosition.Zstring}." + Environment.NewLine + Environment.NewLine +
                  $@"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
                  @"Do you want to update EEPROM with this value?", @"Z Probe offset", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1
 
