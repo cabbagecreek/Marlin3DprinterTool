@@ -29,7 +29,8 @@ namespace AutoUpdater
             }
         }
 
-        public string DownloadMsiTo { get; set; }
+
+
 
         public Version NewVersion
         {
@@ -40,6 +41,9 @@ namespace AutoUpdater
                 txtBxNewVersion.Text = _newVersion.ToString();
             }
         }
+
+
+        public string DownloadMsiTo { get; set; }
 
         public string XmlUrl { get; set; }
 

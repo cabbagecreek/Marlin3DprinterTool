@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -13,7 +11,6 @@ using Marlin3DprinterTool.Properties;
 using Marlin3DprinterToolConfiguration;
 using MarlinComunicationHelper;
 using MarlinEditor;
-using Microsoft.Win32;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
@@ -30,7 +27,7 @@ namespace Marlin3DprinterTool
     public partial class FrmMarlin3DprinterTool : Form
     {
 
-        
+        private Version _currentVersion;
         private readonly Configuration _configuration = new Configuration();
 
         private readonly Position _currectPosition = new Position();
@@ -44,8 +41,21 @@ namespace Marlin3DprinterTool
         private MarlinCommunication _com = new MarlinCommunication();
         
         private readonly NumberConversion _numberConversion = new NumberConversion();
+        /// <summary>
+        /// Current version
+        /// </summary>
+        public Version CurrentVersion
+        {
+            get { return _currentVersion; }
+            set
+            {
+                _currentVersion = value;
+                Text = $@"Marlin3DprinterTool Version: {CurrentVersion}";
+                
 
-        
+            }
+        }
+
 
         ///
         public FrmMarlin3DprinterTool()
@@ -105,13 +115,16 @@ namespace Marlin3DprinterTool
 
         private void UpdateFrameHeader()
         {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            if (assembly.Location != null)
-            {
-                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                string version = fvi.ProductVersion;
-                Text = $@"Marlin3DprinterTool Version: {version}";
-            }
+            CurrentVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version;
+
+            //TODO: Remove
+            //System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            //if (assembly.Location != null)
+            //{
+            //    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            //    string version = fvi.ProductVersion;
+            //    Text = $@"Marlin3DprinterTool Version: {version}";
+            //}
         }
 
 
@@ -2527,6 +2540,7 @@ namespace Marlin3DprinterTool
         private void btnSetup_Click(object sender, EventArgs e)
         {
             Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
+            setup.CurrentVersion = CurrentVersion;
             setup.ShowDialog();
         }
 

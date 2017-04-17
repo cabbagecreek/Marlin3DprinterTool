@@ -18,6 +18,8 @@ namespace AutoUpdater
                 var url = "http://checkip.dyndns.org";
                 WebRequest getMyIprRequest = WebRequest.Create(url);
                 WebResponse getMyIpResponse = getMyIprRequest.GetResponse();
+                
+                    
                 StreamReader getMyIpStreamReader = new StreamReader(getMyIpResponse.GetResponseStream());
 
                 xml.LoadXml(getMyIpStreamReader.ReadToEnd().Trim());
@@ -33,8 +35,8 @@ namespace AutoUpdater
                     }
 
                 }
-
-
+                    
+                
 
                 url = $"http://freegeoip.net/xml/{myIp}";
                 WebRequest getMyLocationRequest = WebRequest.Create(url);
@@ -122,8 +124,7 @@ namespace AutoUpdater
 
                 string url = @"http://www.marlin3DprinterTool.se/MapInfo/InsertNewMarker.php";
 
-                WebClient client = new WebClient();
-                client.Encoding = Encoding.UTF8;
+                WebClient client = new WebClient {Encoding = Encoding.UTF8};
                 client.UploadString(url, sql);
 
 
