@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -9,24 +7,25 @@ namespace AutoUpdater
 {
     public class Updater
     {
-        
-
-        
-
         private string XmlUrl = "http://www.Marlin3DprinterTool.se/LatestVersion/LatestVersion.xml";
 
-        private Version _newVersion;
+        public Version CurrentVersion { get; set; }
+
+
+        public Version NewVersion { get; set; }
 
         public DialogResult ForceUpdate()
         {
 
-            Version currentVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version;
 
-            
-            FrmAutoUpdate autoUpdate = new FrmAutoUpdate();
-            autoUpdate.CurrentVersion = currentVersion;
-            autoUpdate.NewVersion = currentVersion;
-            autoUpdate.XmlUrl = XmlUrl;
+
+
+            FrmAutoUpdate autoUpdate = new FrmAutoUpdate
+            {
+                CurrentVersion = CurrentVersion,
+                NewVersion = CurrentVersion,
+                XmlUrl = XmlUrl
+            };
             return autoUpdate.ShowDialog();
 
 
@@ -36,28 +35,23 @@ namespace AutoUpdater
 
         private void MapInfo()
         {
-            try
+            
+            if (Location != null
+                &&
+                IsDonator().ToString().ToLower() == true.ToString().ToLower()
+            )
             {
-                if ((Location != null)
-                    &&
-                    (IsDonator().ToString().ToLower() == Location.IsDonator.ToString().ToLower())
-                )
-                {
-                    // The user has allready set a maker and donation status is not changed from that point    
-                }
-                else
-                {
-                    MapInfo mapInfo = new MapInfo();
-                    MarkerPoint myLocation = mapInfo.GetMyLocation();
-                    var xmlMarkers = mapInfo.GetAllExistingMarkers();
-                    mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
-                }
+                // The user has allready set a maker and donation status is not changed from that point    
             }
-            catch (Exception)
+            else
             {
-
-
+                MapInfo mapInfo = new MapInfo();
+                MarkerPoint myLocation = mapInfo.GetMyLocation();
+                var xmlMarkers = mapInfo.GetAllExistingMarkers();
+                mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
+                Location = myLocation;
             }
+            
         }
 
         public DialogResult SearchForUpdate()
@@ -72,17 +66,19 @@ namespace AutoUpdater
                 XmlNode latestVersion = xml.SelectSingleNode("/Marlin3DprinterTool/Version");
                 if (latestVersion != null)
                 {
-                    _newVersion = new Version(latestVersion.InnerText);
+                    NewVersion = new Version(latestVersion.InnerText);
                 }
 
                 Version currentVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version;
 
-                if (currentVersion.CompareTo(_newVersion) < 0)
+                if (currentVersion.CompareTo(NewVersion) < 0)
                 {
-                    FrmAutoUpdate autoUpdate = new FrmAutoUpdate();
-                    autoUpdate.CurrentVersion = currentVersion;
-                    autoUpdate.NewVersion = _newVersion;
-                    autoUpdate.XmlUrl = XmlUrl;
+                    FrmAutoUpdate autoUpdate = new FrmAutoUpdate
+                    {
+                        CurrentVersion = currentVersion,
+                        NewVersion = NewVersion,
+                        XmlUrl = XmlUrl
+                    };
                     return autoUpdate.ShowDialog();
 
 
@@ -131,11 +127,7 @@ namespace AutoUpdater
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/LicenseKey");
-                if (xmlNode == null)
-                {
-                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "LicenseKey");
-                }
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/LicenseKey") ?? (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "LicenseKey");
                 xmlNode?.SetAttribute("key", value);
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
@@ -153,12 +145,14 @@ namespace AutoUpdater
                 var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location");
                 if (xmlNode == null) return null;
 
-                MarkerPoint returnMarkerPoint = new MarkerPoint();
-                returnMarkerPoint.City = xmlNode.GetAttribute("City");
-                returnMarkerPoint.CountryName = xmlNode.GetAttribute("CountryName");
-                returnMarkerPoint.Latitude = xmlNode.GetAttribute("Latitude");
-                returnMarkerPoint.Longitude = xmlNode.GetAttribute("Longitude");
-                returnMarkerPoint.IsDonator = xmlNode.GetAttribute("IsDonator").ToLower() == "true";
+                MarkerPoint returnMarkerPoint = new MarkerPoint
+                {
+                    City = xmlNode.GetAttribute("City"),
+                    CountryName = xmlNode.GetAttribute("CountryName"),
+                    Latitude = xmlNode.GetAttribute("Latitude"),
+                    Longitude = xmlNode.GetAttribute("Longitude"),
+                    IsDonator = xmlNode.GetAttribute("IsDonator").ToLower() == "true"
+                };
 
                 return returnMarkerPoint;
 
@@ -167,11 +161,7 @@ namespace AutoUpdater
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location");
-                if (xmlNode == null)
-                {
-                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
-                }
+                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location") ?? (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
                 xmlNode?.SetAttribute("City", value.City);
                 xmlNode?.SetAttribute("City", value.CountryName);
                 xmlNode?.SetAttribute("City", value.Latitude);

@@ -12,6 +12,18 @@ namespace Marlin3DprinterToolConfiguration
     public partial class Marlin3DprinterSetup : Form
     {
         private readonly Configuration _configuration = new Configuration();
+        private Version _currentVersion;
+
+        public Version CurrentVersion
+        {
+            get { return _currentVersion; }
+            set
+            {
+                _currentVersion = value;
+                Text = $@"Marlin3DprinterTool Version: {_currentVersion}";
+
+            }
+        }
 
         public Marlin3DprinterSetup()
         {
@@ -126,6 +138,7 @@ namespace Marlin3DprinterToolConfiguration
         private void btnForceUpdate_Click(object sender, EventArgs e)
         {
             Updater autoUpdater = new Updater();
+            autoUpdater.CurrentVersion = CurrentVersion;
             autoUpdater.ForceUpdate();
         }
     }

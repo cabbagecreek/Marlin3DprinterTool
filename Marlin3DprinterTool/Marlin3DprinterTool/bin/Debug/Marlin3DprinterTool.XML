@@ -156,6 +156,11 @@
             <summary>
             </summary>
         </member>
+        <member name="P:Marlin3DprinterTool.FrmMarlin3DprinterTool.CurrentVersion">
+            <summary>
+            Current version
+            </summary>
+        </member>
         <member name="M:Marlin3DprinterTool.FrmMarlin3DprinterTool.#ctor">
             
         </member>
