@@ -33,6 +33,7 @@ namespace Marlin3DprinterToolConfiguration
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Marlin3DprinterSetup));
             this.tabControlSetup = new System.Windows.Forms.TabControl();
             this.tabPageLicense = new System.Windows.Forms.TabPage();
             this.grpBxLicensedTo = new System.Windows.Forms.GroupBox();
@@ -56,6 +57,8 @@ namespace Marlin3DprinterToolConfiguration
             this.btnDirectoryCurrentFirmware = new System.Windows.Forms.Button();
             this.txtBxDirectoryCurrentFirmware = new System.Windows.Forms.TextBox();
             this.lblDirectoryCurrentFirmware = new System.Windows.Forms.Label();
+            this.tabPageForceUpdate = new System.Windows.Forms.TabPage();
+            this.btnForceUpdate = new System.Windows.Forms.Button();
             this.tabControlSetup.SuspendLayout();
             this.tabPageLicense.SuspendLayout();
             this.grpBxLicensedTo.SuspendLayout();
@@ -63,12 +66,14 @@ namespace Marlin3DprinterToolConfiguration
             this.grpBxArduinoIDE.SuspendLayout();
             this.grpBxNewFirmware.SuspendLayout();
             this.grpBxCurrentFirmware.SuspendLayout();
+            this.tabPageForceUpdate.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlSetup
             // 
             this.tabControlSetup.Controls.Add(this.tabPageLicense);
             this.tabControlSetup.Controls.Add(this.tabPageMarlinEditor);
+            this.tabControlSetup.Controls.Add(this.tabPageForceUpdate);
             this.tabControlSetup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlSetup.Location = new System.Drawing.Point(0, 0);
             this.tabControlSetup.Name = "tabControlSetup";
@@ -327,12 +332,34 @@ namespace Marlin3DprinterToolConfiguration
             this.lblDirectoryCurrentFirmware.TabIndex = 0;
             this.lblDirectoryCurrentFirmware.Text = "Directory for Current Firmware:";
             // 
+            // tabPageForceUpdate
+            // 
+            this.tabPageForceUpdate.Controls.Add(this.btnForceUpdate);
+            this.tabPageForceUpdate.Location = new System.Drawing.Point(4, 22);
+            this.tabPageForceUpdate.Name = "tabPageForceUpdate";
+            this.tabPageForceUpdate.Size = new System.Drawing.Size(776, 336);
+            this.tabPageForceUpdate.TabIndex = 3;
+            this.tabPageForceUpdate.Text = "Force Update";
+            this.tabPageForceUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnForceUpdate
+            // 
+            this.btnForceUpdate.Location = new System.Drawing.Point(18, 32);
+            this.btnForceUpdate.Name = "btnForceUpdate";
+            this.btnForceUpdate.Size = new System.Drawing.Size(405, 150);
+            this.btnForceUpdate.TabIndex = 0;
+            this.btnForceUpdate.Text = "Force update from www.Marlin3DprinterTool.se/LatestVersion/Marlin3Dprintertool.ms" +
+    "i";
+            this.btnForceUpdate.UseVisualStyleBackColor = true;
+            this.btnForceUpdate.Click += new System.EventHandler(this.btnForceUpdate_Click);
+            // 
             // Marlin3DprinterSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 362);
             this.Controls.Add(this.tabControlSetup);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "Marlin3DprinterSetup";
             this.Text = "Marlin3DprinterSetup";
@@ -348,6 +375,7 @@ namespace Marlin3DprinterToolConfiguration
             this.grpBxNewFirmware.PerformLayout();
             this.grpBxCurrentFirmware.ResumeLayout(false);
             this.grpBxCurrentFirmware.PerformLayout();
+            this.tabPageForceUpdate.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -377,5 +405,7 @@ namespace Marlin3DprinterToolConfiguration
         private Button btnDirectoryCurrentFirmware;
         private TextBox txtBxDirectoryCurrentFirmware;
         private Label lblDirectoryCurrentFirmware;
+        private TabPage tabPageForceUpdate;
+        private Button btnForceUpdate;
     }
 }

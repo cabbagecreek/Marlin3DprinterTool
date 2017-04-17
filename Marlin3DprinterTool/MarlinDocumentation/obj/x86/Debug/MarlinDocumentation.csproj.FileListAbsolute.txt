@@ -7,3 +7,4 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinD
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\x86\Debug\MarlinDocumentation.csproj.GenerateResource.Cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\x86\Debug\MarlinDocumentation.exe
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\x86\Debug\MarlinDocumentation.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinDocumentation\obj\x86\Debug\MarlinDocumentation.csprojResolveAssemblyReference.cache

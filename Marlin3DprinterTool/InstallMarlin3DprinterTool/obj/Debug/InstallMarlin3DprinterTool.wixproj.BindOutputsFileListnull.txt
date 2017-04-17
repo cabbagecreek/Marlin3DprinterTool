@@ -1,2 +1,2 @@
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Debug\InstallMarlin3DprinterTool.msi
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Debug\InstallMarlin3DprinterTool.wixpdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Debug\Marlin3DprinterTool.msi
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Debug\Marlin3DprinterTool.wixpdb

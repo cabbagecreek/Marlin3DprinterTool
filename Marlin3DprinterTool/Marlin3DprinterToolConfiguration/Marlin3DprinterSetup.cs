@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using AutoUpdater;
 using Microsoft.Win32;
 using PayPalWebBrowser;
 
@@ -122,9 +123,14 @@ namespace Marlin3DprinterToolConfiguration
 
         }
 
+        private void btnForceUpdate_Click(object sender, EventArgs e)
+        {
+            Updater autoUpdater = new Updater();
+            autoUpdater.ForceUpdate();
+        }
     }
 
-   
+
     /// <summary>
     /// 
     /// </summary>

@@ -37,3 +37,5 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Arduino
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\obj\x86\Debug\ArduinoIDE.csproj.GenerateResource.Cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\obj\x86\Debug\ArduinoIDE.exe
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\obj\x86\Debug\ArduinoIDE.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\bin\x86\Debug\AutoUpdater.dll
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\bin\x86\Debug\AutoUpdater.pdb
