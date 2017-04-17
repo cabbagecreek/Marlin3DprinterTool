@@ -249,10 +249,6 @@
       <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>
       <Name>MarlinEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PayPalWebBrowser\PayPalWebBrowser.csproj">
-      <Project>{3ec5189f-b615-4abe-807a-b25ece129b42}</Project>
-      <Name>PayPalWebBrowser</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

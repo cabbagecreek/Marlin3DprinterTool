@@ -103,10 +103,6 @@
       <Project>{0909412d-4c12-49f6-9225-b60349c29d02}</Project>
       <Name>MarlinDocumentation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PayPalWebBrowser\PayPalWebBrowser.csproj">
-      <Project>{3ec5189f-b615-4abe-807a-b25ece129b42}</Project>
-      <Name>PayPalWebBrowser</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="StlViewerThumbnail.pfx" />
