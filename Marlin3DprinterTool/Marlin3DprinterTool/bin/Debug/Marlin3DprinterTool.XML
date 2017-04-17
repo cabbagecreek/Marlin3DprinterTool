@@ -145,6 +145,13 @@
             <param name="corner"></param>
             <param name="zDecimal"></param>
         </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.Gauge(System.Windows.Forms.AGauge,System.Decimal)">
+            <summary>
+            Delegate for aGauge values
+            </summary>
+            <param name="aGauge"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:Marlin3DprinterTool.FrmMarlin3DprinterTool">
             <summary>
             </summary>

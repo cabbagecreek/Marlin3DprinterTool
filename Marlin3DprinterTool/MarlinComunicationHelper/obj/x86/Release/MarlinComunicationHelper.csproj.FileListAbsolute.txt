@@ -32,3 +32,5 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinC
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Release\MarlinComunicationHelper.csproj.GenerateResource.Cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Release\MarlinComunicationHelper.dll
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Release\MarlinComunicationHelper.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Release\AutoUpdater.dll
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Release\AutoUpdater.pdb

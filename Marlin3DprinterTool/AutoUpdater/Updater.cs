@@ -17,8 +17,24 @@ namespace AutoUpdater
 
         private Version _newVersion;
 
+        public DialogResult ForceUpdate()
+        {
 
-        public DialogResult SearchForUpdate()
+            Version currentVersion = System.Reflection.Assembly.GetCallingAssembly().GetName().Version;
+
+            
+            FrmAutoUpdate autoUpdate = new FrmAutoUpdate();
+            autoUpdate.CurrentVersion = currentVersion;
+            autoUpdate.NewVersion = currentVersion;
+            autoUpdate.XmlUrl = XmlUrl;
+            return autoUpdate.ShowDialog();
+
+
+            
+
+        }
+
+        private void MapInfo()
         {
             try
             {
@@ -40,8 +56,13 @@ namespace AutoUpdater
             catch (Exception)
             {
 
-               
+
             }
+        }
+
+        public DialogResult SearchForUpdate()
+        {
+            MapInfo();
 
             try
             {

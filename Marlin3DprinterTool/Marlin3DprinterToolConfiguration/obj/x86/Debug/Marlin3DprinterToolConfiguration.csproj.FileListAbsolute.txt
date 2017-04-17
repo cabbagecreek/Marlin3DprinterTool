@@ -44,3 +44,5 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\obj\x86\Debug\Marlin3DprinterToolConfiguration.csproj.GenerateResource.Cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\obj\x86\Debug\Marlin3DprinterToolConfiguration.dll
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\obj\x86\Debug\Marlin3DprinterToolConfiguration.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\AutoUpdater.dll
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\AutoUpdater.pdb
