@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using AutoUpdater;
 using Microsoft.Win32;
-using PayPalWebBrowser;
 
 
 namespace Marlin3DprinterToolConfiguration
@@ -52,8 +52,42 @@ namespace Marlin3DprinterToolConfiguration
 
         private void btnPayPal_Click(object sender, EventArgs e)
         {
-            FrmPayPal payPal = new FrmPayPal();
-            payPal.ShowDialog();
+            const string url = "https://www.paypal.com/cgi-bin/webscr" +
+                               @"?cmd=" + "_donations" +
+                               @"&business=" + "cabbagecreek@gmail.com" +
+                               @"&lc=" + "US" +
+                               @"&item_name=" + "Marlin 3D printer Tool Donation" +
+                               @"&notify_url=" + @"http://marlin3dprintertool.se/PayPal/PayPalIPN.php" +
+                               @"&amount=5" +
+                               @"&currency_code=" + "USD" +
+                               @"&bn=" + "PP%2dDonationsBF";
+            try
+            {
+                Process myProcess = new Process
+                {
+                    StartInfo =
+                    {
+                        UseShellExecute = true,
+                        FileName = url
+                    }
+                };
+
+
+
+                // true is the default, but it is important not to set it to false
+                myProcess.Start();
+            }
+            catch (Exception webbroserException)
+            {
+                MessageBox.Show(@"Cant open the default webbrowser with connection to PayPal" + Environment.NewLine +
+                                Environment.NewLine +
+                                @"Reason: " + webbroserException.Message, @"Cant find default browser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Clipboard.SetText(url);
+
+                MessageBox.Show(@"The webaddress and parameters are copied to ClipBoard" + Environment.NewLine + Environment.NewLine +
+                                @"Do the donation manually by paste it (ctrl+V) in your webbrowser address field", @"Manual PayPal donation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
