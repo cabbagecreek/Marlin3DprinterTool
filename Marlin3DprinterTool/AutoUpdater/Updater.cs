@@ -35,22 +35,27 @@ namespace AutoUpdater
 
         private void MapInfo()
         {
-            
-            if (Location != null
-                &&
-                IsDonator().ToString().ToLower() == true.ToString().ToLower()
-            )
-            {
-                // The user has allready set a maker and donation status is not changed from that point    
-            }
-            else
-            {
-                MapInfo mapInfo = new MapInfo();
-                MarkerPoint myLocation = mapInfo.GetMyLocation();
-                var xmlMarkers = mapInfo.GetAllExistingMarkers();
-                mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
-                Location = myLocation;
-            }
+            MapInfo mapInfo = new MapInfo();
+            MarkerPoint myLocation = mapInfo.GetMyLocation();
+            var xmlMarkers = mapInfo.GetAllExistingMarkers();
+            mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
+            Location = myLocation;
+
+            //if (Location != null
+            //    &&
+            //    IsDonator().ToString().ToLower() == true.ToString().ToLower()
+            //)
+            //{
+            //    // The user has allready set a maker and donation status is not changed from that point    
+            //}
+            //else
+            //{
+            //    MapInfo mapInfo = new MapInfo();
+            //    MarkerPoint myLocation = mapInfo.GetMyLocation();
+            //    var xmlMarkers = mapInfo.GetAllExistingMarkers();
+            //    mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
+            //    Location = myLocation;
+            //}
             
         }
 
@@ -163,10 +168,9 @@ namespace AutoUpdater
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location") ?? (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
                 xmlNode?.SetAttribute("City", value.City);
-                xmlNode?.SetAttribute("City", value.CountryName);
-                xmlNode?.SetAttribute("City", value.Latitude);
-                xmlNode?.SetAttribute("City", value.Latitude);
-                xmlNode?.SetAttribute("City", value.Longitude);
+                xmlNode?.SetAttribute("CountryName", value.CountryName);
+                xmlNode?.SetAttribute("Latitude", value.Latitude);
+                xmlNode?.SetAttribute("Latitude", value.Latitude);
                 xmlNode?.SetAttribute("IsDonator", value.IsDonator.ToString().ToLower());
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
