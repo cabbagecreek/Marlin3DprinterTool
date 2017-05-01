@@ -2644,9 +2644,10 @@ namespace Marlin3DprinterTool
             }
 
             _com.Clear();
-            commands.Add("G28 Y");
-            commands.Add("G28 X");
-            commands.Add(@"G28 Z");
+            //commands.Add("G28 Y");
+            //commands.Add("G28 X");
+            //commands.Add(@"G28 Z");
+            commands.Add(@"G28");
             commands.Add("G30 S-1 ");
             
 
@@ -2660,7 +2661,7 @@ namespace Marlin3DprinterTool
             
             List<string> commands = new List<string>();
             commands.Add("G91");
-            commands.Add("G1 Z0.05 F500");
+            commands.Add("G0 Z0.05 F500");
             commands.Add("G90");
             commands.Add("M119");
             commands.Add("M114");
@@ -2673,7 +2674,7 @@ namespace Marlin3DprinterTool
         {
             List<string> commands = new List<string>();
             commands.Add("G91");
-            commands.Add("G1 Z-0.05 F500");
+            commands.Add("G0 Z-0.05 F500");
             commands.Add("G90");
             commands.Add("M114");
             commands.Add("M119");
@@ -2700,23 +2701,27 @@ namespace Marlin3DprinterTool
             //}
         }
 
-       
 
 
-        
+
+
 
         private void btnNozzleIsTouchingBed_Click(object sender, EventArgs e)
         {
 
-            
 
-            decimal zhome  = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
+
+            decimal zhome = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
             //decimal ztouch = _numberConversion.ConvertStringToDecimal(1txtBxZprobePosition.Text);
             decimal ztouch = _currectPosition.Z;
 
-            decimal zProbeOffset = ztouch - zhome;
+            decimal zProbeOffset = zhome - ztouch;
 
-            //zProbeOffset = zProbeOffset - (zProbeOffset * (decimal) 2.0);
+            if (zProbeOffset >= 0)
+            { zProbeOffset =_numberConversion.ConvertStringToDecimal("-" + _numberConversion.ConvertDecimalToString(zProbeOffset));}
+
+
+         
 
             DialogResult result = MessageBox.Show
                 ($@"The probe is detecting the bed at {txtBxDockZprobe.Text}" + Environment.NewLine +

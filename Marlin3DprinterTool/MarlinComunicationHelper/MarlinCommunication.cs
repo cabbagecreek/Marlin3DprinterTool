@@ -153,7 +153,7 @@ namespace MarlinComunicationHelper
         /// <summary>
         /// The current position that are parsed from many GCODE
         /// </summary>
-        public Position CurrentPosition { get; internal set; }
+        public Position CurrentPosition { get; set; }
 
         /// <summary>
         /// The staus of all endstops
@@ -397,7 +397,7 @@ namespace MarlinComunicationHelper
 
             string returnData = dataReceived;
 
-            string positionPattern = @"X:[-]*[0-9,.]*\s*Y:[-]*[0-9,.]*\s*Z:[-]*[0-9,.]*\s*E:[0-9,.]*\s*Count X:\s*[-]*[0-9]*\s*Y:[-]*[0-9]*\s*Z:[-]*[0-9]*";
+            string positionPattern = @"X:[-]*[0-9,.]*\s*Y:[-]*[0-9,.]*\s*Z:[-]*[0-9,.]*\s*E:[0-9,.]*\s*Count [A-Z]:\s*[-]*[0-9]*\s*[A-Z]:[-]*[0-9]*\s*[A-Z]:[-]*[0-9]*";
 
             // Get all responces 
             var responces = dataReceived.Split('\n');
@@ -405,6 +405,7 @@ namespace MarlinComunicationHelper
             // Create M114 responce Event
             foreach (var responce in responces)
             {
+                
                  // X:0.00 Y:0.00 Z:5.00 E:0.00 Count X: 0 Y:0 Z:4000
                 if (Regex.Match(responce, positionPattern).Success)
                 {
@@ -1534,93 +1535,93 @@ namespace MarlinComunicationHelper
     #endregion
 
 
-    #region
-    /// <summary>
-    /// Number Conversation 
-    /// String to Decimal
-    /// Decimal to String
-    /// String to String
-    /// </summary>
-    public class NumberConversion
-    {
-        /// <summary>
-        /// Convert a string to Decimal
-        /// </summary>
-        /// <param name="stringNumeric"></param>
-        /// <returns></returns>
-        public decimal ConvertStringToDecimal(string stringNumeric)
-        {
+    //#region
+    ///// <summary>
+    ///// Number Conversation 
+    ///// String to Decimal
+    ///// Decimal to String
+    ///// String to String
+    ///// </summary>
+    //public class NumberConversion
+    //{
+    //    /// <summary>
+    //    /// Convert a string to Decimal
+    //    /// </summary>
+    //    /// <param name="stringNumeric"></param>
+    //    /// <returns></returns>
+    //    public decimal ConvertStringToDecimal(string stringNumeric)
+    //    {
 
-            if (stringNumeric == "") return 0;
+    //        if (stringNumeric == "") return 0;
 
-            string incommingNumeric = stringNumeric;
-
-
-
-            int findDot = stringNumeric.IndexOf('.');
-            int findComma = stringNumeric.IndexOf(',');
-
-            // Both dot and comma
-            if ((findDot != -1) && findComma != -1)
-            {
-                // Dot is 1000 divider
-                if (findDot < findComma)
-                {
-                    incommingNumeric = incommingNumeric.Replace(".", "");
-                    incommingNumeric = incommingNumeric.Replace(",", ".");
-                }
-
-                // Comma is 1000 divider
-                if (findDot > findComma)
-                {
-                    incommingNumeric = incommingNumeric.Replace(",", "");
-                }
-
-            }
-
-            if (findComma != -1)
-            {
-                incommingNumeric = incommingNumeric.Replace(",", ".");
-            }
+    //        string incommingNumeric = stringNumeric;
 
 
-            decimal numericDecimal = Convert.ToDecimal(incommingNumeric, CultureInfo.InvariantCulture);
 
-            return numericDecimal;
-        }
+    //        int findDot = stringNumeric.IndexOf('.');
+    //        int findComma = stringNumeric.IndexOf(',');
+
+    //        // Both dot and comma
+    //        if ((findDot != -1) && findComma != -1)
+    //        {
+    //            // Dot is 1000 divider
+    //            if (findDot < findComma)
+    //            {
+    //                incommingNumeric = incommingNumeric.Replace(".", "");
+    //                incommingNumeric = incommingNumeric.Replace(",", ".");
+    //            }
+
+    //            // Comma is 1000 divider
+    //            if (findDot > findComma)
+    //            {
+    //                incommingNumeric = incommingNumeric.Replace(",", "");
+    //            }
+
+    //        }
+
+    //        if (findComma != -1)
+    //        {
+    //            incommingNumeric = incommingNumeric.Replace(",", ".");
+    //        }
 
 
-        /// <summary>
-        /// Convert a decimal numeric to a String with decimal point.
-        /// </summary>
-        /// <param name="numericDecimal"></param>
-        /// <returns></returns>
-        public string ConvertDecimalToString(decimal numericDecimal)
-        {
+    //        decimal numericDecimal = Convert.ToDecimal(incommingNumeric, CultureInfo.InvariantCulture);
+
+    //        return numericDecimal;
+    //    }
 
 
-            string numericString = numericDecimal.ToString(CultureInfo.InvariantCulture);
+    //    /// <summary>
+    //    /// Convert a decimal numeric to a String with decimal point.
+    //    /// </summary>
+    //    /// <param name="numericDecimal"></param>
+    //    /// <returns></returns>
+    //    public string ConvertDecimalToString(decimal numericDecimal)
+    //    {
 
-            numericString = numericString.Replace(",", ".");
-            return numericString;
+
+    //        string numericString = numericDecimal.ToString(CultureInfo.InvariantCulture);
+
+    //        numericString = numericString.Replace(",", ".");
+    //        return numericString;
 
 
-        }
+    //    }
 
-        /// <summary>
-        /// Converts a numeric string to a numeric string with decimals
-        /// </summary>
-        /// <param name="numericString"></param>
-        /// <returns></returns>
-        public string ConvertStringToString(string numericString)
-        {
-            decimal numericDecimal = ConvertStringToDecimal(numericString);
-            return ConvertDecimalToString(numericDecimal);
+    //    /// <summary>
+    //    /// Converts a numeric string to a numeric string with decimals
+    //    /// </summary>
+    //    /// <param name="numericString"></param>
+    //    /// <returns></returns>
+    //    public string ConvertStringToString(string numericString)
+    //    {
+    //        decimal numericDecimal = ConvertStringToDecimal(numericString);
+    //        return ConvertDecimalToString(numericDecimal);
 
-        }
+    //    }
 
-    }
-    #endregion
+    //}
+    //#endregion
 
     #region ResponceData / generic responce
     /// <summary>

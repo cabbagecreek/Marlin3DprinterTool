@@ -4,3 +4,4 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpd
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.csproj.GenerateResource.Cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.dll
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.pdb
+C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.csprojResolveAssemblyReference.cache

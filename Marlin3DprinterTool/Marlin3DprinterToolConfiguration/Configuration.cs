@@ -1030,78 +1030,31 @@ namespace Marlin3DprinterToolConfiguration
         {
 
 
-            string incommingText = text;
+            
+            decimal tal;
 
+            
 
-
-            int findDot = text.IndexOf('.');
-            int findComma = text.IndexOf(',');
-
-            bool dotExist = text.Contains(".");
-            bool commaExist = text.Contains(",");
-
-            // Both dot and comma exist
-            // this valie nust be over 1000
-            if (dotExist && commaExist)
+            if (!decimal.TryParse(text, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"),out tal))
             {
-                if (findDot < findComma)
-                {
-                    incommingText = incommingText.Replace(".", "");
-                    incommingText = incommingText.Replace(",", ".");
-
-                }
-                // Dot is 1000 divider
-                if (findComma < findDot)
-                {
-                    incommingText = incommingText.Replace(",", "");
-                }
-
-                // Comma is 1000 divider
-                if (findDot > findComma)
-                {
-                    incommingText = incommingText.Replace(",", "");
-                }
-
-
-            }
-
-            if (commaExist)
-            {
-                incommingText = incommingText.Replace(",", ".");
+                MessageBox.Show("Cant convert");
             }
 
 
-            decimal tal = 0;
-            try
-            {
-                tal = Convert.ToDecimal(incommingText);
-            }
-            catch (Exception e)
-            {
-                try
-                {
-                    tal = Convert.ToDecimal(incommingText, CultureInfo.InvariantCulture);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(@"Cant convert string" + incommingText + @" to a decimal value" + Environment.NewLine +
-                        exception.Message);
-                }
-
-            }
-
-
-
+            
             return tal;
         }
 
-        public string ConvertDecimalToString(decimal numerDecimal)
+        public string ConvertDecimalToString(decimal numberDecimal)
         {
 
 
-            string numericString = numerDecimal.ToString(CultureInfo.InvariantCulture);
+            string numericString = numberDecimal.ToString(CultureInfo.GetCultureInfo("en-US"));
 
-            numericString = numericString.Replace(",", ".");
+            
+
+            numericString = numericString.Replace(",", "");
+            
             return numericString;
 
 
