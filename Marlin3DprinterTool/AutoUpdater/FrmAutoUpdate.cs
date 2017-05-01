@@ -64,33 +64,32 @@ namespace AutoUpdater
                 if (downlaodUrl != null)
                 {
                     
-                    var currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+
                     
-                    if (currentDirectory != null)
+                        
+                    DownloadMsiTo = GetConfigurationFile(@"Marlin3DprinterTool.msi");
+                        
+                    if (File.Exists(DownloadMsiTo))
                     {
-                        
-                        DownloadMsiTo = Path.Combine(currentDirectory, @"Marlin3DprinterTool.msi");
-                        
-                        if (File.Exists(DownloadMsiTo))
-                        {
                             
-                            File.Delete(DownloadMsiTo);
-                        }
-
-                        
-                        using (WebClient wc = new WebClient())
-                        {
-                            
-                            progressBarDownload.Visible = true;
-                            wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
-                            wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
-                            //wc.DownloadFile(new Uri(downlaodUrl.InnerText), downloadMsiTo);
-                            wc.DownloadFileAsync(new Uri(downlaodUrl.InnerText), DownloadMsiTo);
-                            
-                        }
-
-
+                        File.Delete(DownloadMsiTo);
                     }
+
+                        
+                    using (WebClient wc = new WebClient())
+                    {
+                            
+                        progressBarDownload.Visible = true;
+                        wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
+                        wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
+                        //wc.DownloadFile(new Uri(downlaodUrl.InnerText), downloadMsiTo);
+                        wc.DownloadFileAsync(new Uri(downlaodUrl.InnerText), DownloadMsiTo);
+                            
+                    }
+
+
+                    
                 }
 
 
@@ -103,6 +102,16 @@ namespace AutoUpdater
                 Close();
             }
             
+        }
+
+
+
+        private static string GetConfigurationFile(string filename)
+        {
+            string programDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            programDataDirectory = Path.Combine(programDataDirectory, "cabbagecreek");
+            programDataDirectory = Path.Combine(programDataDirectory, "Marlin3DprinterTool");
+            return Path.Combine(programDataDirectory, filename);
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
