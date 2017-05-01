@@ -1,4 +1,0 @@
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\bin\x86\Debug\AGauge.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\bin\x86\Debug\AGauge.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Debug\AGauge.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Debug\AGauge.pdb
