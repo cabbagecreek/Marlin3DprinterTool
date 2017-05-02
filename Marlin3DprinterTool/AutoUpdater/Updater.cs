@@ -41,9 +41,11 @@ namespace AutoUpdater
             mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
             Location = myLocation;
 
+
+
             //if (Location != null
             //    &&
-            //    IsDonator().ToString().ToLower() == true.ToString().ToLower()
+            //    String.Equals(IsDonator().ToString(), true.ToString(), StringComparison.CurrentCultureIgnoreCase)
             //)
             //{
             //    // The user has allready set a maker and donation status is not changed from that point    
