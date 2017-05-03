@@ -133,11 +133,11 @@
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">
-      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\WiX Toolset v3.11\bin\WixUtilExtension.dll</HintPath>
       <Name>WixUtilExtension</Name>
     </WixExtension>
     <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\WiX Toolset v3.11\bin\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>

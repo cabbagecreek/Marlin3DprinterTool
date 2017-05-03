@@ -3,3 +3,7 @@ C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Release\AGauge.csprojResolveAssemblyReference.cache
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Release\AGauge.dll
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Release\AGauge.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\bin\x86\Release\AGauge.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\bin\x86\Release\AGauge.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Release\AGauge.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AGauge\obj\x86\Release\AGauge.pdb
