@@ -114,11 +114,10 @@ namespace AutoUpdater
             try
             {
                 string category = isDonator ? "2" : "1";
-
-
-                              
+                                
+                                          
                 string sql = "INSERT INTO xvom_wpgmza(map_id,address,description,pic,link,icon,lat,lng,anim,title,infoopen,category,approved,retina,type,did,other_data) " +
-                             $"VALUES(1,'{markerPoint.City}','','','','','{markerPoint.Latitude}','{markerPoint.Longitude}',0,'',0,{category},0,0,'',''.'')";
+                             $"VALUES(1,'{markerPoint.City}','','','','','{markerPoint.Latitude}','{markerPoint.Longitude}',0,'',0,{category},0,0,'','','')";
 
 
 
