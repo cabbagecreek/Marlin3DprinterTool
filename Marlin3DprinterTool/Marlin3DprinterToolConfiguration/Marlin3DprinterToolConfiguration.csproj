@@ -95,10 +95,6 @@
       <Project>{91df7112-9b3c-4315-9d8a-b55b056d8d1f}</Project>
       <Name>AutoUpdater</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LedBulbUserControl\LedBulbUserControl.csproj">
-      <Project>{696A3185-8566-4ACA-A639-F57E2C4679DC}</Project>
-      <Name>LedBulbUserControl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MarlinDocumentation\MarlinDocumentation.csproj">
       <Project>{0909412d-4c12-49f6-9225-b60349c29d02}</Project>
       <Name>MarlinDocumentation</Name>

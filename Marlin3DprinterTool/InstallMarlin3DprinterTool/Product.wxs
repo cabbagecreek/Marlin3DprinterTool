@@ -133,6 +133,15 @@
                   Target="[INSTALLFOLDER]Marlin3DprinterToolStlConfiguration.exe"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon ="Marlin3DprinterTool.ico"  />
+        <Shortcut Id="ApplicationStartMenuShortcutMarlinConfiguration"
+                  Name="MarlinConfigurator"
+                  Description="Marlin Configuration"
+                  Target="[INSTALLFOLDER]MarlinConfigurator.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon ="Marlin3DprinterTool.ico"  />
+        
+        
+        
         <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Marlin3DprinterTool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
@@ -203,9 +212,9 @@
       </Component>
       
 
-      <!-- LedBulbUserControl.dll -->
-      <Component Id="LedBulbUserControl.dll" Guid="{4864D9FB-2DF2-481B-B266-4B26E6957EC3}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\LedBulbUserControl.dll" />
+      <!-- Marlin3DprinterToolUserControls.dll -->
+      <Component Id="Marlin3DprinterToolUserControls.dll" Guid="{4864D9FB-2DF2-481B-B266-4B26E6957EC3}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolUserControls.dll" />
       </Component>
 
       <!-- ZylSerialPort.dll -->
@@ -218,11 +227,6 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\FastColoredTextBox.dll" />
       </Component>
 
-
-      <!-- Marlin3DprinterToolUserControls.dll -->
-      <Component Id="Marlin3DprinterToolUserControls.dll" Guid="{8EBB75A1-205C-468D-9B31-9F303E4FF47C}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolUserControls.dll" />
-      </Component>
 
       <!--TabStrip.dll -->
       <Component Id="TabStrip.dll" Guid="{64EEE10E-C60C-4DBF-9B5F-387AD08B4CA0}">
@@ -271,15 +275,15 @@
       </Component>
 
       
-      <!--AGauge.dll -->
-      <Component Id="AGauge.dll" Guid="{EB7A295F-4EDF-4D7E-937F-A4A7EEF31222}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\AGauge.dll" />
-      </Component>
-
       
       <!--AutoUpdater.dll -->
       <Component Id="AutoUpdater.dll" Guid="{BDC38DA6-9A6F-4B06-B22F-B57A37D67BBC}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\AutoUpdater.dll" />
+      </Component>
+
+      <!--MarlinConfigurator.exe -->
+      <Component Id="MarlinConfigurator.exe" Guid="{97441C87-5DDE-4AFD-A350-04E2507AE947}">
+        <File Source="$(var.MarlinConfigurator.TargetDir)\MarlinConfigurator.exe" />
       </Component>
 
     </ComponentGroup>

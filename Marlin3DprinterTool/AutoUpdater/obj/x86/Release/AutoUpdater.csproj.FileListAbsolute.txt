@@ -11,3 +11,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Auto
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.csproj.GenerateResource.Cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\obj\x86\Release\AutoUpdater.csprojResolveAssemblyReference.cache

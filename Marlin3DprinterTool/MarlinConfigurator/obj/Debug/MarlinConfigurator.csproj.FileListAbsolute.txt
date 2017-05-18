@@ -1,0 +1,14 @@
+c:\users\johlin\documents\visual studio 2015\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\MarlinConfigurator.exe.config
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\MarlinConfigurator.exe.config
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\MarlinConfigurator.exe
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\MarlinConfigurator.pdb
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\FastColoredTextBox.dll
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\MarlinControls.dll
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\MarlinControls.pdb
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\bin\Debug\FastColoredTextBox.xml
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\obj\Debug\MarlinConfigurator.csprojResolveAssemblyReference.cache
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\obj\Debug\MarlinConfigurator.FrmConfigurator.resources
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\obj\Debug\MarlinConfigurator.Properties.Resources.resources
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\obj\Debug\MarlinConfigurator.csproj.GenerateResource.Cache
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\obj\Debug\MarlinConfigurator.exe
+C:\Users\Johnnyboy\Documents\Visual Studio 2017\Projects\MarlinConfigurator\MarlinConfigurator\obj\Debug\MarlinConfigurator.pdb

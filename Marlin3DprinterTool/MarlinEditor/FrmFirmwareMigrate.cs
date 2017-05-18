@@ -98,9 +98,9 @@ namespace MarlinEditor
         private void ResizedFrame()
         {
             Configuration configuration = new Configuration();
-            int numberOfCharacters = grpBxOldFirmware.Width / 7;
+            int numberOfCharacters = grpBxcurrentFirmware.Width / 7;
             var lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
-            grpBxOldFirmware.Text = $"Current Firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
+            grpBxcurrentFirmware.Text = $"Current Firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
             lastchar = Path.Combine(configuration.NewFirmware, ConfigurationFilename);
             grpBxNewFirmware.Text = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
 
@@ -162,7 +162,7 @@ namespace MarlinEditor
         {
             MarlinMigrateHelper.BookmarkChangeNeeded(feature,fctbCurrentFirmware,fctbNewFirmware);
 
-            // Old firmware
+            // Current Firmware
             string oldFeatureValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbCurrentFirmware, feature);
             string newFeatureValue = MarlinMigrateHelper.GetFirmwareFeatureValue(fctbNewFirmware, feature);
 

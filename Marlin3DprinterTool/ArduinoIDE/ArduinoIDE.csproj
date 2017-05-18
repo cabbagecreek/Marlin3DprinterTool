@@ -58,7 +58,6 @@
   <ItemGroup>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -102,12 +101,14 @@
     </Compile>
     <EmbeddedResource Include="FrmArduinoIde.resx">
       <DependentUpon>FrmArduinoIde.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCurrentOrNewFirmware.resx">
       <DependentUpon>FrmCurrentOrNewFirmware.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MarlinFirmware.resx">
       <DependentUpon>MarlinFirmware.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="New.resx">
       <DependentUpon>New.cs</DependentUpon>

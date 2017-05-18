@@ -150,5 +150,47 @@ namespace AutoUpdater
         {
             Close();
         }
+
+        private void btnClipBoard_Click(object sender, EventArgs e)
+        {
+            string link;
+            try
+            {
+
+
+                XmlDocument xml = new XmlDocument();
+
+                xml.Load(XmlUrl);
+
+                XmlNode downlaodUrl = xml.SelectSingleNode("/Marlin3DprinterTool/DownloadUrl");
+
+                link = downlaodUrl != null ? downlaodUrl.InnerText : "www.Marlin3DprinterTool.se/LatestVersion/Marlin3DprinterTool.msi";
+
+                Clipboard.SetText(link);
+
+                MessageBox.Show(@"Link to Marlin3DprinterTool is available in ClipBoard", link);
+
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+
+                DialogResult = DialogResult.Cancel;
+                Close();
+            }
+
+
+
+
+
+
+
+
+
+
+            
+           
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace ArduinoIDE
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             FrmCurrentOrNewFirmware frmCurrentOrNewFirmware = new FrmCurrentOrNewFirmware();
-            frmCurrentOrNewFirmware.CurrentFirmwareDirectory =@"C:\Users\Johnnyboy\Desktop\Utveckling\Marlin\BIG BOX\MarlinPipsHag\Marlin";
-            frmCurrentOrNewFirmware.NewFirmwareDirectory = @"C:\Users\Johnnyboy\Desktop\Utveckling\Marlin\BIG BOX\Marlin-- Marlin 1.1.0-RC8\Marlin";
+            frmCurrentOrNewFirmware.CurrentFirmwareDirectory =@"C:\currentFirmware\Marlin";
+            frmCurrentOrNewFirmware.NewFirmwareDirectory = @"C:\NewFirmware\Marlin";
             frmCurrentOrNewFirmware.ArduinoIdeDirectory = @"C:\Program Files (x86)\Arduino";
             Application.Run(frmCurrentOrNewFirmware);
         }

@@ -38,14 +38,15 @@
             this.txtBxNewVersion = new System.Windows.Forms.TextBox();
             this.progressBarDownload = new System.Windows.Forms.ProgressBar();
             this.lblUpdate = new System.Windows.Forms.Label();
+            this.btnClipBoard = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(177, 104);
+            this.btnCancel.Location = new System.Drawing.Point(95, 77);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(50, 49);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -53,9 +54,9 @@
             // btnNo
             // 
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.btnNo.Location = new System.Drawing.Point(96, 104);
+            this.btnNo.Location = new System.Drawing.Point(60, 77);
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(75, 23);
+            this.btnNo.Size = new System.Drawing.Size(29, 49);
             this.btnNo.TabIndex = 1;
             this.btnNo.Text = "No";
             this.btnNo.UseVisualStyleBackColor = true;
@@ -63,9 +64,9 @@
             // 
             // btnYes
             // 
-            this.btnYes.Location = new System.Drawing.Point(15, 104);
+            this.btnYes.Location = new System.Drawing.Point(15, 77);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(75, 23);
+            this.btnYes.Size = new System.Drawing.Size(39, 49);
             this.btnYes.TabIndex = 2;
             this.btnYes.Text = "Yes";
             this.btnYes.UseVisualStyleBackColor = true;
@@ -116,18 +117,29 @@
             // lblUpdate
             // 
             this.lblUpdate.AutoSize = true;
-            this.lblUpdate.Location = new System.Drawing.Point(21, 79);
+            this.lblUpdate.Location = new System.Drawing.Point(12, 61);
             this.lblUpdate.Name = "lblUpdate";
             this.lblUpdate.Size = new System.Drawing.Size(202, 13);
             this.lblUpdate.TabIndex = 8;
             this.lblUpdate.Text = "Do you want to update to newer version?";
+            // 
+            // btnClipBoard
+            // 
+            this.btnClipBoard.Location = new System.Drawing.Point(162, 77);
+            this.btnClipBoard.Name = "btnClipBoard";
+            this.btnClipBoard.Size = new System.Drawing.Size(89, 49);
+            this.btnClipBoard.TabIndex = 9;
+            this.btnClipBoard.Text = "DownLoad Link To Clipboard";
+            this.btnClipBoard.UseVisualStyleBackColor = true;
+            this.btnClipBoard.Click += new System.EventHandler(this.btnClipBoard_Click);
             // 
             // FrmAutoUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(259, 166);
+            this.ClientSize = new System.Drawing.Size(259, 162);
+            this.Controls.Add(this.btnClipBoard);
             this.Controls.Add(this.lblUpdate);
             this.Controls.Add(this.progressBarDownload);
             this.Controls.Add(this.txtBxNewVersion);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.TextBox txtBxNewVersion;
         private System.Windows.Forms.ProgressBar progressBarDownload;
         private System.Windows.Forms.Label lblUpdate;
+        private System.Windows.Forms.Button btnClipBoard;
     }
 }

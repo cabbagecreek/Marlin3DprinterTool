@@ -22,3 +22,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\bin\x86\Release\RestartExplorer.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\obj\x86\Release\Marlin3DprinterToolStlThumbnail.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\obj\x86\Release\Marlin3DprinterToolStlThumbnail.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlThumbnailProvider\obj\x86\Release\Marlin3DprinterToolStlThumbnailProvider.csprojResolveAssemblyReference.cache

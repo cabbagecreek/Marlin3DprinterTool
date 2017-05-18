@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFirmware));
-            this.grpBxOldFirmware = new System.Windows.Forms.GroupBox();
+            this.grpBxcurrentFirmware = new System.Windows.Forms.GroupBox();
             this.fctbCurrentFirmware = new FastColoredTextBoxNS.FastColoredTextBox();
             this.contextMenuStripChangeConfigTypeFile = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.CompareFiles = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +51,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.filesWithDifferancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpBxOldFirmware.SuspendLayout();
+            this.grpBxcurrentFirmware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).BeginInit();
             this.contextMenuStripChangeConfigTypeFile.SuspendLayout();
             this.grpBxNewFirmware.SuspendLayout();
@@ -63,24 +63,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
-            // grpBxOldFirmware
+            // grpBxcurrentFirmware
             // 
-            this.grpBxOldFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grpBxcurrentFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpBxOldFirmware.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.grpBxOldFirmware.Controls.Add(this.fctbCurrentFirmware);
-            this.grpBxOldFirmware.Controls.Add(this.lblFeatureValue);
-            this.grpBxOldFirmware.Controls.Add(this.lblFeature);
-            this.grpBxOldFirmware.Controls.Add(this.txtBxCurrentFirmwareValue);
-            this.grpBxOldFirmware.Controls.Add(this.btnPassValue);
-            this.grpBxOldFirmware.Controls.Add(this.cmbBxFirmwareFeatures);
-            this.grpBxOldFirmware.Location = new System.Drawing.Point(3, 3);
-            this.grpBxOldFirmware.Name = "grpBxOldFirmware";
-            this.grpBxOldFirmware.Size = new System.Drawing.Size(495, 456);
-            this.grpBxOldFirmware.TabIndex = 28;
-            this.grpBxOldFirmware.TabStop = false;
-            this.grpBxOldFirmware.Text = "Current Firmware (...)";
+            this.grpBxcurrentFirmware.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.grpBxcurrentFirmware.Controls.Add(this.fctbCurrentFirmware);
+            this.grpBxcurrentFirmware.Controls.Add(this.lblFeatureValue);
+            this.grpBxcurrentFirmware.Controls.Add(this.lblFeature);
+            this.grpBxcurrentFirmware.Controls.Add(this.txtBxCurrentFirmwareValue);
+            this.grpBxcurrentFirmware.Controls.Add(this.btnPassValue);
+            this.grpBxcurrentFirmware.Controls.Add(this.cmbBxFirmwareFeatures);
+            this.grpBxcurrentFirmware.Location = new System.Drawing.Point(3, 3);
+            this.grpBxcurrentFirmware.Name = "grpBxcurrentFirmware";
+            this.grpBxcurrentFirmware.Size = new System.Drawing.Size(495, 456);
+            this.grpBxcurrentFirmware.TabIndex = 28;
+            this.grpBxcurrentFirmware.TabStop = false;
+            this.grpBxcurrentFirmware.Text = "Current Firmware (...)";
             // 
             // fctbCurrentFirmware
             // 
@@ -297,7 +297,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.grpBxOldFirmware);
+            this.splitContainer1.Panel1.Controls.Add(this.grpBxcurrentFirmware);
             // 
             // splitContainer1.Panel2
             // 
@@ -339,8 +339,8 @@
             this.Text = "Marlin Firmware";
             this.Load += new System.EventHandler(this.FrmFirmware_Load);
             this.SizeChanged += new System.EventHandler(this.FrmFirmware_SizeChanged);
-            this.grpBxOldFirmware.ResumeLayout(false);
-            this.grpBxOldFirmware.PerformLayout();
+            this.grpBxcurrentFirmware.ResumeLayout(false);
+            this.grpBxcurrentFirmware.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fctbCurrentFirmware)).EndInit();
             this.contextMenuStripChangeConfigTypeFile.ResumeLayout(false);
             this.contextMenuStripChangeConfigTypeFile.PerformLayout();
@@ -357,7 +357,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpBxOldFirmware;
+        private System.Windows.Forms.GroupBox grpBxcurrentFirmware;
         private System.Windows.Forms.Label lblFeatureValue;
         private System.Windows.Forms.Label lblFeature;
         private System.Windows.Forms.TextBox txtBxCurrentFirmwareValue;

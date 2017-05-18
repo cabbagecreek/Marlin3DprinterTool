@@ -26,14 +26,6 @@
     <Content Include="Licence.rtf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AGauge\AGauge.csproj">
-      <Name>AGauge</Name>
-      <Project>{cbdb1d25-5a95-43d4-a958-bf6ae65c6c3f}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\ArduinoIDE\ArduinoIDE.csproj">
       <Name>ArduinoIDE</Name>
       <Project>{869fcfad-fdf5-43ae-93af-9906b8bd98da}</Project>
@@ -45,14 +37,6 @@
     <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj">
       <Name>AutoUpdater</Name>
       <Project>{91df7112-9b3c-4315-9d8a-b55b056d8d1f}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\LedBulbUserControl\LedBulbUserControl.csproj">
-      <Name>LedBulbUserControl</Name>
-      <Project>{696a3185-8566-4aca-a639-f57e2c4679dc}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
@@ -109,6 +93,14 @@
     <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
       <Name>MarlinComunicationHelper</Name>
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\MarlinConfigurator\MarlinConfigurator.csproj">
+      <Name>MarlinConfigurator</Name>
+      <Project>{7d808e0c-a421-42af-acff-849bdb2abafa}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FastColoredTextBoxNS;
-using LedBulbUserControl;
 using Marlin3DprinterToolUserControls;
 using MarlinComunicationHelper;
 
@@ -60,18 +59,18 @@ namespace Marlin3DprinterTool
             this.tabControl3DprinterTool = new System.Windows.Forms.TabControl();
             this.tabPageEndstop = new System.Windows.Forms.TabPage();
             this.grpBxZ = new System.Windows.Forms.GroupBox();
-            this.ledZmax = new LedBulbUserControl.LedBulb();
-            this.ledZmin = new LedBulbUserControl.LedBulb();
+            this.ledZmax = new Marlin3DprinterToolUserControls.LedBulb();
+            this.ledZmin = new Marlin3DprinterToolUserControls.LedBulb();
             this.lblZmax = new System.Windows.Forms.Label();
             this.lblZmin = new System.Windows.Forms.Label();
             this.grpBxY = new System.Windows.Forms.GroupBox();
-            this.ledYmax = new LedBulbUserControl.LedBulb();
-            this.ledYmin = new LedBulbUserControl.LedBulb();
+            this.ledYmax = new Marlin3DprinterToolUserControls.LedBulb();
+            this.ledYmin = new Marlin3DprinterToolUserControls.LedBulb();
             this.lblYmax = new System.Windows.Forms.Label();
             this.lblYmin = new System.Windows.Forms.Label();
             this.grpBxX = new System.Windows.Forms.GroupBox();
-            this.ledXmax = new LedBulbUserControl.LedBulb();
-            this.ledXmin = new LedBulbUserControl.LedBulb();
+            this.ledXmax = new Marlin3DprinterToolUserControls.LedBulb();
+            this.ledXmin = new Marlin3DprinterToolUserControls.LedBulb();
             this.lblXmax = new System.Windows.Forms.Label();
             this.lblXmin = new System.Windows.Forms.Label();
             this.tabPageZoffset = new System.Windows.Forms.TabPage();
@@ -85,7 +84,7 @@ namespace Marlin3DprinterTool
             this.txtBxZextraDistance = new System.Windows.Forms.TextBox();
             this.txtBxZextraDistanceInstruct = new System.Windows.Forms.TextBox();
             this.grpBxMeassureUsingProbe = new System.Windows.Forms.GroupBox();
-            this.ledBulbZprobeGauge = new LedBulbUserControl.LedBulb();
+            this.ledBulbZprobeGauge = new Marlin3DprinterToolUserControls.LedBulb();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnM851 = new System.Windows.Forms.Button();
             this.txtBxM851 = new System.Windows.Forms.TextBox();
@@ -236,8 +235,8 @@ namespace Marlin3DprinterTool
             this.grpBxExtruderCalculation = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnExtruderUpdateStepsPerMMinEEPROM = new System.Windows.Forms.Button();
-            this.lblExtruderOldFirmware = new System.Windows.Forms.Label();
-            this.numUpDnExtruderOldFirmware = new System.Windows.Forms.NumericUpDown();
+            this.lblExtrudercurrentFirmware = new System.Windows.Forms.Label();
+            this.numUpDnExtrudercurrentFirmware = new System.Windows.Forms.NumericUpDown();
             this.numUpDnExtruderMeassuredExtrusion = new System.Windows.Forms.NumericUpDown();
             this.lblExtruderMeassuredValue = new System.Windows.Forms.Label();
             this.lblExtruderExpectedValue = new System.Windows.Forms.Label();
@@ -446,7 +445,7 @@ namespace Marlin3DprinterTool
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnFeedRateMMperSecund)).BeginInit();
             this.grpBxExtruderCalculation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderOldFirmware)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtrudercurrentFirmware)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderMeassuredExtrusion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderExpectedValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxExtruderStepsPerMM)).BeginInit();
@@ -2991,8 +2990,8 @@ namespace Marlin3DprinterTool
             // 
             this.grpBxExtruderCalculation.Controls.Add(this.pictureBox2);
             this.grpBxExtruderCalculation.Controls.Add(this.btnExtruderUpdateStepsPerMMinEEPROM);
-            this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderOldFirmware);
-            this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderOldFirmware);
+            this.grpBxExtruderCalculation.Controls.Add(this.lblExtrudercurrentFirmware);
+            this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtrudercurrentFirmware);
             this.grpBxExtruderCalculation.Controls.Add(this.numUpDnExtruderMeassuredExtrusion);
             this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderMeassuredValue);
             this.grpBxExtruderCalculation.Controls.Add(this.lblExtruderExpectedValue);
@@ -3026,28 +3025,28 @@ namespace Marlin3DprinterTool
             this.btnExtruderUpdateStepsPerMMinEEPROM.UseVisualStyleBackColor = true;
             this.btnExtruderUpdateStepsPerMMinEEPROM.Click += new System.EventHandler(this.btnExtruderUpdateStepsPerMMinEEPROM_Click);
             // 
-            // lblExtruderOldFirmware
+            // lblExtrudercurrentFirmware
             // 
-            this.lblExtruderOldFirmware.AutoSize = true;
-            this.lblExtruderOldFirmware.Location = new System.Drawing.Point(6, 120);
-            this.lblExtruderOldFirmware.Name = "lblExtruderOldFirmware";
-            this.lblExtruderOldFirmware.Size = new System.Drawing.Size(143, 13);
-            this.lblExtruderOldFirmware.TabIndex = 28;
-            this.lblExtruderOldFirmware.Text = "Current Firmware Steps / mm";
+            this.lblExtrudercurrentFirmware.AutoSize = true;
+            this.lblExtrudercurrentFirmware.Location = new System.Drawing.Point(6, 120);
+            this.lblExtrudercurrentFirmware.Name = "lblExtrudercurrentFirmware";
+            this.lblExtrudercurrentFirmware.Size = new System.Drawing.Size(143, 13);
+            this.lblExtrudercurrentFirmware.TabIndex = 28;
+            this.lblExtrudercurrentFirmware.Text = "Current Firmware Steps / mm";
             // 
-            // numUpDnExtruderOldFirmware
+            // numUpDnExtrudercurrentFirmware
             // 
-            this.numUpDnExtruderOldFirmware.Location = new System.Drawing.Point(9, 142);
-            this.numUpDnExtruderOldFirmware.Maximum = new decimal(new int[] {
+            this.numUpDnExtrudercurrentFirmware.Location = new System.Drawing.Point(9, 142);
+            this.numUpDnExtrudercurrentFirmware.Maximum = new decimal(new int[] {
             300,
             0,
             0,
             0});
-            this.numUpDnExtruderOldFirmware.Name = "numUpDnExtruderOldFirmware";
-            this.numUpDnExtruderOldFirmware.Size = new System.Drawing.Size(100, 20);
-            this.numUpDnExtruderOldFirmware.TabIndex = 27;
-            this.toolTip3DprinterTool.SetToolTip(this.numUpDnExtruderOldFirmware, "The current setting in Firmware. Can be found with M501");
-            this.numUpDnExtruderOldFirmware.Value = new decimal(new int[] {
+            this.numUpDnExtrudercurrentFirmware.Name = "numUpDnExtrudercurrentFirmware";
+            this.numUpDnExtrudercurrentFirmware.Size = new System.Drawing.Size(100, 20);
+            this.numUpDnExtrudercurrentFirmware.TabIndex = 27;
+            this.toolTip3DprinterTool.SetToolTip(this.numUpDnExtrudercurrentFirmware, "The current setting in Firmware. Can be found with M501");
+            this.numUpDnExtrudercurrentFirmware.Value = new decimal(new int[] {
             30,
             0,
             0,
@@ -4804,7 +4803,7 @@ namespace Marlin3DprinterTool
             this.grpBxExtruderCalculation.ResumeLayout(false);
             this.grpBxExtruderCalculation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderOldFirmware)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtrudercurrentFirmware)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderMeassuredExtrusion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnExtruderExpectedValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxExtruderStepsPerMM)).EndInit();
@@ -4935,12 +4934,12 @@ namespace Marlin3DprinterTool
         private GroupBox grpBxExtruderPID;
         private NumericUpDown numUpDownNumberOfRepetitions;
         private Label lblNumberOfRepetitions;
-        private LedBulbUserControl.LedBulb ledXmin;
-        private LedBulbUserControl.LedBulb ledZmax;
-        private LedBulbUserControl.LedBulb ledZmin;
-        private LedBulbUserControl.LedBulb ledYmax;
-        private LedBulbUserControl.LedBulb ledYmin;
-        private LedBulbUserControl.LedBulb ledXmax;
+        private Marlin3DprinterToolUserControls.LedBulb ledXmin;
+        private Marlin3DprinterToolUserControls.LedBulb ledZmax;
+        private Marlin3DprinterToolUserControls.LedBulb ledZmin;
+        private Marlin3DprinterToolUserControls.LedBulb ledYmax;
+        private Marlin3DprinterToolUserControls.LedBulb ledYmin;
+        private Marlin3DprinterToolUserControls.LedBulb ledXmax;
         private Button btnCalculateExtruderPid;
         private Button btnRetractZprobe;
         private NumericUpDown numUpDownPidExtruderTemp;
@@ -5007,8 +5006,8 @@ namespace Marlin3DprinterTool
         private Label lblBeltMotorStepAngle;
         private GroupBox grpBxExtruderCalculation;
         private Button btnExtruderUpdateStepsPerMMinEEPROM;
-        private Label lblExtruderOldFirmware;
-        private NumericUpDown numUpDnExtruderOldFirmware;
+        private Label lblExtrudercurrentFirmware;
+        private NumericUpDown numUpDnExtrudercurrentFirmware;
         private NumericUpDown numUpDnExtruderMeassuredExtrusion;
         private Label lblExtruderMeassuredValue;
         private Label lblExtruderExpectedValue;

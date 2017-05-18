@@ -2144,7 +2144,7 @@ namespace Marlin3DprinterTool
             // Extruder steps/mm = ( extrude button clicks * extruded length per click * old extruder steps/mm ) / marked length on filament
 
             decimal extrudedLength =  numUpDnExtruderExpectedValue.Value;
-            decimal oldStepsPerMilliMeter =  numUpDnExtruderOldFirmware.Value;
+            decimal oldStepsPerMilliMeter =  numUpDnExtrudercurrentFirmware.Value;
             decimal meassuredExtrudedLength = numUpDnExtruderMeassuredExtrusion.Value;
 
             decimal stepsPerMilliMeter = extrudedLength*oldStepsPerMilliMeter/meassuredExtrudedLength;
