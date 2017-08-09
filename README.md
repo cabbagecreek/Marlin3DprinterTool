@@ -21,5 +21,5 @@ The main features are:
 * Firmware upgrade and migration
 - STL thumbnails in Windows File Explorer
 
-More information,tutorials, YouTube-videos and documentation can be found at www.marlin3dprinter.se
+More information,tutorials, YouTube-videos and documentation can be found at http://www.marlin3dprintertool.se/
 
