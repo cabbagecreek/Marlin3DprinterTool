@@ -734,23 +734,7 @@ namespace Marlin3DprinterToolConfiguration
         /// <returns>Decrypted sting or null if nota able to Decrypt</returns>
         public static string Decrypt(string cryptoText)
         {
-            //try
-            //{
-            //    byte[] key = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
-            //    byte[] iv = new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
-            //    SymmetricAlgorithm algorithm = DES.Create();
-            //    ICryptoTransform transform = algorithm.CreateDecryptor(key, iv);
-            //    byte[] inputbuffer = Convert.FromBase64String(text);
-            //    byte[] outputBuffer = transform.TransformFinalBlock(inputbuffer, 0, inputbuffer.Length);
-
-
-            //    return Encoding.Unicode.GetString(outputBuffer);
-            //}
-            //catch (Exception)
-            //{
-
-            //    return null;
-            //}
+            
 
 
             string decrypted_text = "";

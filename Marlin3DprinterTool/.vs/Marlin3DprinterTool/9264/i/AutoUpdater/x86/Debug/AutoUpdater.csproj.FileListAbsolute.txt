@@ -1,0 +1,6 @@
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\.vs\Marlin3DprinterTool\9264\b\AutoUpdater\bin\x86\Debug\AutoUpdater.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\.vs\Marlin3DprinterTool\9264\b\AutoUpdater\bin\x86\Debug\AutoUpdater.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\.vs\Marlin3DprinterTool\9264\i\AutoUpdater\x86\Debug\AutoUpdater.FrmAutoUpdate.resources
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\.vs\Marlin3DprinterTool\9264\i\AutoUpdater\x86\Debug\AutoUpdater.csproj.GenerateResource.Cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\.vs\Marlin3DprinterTool\9264\i\AutoUpdater\x86\Debug\AutoUpdater.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\.vs\Marlin3DprinterTool\9264\i\AutoUpdater\x86\Debug\AutoUpdater.pdb

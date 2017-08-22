@@ -71,30 +71,45 @@ namespace Marlin3DprinterToolUserControls
         public  void UpdateStatus()
         {
 
-            EnabledValue newEnabledValue = new EnabledValue();
-            EnabledValue oldEnabledValue = new EnabledValue();
+            
+
+
+            string newEnable = null;
+            string newValue = null;
+            string oldEnable;
+            string oldValue;
 
             ledBulbEqualcurrentFirmware.On = true;
             if (currentFirmwareHelper != null && NewFirmwareHelper != null)
             {
-                newEnabledValue = NewFirmwareHelper.GetEnableValue(Feature);
-                oldEnabledValue = currentFirmwareHelper.GetEnableValue(Feature);
 
-                if (oldEnabledValue.Value == null && newEnabledValue.Value != null)
+                newEnable = NewFirmwareHelper.GetEnabledFeature(Feature);
+                newValue = NewFirmwareHelper.GetFeatureValue(Feature);
+                oldEnable = currentFirmwareHelper.GetEnabledFeature(Feature);
+                oldValue = currentFirmwareHelper.GetFeatureValue(Feature);
+
+                
+
+                if (oldEnable == null && newEnable != null)
                 {
                     ledBulbEqualcurrentFirmware.Color = Color.Yellow;
                 }
+                else if (newValue == null)
+                {
+                    ledBulbEqualcurrentFirmware.Color = Color.Blue;
+                    this.Enabled = false;
+                }
                 else
                 {
-                    ledBulbEqualcurrentFirmware.Color = (oldEnabledValue.Enabled == newEnabledValue.Enabled && oldEnabledValue.Value == newEnabledValue.Value)
+                    ledBulbEqualcurrentFirmware.Color = (oldEnable == newEnable && oldValue == newValue)
                         ? Color.Green
                         : Color.Red;
                 }
             }
             if (NewFirmwareHelper != null)
             {
-                chkBxProperty.Checked = newEnabledValue.Enabled;
-                txtBxValue.Text = newEnabledValue.Value;
+                chkBxProperty.Checked = Convert.ToBoolean(newEnable);
+                txtBxValue.Text = newValue;
             }
         }
 
@@ -110,28 +125,43 @@ namespace Marlin3DprinterToolUserControls
                 return;
             }
 
+            if (NewFirmwareHelper.GetFeatureValue(Feature) == null)
+            {
+                MessageBox.Show(@"The feature " + Feature + @" is not available in the new Marlin Firmware." +
+                                Environment.NewLine +
+                                @"This might be a obsolite feature." + Environment.NewLine +
+                                @"Read the documentation and set this value manually.", @"Obsolite feature in new Firmware",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             DialogResult result = MessageBox.Show(@"Do you want to transfer value from Current Firmware to the New Firmware?",
                 @"Transfer value", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (result == DialogResult.Yes)
             {
-                bool oldChecked;
-                try
-                {
-                    oldChecked = Convert.ToBoolean(currentFirmwareHelper.GetEnabledFeature(Feature));
-                }
-                catch (Exception e)
-                {
-                    oldChecked = false;
-                }
-                NewFirmwareHelper.SetEnableValue(Feature, oldChecked, currentFirmwareHelper.GetFeatureValue(Feature));
+                Migrate();
+                
+            }
+        }
+
+        public void Migrate()
+        {
+            if (ledBulbEqualcurrentFirmware.Color == Color.Red || ledBulbEqualcurrentFirmware.Color == Color.Green)
+            {
+                var oldChecked = Convert.ToBoolean(currentFirmwareHelper.GetEnabledFeature(Feature));
+                NewFirmwareHelper.SetFeatureValue(Feature,currentFirmwareHelper.GetFeatureValue(Feature),oldChecked);
                 UpdateStatus();
             }
+            
+            
+            
+           
         }
 
         public  void DataChanged()
         {
-            NewFirmwareHelper.SetEnableValue(Feature, chkBxProperty.Checked, txtBxValue.Text);
+            NewFirmwareHelper.SetFeatureValue(Feature,txtBxValue.Text, chkBxProperty.Checked);
             UpdateStatus();
             ToolTip();
         }
@@ -153,7 +183,9 @@ namespace Marlin3DprinterToolUserControls
                 case @"Yellow":
                     toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} is not available in Old Marlin Firmware.");
                     break;
-
+                case @"Blue":
+                    toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} might be obsolite in new Marlin Firmware.");
+                    break;
 
             }
 

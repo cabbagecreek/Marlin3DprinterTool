@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ArduinoIDE;
+using Marlin3DprinterToolConfiguration;
 
 namespace Marlin3DprinterToolUserControls
 {
@@ -64,6 +66,12 @@ namespace Marlin3DprinterToolUserControls
                     ledBulbEqualcurrentFirmware.Color = Color.Yellow;
 
                 }
+                else if (NewFirmwareHelper.GetFeatureValue(Feature) == null)
+                {
+                    ledBulbEqualcurrentFirmware.Color = Color.Blue;
+                    this.Enabled = false;
+                }
+
                 else
                 {
                     ledBulbEqualcurrentFirmware.Color = currentFirmwareHelper.GetEnabledFeature(Feature) == NewFirmwareHelper.GetEnabledFeature(Feature)
@@ -77,7 +85,7 @@ namespace Marlin3DprinterToolUserControls
                 {
                     chkBxProperty.Checked = Convert.ToBoolean(NewFirmwareHelper.GetEnabledFeature(Feature));
                 }
-                catch (Exception e)
+                catch (Exception) //(Exception e)
                 {
                     chkBxProperty.Checked = false;
                 }
@@ -97,30 +105,52 @@ namespace Marlin3DprinterToolUserControls
                 return;
             }
 
+            if ( NewFirmwareHelper.GetFeatureValue(Feature) == null)
+            {
+                MessageBox.Show(@"The feature " + Feature + @" is not available in the new Marlin Firmware." +
+                                Environment.NewLine +
+                                @"This might be a obsolite feature." + Environment.NewLine +
+                                @"Read the documentation and set this value manually.", @"Obsolite feature in new Firmware",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+
             DialogResult result = MessageBox.Show(@"Do you want to transfer value from Current Firmware to the New Firmware?",
                 @"Transfer value", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (result == DialogResult.Yes)
             {
-                bool oldvalue;
-                try
-                {
-                    oldvalue = Convert.ToBoolean(currentFirmwareHelper.GetEnabledFeature(Feature));
-                }
-                catch (Exception e)
-                {
-                    oldvalue = false;
-                }
+                Migrate();
                 
-                NewFirmwareHelper.SetEnabledFeature(Feature,  oldvalue);
+            }
+        }
+
+        public void Migrate()
+        {
+            bool oldvalue;
+            
+            if (ledBulbEqualcurrentFirmware.Color == Color.Red || ledBulbEqualcurrentFirmware.Color == Color.Green)
+            {
+                oldvalue = Convert.ToBoolean(currentFirmwareHelper.GetEnabledFeature(Feature));
+                NewFirmwareHelper.SetFeatureValue(Feature, "", oldvalue);
                 chkBxProperty.Checked = oldvalue;
                 UpdateStatus();
+
+               
+
             }
+            
+
+            
+            
+
         }
 
         public  void DataChanged()
         {
-            NewFirmwareHelper?.SetEnabledFeature(Feature, chkBxProperty.Checked);
+            NewFirmwareHelper?.SetFeatureValue(Feature, chkBxProperty.Checked);
 
             UpdateStatus();
             ToolTip();
@@ -140,6 +170,9 @@ namespace Marlin3DprinterToolUserControls
                     break;
                 case @"Yellow":
                     toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} is not available in Old Marlin Firmware.");
+                    break;
+                case @"Blue":
+                    toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} might be obsolite in new Marlin Firmware.");
                     break;
 
 

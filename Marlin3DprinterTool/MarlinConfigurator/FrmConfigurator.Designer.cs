@@ -71,7 +71,7 @@
             this.grpBxSWITCHING_EXTRUDER = new System.Windows.Forms.GroupBox();
             this.marlinEnableValueHOTEND_OFFSET_Z = new Marlin3DprinterToolUserControls.MarlinEnableValue();
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES = new Marlin3DprinterToolUserControls.MarlinValue();
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO = new Marlin3DprinterToolUserControls.MarlinUpDn();
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR = new Marlin3DprinterToolUserControls.MarlinUpDn();
             this.marlinCheckBoxSWITCHING_EXTRUDER = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.tabPagePowerSupply = new System.Windows.Forms.TabPage();
             this.marlinCheckBoxPS_DEFAULT_OFF = new Marlin3DprinterToolUserControls.MarlinCheckBox();
@@ -118,7 +118,6 @@
             this.marlinValueK1 = new Marlin3DprinterToolUserControls.MarlinValue();
             this.marlinUpDnPID_FUNCTIONAL_RANGE = new Marlin3DprinterToolUserControls.MarlinUpDn();
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND = new Marlin3DprinterToolUserControls.MarlinCheckBox();
-            this.marlinCheckBoxSLOW_PWM_HEATERS = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.marlinEnableValuePID_OPENLOOP = new Marlin3DprinterToolUserControls.MarlinEnableValue();
             this.marlinCheckBoxPID_DEBUG = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.marlinCheckBoxPID_AUTOTUNE_MENU = new Marlin3DprinterToolUserControls.MarlinCheckBox();
@@ -288,12 +287,12 @@
             this.marlinCheckBoxAUTO_BED_LEVELING_UBL = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.marlinCheckBoxAUTO_BED_LEVELING_BILINEAR = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.grpBxProbeGrid = new System.Windows.Forms.GroupBox();
+            this.marlinValueMIN_PROBE_EDGE = new Marlin3DprinterToolUserControls.MarlinValue();
+            this.marlinValueBACK_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinValue();
+            this.marlinValueFRONT_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinValue();
+            this.marlinValueRIGHT_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinValue();
+            this.marlinValueLEFT_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinValue();
             this.marlinCheckBoxPROBE_Y_FIRST = new Marlin3DprinterToolUserControls.MarlinCheckBox();
-            this.marlinUpDnMIN_PROBE_EDGE = new Marlin3DprinterToolUserControls.MarlinUpDn();
-            this.marlinUpDnBACK_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinUpDn();
-            this.marlinUpDnFRONT_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinUpDn();
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinUpDn();
-            this.marlinUpDnLEFT_PROBE_BED_POSITION = new Marlin3DprinterToolUserControls.MarlinUpDn();
             this.grpBxEnableFadeHeight = new System.Windows.Forms.GroupBox();
             this.lblFadeHeight = new System.Windows.Forms.Label();
             this.marlinCheckBoxENABLE_LEVELING_FADE_HEIGHT = new Marlin3DprinterToolUserControls.MarlinCheckBox();
@@ -321,8 +320,6 @@
             this.groupBoxNozzleCleanFeature = new System.Windows.Forms.GroupBox();
             this.marlinCheckBoxNOZZLE_CLEAN_GOBACK = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE = new Marlin3DprinterToolUserControls.MarlinValue();
-            this.marlinUpDn2 = new Marlin3DprinterToolUserControls.MarlinUpDn();
-            this.marlinUpDn1 = new Marlin3DprinterToolUserControls.MarlinUpDn();
             this.marlinValueNOZZLE_CLEAN_END_POINT = new Marlin3DprinterToolUserControls.MarlinValue();
             this.marlinValueNOZZLE_CLEAN_START_POINT = new Marlin3DprinterToolUserControls.MarlinValue();
             this.marlinCheckBoxNOZZLE_CLEAN_FEATURE = new Marlin3DprinterToolUserControls.MarlinCheckBox();
@@ -410,6 +407,7 @@
             this.marlinCheckBox1 = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.toolStripConfiguration = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonMigrate = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrevious = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNext = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonArduinoIDE = new System.Windows.Forms.ToolStripButton();
@@ -418,6 +416,8 @@
             this.toolStripButtonPayPal = new System.Windows.Forms.ToolStripButton();
             this.toolTipConfiguration = new System.Windows.Forms.ToolTip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS = new Marlin3DprinterToolUserControls.MarlinValue();
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN = new Marlin3DprinterToolUserControls.MarlinValue();
             this.tabControlConfiguration.SuspendLayout();
             this.tabPageDownload.SuspendLayout();
             this.grpBxNewFirmware.SuspendLayout();
@@ -533,7 +533,7 @@
             this.tabControlConfiguration.Multiline = true;
             this.tabControlConfiguration.Name = "tabControlConfiguration";
             this.tabControlConfiguration.SelectedIndex = 0;
-            this.tabControlConfiguration.Size = new System.Drawing.Size(630, 665);
+            this.tabControlConfiguration.Size = new System.Drawing.Size(744, 665);
             this.tabControlConfiguration.TabIndex = 0;
             // 
             // tabPageDownload
@@ -541,9 +541,9 @@
             this.tabPageDownload.Controls.Add(this.button1);
             this.tabPageDownload.Controls.Add(this.grpBxNewFirmware);
             this.tabPageDownload.Controls.Add(this.grpcurrentFirmware);
-            this.tabPageDownload.Location = new System.Drawing.Point(4, 76);
+            this.tabPageDownload.Location = new System.Drawing.Point(4, 58);
             this.tabPageDownload.Name = "tabPageDownload";
-            this.tabPageDownload.Size = new System.Drawing.Size(622, 585);
+            this.tabPageDownload.Size = new System.Drawing.Size(736, 603);
             this.tabPageDownload.TabIndex = 6;
             this.tabPageDownload.Text = "DownLoad";
             this.tabPageDownload.UseVisualStyleBackColor = true;
@@ -556,7 +556,6 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // grpBxNewFirmware
@@ -568,7 +567,7 @@
             this.grpBxNewFirmware.Controls.Add(this.txtBxNewFirmware);
             this.grpBxNewFirmware.Location = new System.Drawing.Point(3, 69);
             this.grpBxNewFirmware.Name = "grpBxNewFirmware";
-            this.grpBxNewFirmware.Size = new System.Drawing.Size(616, 80);
+            this.grpBxNewFirmware.Size = new System.Drawing.Size(723, 80);
             this.grpBxNewFirmware.TabIndex = 2;
             this.grpBxNewFirmware.TabStop = false;
             this.grpBxNewFirmware.Text = "New Firmware Directory";
@@ -579,9 +578,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDownloadMarlinStable.Location = new System.Drawing.Point(7, 46);
             this.btnDownloadMarlinStable.Name = "btnDownloadMarlinStable";
-            this.btnDownloadMarlinStable.Size = new System.Drawing.Size(600, 25);
+            this.btnDownloadMarlinStable.Size = new System.Drawing.Size(707, 25);
             this.btnDownloadMarlinStable.TabIndex = 3;
-            this.btnDownloadMarlinStable.Text = "Download Latest Marlin Firmware (v 1.1.1)";
+            this.btnDownloadMarlinStable.Text = "Download Latest Marlin Firmware (v 1.1.x)";
             this.toolTipConfiguration.SetToolTip(this.btnDownloadMarlinStable, "Download the latest version of Marlin Firmware (version 1.1.1)\'");
             this.btnDownloadMarlinStable.UseVisualStyleBackColor = true;
             this.btnDownloadMarlinStable.Click += new System.EventHandler(this.BtnDownloadMarlinStable_Click);
@@ -589,7 +588,7 @@
             // btnBrowseNewFirmware
             // 
             this.btnBrowseNewFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseNewFirmware.Location = new System.Drawing.Point(581, 19);
+            this.btnBrowseNewFirmware.Location = new System.Drawing.Point(688, 19);
             this.btnBrowseNewFirmware.Name = "btnBrowseNewFirmware";
             this.btnBrowseNewFirmware.Size = new System.Drawing.Size(26, 21);
             this.btnBrowseNewFirmware.TabIndex = 1;
@@ -603,7 +602,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBxNewFirmware.Location = new System.Drawing.Point(7, 20);
             this.txtBxNewFirmware.Name = "txtBxNewFirmware";
-            this.txtBxNewFirmware.Size = new System.Drawing.Size(573, 20);
+            this.txtBxNewFirmware.Size = new System.Drawing.Size(680, 20);
             this.txtBxNewFirmware.TabIndex = 0;
             this.txtBxNewFirmware.Text = "C:\\NewFirmware\\Marlin";
             this.toolTipConfiguration.SetToolTip(this.txtBxNewFirmware, "Directory to New Marlin Firmware");
@@ -617,7 +616,7 @@
             this.grpcurrentFirmware.Controls.Add(this.txtBxcurrentFirmware);
             this.grpcurrentFirmware.Location = new System.Drawing.Point(3, 16);
             this.grpcurrentFirmware.Name = "grpcurrentFirmware";
-            this.grpcurrentFirmware.Size = new System.Drawing.Size(616, 47);
+            this.grpcurrentFirmware.Size = new System.Drawing.Size(723, 47);
             this.grpcurrentFirmware.TabIndex = 0;
             this.grpcurrentFirmware.TabStop = false;
             this.grpcurrentFirmware.Text = "Current Firmware Directory";
@@ -625,7 +624,7 @@
             // btnBrowsecurrentFirmware
             // 
             this.btnBrowsecurrentFirmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowsecurrentFirmware.Location = new System.Drawing.Point(581, 19);
+            this.btnBrowsecurrentFirmware.Location = new System.Drawing.Point(688, 19);
             this.btnBrowsecurrentFirmware.Name = "btnBrowsecurrentFirmware";
             this.btnBrowsecurrentFirmware.Size = new System.Drawing.Size(26, 21);
             this.btnBrowsecurrentFirmware.TabIndex = 1;
@@ -639,7 +638,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBxcurrentFirmware.Location = new System.Drawing.Point(7, 20);
             this.txtBxcurrentFirmware.Name = "txtBxcurrentFirmware";
-            this.txtBxcurrentFirmware.Size = new System.Drawing.Size(573, 20);
+            this.txtBxcurrentFirmware.Size = new System.Drawing.Size(680, 20);
             this.txtBxcurrentFirmware.TabIndex = 0;
             this.txtBxcurrentFirmware.Text = "C:\\CurrentFirmware\\Marlin";
             this.toolTipConfiguration.SetToolTip(this.txtBxcurrentFirmware, "Directory to Old Marlin Firmware");
@@ -650,10 +649,10 @@
             this.tabPageConfiguration.Controls.Add(this.grpBxConfigurationVersion);
             this.tabPageConfiguration.Controls.Add(this.grpBxHardware);
             this.tabPageConfiguration.Controls.Add(this.grpBxFirmwareInfo);
-            this.tabPageConfiguration.Location = new System.Drawing.Point(4, 76);
+            this.tabPageConfiguration.Location = new System.Drawing.Point(4, 58);
             this.tabPageConfiguration.Name = "tabPageConfiguration";
             this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfiguration.Size = new System.Drawing.Size(622, 585);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(736, 603);
             this.tabPageConfiguration.TabIndex = 0;
             this.tabPageConfiguration.Text = "Configuration.h";
             this.tabPageConfiguration.UseVisualStyleBackColor = true;
@@ -665,7 +664,7 @@
             this.grpBxConfigurationVersion.Controls.Add(this.marlinValueCONFIGURATION_H_VERSION);
             this.grpBxConfigurationVersion.Location = new System.Drawing.Point(8, 6);
             this.grpBxConfigurationVersion.Name = "grpBxConfigurationVersion";
-            this.grpBxConfigurationVersion.Size = new System.Drawing.Size(608, 53);
+            this.grpBxConfigurationVersion.Size = new System.Drawing.Size(664, 53);
             this.grpBxConfigurationVersion.TabIndex = 10;
             this.grpBxConfigurationVersion.TabStop = false;
             this.grpBxConfigurationVersion.Text = "Configuration Version";
@@ -679,7 +678,7 @@
             this.marlinValueCONFIGURATION_H_VERSION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#configuration-versionin" +
     "g";
             this.marlinValueCONFIGURATION_H_VERSION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueCONFIGURATION_H_VERSION.Location = new System.Drawing.Point(151, 19);
+            this.marlinValueCONFIGURATION_H_VERSION.Location = new System.Drawing.Point(207, 19);
             this.marlinValueCONFIGURATION_H_VERSION.Name = "marlinValueCONFIGURATION_H_VERSION";
             this.marlinValueCONFIGURATION_H_VERSION.NewFirmwareHelper = null;
             this.marlinValueCONFIGURATION_H_VERSION.Size = new System.Drawing.Size(451, 26);
@@ -693,7 +692,7 @@
             this.webBrowserMarlinHelp.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserMarlinHelp.Name = "webBrowserMarlinHelp";
             this.webBrowserMarlinHelp.ScriptErrorsSuppressed = true;
-            this.webBrowserMarlinHelp.Size = new System.Drawing.Size(544, 661);
+            this.webBrowserMarlinHelp.Size = new System.Drawing.Size(597, 661);
             this.webBrowserMarlinHelp.TabIndex = 1;
             // 
             // grpBxHardware
@@ -708,7 +707,7 @@
             this.grpBxHardware.Controls.Add(this.marlinUpDnSERIAL_PORT);
             this.grpBxHardware.Location = new System.Drawing.Point(8, 239);
             this.grpBxHardware.Name = "grpBxHardware";
-            this.grpBxHardware.Size = new System.Drawing.Size(608, 259);
+            this.grpBxHardware.Size = new System.Drawing.Size(664, 259);
             this.grpBxHardware.TabIndex = 10;
             this.grpBxHardware.TabStop = false;
             this.grpBxHardware.Text = "Hardware";
@@ -722,7 +721,7 @@
             this.marlinComboBoxMOTHERBOARD.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#motherboard";
             this.marlinComboBoxMOTHERBOARD.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxMOTHERBOARD.IsTrueFalse = false;
-            this.marlinComboBoxMOTHERBOARD.Location = new System.Drawing.Point(151, 111);
+            this.marlinComboBoxMOTHERBOARD.Location = new System.Drawing.Point(207, 111);
             this.marlinComboBoxMOTHERBOARD.Name = "marlinComboBoxMOTHERBOARD";
             this.marlinComboBoxMOTHERBOARD.NewFirmwareHelper = null;
             this.marlinComboBoxMOTHERBOARD.Size = new System.Drawing.Size(451, 26);
@@ -737,7 +736,7 @@
             this.marlinEnableValueMACHINE_UUID.Feature = "MACHINE_UUID";
             this.marlinEnableValueMACHINE_UUID.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#machine-uuid";
             this.marlinEnableValueMACHINE_UUID.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueMACHINE_UUID.Location = new System.Drawing.Point(151, 175);
+            this.marlinEnableValueMACHINE_UUID.Location = new System.Drawing.Point(207, 175);
             this.marlinEnableValueMACHINE_UUID.Name = "marlinEnableValueMACHINE_UUID";
             this.marlinEnableValueMACHINE_UUID.NewFirmwareHelper = null;
             this.marlinEnableValueMACHINE_UUID.Size = new System.Drawing.Size(451, 26);
@@ -752,7 +751,7 @@
             this.marlinEnableValueCUSTOM_MACHINE_NAME.Feature = "CUSTOM_MACHINE_NAME";
             this.marlinEnableValueCUSTOM_MACHINE_NAME.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#custom-machine-name";
             this.marlinEnableValueCUSTOM_MACHINE_NAME.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueCUSTOM_MACHINE_NAME.Location = new System.Drawing.Point(151, 143);
+            this.marlinEnableValueCUSTOM_MACHINE_NAME.Location = new System.Drawing.Point(207, 143);
             this.marlinEnableValueCUSTOM_MACHINE_NAME.Name = "marlinEnableValueCUSTOM_MACHINE_NAME";
             this.marlinEnableValueCUSTOM_MACHINE_NAME.NewFirmwareHelper = null;
             this.marlinEnableValueCUSTOM_MACHINE_NAME.Size = new System.Drawing.Size(451, 26);
@@ -767,7 +766,7 @@
             this.marlinCheckBoxBLUETOOTH.Feature = "BLUETOOTH";
             this.marlinCheckBoxBLUETOOTH.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bluetooth";
             this.marlinCheckBoxBLUETOOTH.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxBLUETOOTH.Location = new System.Drawing.Point(471, 83);
+            this.marlinCheckBoxBLUETOOTH.Location = new System.Drawing.Point(527, 83);
             this.marlinCheckBoxBLUETOOTH.Name = "marlinCheckBoxBLUETOOTH";
             this.marlinCheckBoxBLUETOOTH.NewFirmwareHelper = null;
             this.marlinCheckBoxBLUETOOTH.Size = new System.Drawing.Size(131, 21);
@@ -781,7 +780,7 @@
             this.marlinValueBAUDRATE.Feature = "BAUDRATE";
             this.marlinValueBAUDRATE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#baud-rate";
             this.marlinValueBAUDRATE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueBAUDRATE.Location = new System.Drawing.Point(408, 51);
+            this.marlinValueBAUDRATE.Location = new System.Drawing.Point(464, 51);
             this.marlinValueBAUDRATE.Name = "marlinValueBAUDRATE";
             this.marlinValueBAUDRATE.NewFirmwareHelper = null;
             this.marlinValueBAUDRATE.Size = new System.Drawing.Size(194, 26);
@@ -796,7 +795,7 @@
             this.marlinUpDnSERIAL_PORT.Feature = "SERIAL_PORT";
             this.marlinUpDnSERIAL_PORT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#serial-port";
             this.marlinUpDnSERIAL_PORT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnSERIAL_PORT.Location = new System.Drawing.Point(431, 19);
+            this.marlinUpDnSERIAL_PORT.Location = new System.Drawing.Point(487, 19);
             this.marlinUpDnSERIAL_PORT.Max = 7;
             this.marlinUpDnSERIAL_PORT.Min = 0;
             this.marlinUpDnSERIAL_PORT.Name = "marlinUpDnSERIAL_PORT";
@@ -816,7 +815,7 @@
             this.grpBxFirmwareInfo.Controls.Add(this.marlinValueStringConfigHAuthor);
             this.grpBxFirmwareInfo.Location = new System.Drawing.Point(8, 65);
             this.grpBxFirmwareInfo.Name = "grpBxFirmwareInfo";
-            this.grpBxFirmwareInfo.Size = new System.Drawing.Size(608, 168);
+            this.grpBxFirmwareInfo.Size = new System.Drawing.Size(664, 168);
             this.grpBxFirmwareInfo.TabIndex = 9;
             this.grpBxFirmwareInfo.TabStop = false;
             this.grpBxFirmwareInfo.Text = "Firmware Info";
@@ -829,7 +828,7 @@
             this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.Feature = "SHOW_CUSTOM_BOOTSCREEN";
             this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#firmware-info";
             this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.Location = new System.Drawing.Point(318, 141);
+            this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.Location = new System.Drawing.Point(374, 141);
             this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.Name = "marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN";
             this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.NewFirmwareHelper = null;
             this.marlinCheckBoxSHOW_CUSTOM_BOOTSCREEN.Size = new System.Drawing.Size(284, 21);
@@ -843,7 +842,7 @@
             this.marlinValueSTRING_SPLASH_LINE2.Feature = "STRING_SPLASH_LINE2";
             this.marlinValueSTRING_SPLASH_LINE2.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#firmware-info";
             this.marlinValueSTRING_SPLASH_LINE2.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueSTRING_SPLASH_LINE2.Location = new System.Drawing.Point(151, 110);
+            this.marlinValueSTRING_SPLASH_LINE2.Location = new System.Drawing.Point(207, 110);
             this.marlinValueSTRING_SPLASH_LINE2.Name = "marlinValueSTRING_SPLASH_LINE2";
             this.marlinValueSTRING_SPLASH_LINE2.NewFirmwareHelper = null;
             this.marlinValueSTRING_SPLASH_LINE2.Size = new System.Drawing.Size(451, 26);
@@ -858,7 +857,7 @@
             this.marlinValueSTRING_SPLASH_LINE1.Feature = "STRING_SPLASH_LINE1";
             this.marlinValueSTRING_SPLASH_LINE1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#firmware-info";
             this.marlinValueSTRING_SPLASH_LINE1.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueSTRING_SPLASH_LINE1.Location = new System.Drawing.Point(151, 78);
+            this.marlinValueSTRING_SPLASH_LINE1.Location = new System.Drawing.Point(207, 78);
             this.marlinValueSTRING_SPLASH_LINE1.Name = "marlinValueSTRING_SPLASH_LINE1";
             this.marlinValueSTRING_SPLASH_LINE1.NewFirmwareHelper = null;
             this.marlinValueSTRING_SPLASH_LINE1.Size = new System.Drawing.Size(451, 26);
@@ -873,7 +872,7 @@
             this.marlinCheckBoxSHOW_BOOTSCREEN.Feature = "SHOW_BOOTSCREEN";
             this.marlinCheckBoxSHOW_BOOTSCREEN.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#firmware-info";
             this.marlinCheckBoxSHOW_BOOTSCREEN.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSHOW_BOOTSCREEN.Location = new System.Drawing.Point(318, 51);
+            this.marlinCheckBoxSHOW_BOOTSCREEN.Location = new System.Drawing.Point(374, 51);
             this.marlinCheckBoxSHOW_BOOTSCREEN.Name = "marlinCheckBoxSHOW_BOOTSCREEN";
             this.marlinCheckBoxSHOW_BOOTSCREEN.NewFirmwareHelper = null;
             this.marlinCheckBoxSHOW_BOOTSCREEN.Size = new System.Drawing.Size(284, 21);
@@ -887,7 +886,7 @@
             this.marlinValueStringConfigHAuthor.Feature = "STRING_CONFIG_H_AUTHOR";
             this.marlinValueStringConfigHAuthor.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#firmware-info";
             this.marlinValueStringConfigHAuthor.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueStringConfigHAuthor.Location = new System.Drawing.Point(151, 19);
+            this.marlinValueStringConfigHAuthor.Location = new System.Drawing.Point(207, 19);
             this.marlinValueStringConfigHAuthor.Name = "marlinValueStringConfigHAuthor";
             this.marlinValueStringConfigHAuthor.NewFirmwareHelper = null;
             this.marlinValueStringConfigHAuthor.Size = new System.Drawing.Size(451, 26);
@@ -901,9 +900,9 @@
             this.tabPageExtruder.Controls.Add(this.grpBxExtruderOffset);
             this.tabPageExtruder.Controls.Add(this.grpBxMixingExtruders);
             this.tabPageExtruder.Controls.Add(this.grpBxSWITCHING_EXTRUDER);
-            this.tabPageExtruder.Location = new System.Drawing.Point(4, 76);
+            this.tabPageExtruder.Location = new System.Drawing.Point(4, 58);
             this.tabPageExtruder.Name = "tabPageExtruder";
-            this.tabPageExtruder.Size = new System.Drawing.Size(622, 585);
+            this.tabPageExtruder.Size = new System.Drawing.Size(736, 603);
             this.tabPageExtruder.TabIndex = 7;
             this.tabPageExtruder.Text = "Extruder";
             this.tabPageExtruder.UseVisualStyleBackColor = true;
@@ -916,7 +915,7 @@
             this.marlinCheckBoxSINGLENOZZLE.Feature = "SINGLENOZZLE";
             this.marlinCheckBoxSINGLENOZZLE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#single-nozzle";
             this.marlinCheckBoxSINGLENOZZLE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSINGLENOZZLE.Location = new System.Drawing.Point(389, 45);
+            this.marlinCheckBoxSINGLENOZZLE.Location = new System.Drawing.Point(445, 45);
             this.marlinCheckBoxSINGLENOZZLE.Name = "marlinCheckBoxSINGLENOZZLE";
             this.marlinCheckBoxSINGLENOZZLE.NewFirmwareHelper = null;
             this.marlinCheckBoxSINGLENOZZLE.Size = new System.Drawing.Size(206, 21);
@@ -930,13 +929,13 @@
             this.marlinUpDnEXTRUDERS.Feature = "EXTRUDERS";
             this.marlinUpDnEXTRUDERS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#extruders";
             this.marlinUpDnEXTRUDERS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnEXTRUDERS.Location = new System.Drawing.Point(389, 13);
+            this.marlinUpDnEXTRUDERS.Location = new System.Drawing.Point(445, 13);
             this.marlinUpDnEXTRUDERS.Max = 5;
             this.marlinUpDnEXTRUDERS.Min = 1;
             this.marlinUpDnEXTRUDERS.Name = "marlinUpDnEXTRUDERS";
             this.marlinUpDnEXTRUDERS.NewFirmwareHelper = null;
             this.marlinUpDnEXTRUDERS.Size = new System.Drawing.Size(206, 26);
-            this.marlinUpDnEXTRUDERS.SpliterDistance = 121;
+            this.marlinUpDnEXTRUDERS.SpliterDistance = 120;
             this.marlinUpDnEXTRUDERS.TabIndex = 6;
             // 
             // grpBxExtruderOffset
@@ -947,7 +946,7 @@
             this.grpBxExtruderOffset.Controls.Add(this.marlinEnableValueHOTEND_OFFSET_X);
             this.grpBxExtruderOffset.Location = new System.Drawing.Point(3, 378);
             this.grpBxExtruderOffset.Name = "grpBxExtruderOffset";
-            this.grpBxExtruderOffset.Size = new System.Drawing.Size(598, 86);
+            this.grpBxExtruderOffset.Size = new System.Drawing.Size(654, 86);
             this.grpBxExtruderOffset.TabIndex = 5;
             this.grpBxExtruderOffset.TabStop = false;
             this.grpBxExtruderOffset.Text = "Extruder Offset";
@@ -960,7 +959,7 @@
             this.marlinEnableValueHOTEND_OFFSET_Y.Feature = "HOTEND_OFFSET_Y";
             this.marlinEnableValueHOTEND_OFFSET_Y.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#hotend-offsets";
             this.marlinEnableValueHOTEND_OFFSET_Y.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueHOTEND_OFFSET_Y.Location = new System.Drawing.Point(277, 51);
+            this.marlinEnableValueHOTEND_OFFSET_Y.Location = new System.Drawing.Point(333, 51);
             this.marlinEnableValueHOTEND_OFFSET_Y.Name = "marlinEnableValueHOTEND_OFFSET_Y";
             this.marlinEnableValueHOTEND_OFFSET_Y.NewFirmwareHelper = null;
             this.marlinEnableValueHOTEND_OFFSET_Y.Size = new System.Drawing.Size(315, 26);
@@ -975,7 +974,7 @@
             this.marlinEnableValueHOTEND_OFFSET_X.Feature = "HOTEND_OFFSET_X";
             this.marlinEnableValueHOTEND_OFFSET_X.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#hotend-offsets";
             this.marlinEnableValueHOTEND_OFFSET_X.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueHOTEND_OFFSET_X.Location = new System.Drawing.Point(277, 19);
+            this.marlinEnableValueHOTEND_OFFSET_X.Location = new System.Drawing.Point(333, 19);
             this.marlinEnableValueHOTEND_OFFSET_X.Name = "marlinEnableValueHOTEND_OFFSET_X";
             this.marlinEnableValueHOTEND_OFFSET_X.NewFirmwareHelper = null;
             this.marlinEnableValueHOTEND_OFFSET_X.Size = new System.Drawing.Size(315, 26);
@@ -992,7 +991,7 @@
             this.grpBxMixingExtruders.Controls.Add(this.marlinCheckBoxMIXING_EXTRUDER);
             this.grpBxMixingExtruders.Location = new System.Drawing.Point(3, 231);
             this.grpBxMixingExtruders.Name = "grpBxMixingExtruders";
-            this.grpBxMixingExtruders.Size = new System.Drawing.Size(598, 141);
+            this.grpBxMixingExtruders.Size = new System.Drawing.Size(654, 141);
             this.grpBxMixingExtruders.TabIndex = 4;
             this.grpBxMixingExtruders.TabStop = false;
             this.grpBxMixingExtruders.Text = "Mixing Extruders";
@@ -1005,7 +1004,7 @@
             this.marlinCheckBoxDIRECT_MIXING_IN_G1.Feature = "DIRECT_MIXING_IN_G1";
             this.marlinCheckBoxDIRECT_MIXING_IN_G1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#mixing-extruder";
             this.marlinCheckBoxDIRECT_MIXING_IN_G1.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxDIRECT_MIXING_IN_G1.Location = new System.Drawing.Point(258, 111);
+            this.marlinCheckBoxDIRECT_MIXING_IN_G1.Location = new System.Drawing.Point(314, 111);
             this.marlinCheckBoxDIRECT_MIXING_IN_G1.Name = "marlinCheckBoxDIRECT_MIXING_IN_G1";
             this.marlinCheckBoxDIRECT_MIXING_IN_G1.NewFirmwareHelper = null;
             this.marlinCheckBoxDIRECT_MIXING_IN_G1.Size = new System.Drawing.Size(334, 21);
@@ -1019,7 +1018,7 @@
             this.marlinUpDnMIXING_VIRTUAL_TOOLS.Feature = "MIXING_VIRTUAL_TOOLS";
             this.marlinUpDnMIXING_VIRTUAL_TOOLS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#mixing-extruder";
             this.marlinUpDnMIXING_VIRTUAL_TOOLS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnMIXING_VIRTUAL_TOOLS.Location = new System.Drawing.Point(258, 79);
+            this.marlinUpDnMIXING_VIRTUAL_TOOLS.Location = new System.Drawing.Point(314, 79);
             this.marlinUpDnMIXING_VIRTUAL_TOOLS.Max = 64;
             this.marlinUpDnMIXING_VIRTUAL_TOOLS.Min = 0;
             this.marlinUpDnMIXING_VIRTUAL_TOOLS.Name = "marlinUpDnMIXING_VIRTUAL_TOOLS";
@@ -1036,7 +1035,7 @@
             this.marlinUpDnMIXING_STEPPERS.Feature = "MIXING_STEPPERS";
             this.marlinUpDnMIXING_STEPPERS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#switching-extruder";
             this.marlinUpDnMIXING_STEPPERS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnMIXING_STEPPERS.Location = new System.Drawing.Point(312, 46);
+            this.marlinUpDnMIXING_STEPPERS.Location = new System.Drawing.Point(368, 46);
             this.marlinUpDnMIXING_STEPPERS.Max = 5;
             this.marlinUpDnMIXING_STEPPERS.Min = 2;
             this.marlinUpDnMIXING_STEPPERS.Name = "marlinUpDnMIXING_STEPPERS";
@@ -1053,7 +1052,7 @@
             this.marlinCheckBoxMIXING_EXTRUDER.Feature = "MIXING_EXTRUDER";
             this.marlinCheckBoxMIXING_EXTRUDER.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#mixing-extruder";
             this.marlinCheckBoxMIXING_EXTRUDER.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxMIXING_EXTRUDER.Location = new System.Drawing.Point(386, 19);
+            this.marlinCheckBoxMIXING_EXTRUDER.Location = new System.Drawing.Point(442, 19);
             this.marlinCheckBoxMIXING_EXTRUDER.Name = "marlinCheckBoxMIXING_EXTRUDER";
             this.marlinCheckBoxMIXING_EXTRUDER.NewFirmwareHelper = null;
             this.marlinCheckBoxMIXING_EXTRUDER.Size = new System.Drawing.Size(206, 21);
@@ -1065,11 +1064,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBxSWITCHING_EXTRUDER.Controls.Add(this.marlinEnableValueHOTEND_OFFSET_Z);
             this.grpBxSWITCHING_EXTRUDER.Controls.Add(this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES);
-            this.grpBxSWITCHING_EXTRUDER.Controls.Add(this.marlinUpDnSWITCHING_EXTRUDER_SERVO);
+            this.grpBxSWITCHING_EXTRUDER.Controls.Add(this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR);
             this.grpBxSWITCHING_EXTRUDER.Controls.Add(this.marlinCheckBoxSWITCHING_EXTRUDER);
             this.grpBxSWITCHING_EXTRUDER.Location = new System.Drawing.Point(3, 72);
             this.grpBxSWITCHING_EXTRUDER.Name = "grpBxSWITCHING_EXTRUDER";
-            this.grpBxSWITCHING_EXTRUDER.Size = new System.Drawing.Size(598, 153);
+            this.grpBxSWITCHING_EXTRUDER.Size = new System.Drawing.Size(654, 153);
             this.grpBxSWITCHING_EXTRUDER.TabIndex = 3;
             this.grpBxSWITCHING_EXTRUDER.TabStop = false;
             this.grpBxSWITCHING_EXTRUDER.Text = "Switching extruder";
@@ -1082,7 +1081,7 @@
             this.marlinEnableValueHOTEND_OFFSET_Z.Feature = "HOTEND_OFFSET_Z";
             this.marlinEnableValueHOTEND_OFFSET_Z.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#switching-extruder";
             this.marlinEnableValueHOTEND_OFFSET_Z.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueHOTEND_OFFSET_Z.Location = new System.Drawing.Point(301, 110);
+            this.marlinEnableValueHOTEND_OFFSET_Z.Location = new System.Drawing.Point(357, 110);
             this.marlinEnableValueHOTEND_OFFSET_Z.Name = "marlinEnableValueHOTEND_OFFSET_Z";
             this.marlinEnableValueHOTEND_OFFSET_Z.NewFirmwareHelper = null;
             this.marlinEnableValueHOTEND_OFFSET_Z.Size = new System.Drawing.Size(291, 26);
@@ -1097,29 +1096,29 @@
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.Feature = "SWITCHING_EXTRUDER_SERVO_ANGLES";
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#switching-extruder";
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.Location = new System.Drawing.Point(293, 78);
+            this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.Location = new System.Drawing.Point(349, 78);
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.Name = "marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES";
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.NewFirmwareHelper = null;
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.Size = new System.Drawing.Size(299, 26);
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.SpliterDistance = 160;
             this.marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES.TabIndex = 2;
             // 
-            // marlinUpDnSWITCHING_EXTRUDER_SERVO
+            // marlinUpDnSWITCHING_EXTRUDER_SERVO_NR
             // 
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.ControlText = "Switching Servo number:";
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.currentFirmwareHelper = null;
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Feature = "SWITCHING_EXTRUDER_SERVO";
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#switching-extruder";
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Location = new System.Drawing.Point(386, 46);
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Max = 4;
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Min = 0;
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Name = "marlinUpDnSWITCHING_EXTRUDER_SERVO";
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.NewFirmwareHelper = null;
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.Size = new System.Drawing.Size(206, 26);
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.SpliterDistance = 125;
-            this.marlinUpDnSWITCHING_EXTRUDER_SERVO.TabIndex = 1;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.ControlText = "Switching Servo number:";
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.currentFirmwareHelper = null;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Feature = "SWITCHING_EXTRUDER_SERVO_NR";
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#switching-extruder";
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Location = new System.Drawing.Point(442, 46);
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Max = 4;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Min = 0;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Name = "marlinUpDnSWITCHING_EXTRUDER_SERVO_NR";
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.NewFirmwareHelper = null;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.Size = new System.Drawing.Size(206, 26);
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.SpliterDistance = 125;
+            this.marlinUpDnSWITCHING_EXTRUDER_SERVO_NR.TabIndex = 1;
             // 
             // marlinCheckBoxSWITCHING_EXTRUDER
             // 
@@ -1129,7 +1128,7 @@
             this.marlinCheckBoxSWITCHING_EXTRUDER.Feature = "SWITCHING_EXTRUDER";
             this.marlinCheckBoxSWITCHING_EXTRUDER.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#switching-extruder";
             this.marlinCheckBoxSWITCHING_EXTRUDER.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSWITCHING_EXTRUDER.Location = new System.Drawing.Point(386, 19);
+            this.marlinCheckBoxSWITCHING_EXTRUDER.Location = new System.Drawing.Point(442, 19);
             this.marlinCheckBoxSWITCHING_EXTRUDER.Name = "marlinCheckBoxSWITCHING_EXTRUDER";
             this.marlinCheckBoxSWITCHING_EXTRUDER.NewFirmwareHelper = null;
             this.marlinCheckBoxSWITCHING_EXTRUDER.Size = new System.Drawing.Size(206, 21);
@@ -1139,9 +1138,9 @@
             // 
             this.tabPagePowerSupply.Controls.Add(this.marlinCheckBoxPS_DEFAULT_OFF);
             this.tabPagePowerSupply.Controls.Add(this.marlinUpDnPOWER_SUPPLY);
-            this.tabPagePowerSupply.Location = new System.Drawing.Point(4, 76);
+            this.tabPagePowerSupply.Location = new System.Drawing.Point(4, 58);
             this.tabPagePowerSupply.Name = "tabPagePowerSupply";
-            this.tabPagePowerSupply.Size = new System.Drawing.Size(622, 585);
+            this.tabPagePowerSupply.Size = new System.Drawing.Size(736, 603);
             this.tabPagePowerSupply.TabIndex = 8;
             this.tabPagePowerSupply.Text = "Power Supply";
             this.tabPagePowerSupply.UseVisualStyleBackColor = true;
@@ -1154,7 +1153,7 @@
             this.marlinCheckBoxPS_DEFAULT_OFF.Feature = "PS_DEFAULT_OFF";
             this.marlinCheckBoxPS_DEFAULT_OFF.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#power-supply";
             this.marlinCheckBoxPS_DEFAULT_OFF.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPS_DEFAULT_OFF.Location = new System.Drawing.Point(405, 52);
+            this.marlinCheckBoxPS_DEFAULT_OFF.Location = new System.Drawing.Point(461, 52);
             this.marlinCheckBoxPS_DEFAULT_OFF.Name = "marlinCheckBoxPS_DEFAULT_OFF";
             this.marlinCheckBoxPS_DEFAULT_OFF.NewFirmwareHelper = null;
             this.marlinCheckBoxPS_DEFAULT_OFF.Size = new System.Drawing.Size(173, 21);
@@ -1168,7 +1167,7 @@
             this.marlinUpDnPOWER_SUPPLY.Feature = "POWER_SUPPLY";
             this.marlinUpDnPOWER_SUPPLY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#power-supply";
             this.marlinUpDnPOWER_SUPPLY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnPOWER_SUPPLY.Location = new System.Drawing.Point(420, 20);
+            this.marlinUpDnPOWER_SUPPLY.Location = new System.Drawing.Point(476, 20);
             this.marlinUpDnPOWER_SUPPLY.Max = 2;
             this.marlinUpDnPOWER_SUPPLY.Min = 0;
             this.marlinUpDnPOWER_SUPPLY.Name = "marlinUpDnPOWER_SUPPLY";
@@ -1189,10 +1188,10 @@
             this.tabPageTemperatureSensor.Controls.Add(this.marlinComboBoxTEMP_SENSOR_2);
             this.tabPageTemperatureSensor.Controls.Add(this.marlinComboBoxTEMP_SENSOR_3);
             this.tabPageTemperatureSensor.Controls.Add(this.marlinComboBoxTEMP_SENSOR_4);
-            this.tabPageTemperatureSensor.Location = new System.Drawing.Point(4, 76);
+            this.tabPageTemperatureSensor.Location = new System.Drawing.Point(4, 58);
             this.tabPageTemperatureSensor.Name = "tabPageTemperatureSensor";
             this.tabPageTemperatureSensor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTemperatureSensor.Size = new System.Drawing.Size(622, 585);
+            this.tabPageTemperatureSensor.Size = new System.Drawing.Size(736, 603);
             this.tabPageTemperatureSensor.TabIndex = 1;
             this.tabPageTemperatureSensor.Text = "Temperature Sensor";
             this.tabPageTemperatureSensor.UseVisualStyleBackColor = true;
@@ -1205,7 +1204,7 @@
             this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.Feature = "MAX_REDUNDANT_TEMP_SENSOR_DIFF";
             this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.Location = new System.Drawing.Point(290, 108);
+            this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.Location = new System.Drawing.Point(346, 108);
             this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.Max = 20;
             this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.Min = 0;
             this.marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF.Name = "marlinUpDnMAX_REDUNDANT_TEMP_SENSOR_DIFF";
@@ -1222,7 +1221,7 @@
             this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.Feature = "TEMP_SENSOR_1_AS_REDUNDANT";
             this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.Location = new System.Drawing.Point(296, 81);
+            this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.Location = new System.Drawing.Point(352, 81);
             this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.Name = "marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT";
             this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.NewFirmwareHelper = null;
             this.marlinCheckBoxTEMP_SENSOR_1_AS_REDUNDANT.Size = new System.Drawing.Size(320, 21);
@@ -1236,7 +1235,7 @@
             this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.Feature = "DUMMY_THERMISTOR_999_VALUE";
             this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.Location = new System.Drawing.Point(169, 377);
+            this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.Location = new System.Drawing.Point(225, 377);
             this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.Max = 275;
             this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.Min = 0;
             this.marlinUpDnDUMMY_THERMISTOR_999_VALUE.Name = "marlinUpDnDUMMY_THERMISTOR_999_VALUE";
@@ -1253,7 +1252,7 @@
             this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.Feature = "DUMMY_THERMISTOR_998_VALUE";
             this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.Location = new System.Drawing.Point(169, 345);
+            this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.Location = new System.Drawing.Point(225, 345);
             this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.Max = 275;
             this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.Min = 0;
             this.marlinUpDnDUMMY_THERMISTOR_998_VALUE.Name = "marlinUpDnDUMMY_THERMISTOR_998_VALUE";
@@ -1271,7 +1270,7 @@
             this.marlinComboBoxTEMP_SENSOR_BED.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_BED.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_BED.IsTrueFalse = false;
-            this.marlinComboBoxTEMP_SENSOR_BED.Location = new System.Drawing.Point(147, 304);
+            this.marlinComboBoxTEMP_SENSOR_BED.Location = new System.Drawing.Point(203, 304);
             this.marlinComboBoxTEMP_SENSOR_BED.Name = "marlinComboBoxTEMP_SENSOR_BED";
             this.marlinComboBoxTEMP_SENSOR_BED.NewFirmwareHelper = null;
             this.marlinComboBoxTEMP_SENSOR_BED.Size = new System.Drawing.Size(469, 26);
@@ -1287,11 +1286,11 @@
             this.marlinComboBoxTEMP_SENSOR_0.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_0.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_0.IsTrueFalse = false;
-            this.marlinComboBoxTEMP_SENSOR_0.Location = new System.Drawing.Point(147, 17);
+            this.marlinComboBoxTEMP_SENSOR_0.Location = new System.Drawing.Point(203, 17);
             this.marlinComboBoxTEMP_SENSOR_0.Name = "marlinComboBoxTEMP_SENSOR_0";
             this.marlinComboBoxTEMP_SENSOR_0.NewFirmwareHelper = null;
             this.marlinComboBoxTEMP_SENSOR_0.Size = new System.Drawing.Size(469, 26);
-            this.marlinComboBoxTEMP_SENSOR_0.SpliterDistance = 50;
+            this.marlinComboBoxTEMP_SENSOR_0.SpliterDistance = 49;
             this.marlinComboBoxTEMP_SENSOR_0.TabIndex = 0;
             // 
             // marlinComboBoxTEMP_SENSOR_1
@@ -1303,11 +1302,11 @@
             this.marlinComboBoxTEMP_SENSOR_1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_1.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_1.IsTrueFalse = false;
-            this.marlinComboBoxTEMP_SENSOR_1.Location = new System.Drawing.Point(147, 49);
+            this.marlinComboBoxTEMP_SENSOR_1.Location = new System.Drawing.Point(203, 49);
             this.marlinComboBoxTEMP_SENSOR_1.Name = "marlinComboBoxTEMP_SENSOR_1";
             this.marlinComboBoxTEMP_SENSOR_1.NewFirmwareHelper = null;
             this.marlinComboBoxTEMP_SENSOR_1.Size = new System.Drawing.Size(469, 26);
-            this.marlinComboBoxTEMP_SENSOR_1.SpliterDistance = 50;
+            this.marlinComboBoxTEMP_SENSOR_1.SpliterDistance = 49;
             this.marlinComboBoxTEMP_SENSOR_1.TabIndex = 1;
             // 
             // marlinComboBoxTEMP_SENSOR_2
@@ -1319,11 +1318,11 @@
             this.marlinComboBoxTEMP_SENSOR_2.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_2.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_2.IsTrueFalse = false;
-            this.marlinComboBoxTEMP_SENSOR_2.Location = new System.Drawing.Point(147, 180);
+            this.marlinComboBoxTEMP_SENSOR_2.Location = new System.Drawing.Point(203, 180);
             this.marlinComboBoxTEMP_SENSOR_2.Name = "marlinComboBoxTEMP_SENSOR_2";
             this.marlinComboBoxTEMP_SENSOR_2.NewFirmwareHelper = null;
             this.marlinComboBoxTEMP_SENSOR_2.Size = new System.Drawing.Size(469, 26);
-            this.marlinComboBoxTEMP_SENSOR_2.SpliterDistance = 50;
+            this.marlinComboBoxTEMP_SENSOR_2.SpliterDistance = 49;
             this.marlinComboBoxTEMP_SENSOR_2.TabIndex = 1;
             // 
             // marlinComboBoxTEMP_SENSOR_3
@@ -1335,11 +1334,11 @@
             this.marlinComboBoxTEMP_SENSOR_3.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_3.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_3.IsTrueFalse = false;
-            this.marlinComboBoxTEMP_SENSOR_3.Location = new System.Drawing.Point(147, 212);
+            this.marlinComboBoxTEMP_SENSOR_3.Location = new System.Drawing.Point(203, 212);
             this.marlinComboBoxTEMP_SENSOR_3.Name = "marlinComboBoxTEMP_SENSOR_3";
             this.marlinComboBoxTEMP_SENSOR_3.NewFirmwareHelper = null;
             this.marlinComboBoxTEMP_SENSOR_3.Size = new System.Drawing.Size(469, 26);
-            this.marlinComboBoxTEMP_SENSOR_3.SpliterDistance = 50;
+            this.marlinComboBoxTEMP_SENSOR_3.SpliterDistance = 49;
             this.marlinComboBoxTEMP_SENSOR_3.TabIndex = 1;
             // 
             // marlinComboBoxTEMP_SENSOR_4
@@ -1351,20 +1350,20 @@
             this.marlinComboBoxTEMP_SENSOR_4.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_4.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_4.IsTrueFalse = false;
-            this.marlinComboBoxTEMP_SENSOR_4.Location = new System.Drawing.Point(147, 244);
+            this.marlinComboBoxTEMP_SENSOR_4.Location = new System.Drawing.Point(203, 244);
             this.marlinComboBoxTEMP_SENSOR_4.Name = "marlinComboBoxTEMP_SENSOR_4";
             this.marlinComboBoxTEMP_SENSOR_4.NewFirmwareHelper = null;
             this.marlinComboBoxTEMP_SENSOR_4.Size = new System.Drawing.Size(469, 26);
-            this.marlinComboBoxTEMP_SENSOR_4.SpliterDistance = 50;
+            this.marlinComboBoxTEMP_SENSOR_4.SpliterDistance = 49;
             this.marlinComboBoxTEMP_SENSOR_4.TabIndex = 1;
             // 
             // tabPageTemperatureStability
             // 
             this.tabPageTemperatureStability.Controls.Add(this.grpBxTemperatureStabilityBed);
             this.tabPageTemperatureStability.Controls.Add(this.grpBxTemperatureStabilityExtruder);
-            this.tabPageTemperatureStability.Location = new System.Drawing.Point(4, 76);
+            this.tabPageTemperatureStability.Location = new System.Drawing.Point(4, 58);
             this.tabPageTemperatureStability.Name = "tabPageTemperatureStability";
-            this.tabPageTemperatureStability.Size = new System.Drawing.Size(622, 585);
+            this.tabPageTemperatureStability.Size = new System.Drawing.Size(736, 603);
             this.tabPageTemperatureStability.TabIndex = 9;
             this.tabPageTemperatureStability.Text = "Temperature Stability";
             this.tabPageTemperatureStability.UseVisualStyleBackColor = true;
@@ -1378,7 +1377,7 @@
             this.grpBxTemperatureStabilityBed.Controls.Add(this.marlinUpDnTEMP_BED_HYSTERESIS);
             this.grpBxTemperatureStabilityBed.Location = new System.Drawing.Point(5, 126);
             this.grpBxTemperatureStabilityBed.Name = "grpBxTemperatureStabilityBed";
-            this.grpBxTemperatureStabilityBed.Size = new System.Drawing.Size(614, 117);
+            this.grpBxTemperatureStabilityBed.Size = new System.Drawing.Size(670, 117);
             this.grpBxTemperatureStabilityBed.TabIndex = 4;
             this.grpBxTemperatureStabilityBed.TabStop = false;
             this.grpBxTemperatureStabilityBed.Text = "Temperature Stability Bed";
@@ -1391,7 +1390,7 @@
             this.marlinUpDnTEMP_BED_WINDOW.Feature = "TEMP_BED_WINDOW";
             this.marlinUpDnTEMP_BED_WINDOW.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-stability";
             this.marlinUpDnTEMP_BED_WINDOW.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnTEMP_BED_WINDOW.Location = new System.Drawing.Point(317, 77);
+            this.marlinUpDnTEMP_BED_WINDOW.Location = new System.Drawing.Point(373, 77);
             this.marlinUpDnTEMP_BED_WINDOW.Max = 20;
             this.marlinUpDnTEMP_BED_WINDOW.Min = 0;
             this.marlinUpDnTEMP_BED_WINDOW.Name = "marlinUpDnTEMP_BED_WINDOW";
@@ -1408,7 +1407,7 @@
             this.marlinUpDnTEMP_BED_RESIDENCY_TIME.Feature = "TEMP_BED_RESIDENCY_TIME";
             this.marlinUpDnTEMP_BED_RESIDENCY_TIME.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-stability";
             this.marlinUpDnTEMP_BED_RESIDENCY_TIME.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnTEMP_BED_RESIDENCY_TIME.Location = new System.Drawing.Point(317, 13);
+            this.marlinUpDnTEMP_BED_RESIDENCY_TIME.Location = new System.Drawing.Point(373, 13);
             this.marlinUpDnTEMP_BED_RESIDENCY_TIME.Max = 20;
             this.marlinUpDnTEMP_BED_RESIDENCY_TIME.Min = 0;
             this.marlinUpDnTEMP_BED_RESIDENCY_TIME.Name = "marlinUpDnTEMP_BED_RESIDENCY_TIME";
@@ -1425,7 +1424,7 @@
             this.marlinUpDnTEMP_BED_HYSTERESIS.Feature = "TEMP_BED_HYSTERESIS";
             this.marlinUpDnTEMP_BED_HYSTERESIS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-stability";
             this.marlinUpDnTEMP_BED_HYSTERESIS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnTEMP_BED_HYSTERESIS.Location = new System.Drawing.Point(317, 45);
+            this.marlinUpDnTEMP_BED_HYSTERESIS.Location = new System.Drawing.Point(373, 45);
             this.marlinUpDnTEMP_BED_HYSTERESIS.Max = 20;
             this.marlinUpDnTEMP_BED_HYSTERESIS.Min = 0;
             this.marlinUpDnTEMP_BED_HYSTERESIS.Name = "marlinUpDnTEMP_BED_HYSTERESIS";
@@ -1443,7 +1442,7 @@
             this.grpBxTemperatureStabilityExtruder.Controls.Add(this.marlinUpDnTEMP_RESIDENCY_TIME);
             this.grpBxTemperatureStabilityExtruder.Location = new System.Drawing.Point(5, 3);
             this.grpBxTemperatureStabilityExtruder.Name = "grpBxTemperatureStabilityExtruder";
-            this.grpBxTemperatureStabilityExtruder.Size = new System.Drawing.Size(614, 117);
+            this.grpBxTemperatureStabilityExtruder.Size = new System.Drawing.Size(670, 117);
             this.grpBxTemperatureStabilityExtruder.TabIndex = 3;
             this.grpBxTemperatureStabilityExtruder.TabStop = false;
             this.grpBxTemperatureStabilityExtruder.Text = "Temperature Stability Extruder";
@@ -1456,7 +1455,7 @@
             this.marlinUpDnTEMP_WINDOW.Feature = "TEMP_WINDOW";
             this.marlinUpDnTEMP_WINDOW.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-stability";
             this.marlinUpDnTEMP_WINDOW.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnTEMP_WINDOW.Location = new System.Drawing.Point(317, 74);
+            this.marlinUpDnTEMP_WINDOW.Location = new System.Drawing.Point(373, 74);
             this.marlinUpDnTEMP_WINDOW.Max = 20;
             this.marlinUpDnTEMP_WINDOW.Min = 0;
             this.marlinUpDnTEMP_WINDOW.Name = "marlinUpDnTEMP_WINDOW";
@@ -1473,7 +1472,7 @@
             this.marlinUpDnTEMP_HYSTERESIS.Feature = "TEMP_HYSTERESIS";
             this.marlinUpDnTEMP_HYSTERESIS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-stability";
             this.marlinUpDnTEMP_HYSTERESIS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnTEMP_HYSTERESIS.Location = new System.Drawing.Point(317, 42);
+            this.marlinUpDnTEMP_HYSTERESIS.Location = new System.Drawing.Point(373, 42);
             this.marlinUpDnTEMP_HYSTERESIS.Max = 20;
             this.marlinUpDnTEMP_HYSTERESIS.Min = 0;
             this.marlinUpDnTEMP_HYSTERESIS.Name = "marlinUpDnTEMP_HYSTERESIS";
@@ -1490,7 +1489,7 @@
             this.marlinUpDnTEMP_RESIDENCY_TIME.Feature = "TEMP_RESIDENCY_TIME";
             this.marlinUpDnTEMP_RESIDENCY_TIME.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-stability";
             this.marlinUpDnTEMP_RESIDENCY_TIME.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnTEMP_RESIDENCY_TIME.Location = new System.Drawing.Point(317, 10);
+            this.marlinUpDnTEMP_RESIDENCY_TIME.Location = new System.Drawing.Point(373, 10);
             this.marlinUpDnTEMP_RESIDENCY_TIME.Max = 20;
             this.marlinUpDnTEMP_RESIDENCY_TIME.Min = 0;
             this.marlinUpDnTEMP_RESIDENCY_TIME.Name = "marlinUpDnTEMP_RESIDENCY_TIME";
@@ -1503,9 +1502,9 @@
             // 
             this.tabPageTemperatures.Controls.Add(this.grpBxMinTemperatureBed);
             this.tabPageTemperatures.Controls.Add(this.grpBxMinTemperatureExtruders);
-            this.tabPageTemperatures.Location = new System.Drawing.Point(4, 76);
+            this.tabPageTemperatures.Location = new System.Drawing.Point(4, 58);
             this.tabPageTemperatures.Name = "tabPageTemperatures";
-            this.tabPageTemperatures.Size = new System.Drawing.Size(622, 585);
+            this.tabPageTemperatures.Size = new System.Drawing.Size(736, 603);
             this.tabPageTemperatures.TabIndex = 10;
             this.tabPageTemperatures.Text = "Temperatures";
             this.tabPageTemperatures.UseVisualStyleBackColor = true;
@@ -1518,7 +1517,7 @@
             this.grpBxMinTemperatureBed.Controls.Add(this.marlinUpDnBED_MINTEMP);
             this.grpBxMinTemperatureBed.Location = new System.Drawing.Point(8, 380);
             this.grpBxMinTemperatureBed.Name = "grpBxMinTemperatureBed";
-            this.grpBxMinTemperatureBed.Size = new System.Drawing.Size(597, 83);
+            this.grpBxMinTemperatureBed.Size = new System.Drawing.Size(653, 83);
             this.grpBxMinTemperatureBed.TabIndex = 5;
             this.grpBxMinTemperatureBed.TabStop = false;
             this.grpBxMinTemperatureBed.Text = "Bed";
@@ -1531,7 +1530,7 @@
             this.marlinUpDnBED_MAXTEMP.Feature = "BED_MAXTEMP";
             this.marlinUpDnBED_MAXTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnBED_MAXTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnBED_MAXTEMP.Location = new System.Drawing.Point(300, 42);
+            this.marlinUpDnBED_MAXTEMP.Location = new System.Drawing.Point(356, 42);
             this.marlinUpDnBED_MAXTEMP.Max = 150;
             this.marlinUpDnBED_MAXTEMP.Min = 20;
             this.marlinUpDnBED_MAXTEMP.Name = "marlinUpDnBED_MAXTEMP";
@@ -1548,7 +1547,7 @@
             this.marlinUpDnBED_MINTEMP.Feature = "BED_MINTEMP";
             this.marlinUpDnBED_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnBED_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnBED_MINTEMP.Location = new System.Drawing.Point(300, 19);
+            this.marlinUpDnBED_MINTEMP.Location = new System.Drawing.Point(356, 19);
             this.marlinUpDnBED_MINTEMP.Max = 50;
             this.marlinUpDnBED_MINTEMP.Min = 0;
             this.marlinUpDnBED_MINTEMP.Name = "marlinUpDnBED_MINTEMP";
@@ -1573,7 +1572,7 @@
             this.grpBxMinTemperatureExtruders.Controls.Add(this.marlinUpDnHEATER_0_MINTEMP);
             this.grpBxMinTemperatureExtruders.Location = new System.Drawing.Point(8, 13);
             this.grpBxMinTemperatureExtruders.Name = "grpBxMinTemperatureExtruders";
-            this.grpBxMinTemperatureExtruders.Size = new System.Drawing.Size(597, 334);
+            this.grpBxMinTemperatureExtruders.Size = new System.Drawing.Size(653, 334);
             this.grpBxMinTemperatureExtruders.TabIndex = 1;
             this.grpBxMinTemperatureExtruders.TabStop = false;
             this.grpBxMinTemperatureExtruders.Text = "Extruder(s)";
@@ -1586,7 +1585,7 @@
             this.marlinUpDnHEATER_4_MAXTEMP.Feature = "HEATER_4_MAXTEMP";
             this.marlinUpDnHEATER_4_MAXTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_4_MAXTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_4_MAXTEMP.Location = new System.Drawing.Point(300, 300);
+            this.marlinUpDnHEATER_4_MAXTEMP.Location = new System.Drawing.Point(356, 300);
             this.marlinUpDnHEATER_4_MAXTEMP.Max = 375;
             this.marlinUpDnHEATER_4_MAXTEMP.Min = 100;
             this.marlinUpDnHEATER_4_MAXTEMP.Name = "marlinUpDnHEATER_4_MAXTEMP";
@@ -1603,7 +1602,7 @@
             this.marlinUpDnHEATER_3_MAXTEMP.Feature = "HEATER_3_MAXTEMP";
             this.marlinUpDnHEATER_3_MAXTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_3_MAXTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_3_MAXTEMP.Location = new System.Drawing.Point(300, 236);
+            this.marlinUpDnHEATER_3_MAXTEMP.Location = new System.Drawing.Point(356, 236);
             this.marlinUpDnHEATER_3_MAXTEMP.Max = 375;
             this.marlinUpDnHEATER_3_MAXTEMP.Min = 100;
             this.marlinUpDnHEATER_3_MAXTEMP.Name = "marlinUpDnHEATER_3_MAXTEMP";
@@ -1620,7 +1619,7 @@
             this.marlinUpDnHEATER_2_MAXTEMP.Feature = "HEATER_2_MAXTEMP";
             this.marlinUpDnHEATER_2_MAXTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_2_MAXTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_2_MAXTEMP.Location = new System.Drawing.Point(300, 171);
+            this.marlinUpDnHEATER_2_MAXTEMP.Location = new System.Drawing.Point(356, 171);
             this.marlinUpDnHEATER_2_MAXTEMP.Max = 375;
             this.marlinUpDnHEATER_2_MAXTEMP.Min = 100;
             this.marlinUpDnHEATER_2_MAXTEMP.Name = "marlinUpDnHEATER_2_MAXTEMP";
@@ -1637,7 +1636,7 @@
             this.marlinUpDnHEATER_1_MAXTEMP.Feature = "HEATER_1_MAXTEMP";
             this.marlinUpDnHEATER_1_MAXTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_1_MAXTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_1_MAXTEMP.Location = new System.Drawing.Point(300, 109);
+            this.marlinUpDnHEATER_1_MAXTEMP.Location = new System.Drawing.Point(356, 109);
             this.marlinUpDnHEATER_1_MAXTEMP.Max = 375;
             this.marlinUpDnHEATER_1_MAXTEMP.Min = 100;
             this.marlinUpDnHEATER_1_MAXTEMP.Name = "marlinUpDnHEATER_1_MAXTEMP";
@@ -1654,7 +1653,7 @@
             this.marlinUpDnHEATER_0_MAXTEMP.Feature = "HEATER_0_MAXTEMP";
             this.marlinUpDnHEATER_0_MAXTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_0_MAXTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_0_MAXTEMP.Location = new System.Drawing.Point(300, 39);
+            this.marlinUpDnHEATER_0_MAXTEMP.Location = new System.Drawing.Point(356, 39);
             this.marlinUpDnHEATER_0_MAXTEMP.Max = 375;
             this.marlinUpDnHEATER_0_MAXTEMP.Min = 100;
             this.marlinUpDnHEATER_0_MAXTEMP.Name = "marlinUpDnHEATER_0_MAXTEMP";
@@ -1671,7 +1670,7 @@
             this.marlinUpDnHEATER_4_MINTEMP.Feature = "HEATER_4_MINTEMP";
             this.marlinUpDnHEATER_4_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_4_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_4_MINTEMP.Location = new System.Drawing.Point(300, 277);
+            this.marlinUpDnHEATER_4_MINTEMP.Location = new System.Drawing.Point(356, 277);
             this.marlinUpDnHEATER_4_MINTEMP.Max = 50;
             this.marlinUpDnHEATER_4_MINTEMP.Min = 0;
             this.marlinUpDnHEATER_4_MINTEMP.Name = "marlinUpDnHEATER_4_MINTEMP";
@@ -1688,7 +1687,7 @@
             this.marlinUpDnHEATER_3_MINTEMP.Feature = "HEATER_3_MINTEMP";
             this.marlinUpDnHEATER_3_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_3_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_3_MINTEMP.Location = new System.Drawing.Point(300, 212);
+            this.marlinUpDnHEATER_3_MINTEMP.Location = new System.Drawing.Point(356, 212);
             this.marlinUpDnHEATER_3_MINTEMP.Max = 50;
             this.marlinUpDnHEATER_3_MINTEMP.Min = 0;
             this.marlinUpDnHEATER_3_MINTEMP.Name = "marlinUpDnHEATER_3_MINTEMP";
@@ -1705,7 +1704,7 @@
             this.marlinUpDnHEATER_2_MINTEMP.Feature = "HEATER_2_MINTEMP";
             this.marlinUpDnHEATER_2_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_2_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_2_MINTEMP.Location = new System.Drawing.Point(300, 147);
+            this.marlinUpDnHEATER_2_MINTEMP.Location = new System.Drawing.Point(356, 147);
             this.marlinUpDnHEATER_2_MINTEMP.Max = 50;
             this.marlinUpDnHEATER_2_MINTEMP.Min = 0;
             this.marlinUpDnHEATER_2_MINTEMP.Name = "marlinUpDnHEATER_2_MINTEMP";
@@ -1722,7 +1721,7 @@
             this.marlinUpDnHEATER_1_MINTEMP.Feature = "HEATER_1_MINTEMP";
             this.marlinUpDnHEATER_1_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_1_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_1_MINTEMP.Location = new System.Drawing.Point(300, 85);
+            this.marlinUpDnHEATER_1_MINTEMP.Location = new System.Drawing.Point(356, 85);
             this.marlinUpDnHEATER_1_MINTEMP.Max = 50;
             this.marlinUpDnHEATER_1_MINTEMP.Min = 0;
             this.marlinUpDnHEATER_1_MINTEMP.Name = "marlinUpDnHEATER_1_MINTEMP";
@@ -1739,7 +1738,7 @@
             this.marlinUpDnHEATER_0_MINTEMP.Feature = "HEATER_0_MINTEMP";
             this.marlinUpDnHEATER_0_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-ranges";
             this.marlinUpDnHEATER_0_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnHEATER_0_MINTEMP.Location = new System.Drawing.Point(300, 15);
+            this.marlinUpDnHEATER_0_MINTEMP.Location = new System.Drawing.Point(356, 15);
             this.marlinUpDnHEATER_0_MINTEMP.Max = 50;
             this.marlinUpDnHEATER_0_MINTEMP.Min = 0;
             this.marlinUpDnHEATER_0_MINTEMP.Name = "marlinUpDnHEATER_0_MINTEMP";
@@ -1756,16 +1755,15 @@
             this.tabPagePidExtruder.Controls.Add(this.marlinValueK1);
             this.tabPagePidExtruder.Controls.Add(this.marlinUpDnPID_FUNCTIONAL_RANGE);
             this.tabPagePidExtruder.Controls.Add(this.marlinCheckBoxPID_PARAMS_PER_HOTEND);
-            this.tabPagePidExtruder.Controls.Add(this.marlinCheckBoxSLOW_PWM_HEATERS);
             this.tabPagePidExtruder.Controls.Add(this.marlinEnableValuePID_OPENLOOP);
             this.tabPagePidExtruder.Controls.Add(this.marlinCheckBoxPID_DEBUG);
             this.tabPagePidExtruder.Controls.Add(this.marlinCheckBoxPID_AUTOTUNE_MENU);
             this.tabPagePidExtruder.Controls.Add(this.marlinValuePID_MAX);
             this.tabPagePidExtruder.Controls.Add(this.marlinUpDnBANG_MAX);
             this.tabPagePidExtruder.Controls.Add(this.marlinCheckBoxPIDTEMP);
-            this.tabPagePidExtruder.Location = new System.Drawing.Point(4, 76);
+            this.tabPagePidExtruder.Location = new System.Drawing.Point(4, 58);
             this.tabPagePidExtruder.Name = "tabPagePidExtruder";
-            this.tabPagePidExtruder.Size = new System.Drawing.Size(622, 585);
+            this.tabPagePidExtruder.Size = new System.Drawing.Size(736, 603);
             this.tabPagePidExtruder.TabIndex = 2;
             this.tabPagePidExtruder.Text = "PID  Extruder";
             this.tabPagePidExtruder.UseVisualStyleBackColor = true;
@@ -1778,7 +1776,7 @@
             this.marlinValueDEFAULT_Kd.Feature = "DEFAULT_Kd";
             this.marlinValueDEFAULT_Kd.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueDEFAULT_Kd.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_Kd.Location = new System.Drawing.Point(334, 446);
+            this.marlinValueDEFAULT_Kd.Location = new System.Drawing.Point(390, 446);
             this.marlinValueDEFAULT_Kd.Name = "marlinValueDEFAULT_Kd";
             this.marlinValueDEFAULT_Kd.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_Kd.Size = new System.Drawing.Size(276, 26);
@@ -1793,7 +1791,7 @@
             this.marlinValueDEFAULT_Ki.Feature = "DEFAULT_Ki";
             this.marlinValueDEFAULT_Ki.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueDEFAULT_Ki.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_Ki.Location = new System.Drawing.Point(334, 408);
+            this.marlinValueDEFAULT_Ki.Location = new System.Drawing.Point(390, 408);
             this.marlinValueDEFAULT_Ki.Name = "marlinValueDEFAULT_Ki";
             this.marlinValueDEFAULT_Ki.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_Ki.Size = new System.Drawing.Size(276, 26);
@@ -1808,7 +1806,7 @@
             this.marlinValueDEFAULT_Kp.Feature = "DEFAULT_Kp";
             this.marlinValueDEFAULT_Kp.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueDEFAULT_Kp.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_Kp.Location = new System.Drawing.Point(334, 370);
+            this.marlinValueDEFAULT_Kp.Location = new System.Drawing.Point(390, 370);
             this.marlinValueDEFAULT_Kp.Name = "marlinValueDEFAULT_Kp";
             this.marlinValueDEFAULT_Kp.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_Kp.Size = new System.Drawing.Size(276, 26);
@@ -1823,7 +1821,7 @@
             this.marlinValueK1.Feature = "K1";
             this.marlinValueK1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueK1.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueK1.Location = new System.Drawing.Point(334, 332);
+            this.marlinValueK1.Location = new System.Drawing.Point(390, 332);
             this.marlinValueK1.Name = "marlinValueK1";
             this.marlinValueK1.NewFirmwareHelper = null;
             this.marlinValueK1.Size = new System.Drawing.Size(276, 26);
@@ -1838,7 +1836,7 @@
             this.marlinUpDnPID_FUNCTIONAL_RANGE.Feature = "PID_FUNCTIONAL_RANGE";
             this.marlinUpDnPID_FUNCTIONAL_RANGE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinUpDnPID_FUNCTIONAL_RANGE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnPID_FUNCTIONAL_RANGE.Location = new System.Drawing.Point(334, 294);
+            this.marlinUpDnPID_FUNCTIONAL_RANGE.Location = new System.Drawing.Point(390, 294);
             this.marlinUpDnPID_FUNCTIONAL_RANGE.Max = 15;
             this.marlinUpDnPID_FUNCTIONAL_RANGE.Min = 0;
             this.marlinUpDnPID_FUNCTIONAL_RANGE.Name = "marlinUpDnPID_FUNCTIONAL_RANGE";
@@ -1855,25 +1853,11 @@
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.Feature = "PID_PARAMS_PER_HOTEND";
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPID_PARAMS_PER_HOTEND.Location = new System.Drawing.Point(334, 261);
+            this.marlinCheckBoxPID_PARAMS_PER_HOTEND.Location = new System.Drawing.Point(390, 261);
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.Name = "marlinCheckBoxPID_PARAMS_PER_HOTEND";
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.NewFirmwareHelper = null;
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.Size = new System.Drawing.Size(276, 21);
             this.marlinCheckBoxPID_PARAMS_PER_HOTEND.TabIndex = 7;
-            // 
-            // marlinCheckBoxSLOW_PWM_HEATERS
-            // 
-            this.marlinCheckBoxSLOW_PWM_HEATERS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinCheckBoxSLOW_PWM_HEATERS.ControlText = "PWM with very low frequency";
-            this.marlinCheckBoxSLOW_PWM_HEATERS.currentFirmwareHelper = null;
-            this.marlinCheckBoxSLOW_PWM_HEATERS.Feature = "SLOW_PWM_HEATERS";
-            this.marlinCheckBoxSLOW_PWM_HEATERS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
-            this.marlinCheckBoxSLOW_PWM_HEATERS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSLOW_PWM_HEATERS.Location = new System.Drawing.Point(334, 228);
-            this.marlinCheckBoxSLOW_PWM_HEATERS.Name = "marlinCheckBoxSLOW_PWM_HEATERS";
-            this.marlinCheckBoxSLOW_PWM_HEATERS.NewFirmwareHelper = null;
-            this.marlinCheckBoxSLOW_PWM_HEATERS.Size = new System.Drawing.Size(276, 21);
-            this.marlinCheckBoxSLOW_PWM_HEATERS.TabIndex = 6;
             // 
             // marlinEnableValuePID_OPENLOOP
             // 
@@ -1883,7 +1867,7 @@
             this.marlinEnableValuePID_OPENLOOP.Feature = "PID_OPENLOOP";
             this.marlinEnableValuePID_OPENLOOP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinEnableValuePID_OPENLOOP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValuePID_OPENLOOP.Location = new System.Drawing.Point(334, 190);
+            this.marlinEnableValuePID_OPENLOOP.Location = new System.Drawing.Point(390, 190);
             this.marlinEnableValuePID_OPENLOOP.Name = "marlinEnableValuePID_OPENLOOP";
             this.marlinEnableValuePID_OPENLOOP.NewFirmwareHelper = null;
             this.marlinEnableValuePID_OPENLOOP.Size = new System.Drawing.Size(276, 26);
@@ -1898,7 +1882,7 @@
             this.marlinCheckBoxPID_DEBUG.Feature = "PID_DEBUG";
             this.marlinCheckBoxPID_DEBUG.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxPID_DEBUG.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPID_DEBUG.Location = new System.Drawing.Point(334, 157);
+            this.marlinCheckBoxPID_DEBUG.Location = new System.Drawing.Point(390, 157);
             this.marlinCheckBoxPID_DEBUG.Name = "marlinCheckBoxPID_DEBUG";
             this.marlinCheckBoxPID_DEBUG.NewFirmwareHelper = null;
             this.marlinCheckBoxPID_DEBUG.Size = new System.Drawing.Size(276, 21);
@@ -1912,7 +1896,7 @@
             this.marlinCheckBoxPID_AUTOTUNE_MENU.Feature = "PID_AUTOTUNE_MENU";
             this.marlinCheckBoxPID_AUTOTUNE_MENU.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxPID_AUTOTUNE_MENU.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPID_AUTOTUNE_MENU.Location = new System.Drawing.Point(334, 124);
+            this.marlinCheckBoxPID_AUTOTUNE_MENU.Location = new System.Drawing.Point(390, 124);
             this.marlinCheckBoxPID_AUTOTUNE_MENU.Name = "marlinCheckBoxPID_AUTOTUNE_MENU";
             this.marlinCheckBoxPID_AUTOTUNE_MENU.NewFirmwareHelper = null;
             this.marlinCheckBoxPID_AUTOTUNE_MENU.Size = new System.Drawing.Size(276, 21);
@@ -1926,7 +1910,7 @@
             this.marlinValuePID_MAX.Feature = "PID_MAX";
             this.marlinValuePID_MAX.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValuePID_MAX.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValuePID_MAX.Location = new System.Drawing.Point(334, 86);
+            this.marlinValuePID_MAX.Location = new System.Drawing.Point(390, 86);
             this.marlinValuePID_MAX.Name = "marlinValuePID_MAX";
             this.marlinValuePID_MAX.NewFirmwareHelper = null;
             this.marlinValuePID_MAX.Size = new System.Drawing.Size(276, 26);
@@ -1941,7 +1925,7 @@
             this.marlinUpDnBANG_MAX.Feature = "BANG_MAX";
             this.marlinUpDnBANG_MAX.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinUpDnBANG_MAX.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnBANG_MAX.Location = new System.Drawing.Point(334, 48);
+            this.marlinUpDnBANG_MAX.Location = new System.Drawing.Point(390, 48);
             this.marlinUpDnBANG_MAX.Max = 255;
             this.marlinUpDnBANG_MAX.Min = 0;
             this.marlinUpDnBANG_MAX.Name = "marlinUpDnBANG_MAX";
@@ -1958,7 +1942,7 @@
             this.marlinCheckBoxPIDTEMP.Feature = "PIDTEMP";
             this.marlinCheckBoxPIDTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxPIDTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPIDTEMP.Location = new System.Drawing.Point(334, 15);
+            this.marlinCheckBoxPIDTEMP.Location = new System.Drawing.Point(390, 15);
             this.marlinCheckBoxPIDTEMP.Name = "marlinCheckBoxPIDTEMP";
             this.marlinCheckBoxPIDTEMP.NewFirmwareHelper = null;
             this.marlinCheckBoxPIDTEMP.Size = new System.Drawing.Size(276, 21);
@@ -1973,9 +1957,9 @@
             this.tabPagePidBed.Controls.Add(this.marlinUpDnMAX_BED_POWER);
             this.tabPagePidBed.Controls.Add(this.marlinCheckBoxBED_LIMIT_SWITCHING);
             this.tabPagePidBed.Controls.Add(this.marlinCheckBoxPIDTEMPBED);
-            this.tabPagePidBed.Location = new System.Drawing.Point(4, 76);
+            this.tabPagePidBed.Location = new System.Drawing.Point(4, 58);
             this.tabPagePidBed.Name = "tabPagePidBed";
-            this.tabPagePidBed.Size = new System.Drawing.Size(622, 585);
+            this.tabPagePidBed.Size = new System.Drawing.Size(736, 603);
             this.tabPagePidBed.TabIndex = 11;
             this.tabPagePidBed.Text = "PID Bed";
             this.tabPagePidBed.UseVisualStyleBackColor = true;
@@ -1988,7 +1972,7 @@
             this.marlinValueDEFAULT_bedKd.Feature = "DEFAULT_bedKd";
             this.marlinValueDEFAULT_bedKd.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueDEFAULT_bedKd.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_bedKd.Location = new System.Drawing.Point(334, 243);
+            this.marlinValueDEFAULT_bedKd.Location = new System.Drawing.Point(390, 243);
             this.marlinValueDEFAULT_bedKd.Name = "marlinValueDEFAULT_bedKd";
             this.marlinValueDEFAULT_bedKd.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_bedKd.Size = new System.Drawing.Size(276, 26);
@@ -2003,7 +1987,7 @@
             this.marlinValueDEFAULT_bedKi.Feature = "DEFAULT_bedKi";
             this.marlinValueDEFAULT_bedKi.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueDEFAULT_bedKi.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_bedKi.Location = new System.Drawing.Point(334, 202);
+            this.marlinValueDEFAULT_bedKi.Location = new System.Drawing.Point(390, 202);
             this.marlinValueDEFAULT_bedKi.Name = "marlinValueDEFAULT_bedKi";
             this.marlinValueDEFAULT_bedKi.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_bedKi.Size = new System.Drawing.Size(276, 26);
@@ -2018,7 +2002,7 @@
             this.marlinValueDEFAULT_bedKp.Feature = "DEFAULT_bedKp";
             this.marlinValueDEFAULT_bedKp.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinValueDEFAULT_bedKp.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_bedKp.Location = new System.Drawing.Point(334, 161);
+            this.marlinValueDEFAULT_bedKp.Location = new System.Drawing.Point(390, 161);
             this.marlinValueDEFAULT_bedKp.Name = "marlinValueDEFAULT_bedKp";
             this.marlinValueDEFAULT_bedKp.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_bedKp.Size = new System.Drawing.Size(276, 26);
@@ -2033,7 +2017,7 @@
             this.marlinCheckBoxPID_BED_DEBUG.Feature = "PID_BED_DEBUG";
             this.marlinCheckBoxPID_BED_DEBUG.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxPID_BED_DEBUG.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPID_BED_DEBUG.Location = new System.Drawing.Point(334, 125);
+            this.marlinCheckBoxPID_BED_DEBUG.Location = new System.Drawing.Point(390, 125);
             this.marlinCheckBoxPID_BED_DEBUG.Name = "marlinCheckBoxPID_BED_DEBUG";
             this.marlinCheckBoxPID_BED_DEBUG.NewFirmwareHelper = null;
             this.marlinCheckBoxPID_BED_DEBUG.Size = new System.Drawing.Size(276, 21);
@@ -2047,7 +2031,7 @@
             this.marlinUpDnMAX_BED_POWER.Feature = "MAX_BED_POWER";
             this.marlinUpDnMAX_BED_POWER.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinUpDnMAX_BED_POWER.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnMAX_BED_POWER.Location = new System.Drawing.Point(334, 84);
+            this.marlinUpDnMAX_BED_POWER.Location = new System.Drawing.Point(390, 84);
             this.marlinUpDnMAX_BED_POWER.Max = 255;
             this.marlinUpDnMAX_BED_POWER.Min = 0;
             this.marlinUpDnMAX_BED_POWER.Name = "marlinUpDnMAX_BED_POWER";
@@ -2064,7 +2048,7 @@
             this.marlinCheckBoxBED_LIMIT_SWITCHING.Feature = "BED_LIMIT_SWITCHING";
             this.marlinCheckBoxBED_LIMIT_SWITCHING.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxBED_LIMIT_SWITCHING.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxBED_LIMIT_SWITCHING.Location = new System.Drawing.Point(334, 48);
+            this.marlinCheckBoxBED_LIMIT_SWITCHING.Location = new System.Drawing.Point(390, 48);
             this.marlinCheckBoxBED_LIMIT_SWITCHING.Name = "marlinCheckBoxBED_LIMIT_SWITCHING";
             this.marlinCheckBoxBED_LIMIT_SWITCHING.NewFirmwareHelper = null;
             this.marlinCheckBoxBED_LIMIT_SWITCHING.Size = new System.Drawing.Size(276, 21);
@@ -2078,7 +2062,7 @@
             this.marlinCheckBoxPIDTEMPBED.Feature = "PIDTEMPBED";
             this.marlinCheckBoxPIDTEMPBED.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#pid";
             this.marlinCheckBoxPIDTEMPBED.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPIDTEMPBED.Location = new System.Drawing.Point(334, 12);
+            this.marlinCheckBoxPIDTEMPBED.Location = new System.Drawing.Point(390, 12);
             this.marlinCheckBoxPIDTEMPBED.Name = "marlinCheckBoxPIDTEMPBED";
             this.marlinCheckBoxPIDTEMPBED.NewFirmwareHelper = null;
             this.marlinCheckBoxPIDTEMPBED.Size = new System.Drawing.Size(276, 21);
@@ -2090,9 +2074,9 @@
             this.tabPageExtrusion.Controls.Add(this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE);
             this.tabPageExtrusion.Controls.Add(this.marlinUpDnEXTRUDE_MINTEMP);
             this.tabPageExtrusion.Controls.Add(this.marlinCheckBoxPREVENT_COLD_EXTRUSION);
-            this.tabPageExtrusion.Location = new System.Drawing.Point(4, 76);
+            this.tabPageExtrusion.Location = new System.Drawing.Point(4, 58);
             this.tabPageExtrusion.Name = "tabPageExtrusion";
-            this.tabPageExtrusion.Size = new System.Drawing.Size(622, 585);
+            this.tabPageExtrusion.Size = new System.Drawing.Size(736, 603);
             this.tabPageExtrusion.TabIndex = 12;
             this.tabPageExtrusion.Text = "Extrusion";
             this.tabPageExtrusion.UseVisualStyleBackColor = true;
@@ -2105,7 +2089,7 @@
             this.marlinValueEXTRUDE_MAXLENGTH.Feature = "EXTRUDE_MAXLENGTH";
             this.marlinValueEXTRUDE_MAXLENGTH.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#safety";
             this.marlinValueEXTRUDE_MAXLENGTH.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueEXTRUDE_MAXLENGTH.Location = new System.Drawing.Point(281, 94);
+            this.marlinValueEXTRUDE_MAXLENGTH.Location = new System.Drawing.Point(337, 94);
             this.marlinValueEXTRUDE_MAXLENGTH.Name = "marlinValueEXTRUDE_MAXLENGTH";
             this.marlinValueEXTRUDE_MAXLENGTH.NewFirmwareHelper = null;
             this.marlinValueEXTRUDE_MAXLENGTH.Size = new System.Drawing.Size(327, 26);
@@ -2120,7 +2104,7 @@
             this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.Feature = "PREVENT_LENGTHY_EXTRUDE";
             this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#safety";
             this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.Location = new System.Drawing.Point(281, 67);
+            this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.Location = new System.Drawing.Point(337, 67);
             this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.Name = "marlinCheckBoxPREVENT_LENGTHY_EXTRUDE";
             this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.NewFirmwareHelper = null;
             this.marlinCheckBoxPREVENT_LENGTHY_EXTRUDE.Size = new System.Drawing.Size(327, 21);
@@ -2134,7 +2118,7 @@
             this.marlinUpDnEXTRUDE_MINTEMP.Feature = "EXTRUDE_MINTEMP";
             this.marlinUpDnEXTRUDE_MINTEMP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#safety";
             this.marlinUpDnEXTRUDE_MINTEMP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnEXTRUDE_MINTEMP.Location = new System.Drawing.Point(281, 35);
+            this.marlinUpDnEXTRUDE_MINTEMP.Location = new System.Drawing.Point(337, 35);
             this.marlinUpDnEXTRUDE_MINTEMP.Max = 250;
             this.marlinUpDnEXTRUDE_MINTEMP.Min = 100;
             this.marlinUpDnEXTRUDE_MINTEMP.Name = "marlinUpDnEXTRUDE_MINTEMP";
@@ -2151,7 +2135,7 @@
             this.marlinCheckBoxPREVENT_COLD_EXTRUSION.Feature = "PREVENT_COLD_EXTRUSION";
             this.marlinCheckBoxPREVENT_COLD_EXTRUSION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#safety";
             this.marlinCheckBoxPREVENT_COLD_EXTRUSION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPREVENT_COLD_EXTRUSION.Location = new System.Drawing.Point(281, 8);
+            this.marlinCheckBoxPREVENT_COLD_EXTRUSION.Location = new System.Drawing.Point(337, 8);
             this.marlinCheckBoxPREVENT_COLD_EXTRUSION.Name = "marlinCheckBoxPREVENT_COLD_EXTRUSION";
             this.marlinCheckBoxPREVENT_COLD_EXTRUSION.NewFirmwareHelper = null;
             this.marlinCheckBoxPREVENT_COLD_EXTRUSION.Size = new System.Drawing.Size(327, 21);
@@ -2161,9 +2145,9 @@
             // 
             this.tabPageThermalProtection.Controls.Add(this.marlinCheckBoxTHERMAL_PROTECTION_BED);
             this.tabPageThermalProtection.Controls.Add(this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS);
-            this.tabPageThermalProtection.Location = new System.Drawing.Point(4, 76);
+            this.tabPageThermalProtection.Location = new System.Drawing.Point(4, 58);
             this.tabPageThermalProtection.Name = "tabPageThermalProtection";
-            this.tabPageThermalProtection.Size = new System.Drawing.Size(622, 585);
+            this.tabPageThermalProtection.Size = new System.Drawing.Size(736, 603);
             this.tabPageThermalProtection.TabIndex = 13;
             this.tabPageThermalProtection.Text = "Thermal Protection";
             this.tabPageThermalProtection.UseVisualStyleBackColor = true;
@@ -2176,7 +2160,7 @@
             this.marlinCheckBoxTHERMAL_PROTECTION_BED.Feature = "THERMAL_PROTECTION_BED";
             this.marlinCheckBoxTHERMAL_PROTECTION_BED.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#safety";
             this.marlinCheckBoxTHERMAL_PROTECTION_BED.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxTHERMAL_PROTECTION_BED.Location = new System.Drawing.Point(421, 38);
+            this.marlinCheckBoxTHERMAL_PROTECTION_BED.Location = new System.Drawing.Point(477, 38);
             this.marlinCheckBoxTHERMAL_PROTECTION_BED.Name = "marlinCheckBoxTHERMAL_PROTECTION_BED";
             this.marlinCheckBoxTHERMAL_PROTECTION_BED.NewFirmwareHelper = null;
             this.marlinCheckBoxTHERMAL_PROTECTION_BED.Size = new System.Drawing.Size(187, 21);
@@ -2190,7 +2174,7 @@
             this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.Feature = "THERMAL_PROTECTION_HOTENDS";
             this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#safety";
             this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.Location = new System.Drawing.Point(421, 11);
+            this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.Location = new System.Drawing.Point(477, 11);
             this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.Name = "marlinCheckBoxTHERMAL_PROTECTION_HOTENDS";
             this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.NewFirmwareHelper = null;
             this.marlinCheckBoxTHERMAL_PROTECTION_HOTENDS.Size = new System.Drawing.Size(187, 21);
@@ -2204,9 +2188,9 @@
             this.tabPageKinematics.Controls.Add(this.marlinCheckBoxCOREYZ);
             this.tabPageKinematics.Controls.Add(this.marlinCheckBoxCOREXZ);
             this.tabPageKinematics.Controls.Add(this.marlinCheckBoxCOREXY);
-            this.tabPageKinematics.Location = new System.Drawing.Point(4, 76);
+            this.tabPageKinematics.Location = new System.Drawing.Point(4, 58);
             this.tabPageKinematics.Name = "tabPageKinematics";
-            this.tabPageKinematics.Size = new System.Drawing.Size(622, 585);
+            this.tabPageKinematics.Size = new System.Drawing.Size(736, 603);
             this.tabPageKinematics.TabIndex = 14;
             this.tabPageKinematics.Text = "Kinematics";
             this.tabPageKinematics.UseVisualStyleBackColor = true;
@@ -2219,7 +2203,7 @@
             this.marlinCheckBoxCOREZY.Feature = "COREZY";
             this.marlinCheckBoxCOREZY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#kinematics";
             this.marlinCheckBoxCOREZY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCOREZY.Location = new System.Drawing.Point(502, 147);
+            this.marlinCheckBoxCOREZY.Location = new System.Drawing.Point(558, 147);
             this.marlinCheckBoxCOREZY.Name = "marlinCheckBoxCOREZY";
             this.marlinCheckBoxCOREZY.NewFirmwareHelper = null;
             this.marlinCheckBoxCOREZY.Size = new System.Drawing.Size(105, 21);
@@ -2233,7 +2217,7 @@
             this.marlinCheckBoxCOREZX.Feature = "COREZX";
             this.marlinCheckBoxCOREZX.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#kinematics";
             this.marlinCheckBoxCOREZX.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCOREZX.Location = new System.Drawing.Point(502, 120);
+            this.marlinCheckBoxCOREZX.Location = new System.Drawing.Point(558, 120);
             this.marlinCheckBoxCOREZX.Name = "marlinCheckBoxCOREZX";
             this.marlinCheckBoxCOREZX.NewFirmwareHelper = null;
             this.marlinCheckBoxCOREZX.Size = new System.Drawing.Size(105, 21);
@@ -2247,7 +2231,7 @@
             this.marlinCheckBoxCOREYX.Feature = "COREYX";
             this.marlinCheckBoxCOREYX.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#kinematics";
             this.marlinCheckBoxCOREYX.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCOREYX.Location = new System.Drawing.Point(502, 93);
+            this.marlinCheckBoxCOREYX.Location = new System.Drawing.Point(558, 93);
             this.marlinCheckBoxCOREYX.Name = "marlinCheckBoxCOREYX";
             this.marlinCheckBoxCOREYX.NewFirmwareHelper = null;
             this.marlinCheckBoxCOREYX.Size = new System.Drawing.Size(105, 21);
@@ -2261,7 +2245,7 @@
             this.marlinCheckBoxCOREYZ.Feature = "COREYZ";
             this.marlinCheckBoxCOREYZ.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#kinematics";
             this.marlinCheckBoxCOREYZ.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCOREYZ.Location = new System.Drawing.Point(502, 66);
+            this.marlinCheckBoxCOREYZ.Location = new System.Drawing.Point(558, 66);
             this.marlinCheckBoxCOREYZ.Name = "marlinCheckBoxCOREYZ";
             this.marlinCheckBoxCOREYZ.NewFirmwareHelper = null;
             this.marlinCheckBoxCOREYZ.Size = new System.Drawing.Size(105, 21);
@@ -2275,7 +2259,7 @@
             this.marlinCheckBoxCOREXZ.Feature = "COREXZ";
             this.marlinCheckBoxCOREXZ.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#kinematics";
             this.marlinCheckBoxCOREXZ.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCOREXZ.Location = new System.Drawing.Point(502, 39);
+            this.marlinCheckBoxCOREXZ.Location = new System.Drawing.Point(558, 39);
             this.marlinCheckBoxCOREXZ.Name = "marlinCheckBoxCOREXZ";
             this.marlinCheckBoxCOREXZ.NewFirmwareHelper = null;
             this.marlinCheckBoxCOREXZ.Size = new System.Drawing.Size(105, 21);
@@ -2289,7 +2273,7 @@
             this.marlinCheckBoxCOREXY.Feature = "COREXY";
             this.marlinCheckBoxCOREXY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#kinematics";
             this.marlinCheckBoxCOREXY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCOREXY.Location = new System.Drawing.Point(502, 12);
+            this.marlinCheckBoxCOREXY.Location = new System.Drawing.Point(558, 12);
             this.marlinCheckBoxCOREXY.Name = "marlinCheckBoxCOREXY";
             this.marlinCheckBoxCOREXY.NewFirmwareHelper = null;
             this.marlinCheckBoxCOREXY.Size = new System.Drawing.Size(105, 21);
@@ -2300,9 +2284,9 @@
             this.tabPageEndstop.Controls.Add(this.groupBoxEndstopPlug);
             this.tabPageEndstop.Controls.Add(this.groupBoxInvertingEndstops);
             this.tabPageEndstop.Controls.Add(this.grpBxPullupResistors);
-            this.tabPageEndstop.Location = new System.Drawing.Point(4, 76);
+            this.tabPageEndstop.Location = new System.Drawing.Point(4, 58);
             this.tabPageEndstop.Name = "tabPageEndstop";
-            this.tabPageEndstop.Size = new System.Drawing.Size(622, 585);
+            this.tabPageEndstop.Size = new System.Drawing.Size(736, 603);
             this.tabPageEndstop.TabIndex = 3;
             this.tabPageEndstop.Text = "EndStop";
             this.tabPageEndstop.UseVisualStyleBackColor = true;
@@ -2668,9 +2652,9 @@
             this.tabPageMovement.Controls.Add(this.marlinValueDEFAULT_MAX_FEEDRATE);
             this.tabPageMovement.Controls.Add(this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT);
             this.tabPageMovement.Controls.Add(this.marlinCheckBoxDISTINCT_E_FACTORS);
-            this.tabPageMovement.Location = new System.Drawing.Point(4, 76);
+            this.tabPageMovement.Location = new System.Drawing.Point(4, 58);
             this.tabPageMovement.Name = "tabPageMovement";
-            this.tabPageMovement.Size = new System.Drawing.Size(622, 585);
+            this.tabPageMovement.Size = new System.Drawing.Size(736, 603);
             this.tabPageMovement.TabIndex = 4;
             this.tabPageMovement.Text = "Movement";
             this.tabPageMovement.UseVisualStyleBackColor = true;
@@ -2683,7 +2667,7 @@
             this.marlinValueDEFAULT_EJERK.Feature = "DEFAULT_EJERK";
             this.marlinValueDEFAULT_EJERK.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_EJERK.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_EJERK.Location = new System.Drawing.Point(332, 354);
+            this.marlinValueDEFAULT_EJERK.Location = new System.Drawing.Point(388, 354);
             this.marlinValueDEFAULT_EJERK.Name = "marlinValueDEFAULT_EJERK";
             this.marlinValueDEFAULT_EJERK.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_EJERK.Size = new System.Drawing.Size(276, 26);
@@ -2698,7 +2682,7 @@
             this.marlinValueDEFAULT_ZJERK.Feature = "DEFAULT_ZJERK";
             this.marlinValueDEFAULT_ZJERK.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_ZJERK.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_ZJERK.Location = new System.Drawing.Point(332, 322);
+            this.marlinValueDEFAULT_ZJERK.Location = new System.Drawing.Point(388, 322);
             this.marlinValueDEFAULT_ZJERK.Name = "marlinValueDEFAULT_ZJERK";
             this.marlinValueDEFAULT_ZJERK.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_ZJERK.Size = new System.Drawing.Size(276, 26);
@@ -2713,7 +2697,7 @@
             this.marlinValueDEFAULT_YJERK.Feature = "DEFAULT_YJERK";
             this.marlinValueDEFAULT_YJERK.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_YJERK.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_YJERK.Location = new System.Drawing.Point(332, 290);
+            this.marlinValueDEFAULT_YJERK.Location = new System.Drawing.Point(388, 290);
             this.marlinValueDEFAULT_YJERK.Name = "marlinValueDEFAULT_YJERK";
             this.marlinValueDEFAULT_YJERK.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_YJERK.Size = new System.Drawing.Size(276, 26);
@@ -2728,7 +2712,7 @@
             this.marlinValueDEFAULT_XJERK.Feature = "DEFAULT_XJERK";
             this.marlinValueDEFAULT_XJERK.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_XJERK.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_XJERK.Location = new System.Drawing.Point(332, 258);
+            this.marlinValueDEFAULT_XJERK.Location = new System.Drawing.Point(388, 258);
             this.marlinValueDEFAULT_XJERK.Name = "marlinValueDEFAULT_XJERK";
             this.marlinValueDEFAULT_XJERK.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_XJERK.Size = new System.Drawing.Size(276, 26);
@@ -2743,7 +2727,7 @@
             this.marlinValueDEFAULT_TRAVEL_ACCELERATION.Feature = "DEFAULT_TRAVEL_ACCELERATION";
             this.marlinValueDEFAULT_TRAVEL_ACCELERATION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_TRAVEL_ACCELERATION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_TRAVEL_ACCELERATION.Location = new System.Drawing.Point(364, 209);
+            this.marlinValueDEFAULT_TRAVEL_ACCELERATION.Location = new System.Drawing.Point(420, 209);
             this.marlinValueDEFAULT_TRAVEL_ACCELERATION.Name = "marlinValueDEFAULT_TRAVEL_ACCELERATION";
             this.marlinValueDEFAULT_TRAVEL_ACCELERATION.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_TRAVEL_ACCELERATION.Size = new System.Drawing.Size(244, 26);
@@ -2758,7 +2742,7 @@
             this.marlinValueDEFAULT_RETRACT_ACCELERATION.Feature = "DEFAULT_RETRACT_ACCELERATION";
             this.marlinValueDEFAULT_RETRACT_ACCELERATION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_RETRACT_ACCELERATION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_RETRACT_ACCELERATION.Location = new System.Drawing.Point(364, 177);
+            this.marlinValueDEFAULT_RETRACT_ACCELERATION.Location = new System.Drawing.Point(420, 177);
             this.marlinValueDEFAULT_RETRACT_ACCELERATION.Name = "marlinValueDEFAULT_RETRACT_ACCELERATION";
             this.marlinValueDEFAULT_RETRACT_ACCELERATION.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_RETRACT_ACCELERATION.Size = new System.Drawing.Size(244, 26);
@@ -2773,7 +2757,7 @@
             this.marlinValueDEFAULT_ACCELERATION.Feature = "DEFAULT_ACCELERATION";
             this.marlinValueDEFAULT_ACCELERATION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_ACCELERATION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_ACCELERATION.Location = new System.Drawing.Point(364, 145);
+            this.marlinValueDEFAULT_ACCELERATION.Location = new System.Drawing.Point(420, 145);
             this.marlinValueDEFAULT_ACCELERATION.Name = "marlinValueDEFAULT_ACCELERATION";
             this.marlinValueDEFAULT_ACCELERATION.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_ACCELERATION.Size = new System.Drawing.Size(244, 26);
@@ -2788,7 +2772,7 @@
             this.marlinValueDEFAULT_MAX_ACCELERATION.Feature = "DEFAULT_MAX_ACCELERATION";
             this.marlinValueDEFAULT_MAX_ACCELERATION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#acceleration";
             this.marlinValueDEFAULT_MAX_ACCELERATION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_MAX_ACCELERATION.Location = new System.Drawing.Point(138, 105);
+            this.marlinValueDEFAULT_MAX_ACCELERATION.Location = new System.Drawing.Point(194, 105);
             this.marlinValueDEFAULT_MAX_ACCELERATION.Name = "marlinValueDEFAULT_MAX_ACCELERATION";
             this.marlinValueDEFAULT_MAX_ACCELERATION.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_MAX_ACCELERATION.Size = new System.Drawing.Size(470, 26);
@@ -2803,7 +2787,7 @@
             this.marlinValueDEFAULT_MAX_FEEDRATE.Feature = "DEFAULT_MAX_FEEDRATE";
             this.marlinValueDEFAULT_MAX_FEEDRATE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#default-steps-per-mm-";
             this.marlinValueDEFAULT_MAX_FEEDRATE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_MAX_FEEDRATE.Location = new System.Drawing.Point(138, 73);
+            this.marlinValueDEFAULT_MAX_FEEDRATE.Location = new System.Drawing.Point(194, 73);
             this.marlinValueDEFAULT_MAX_FEEDRATE.Name = "marlinValueDEFAULT_MAX_FEEDRATE";
             this.marlinValueDEFAULT_MAX_FEEDRATE.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_MAX_FEEDRATE.Size = new System.Drawing.Size(470, 26);
@@ -2818,7 +2802,7 @@
             this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.Feature = "DEFAULT_AXIS_STEPS_PER_UNIT";
             this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#default-steps-per-mm-";
             this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.Location = new System.Drawing.Point(138, 41);
+            this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.Location = new System.Drawing.Point(194, 41);
             this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.Name = "marlinValueDEFAULT_AXIS_STEPS_PER_UNIT";
             this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_AXIS_STEPS_PER_UNIT.Size = new System.Drawing.Size(470, 26);
@@ -2833,7 +2817,7 @@
             this.marlinCheckBoxDISTINCT_E_FACTORS.Feature = "DISTINCT_E_FACTORS";
             this.marlinCheckBoxDISTINCT_E_FACTORS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#distinct-e-factors";
             this.marlinCheckBoxDISTINCT_E_FACTORS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxDISTINCT_E_FACTORS.Location = new System.Drawing.Point(364, 14);
+            this.marlinCheckBoxDISTINCT_E_FACTORS.Location = new System.Drawing.Point(420, 14);
             this.marlinCheckBoxDISTINCT_E_FACTORS.Name = "marlinCheckBoxDISTINCT_E_FACTORS";
             this.marlinCheckBoxDISTINCT_E_FACTORS.NewFirmwareHelper = null;
             this.marlinCheckBoxDISTINCT_E_FACTORS.Size = new System.Drawing.Size(244, 21);
@@ -2856,9 +2840,9 @@
             this.tabPageProbe.Controls.Add(this.marlinEnableValueZ_MIN_PROBE_PIN);
             this.tabPageProbe.Controls.Add(this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP);
             this.tabPageProbe.Controls.Add(this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN);
-            this.tabPageProbe.Location = new System.Drawing.Point(4, 76);
+            this.tabPageProbe.Location = new System.Drawing.Point(4, 58);
             this.tabPageProbe.Name = "tabPageProbe";
-            this.tabPageProbe.Size = new System.Drawing.Size(622, 585);
+            this.tabPageProbe.Size = new System.Drawing.Size(736, 603);
             this.tabPageProbe.TabIndex = 5;
             this.tabPageProbe.Text = "Z Probe";
             this.tabPageProbe.UseVisualStyleBackColor = true;
@@ -2916,7 +2900,7 @@
             this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.Feature = "Z_MIN_PROBE_REPEATABILITY_TEST";
             this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-testing";
             this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.Location = new System.Drawing.Point(383, 271);
+            this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.Location = new System.Drawing.Point(439, 271);
             this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.Name = "marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST";
             this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.NewFirmwareHelper = null;
             this.marlinCheckBoxZ_MIN_PROBE_REPEATABILITY_TEST.Size = new System.Drawing.Size(221, 21);
@@ -2930,7 +2914,7 @@
             this.marlinCheckBoxPROBE_DOUBLE_TOUCH.Feature = "PROBE_DOUBLE_TOUCH";
             this.marlinCheckBoxPROBE_DOUBLE_TOUCH.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-double-touch";
             this.marlinCheckBoxPROBE_DOUBLE_TOUCH.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPROBE_DOUBLE_TOUCH.Location = new System.Drawing.Point(383, 244);
+            this.marlinCheckBoxPROBE_DOUBLE_TOUCH.Location = new System.Drawing.Point(439, 244);
             this.marlinCheckBoxPROBE_DOUBLE_TOUCH.Name = "marlinCheckBoxPROBE_DOUBLE_TOUCH";
             this.marlinCheckBoxPROBE_DOUBLE_TOUCH.NewFirmwareHelper = null;
             this.marlinCheckBoxPROBE_DOUBLE_TOUCH.Size = new System.Drawing.Size(221, 21);
@@ -3098,7 +3082,7 @@
             this.marlinCheckBoxSOLENOID_PROBE.Feature = "SOLENOID_PROBE";
             this.marlinCheckBoxSOLENOID_PROBE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-type";
             this.marlinCheckBoxSOLENOID_PROBE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSOLENOID_PROBE.Location = new System.Drawing.Point(383, 217);
+            this.marlinCheckBoxSOLENOID_PROBE.Location = new System.Drawing.Point(439, 217);
             this.marlinCheckBoxSOLENOID_PROBE.Name = "marlinCheckBoxSOLENOID_PROBE";
             this.marlinCheckBoxSOLENOID_PROBE.NewFirmwareHelper = null;
             this.marlinCheckBoxSOLENOID_PROBE.Size = new System.Drawing.Size(221, 21);
@@ -3167,7 +3151,7 @@
             this.marlinEnableValueZ_SERVO_ANGLES.Feature = "Z_SERVO_ANGLES";
             this.marlinEnableValueZ_SERVO_ANGLES.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-type";
             this.marlinEnableValueZ_SERVO_ANGLES.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueZ_SERVO_ANGLES.Location = new System.Drawing.Point(387, 185);
+            this.marlinEnableValueZ_SERVO_ANGLES.Location = new System.Drawing.Point(443, 185);
             this.marlinEnableValueZ_SERVO_ANGLES.Name = "marlinEnableValueZ_SERVO_ANGLES";
             this.marlinEnableValueZ_SERVO_ANGLES.NewFirmwareHelper = null;
             this.marlinEnableValueZ_SERVO_ANGLES.Size = new System.Drawing.Size(217, 26);
@@ -3182,7 +3166,7 @@
             this.marlinEnableValueZ_ENDSTOP_SERVO_NR.Feature = "Z_ENDSTOP_SERVO_NR";
             this.marlinEnableValueZ_ENDSTOP_SERVO_NR.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-type";
             this.marlinEnableValueZ_ENDSTOP_SERVO_NR.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueZ_ENDSTOP_SERVO_NR.Location = new System.Drawing.Point(387, 153);
+            this.marlinEnableValueZ_ENDSTOP_SERVO_NR.Location = new System.Drawing.Point(443, 153);
             this.marlinEnableValueZ_ENDSTOP_SERVO_NR.Name = "marlinEnableValueZ_ENDSTOP_SERVO_NR";
             this.marlinEnableValueZ_ENDSTOP_SERVO_NR.NewFirmwareHelper = null;
             this.marlinEnableValueZ_ENDSTOP_SERVO_NR.Size = new System.Drawing.Size(217, 26);
@@ -3197,7 +3181,7 @@
             this.marlinCheckBoxFIX_MOUNTED_PROBE.Feature = "FIX_MOUNTED_PROBE";
             this.marlinCheckBoxFIX_MOUNTED_PROBE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-type";
             this.marlinCheckBoxFIX_MOUNTED_PROBE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxFIX_MOUNTED_PROBE.Location = new System.Drawing.Point(382, 126);
+            this.marlinCheckBoxFIX_MOUNTED_PROBE.Location = new System.Drawing.Point(438, 126);
             this.marlinCheckBoxFIX_MOUNTED_PROBE.Name = "marlinCheckBoxFIX_MOUNTED_PROBE";
             this.marlinCheckBoxFIX_MOUNTED_PROBE.NewFirmwareHelper = null;
             this.marlinCheckBoxFIX_MOUNTED_PROBE.Size = new System.Drawing.Size(222, 21);
@@ -3211,7 +3195,7 @@
             this.marlinCheckBoxPROBE_MANUALLY.Feature = "PROBE_MANUALLY";
             this.marlinCheckBoxPROBE_MANUALLY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-type";
             this.marlinCheckBoxPROBE_MANUALLY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPROBE_MANUALLY.Location = new System.Drawing.Point(383, 99);
+            this.marlinCheckBoxPROBE_MANUALLY.Location = new System.Drawing.Point(439, 99);
             this.marlinCheckBoxPROBE_MANUALLY.Name = "marlinCheckBoxPROBE_MANUALLY";
             this.marlinCheckBoxPROBE_MANUALLY.NewFirmwareHelper = null;
             this.marlinCheckBoxPROBE_MANUALLY.Size = new System.Drawing.Size(221, 21);
@@ -3225,7 +3209,7 @@
             this.marlinEnableValueZ_MIN_PROBE_PIN.Feature = "Z_MIN_PROBE_PIN";
             this.marlinEnableValueZ_MIN_PROBE_PIN.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-pins";
             this.marlinEnableValueZ_MIN_PROBE_PIN.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueZ_MIN_PROBE_PIN.Location = new System.Drawing.Point(388, 67);
+            this.marlinEnableValueZ_MIN_PROBE_PIN.Location = new System.Drawing.Point(444, 67);
             this.marlinEnableValueZ_MIN_PROBE_PIN.Name = "marlinEnableValueZ_MIN_PROBE_PIN";
             this.marlinEnableValueZ_MIN_PROBE_PIN.NewFirmwareHelper = null;
             this.marlinEnableValueZ_MIN_PROBE_PIN.Size = new System.Drawing.Size(216, 26);
@@ -3240,7 +3224,7 @@
             this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.Feature = "Z_MIN_PROBE_ENDSTOP";
             this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-pins";
             this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.Location = new System.Drawing.Point(383, 40);
+            this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.Location = new System.Drawing.Point(439, 40);
             this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.Name = "marlinCheckBoxZ_MIN_PROBE_ENDSTOP";
             this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.NewFirmwareHelper = null;
             this.marlinCheckBoxZ_MIN_PROBE_ENDSTOP.Size = new System.Drawing.Size(221, 21);
@@ -3254,7 +3238,7 @@
             this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.Feature = "Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN";
             this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#probe-pins";
             this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.Location = new System.Drawing.Point(383, 13);
+            this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.Location = new System.Drawing.Point(439, 13);
             this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.Name = "marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN";
             this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.NewFirmwareHelper = null;
             this.marlinCheckBoxZ_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN.Size = new System.Drawing.Size(221, 21);
@@ -3266,9 +3250,9 @@
             this.tabPageStepper.Controls.Add(this.grpBxInvertDirection);
             this.tabPageStepper.Controls.Add(this.grpBxDisableSteppers);
             this.tabPageStepper.Controls.Add(this.grpBxStepperEnablePin);
-            this.tabPageStepper.Location = new System.Drawing.Point(4, 76);
+            this.tabPageStepper.Location = new System.Drawing.Point(4, 58);
             this.tabPageStepper.Name = "tabPageStepper";
-            this.tabPageStepper.Size = new System.Drawing.Size(622, 585);
+            this.tabPageStepper.Size = new System.Drawing.Size(736, 603);
             this.tabPageStepper.TabIndex = 15;
             this.tabPageStepper.Text = "Stepper";
             this.tabPageStepper.UseVisualStyleBackColor = true;
@@ -3281,7 +3265,7 @@
             this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.Feature = "CONFIG_STEPPERS_TOSHIBA";
             this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#toshiba-drivers";
             this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.Location = new System.Drawing.Point(407, 22);
+            this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.Location = new System.Drawing.Point(463, 22);
             this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.Name = "marlinCheckBoxCONFIG_STEPPERS_TOSHIBA";
             this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.NewFirmwareHelper = null;
             this.marlinCheckBoxCONFIG_STEPPERS_TOSHIBA.Size = new System.Drawing.Size(204, 21);
@@ -3298,7 +3282,7 @@
             this.grpBxInvertDirection.Controls.Add(this.marlinComboBoxINVERT_Z_DIR);
             this.grpBxInvertDirection.Controls.Add(this.marlinComboBoxINVERT_Y_DIR);
             this.grpBxInvertDirection.Controls.Add(this.marlinComboBoxINVERT_X_DIR);
-            this.grpBxInvertDirection.Location = new System.Drawing.Point(405, 49);
+            this.grpBxInvertDirection.Location = new System.Drawing.Point(461, 49);
             this.grpBxInvertDirection.Name = "grpBxInvertDirection";
             this.grpBxInvertDirection.Size = new System.Drawing.Size(214, 274);
             this.grpBxInvertDirection.TabIndex = 2;
@@ -3604,9 +3588,9 @@
             // 
             this.tabPageHoming.Controls.Add(this.grpBxTravelLimits);
             this.tabPageHoming.Controls.Add(this.groupBoxEndStopDirection);
-            this.tabPageHoming.Location = new System.Drawing.Point(4, 76);
+            this.tabPageHoming.Location = new System.Drawing.Point(4, 58);
             this.tabPageHoming.Name = "tabPageHoming";
-            this.tabPageHoming.Size = new System.Drawing.Size(622, 585);
+            this.tabPageHoming.Size = new System.Drawing.Size(736, 603);
             this.tabPageHoming.TabIndex = 16;
             this.tabPageHoming.Text = "Homing";
             this.tabPageHoming.UseVisualStyleBackColor = true;
@@ -3622,7 +3606,7 @@
             this.grpBxTravelLimits.Controls.Add(this.marlinUpDnZ_MIN_POS);
             this.grpBxTravelLimits.Controls.Add(this.marlinUpDnY_MIN_POS);
             this.grpBxTravelLimits.Controls.Add(this.marlinUpDnX_MIN_POS);
-            this.grpBxTravelLimits.Location = new System.Drawing.Point(393, 147);
+            this.grpBxTravelLimits.Location = new System.Drawing.Point(449, 147);
             this.grpBxTravelLimits.Name = "grpBxTravelLimits";
             this.grpBxTravelLimits.Size = new System.Drawing.Size(217, 287);
             this.grpBxTravelLimits.TabIndex = 1;
@@ -3763,7 +3747,7 @@
             this.groupBoxEndStopDirection.Controls.Add(this.marlinUpDnZ_HOME_DIR);
             this.groupBoxEndStopDirection.Controls.Add(this.marlinUpDnY_HOME_DIR);
             this.groupBoxEndStopDirection.Controls.Add(this.marlinUpDnX_HOME_DIR);
-            this.groupBoxEndStopDirection.Location = new System.Drawing.Point(393, 14);
+            this.groupBoxEndStopDirection.Location = new System.Drawing.Point(449, 14);
             this.groupBoxEndStopDirection.Name = "groupBoxEndStopDirection";
             this.groupBoxEndStopDirection.Size = new System.Drawing.Size(217, 127);
             this.groupBoxEndStopDirection.TabIndex = 0;
@@ -3827,9 +3811,9 @@
             this.tabPageFilamentRunoutSensor.Controls.Add(this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT);
             this.tabPageFilamentRunoutSensor.Controls.Add(this.marlinComboBox1);
             this.tabPageFilamentRunoutSensor.Controls.Add(this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR);
-            this.tabPageFilamentRunoutSensor.Location = new System.Drawing.Point(4, 76);
+            this.tabPageFilamentRunoutSensor.Location = new System.Drawing.Point(4, 58);
             this.tabPageFilamentRunoutSensor.Name = "tabPageFilamentRunoutSensor";
-            this.tabPageFilamentRunoutSensor.Size = new System.Drawing.Size(622, 585);
+            this.tabPageFilamentRunoutSensor.Size = new System.Drawing.Size(736, 603);
             this.tabPageFilamentRunoutSensor.TabIndex = 17;
             this.tabPageFilamentRunoutSensor.Text = "Filement Runout Sensor";
             this.tabPageFilamentRunoutSensor.UseVisualStyleBackColor = true;
@@ -3842,7 +3826,7 @@
             this.marlinValueFILAMENT_RUNOUT_SCRIPT.Feature = "FILAMENT_RUNOUT_SCRIPT";
             this.marlinValueFILAMENT_RUNOUT_SCRIPT.HelpUrl = null;
             this.marlinValueFILAMENT_RUNOUT_SCRIPT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueFILAMENT_RUNOUT_SCRIPT.Location = new System.Drawing.Point(263, 98);
+            this.marlinValueFILAMENT_RUNOUT_SCRIPT.Location = new System.Drawing.Point(319, 98);
             this.marlinValueFILAMENT_RUNOUT_SCRIPT.Name = "marlinValueFILAMENT_RUNOUT_SCRIPT";
             this.marlinValueFILAMENT_RUNOUT_SCRIPT.NewFirmwareHelper = null;
             this.marlinValueFILAMENT_RUNOUT_SCRIPT.Size = new System.Drawing.Size(347, 26);
@@ -3857,7 +3841,7 @@
             this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.Feature = "ENDSTOPPULLUP_FIL_RUNOUT";
             this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.HelpUrl = null;
             this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.Location = new System.Drawing.Point(263, 71);
+            this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.Location = new System.Drawing.Point(319, 71);
             this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.Name = "marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT";
             this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.NewFirmwareHelper = null;
             this.marlinCheckBoxENDSTOPPULLUP_FIL_RUNOUT.Size = new System.Drawing.Size(347, 21);
@@ -3872,7 +3856,7 @@
             this.marlinComboBox1.HelpUrl = null;
             this.marlinComboBox1.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBox1.IsTrueFalse = true;
-            this.marlinComboBox1.Location = new System.Drawing.Point(263, 39);
+            this.marlinComboBox1.Location = new System.Drawing.Point(319, 39);
             this.marlinComboBox1.Name = "marlinComboBox1";
             this.marlinComboBox1.NewFirmwareHelper = null;
             this.marlinComboBox1.Size = new System.Drawing.Size(347, 26);
@@ -3887,7 +3871,7 @@
             this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.Feature = "FILAMENT_RUNOUT_SENSOR";
             this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.HelpUrl = null;
             this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.Location = new System.Drawing.Point(263, 12);
+            this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.Location = new System.Drawing.Point(319, 12);
             this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.Name = "marlinCheckBoxFILAMENT_RUNOUT_SENSOR";
             this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.NewFirmwareHelper = null;
             this.marlinCheckBoxFILAMENT_RUNOUT_SENSOR.Size = new System.Drawing.Size(347, 21);
@@ -3905,9 +3889,9 @@
             this.tabPageBedLeveling.Controls.Add(this.grpBxProbeGrid);
             this.tabPageBedLeveling.Controls.Add(this.grpBxEnableFadeHeight);
             this.tabPageBedLeveling.Controls.Add(this.marlinCheckBoxDEBUG_LEVELING_FEATURE);
-            this.tabPageBedLeveling.Location = new System.Drawing.Point(4, 76);
+            this.tabPageBedLeveling.Location = new System.Drawing.Point(4, 58);
             this.tabPageBedLeveling.Name = "tabPageBedLeveling";
-            this.tabPageBedLeveling.Size = new System.Drawing.Size(622, 585);
+            this.tabPageBedLeveling.Size = new System.Drawing.Size(736, 603);
             this.tabPageBedLeveling.TabIndex = 18;
             this.tabPageBedLeveling.Text = "Bed Leveling";
             this.tabPageBedLeveling.UseVisualStyleBackColor = true;
@@ -3921,11 +3905,11 @@
             this.marlinEnableValueZ_PROBE_END_SCRIPT.Feature = "Z_PROBE_END_SCRIPT";
             this.marlinEnableValueZ_PROBE_END_SCRIPT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#z-probe-end-script";
             this.marlinEnableValueZ_PROBE_END_SCRIPT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueZ_PROBE_END_SCRIPT.Location = new System.Drawing.Point(8, 519);
+            this.marlinEnableValueZ_PROBE_END_SCRIPT.Location = new System.Drawing.Point(8, 517);
             this.marlinEnableValueZ_PROBE_END_SCRIPT.Name = "marlinEnableValueZ_PROBE_END_SCRIPT";
             this.marlinEnableValueZ_PROBE_END_SCRIPT.NewFirmwareHelper = null;
-            this.marlinEnableValueZ_PROBE_END_SCRIPT.Size = new System.Drawing.Size(611, 26);
-            this.marlinEnableValueZ_PROBE_END_SCRIPT.SpliterDistance = 91;
+            this.marlinEnableValueZ_PROBE_END_SCRIPT.Size = new System.Drawing.Size(667, 26);
+            this.marlinEnableValueZ_PROBE_END_SCRIPT.SpliterDistance = 99;
             this.marlinEnableValueZ_PROBE_END_SCRIPT.TabIndex = 16;
             // 
             // grpBxMeshBedLevel
@@ -3933,7 +3917,7 @@
             this.grpBxMeshBedLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBxMeshBedLevel.Controls.Add(this.marlinCheckBoxMESH_G28_REST_ORIGIN);
             this.grpBxMeshBedLevel.Controls.Add(this.marlinUpDnMESH_INSET);
-            this.grpBxMeshBedLevel.Location = new System.Drawing.Point(321, 381);
+            this.grpBxMeshBedLevel.Location = new System.Drawing.Point(377, 381);
             this.grpBxMeshBedLevel.Name = "grpBxMeshBedLevel";
             this.grpBxMeshBedLevel.Size = new System.Drawing.Size(298, 72);
             this.grpBxMeshBedLevel.TabIndex = 14;
@@ -3981,9 +3965,9 @@
             this.grpBxAutoBedLevelingUbl.Controls.Add(this.marlinUpDnUBL_PROBE_PT_2_Y);
             this.grpBxAutoBedLevelingUbl.Controls.Add(this.marlinUpDnUBL_PROBE_PT_1_X);
             this.grpBxAutoBedLevelingUbl.Controls.Add(this.marlinUpDnUBL_PROBE_PT_2_X);
-            this.grpBxAutoBedLevelingUbl.Location = new System.Drawing.Point(321, 218);
+            this.grpBxAutoBedLevelingUbl.Location = new System.Drawing.Point(343, 218);
             this.grpBxAutoBedLevelingUbl.Name = "grpBxAutoBedLevelingUbl";
-            this.grpBxAutoBedLevelingUbl.Size = new System.Drawing.Size(298, 157);
+            this.grpBxAutoBedLevelingUbl.Size = new System.Drawing.Size(332, 157);
             this.grpBxAutoBedLevelingUbl.TabIndex = 13;
             this.grpBxAutoBedLevelingUbl.TabStop = false;
             this.grpBxAutoBedLevelingUbl.Text = "Auto Bed Leveling UBL";
@@ -3997,7 +3981,7 @@
             this.marlinUpDnUBL_PROBE_PT_3_Y.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#unified-bed-leveling-op" +
     "tions";
             this.marlinUpDnUBL_PROBE_PT_3_Y.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnUBL_PROBE_PT_3_Y.Location = new System.Drawing.Point(152, 125);
+            this.marlinUpDnUBL_PROBE_PT_3_Y.Location = new System.Drawing.Point(186, 125);
             this.marlinUpDnUBL_PROBE_PT_3_Y.Max = 400;
             this.marlinUpDnUBL_PROBE_PT_3_Y.Min = 0;
             this.marlinUpDnUBL_PROBE_PT_3_Y.Name = "marlinUpDnUBL_PROBE_PT_3_Y";
@@ -4008,13 +3992,14 @@
             // 
             // marlinUpDnUBL_MESH_INSET
             // 
+            this.marlinUpDnUBL_MESH_INSET.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.marlinUpDnUBL_MESH_INSET.ControlText = "UBL mesh Inset";
             this.marlinUpDnUBL_MESH_INSET.currentFirmwareHelper = null;
             this.marlinUpDnUBL_MESH_INSET.Feature = "UBL_MESH_INSET";
             this.marlinUpDnUBL_MESH_INSET.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#unified-bed-leveling-op" +
     "tions";
             this.marlinUpDnUBL_MESH_INSET.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnUBL_MESH_INSET.Location = new System.Drawing.Point(107, 19);
+            this.marlinUpDnUBL_MESH_INSET.Location = new System.Drawing.Point(140, 19);
             this.marlinUpDnUBL_MESH_INSET.Max = 15;
             this.marlinUpDnUBL_MESH_INSET.Min = 1;
             this.marlinUpDnUBL_MESH_INSET.Name = "marlinUpDnUBL_MESH_INSET";
@@ -4049,7 +4034,7 @@
             this.marlinUpDnUBL_PROBE_PT_1_Y.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#unified-bed-leveling-op" +
     "tions";
             this.marlinUpDnUBL_PROBE_PT_1_Y.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnUBL_PROBE_PT_1_Y.Location = new System.Drawing.Point(152, 61);
+            this.marlinUpDnUBL_PROBE_PT_1_Y.Location = new System.Drawing.Point(186, 61);
             this.marlinUpDnUBL_PROBE_PT_1_Y.Max = 400;
             this.marlinUpDnUBL_PROBE_PT_1_Y.Min = 0;
             this.marlinUpDnUBL_PROBE_PT_1_Y.Name = "marlinUpDnUBL_PROBE_PT_1_Y";
@@ -4067,7 +4052,7 @@
             this.marlinUpDnUBL_PROBE_PT_2_Y.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#unified-bed-leveling-op" +
     "tions";
             this.marlinUpDnUBL_PROBE_PT_2_Y.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnUBL_PROBE_PT_2_Y.Location = new System.Drawing.Point(152, 93);
+            this.marlinUpDnUBL_PROBE_PT_2_Y.Location = new System.Drawing.Point(186, 93);
             this.marlinUpDnUBL_PROBE_PT_2_Y.Max = 400;
             this.marlinUpDnUBL_PROBE_PT_2_Y.Min = 0;
             this.marlinUpDnUBL_PROBE_PT_2_Y.Name = "marlinUpDnUBL_PROBE_PT_2_Y";
@@ -4116,7 +4101,7 @@
             this.grpBxGridPoints.Controls.Add(this.marlinValueGRID_MAX_POINTS_Y);
             this.grpBxGridPoints.Location = new System.Drawing.Point(8, 437);
             this.grpBxGridPoints.Name = "grpBxGridPoints";
-            this.grpBxGridPoints.Size = new System.Drawing.Size(300, 81);
+            this.grpBxGridPoints.Size = new System.Drawing.Size(300, 76);
             this.grpBxGridPoints.TabIndex = 12;
             this.grpBxGridPoints.TabStop = false;
             this.grpBxGridPoints.Text = "Number of gridpoints";
@@ -4129,11 +4114,11 @@
             this.marlinValueGRID_MAX_POINTS_X.Feature = "GRID_MAX_POINTS_X";
             this.marlinValueGRID_MAX_POINTS_X.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
             this.marlinValueGRID_MAX_POINTS_X.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueGRID_MAX_POINTS_X.Location = new System.Drawing.Point(7, 19);
+            this.marlinValueGRID_MAX_POINTS_X.Location = new System.Drawing.Point(7, 16);
             this.marlinValueGRID_MAX_POINTS_X.Name = "marlinValueGRID_MAX_POINTS_X";
             this.marlinValueGRID_MAX_POINTS_X.NewFirmwareHelper = null;
-            this.marlinValueGRID_MAX_POINTS_X.Size = new System.Drawing.Size(273, 21);
-            this.marlinValueGRID_MAX_POINTS_X.SpliterDistance = 148;
+            this.marlinValueGRID_MAX_POINTS_X.Size = new System.Drawing.Size(273, 26);
+            this.marlinValueGRID_MAX_POINTS_X.SpliterDistance = 80;
             this.marlinValueGRID_MAX_POINTS_X.TabIndex = 9;
             // 
             // marlinValueGRID_MAX_POINTS_Y
@@ -4144,11 +4129,11 @@
             this.marlinValueGRID_MAX_POINTS_Y.Feature = "GRID_MAX_POINTS_Y";
             this.marlinValueGRID_MAX_POINTS_Y.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
             this.marlinValueGRID_MAX_POINTS_Y.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueGRID_MAX_POINTS_Y.Location = new System.Drawing.Point(6, 46);
+            this.marlinValueGRID_MAX_POINTS_Y.Location = new System.Drawing.Point(6, 44);
             this.marlinValueGRID_MAX_POINTS_Y.Name = "marlinValueGRID_MAX_POINTS_Y";
             this.marlinValueGRID_MAX_POINTS_Y.NewFirmwareHelper = null;
-            this.marlinValueGRID_MAX_POINTS_Y.Size = new System.Drawing.Size(273, 21);
-            this.marlinValueGRID_MAX_POINTS_Y.SpliterDistance = 148;
+            this.marlinValueGRID_MAX_POINTS_Y.Size = new System.Drawing.Size(273, 26);
+            this.marlinValueGRID_MAX_POINTS_Y.SpliterDistance = 80;
             this.marlinValueGRID_MAX_POINTS_Y.TabIndex = 10;
             // 
             // grpBx3Points
@@ -4392,18 +4377,93 @@
             // grpBxProbeGrid
             // 
             this.grpBxProbeGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpBxProbeGrid.Controls.Add(this.marlinValueMIN_PROBE_EDGE);
+            this.grpBxProbeGrid.Controls.Add(this.marlinValueBACK_PROBE_BED_POSITION);
+            this.grpBxProbeGrid.Controls.Add(this.marlinValueFRONT_PROBE_BED_POSITION);
+            this.grpBxProbeGrid.Controls.Add(this.marlinValueRIGHT_PROBE_BED_POSITION);
+            this.grpBxProbeGrid.Controls.Add(this.marlinValueLEFT_PROBE_BED_POSITION);
             this.grpBxProbeGrid.Controls.Add(this.marlinCheckBoxPROBE_Y_FIRST);
-            this.grpBxProbeGrid.Controls.Add(this.marlinUpDnMIN_PROBE_EDGE);
-            this.grpBxProbeGrid.Controls.Add(this.marlinUpDnBACK_PROBE_BED_POSITION);
-            this.grpBxProbeGrid.Controls.Add(this.marlinUpDnFRONT_PROBE_BED_POSITION);
-            this.grpBxProbeGrid.Controls.Add(this.marlinUpDnRIGHT_PROBE_BED_POSITION);
-            this.grpBxProbeGrid.Controls.Add(this.marlinUpDnLEFT_PROBE_BED_POSITION);
-            this.grpBxProbeGrid.Location = new System.Drawing.Point(321, 16);
+            this.grpBxProbeGrid.Location = new System.Drawing.Point(343, 16);
             this.grpBxProbeGrid.Name = "grpBxProbeGrid";
-            this.grpBxProbeGrid.Size = new System.Drawing.Size(298, 185);
+            this.grpBxProbeGrid.Size = new System.Drawing.Size(332, 185);
             this.grpBxProbeGrid.TabIndex = 8;
             this.grpBxProbeGrid.TabStop = false;
             this.grpBxProbeGrid.Text = "ProbePoints for Linear and Bi-Linear";
+            // 
+            // marlinValueMIN_PROBE_EDGE
+            // 
+            this.marlinValueMIN_PROBE_EDGE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueMIN_PROBE_EDGE.ControlText = "Min probe Edge";
+            this.marlinValueMIN_PROBE_EDGE.currentFirmwareHelper = null;
+            this.marlinValueMIN_PROBE_EDGE.Feature = "MIN_PROBE_EDGE";
+            this.marlinValueMIN_PROBE_EDGE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
+            this.marlinValueMIN_PROBE_EDGE.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueMIN_PROBE_EDGE.Location = new System.Drawing.Point(6, 129);
+            this.marlinValueMIN_PROBE_EDGE.Name = "marlinValueMIN_PROBE_EDGE";
+            this.marlinValueMIN_PROBE_EDGE.NewFirmwareHelper = null;
+            this.marlinValueMIN_PROBE_EDGE.Size = new System.Drawing.Size(314, 26);
+            this.marlinValueMIN_PROBE_EDGE.SpliterDistance = 130;
+            this.marlinValueMIN_PROBE_EDGE.TabIndex = 21;
+            // 
+            // marlinValueBACK_PROBE_BED_POSITION
+            // 
+            this.marlinValueBACK_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueBACK_PROBE_BED_POSITION.ControlText = "Back Probe Bed Position";
+            this.marlinValueBACK_PROBE_BED_POSITION.currentFirmwareHelper = null;
+            this.marlinValueBACK_PROBE_BED_POSITION.Feature = "BACK_PROBE_BED_POSITION";
+            this.marlinValueBACK_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
+            this.marlinValueBACK_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueBACK_PROBE_BED_POSITION.Location = new System.Drawing.Point(6, 93);
+            this.marlinValueBACK_PROBE_BED_POSITION.Name = "marlinValueBACK_PROBE_BED_POSITION";
+            this.marlinValueBACK_PROBE_BED_POSITION.NewFirmwareHelper = null;
+            this.marlinValueBACK_PROBE_BED_POSITION.Size = new System.Drawing.Size(314, 26);
+            this.marlinValueBACK_PROBE_BED_POSITION.SpliterDistance = 130;
+            this.marlinValueBACK_PROBE_BED_POSITION.TabIndex = 20;
+            // 
+            // marlinValueFRONT_PROBE_BED_POSITION
+            // 
+            this.marlinValueFRONT_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueFRONT_PROBE_BED_POSITION.ControlText = "Front Probe Bed Position";
+            this.marlinValueFRONT_PROBE_BED_POSITION.currentFirmwareHelper = null;
+            this.marlinValueFRONT_PROBE_BED_POSITION.Feature = "FRONT_PROBE_BED_POSITION";
+            this.marlinValueFRONT_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
+            this.marlinValueFRONT_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueFRONT_PROBE_BED_POSITION.Location = new System.Drawing.Point(6, 65);
+            this.marlinValueFRONT_PROBE_BED_POSITION.Name = "marlinValueFRONT_PROBE_BED_POSITION";
+            this.marlinValueFRONT_PROBE_BED_POSITION.NewFirmwareHelper = null;
+            this.marlinValueFRONT_PROBE_BED_POSITION.Size = new System.Drawing.Size(314, 26);
+            this.marlinValueFRONT_PROBE_BED_POSITION.SpliterDistance = 130;
+            this.marlinValueFRONT_PROBE_BED_POSITION.TabIndex = 19;
+            // 
+            // marlinValueRIGHT_PROBE_BED_POSITION
+            // 
+            this.marlinValueRIGHT_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueRIGHT_PROBE_BED_POSITION.ControlText = "Right Probe Bed Position";
+            this.marlinValueRIGHT_PROBE_BED_POSITION.currentFirmwareHelper = null;
+            this.marlinValueRIGHT_PROBE_BED_POSITION.Feature = "RIGHT_PROBE_BED_POSITION";
+            this.marlinValueRIGHT_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
+            this.marlinValueRIGHT_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueRIGHT_PROBE_BED_POSITION.Location = new System.Drawing.Point(6, 42);
+            this.marlinValueRIGHT_PROBE_BED_POSITION.Name = "marlinValueRIGHT_PROBE_BED_POSITION";
+            this.marlinValueRIGHT_PROBE_BED_POSITION.NewFirmwareHelper = null;
+            this.marlinValueRIGHT_PROBE_BED_POSITION.Size = new System.Drawing.Size(314, 26);
+            this.marlinValueRIGHT_PROBE_BED_POSITION.SpliterDistance = 130;
+            this.marlinValueRIGHT_PROBE_BED_POSITION.TabIndex = 18;
+            // 
+            // marlinValueLEFT_PROBE_BED_POSITION
+            // 
+            this.marlinValueLEFT_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueLEFT_PROBE_BED_POSITION.ControlText = "Left Probe Bed Position";
+            this.marlinValueLEFT_PROBE_BED_POSITION.currentFirmwareHelper = null;
+            this.marlinValueLEFT_PROBE_BED_POSITION.Feature = "LEFT_PROBE_BED_POSITION";
+            this.marlinValueLEFT_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
+            this.marlinValueLEFT_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueLEFT_PROBE_BED_POSITION.Location = new System.Drawing.Point(6, 19);
+            this.marlinValueLEFT_PROBE_BED_POSITION.Name = "marlinValueLEFT_PROBE_BED_POSITION";
+            this.marlinValueLEFT_PROBE_BED_POSITION.NewFirmwareHelper = null;
+            this.marlinValueLEFT_PROBE_BED_POSITION.Size = new System.Drawing.Size(314, 26);
+            this.marlinValueLEFT_PROBE_BED_POSITION.SpliterDistance = 130;
+            this.marlinValueLEFT_PROBE_BED_POSITION.TabIndex = 17;
             // 
             // marlinCheckBoxPROBE_Y_FIRST
             // 
@@ -4413,96 +4473,11 @@
             this.marlinCheckBoxPROBE_Y_FIRST.Feature = "PROBE_Y_FIRST";
             this.marlinCheckBoxPROBE_Y_FIRST.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
             this.marlinCheckBoxPROBE_Y_FIRST.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxPROBE_Y_FIRST.Location = new System.Drawing.Point(13, 156);
+            this.marlinCheckBoxPROBE_Y_FIRST.Location = new System.Drawing.Point(47, 156);
             this.marlinCheckBoxPROBE_Y_FIRST.Name = "marlinCheckBoxPROBE_Y_FIRST";
             this.marlinCheckBoxPROBE_Y_FIRST.NewFirmwareHelper = null;
             this.marlinCheckBoxPROBE_Y_FIRST.Size = new System.Drawing.Size(273, 21);
             this.marlinCheckBoxPROBE_Y_FIRST.TabIndex = 16;
-            // 
-            // marlinUpDnMIN_PROBE_EDGE
-            // 
-            this.marlinUpDnMIN_PROBE_EDGE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDnMIN_PROBE_EDGE.ControlText = "Min probe Edge";
-            this.marlinUpDnMIN_PROBE_EDGE.currentFirmwareHelper = null;
-            this.marlinUpDnMIN_PROBE_EDGE.Feature = "MIN_PROBE_EDGE";
-            this.marlinUpDnMIN_PROBE_EDGE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
-            this.marlinUpDnMIN_PROBE_EDGE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnMIN_PROBE_EDGE.Location = new System.Drawing.Point(13, 129);
-            this.marlinUpDnMIN_PROBE_EDGE.Max = 50;
-            this.marlinUpDnMIN_PROBE_EDGE.Min = 0;
-            this.marlinUpDnMIN_PROBE_EDGE.Name = "marlinUpDnMIN_PROBE_EDGE";
-            this.marlinUpDnMIN_PROBE_EDGE.NewFirmwareHelper = null;
-            this.marlinUpDnMIN_PROBE_EDGE.Size = new System.Drawing.Size(273, 21);
-            this.marlinUpDnMIN_PROBE_EDGE.SpliterDistance = 91;
-            this.marlinUpDnMIN_PROBE_EDGE.TabIndex = 15;
-            // 
-            // marlinUpDnBACK_PROBE_BED_POSITION
-            // 
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDnBACK_PROBE_BED_POSITION.ControlText = "Back Probe Bed Position";
-            this.marlinUpDnBACK_PROBE_BED_POSITION.currentFirmwareHelper = null;
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Feature = "BACK_PROBE_BED_POSITION";
-            this.marlinUpDnBACK_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
-            this.marlinUpDnBACK_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Location = new System.Drawing.Point(13, 100);
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Max = 400;
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Min = 0;
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Name = "marlinUpDnBACK_PROBE_BED_POSITION";
-            this.marlinUpDnBACK_PROBE_BED_POSITION.NewFirmwareHelper = null;
-            this.marlinUpDnBACK_PROBE_BED_POSITION.Size = new System.Drawing.Size(273, 21);
-            this.marlinUpDnBACK_PROBE_BED_POSITION.SpliterDistance = 153;
-            this.marlinUpDnBACK_PROBE_BED_POSITION.TabIndex = 14;
-            // 
-            // marlinUpDnFRONT_PROBE_BED_POSITION
-            // 
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.ControlText = "Front Probe Bed Position";
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.currentFirmwareHelper = null;
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Feature = "FRONT_PROBE_BED_POSITION";
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Location = new System.Drawing.Point(13, 73);
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Max = 400;
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Min = 0;
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Name = "marlinUpDnFRONT_PROBE_BED_POSITION";
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.NewFirmwareHelper = null;
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.Size = new System.Drawing.Size(273, 21);
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.SpliterDistance = 153;
-            this.marlinUpDnFRONT_PROBE_BED_POSITION.TabIndex = 13;
-            // 
-            // marlinUpDnRIGHT_PROBE_BED_POSITION
-            // 
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.ControlText = "Right Probe Bed Position";
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.currentFirmwareHelper = null;
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Feature = "RIGHT_PROBE_BED_POSITION";
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Location = new System.Drawing.Point(13, 46);
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Max = 400;
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Min = 0;
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Name = "marlinUpDnRIGHT_PROBE_BED_POSITION";
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.NewFirmwareHelper = null;
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.Size = new System.Drawing.Size(273, 21);
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.SpliterDistance = 153;
-            this.marlinUpDnRIGHT_PROBE_BED_POSITION.TabIndex = 12;
-            // 
-            // marlinUpDnLEFT_PROBE_BED_POSITION
-            // 
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.ControlText = "Left Probe Bed Position";
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.currentFirmwareHelper = null;
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Feature = "LEFT_PROBE_BED_POSITION";
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#bed-leveling";
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Location = new System.Drawing.Point(13, 19);
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Max = 400;
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Min = 0;
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Name = "marlinUpDnLEFT_PROBE_BED_POSITION";
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.NewFirmwareHelper = null;
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.Size = new System.Drawing.Size(273, 21);
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.SpliterDistance = 153;
-            this.marlinUpDnLEFT_PROBE_BED_POSITION.TabIndex = 11;
             // 
             // grpBxEnableFadeHeight
             // 
@@ -4545,7 +4520,7 @@
             this.marlinCheckBoxDEBUG_LEVELING_FEATURE.Feature = "DEBUG_LEVELING_FEATURE";
             this.marlinCheckBoxDEBUG_LEVELING_FEATURE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#debug-leveling";
             this.marlinCheckBoxDEBUG_LEVELING_FEATURE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxDEBUG_LEVELING_FEATURE.Location = new System.Drawing.Point(347, 459);
+            this.marlinCheckBoxDEBUG_LEVELING_FEATURE.Location = new System.Drawing.Point(408, 459);
             this.marlinCheckBoxDEBUG_LEVELING_FEATURE.Name = "marlinCheckBoxDEBUG_LEVELING_FEATURE";
             this.marlinCheckBoxDEBUG_LEVELING_FEATURE.NewFirmwareHelper = null;
             this.marlinCheckBoxDEBUG_LEVELING_FEATURE.Size = new System.Drawing.Size(260, 21);
@@ -4556,9 +4531,9 @@
             this.tabPageLcdBedLeveling.Controls.Add(this.marlinUpDnLCD_PROBE_Z_RANGE);
             this.tabPageLcdBedLeveling.Controls.Add(this.marlinValueMBL_Z_STEP);
             this.tabPageLcdBedLeveling.Controls.Add(this.marlinCheckBoxLCD_BED_LEVELING);
-            this.tabPageLcdBedLeveling.Location = new System.Drawing.Point(4, 76);
+            this.tabPageLcdBedLeveling.Location = new System.Drawing.Point(4, 58);
             this.tabPageLcdBedLeveling.Name = "tabPageLcdBedLeveling";
-            this.tabPageLcdBedLeveling.Size = new System.Drawing.Size(622, 585);
+            this.tabPageLcdBedLeveling.Size = new System.Drawing.Size(736, 603);
             this.tabPageLcdBedLeveling.TabIndex = 19;
             this.tabPageLcdBedLeveling.Text = "LCD Bed Leveling";
             this.tabPageLcdBedLeveling.UseVisualStyleBackColor = true;
@@ -4571,7 +4546,7 @@
             this.marlinUpDnLCD_PROBE_Z_RANGE.Feature = "LCD_PROBE_Z_RANGE";
             this.marlinUpDnLCD_PROBE_Z_RANGE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#lcd-bed-leveling";
             this.marlinUpDnLCD_PROBE_Z_RANGE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnLCD_PROBE_Z_RANGE.Location = new System.Drawing.Point(378, 71);
+            this.marlinUpDnLCD_PROBE_Z_RANGE.Location = new System.Drawing.Point(434, 71);
             this.marlinUpDnLCD_PROBE_Z_RANGE.Max = 20;
             this.marlinUpDnLCD_PROBE_Z_RANGE.Min = 0;
             this.marlinUpDnLCD_PROBE_Z_RANGE.Name = "marlinUpDnLCD_PROBE_Z_RANGE";
@@ -4588,7 +4563,7 @@
             this.marlinValueMBL_Z_STEP.Feature = "MBL_Z_STEP";
             this.marlinValueMBL_Z_STEP.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#lcd-bed-leveling";
             this.marlinValueMBL_Z_STEP.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueMBL_Z_STEP.Location = new System.Drawing.Point(378, 39);
+            this.marlinValueMBL_Z_STEP.Location = new System.Drawing.Point(434, 39);
             this.marlinValueMBL_Z_STEP.Name = "marlinValueMBL_Z_STEP";
             this.marlinValueMBL_Z_STEP.NewFirmwareHelper = null;
             this.marlinValueMBL_Z_STEP.Size = new System.Drawing.Size(230, 26);
@@ -4603,7 +4578,7 @@
             this.marlinCheckBoxLCD_BED_LEVELING.Feature = "LCD_BED_LEVELING";
             this.marlinCheckBoxLCD_BED_LEVELING.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#lcd-bed-leveling";
             this.marlinCheckBoxLCD_BED_LEVELING.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxLCD_BED_LEVELING.Location = new System.Drawing.Point(378, 12);
+            this.marlinCheckBoxLCD_BED_LEVELING.Location = new System.Drawing.Point(434, 12);
             this.marlinCheckBoxLCD_BED_LEVELING.Name = "marlinCheckBoxLCD_BED_LEVELING";
             this.marlinCheckBoxLCD_BED_LEVELING.NewFirmwareHelper = null;
             this.marlinCheckBoxLCD_BED_LEVELING.Size = new System.Drawing.Size(230, 21);
@@ -4616,9 +4591,9 @@
             this.tabPageEEPROM.Controls.Add(this.marlinCheckBoxHOST_KEEPALIVE_FEATURE);
             this.tabPageEEPROM.Controls.Add(this.marlinCheckBoxEEPROM_CHITCHAT);
             this.tabPageEEPROM.Controls.Add(this.marlinCheckBoxEEPROM_SETTINGS);
-            this.tabPageEEPROM.Location = new System.Drawing.Point(4, 76);
+            this.tabPageEEPROM.Location = new System.Drawing.Point(4, 58);
             this.tabPageEEPROM.Name = "tabPageEEPROM";
-            this.tabPageEEPROM.Size = new System.Drawing.Size(622, 585);
+            this.tabPageEEPROM.Size = new System.Drawing.Size(736, 603);
             this.tabPageEEPROM.TabIndex = 20;
             this.tabPageEEPROM.Text = "EEPROM";
             this.tabPageEEPROM.UseVisualStyleBackColor = true;
@@ -4631,7 +4606,7 @@
             this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.Feature = "M100_FREE_MEMORY_WATCHER";
             this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#free-memory-watcher";
             this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.Location = new System.Drawing.Point(401, 128);
+            this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.Location = new System.Drawing.Point(457, 128);
             this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.Name = "marlinCheckBoxM100_FREE_MEMORY_WATCHER";
             this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.NewFirmwareHelper = null;
             this.marlinCheckBoxM100_FREE_MEMORY_WATCHER.Size = new System.Drawing.Size(209, 21);
@@ -4645,7 +4620,7 @@
             this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.Feature = "DEFAULT_KEEPALIVE_INTERVAL";
             this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#host-keepalive";
             this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.Location = new System.Drawing.Point(401, 96);
+            this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.Location = new System.Drawing.Point(457, 96);
             this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.Max = 10;
             this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.Min = 1;
             this.marlinUpDnDEFAULT_KEEPALIVE_INTERVAL.Name = "marlinUpDnDEFAULT_KEEPALIVE_INTERVAL";
@@ -4662,7 +4637,7 @@
             this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.Feature = "HOST_KEEPALIVE_FEATURE";
             this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#host-keepalive";
             this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.Location = new System.Drawing.Point(401, 69);
+            this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.Location = new System.Drawing.Point(457, 69);
             this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.Name = "marlinCheckBoxHOST_KEEPALIVE_FEATURE";
             this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.NewFirmwareHelper = null;
             this.marlinCheckBoxHOST_KEEPALIVE_FEATURE.Size = new System.Drawing.Size(209, 21);
@@ -4676,7 +4651,7 @@
             this.marlinCheckBoxEEPROM_CHITCHAT.Feature = "EEPROM_CHITCHAT";
             this.marlinCheckBoxEEPROM_CHITCHAT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#eeprom";
             this.marlinCheckBoxEEPROM_CHITCHAT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxEEPROM_CHITCHAT.Location = new System.Drawing.Point(401, 42);
+            this.marlinCheckBoxEEPROM_CHITCHAT.Location = new System.Drawing.Point(457, 42);
             this.marlinCheckBoxEEPROM_CHITCHAT.Name = "marlinCheckBoxEEPROM_CHITCHAT";
             this.marlinCheckBoxEEPROM_CHITCHAT.NewFirmwareHelper = null;
             this.marlinCheckBoxEEPROM_CHITCHAT.Size = new System.Drawing.Size(209, 21);
@@ -4690,7 +4665,7 @@
             this.marlinCheckBoxEEPROM_SETTINGS.Feature = "EEPROM_SETTINGS";
             this.marlinCheckBoxEEPROM_SETTINGS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#eeprom";
             this.marlinCheckBoxEEPROM_SETTINGS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxEEPROM_SETTINGS.Location = new System.Drawing.Point(401, 15);
+            this.marlinCheckBoxEEPROM_SETTINGS.Location = new System.Drawing.Point(457, 15);
             this.marlinCheckBoxEEPROM_SETTINGS.Name = "marlinCheckBoxEEPROM_SETTINGS";
             this.marlinCheckBoxEEPROM_SETTINGS.NewFirmwareHelper = null;
             this.marlinCheckBoxEEPROM_SETTINGS.Size = new System.Drawing.Size(209, 21);
@@ -4700,9 +4675,9 @@
             // 
             this.tabPagePreHeat.Controls.Add(this.groupBoxPreHeat2);
             this.tabPagePreHeat.Controls.Add(this.groupBoxPreHeat1);
-            this.tabPagePreHeat.Location = new System.Drawing.Point(4, 76);
+            this.tabPagePreHeat.Location = new System.Drawing.Point(4, 58);
             this.tabPagePreHeat.Name = "tabPagePreHeat";
-            this.tabPagePreHeat.Size = new System.Drawing.Size(622, 585);
+            this.tabPagePreHeat.Size = new System.Drawing.Size(736, 603);
             this.tabPagePreHeat.TabIndex = 22;
             this.tabPagePreHeat.Text = "Pre-Heat";
             this.tabPagePreHeat.UseVisualStyleBackColor = true;
@@ -4713,7 +4688,7 @@
             this.groupBoxPreHeat2.Controls.Add(this.marlinUpDnPREHEAT_2_FAN_SPEED);
             this.groupBoxPreHeat2.Controls.Add(this.marlinUpDnPREHEAT_2_TEMP_HOTEND);
             this.groupBoxPreHeat2.Controls.Add(this.marlinUpDnPREHEAT_2_TEMP_BED);
-            this.groupBoxPreHeat2.Location = new System.Drawing.Point(329, 134);
+            this.groupBoxPreHeat2.Location = new System.Drawing.Point(385, 134);
             this.groupBoxPreHeat2.Name = "groupBoxPreHeat2";
             this.groupBoxPreHeat2.Size = new System.Drawing.Size(280, 114);
             this.groupBoxPreHeat2.TabIndex = 4;
@@ -4777,7 +4752,7 @@
             this.groupBoxPreHeat1.Controls.Add(this.marlinUpDnPREHEAT_1_FAN_SPEED);
             this.groupBoxPreHeat1.Controls.Add(this.marlinUpDnPREHEAT_1_TEMP_HOTEND);
             this.groupBoxPreHeat1.Controls.Add(this.marlinUpDnPREHEAT_1_TEMP_BED);
-            this.groupBoxPreHeat1.Location = new System.Drawing.Point(329, 14);
+            this.groupBoxPreHeat1.Location = new System.Drawing.Point(385, 14);
             this.groupBoxPreHeat1.Name = "groupBoxPreHeat1";
             this.groupBoxPreHeat1.Size = new System.Drawing.Size(280, 114);
             this.groupBoxPreHeat1.TabIndex = 3;
@@ -4840,25 +4815,26 @@
             this.tabPageNozzlePark.Controls.Add(this.groupBoxNozzleCleanFeature);
             this.tabPageNozzlePark.Controls.Add(this.marlinValue1);
             this.tabPageNozzlePark.Controls.Add(this.marlinCheckBoxNOZZLE_PARK_FEATURE);
-            this.tabPageNozzlePark.Location = new System.Drawing.Point(4, 76);
+            this.tabPageNozzlePark.Location = new System.Drawing.Point(4, 58);
             this.tabPageNozzlePark.Name = "tabPageNozzlePark";
-            this.tabPageNozzlePark.Size = new System.Drawing.Size(622, 585);
+            this.tabPageNozzlePark.Size = new System.Drawing.Size(736, 603);
             this.tabPageNozzlePark.TabIndex = 23;
             this.tabPageNozzlePark.Text = "Nozzle Park";
             this.tabPageNozzlePark.UseVisualStyleBackColor = true;
             // 
             // groupBoxNozzleCleanFeature
             // 
+            this.groupBoxNozzleCleanFeature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinValueNOZZLE_CLEAN_CIRCLE_FN);
+            this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinCheckBoxNOZZLE_CLEAN_GOBACK);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE);
-            this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinUpDn2);
-            this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinUpDn1);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinValueNOZZLE_CLEAN_END_POINT);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinValueNOZZLE_CLEAN_START_POINT);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinCheckBoxNOZZLE_CLEAN_FEATURE);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinUpDnNOZZLE_CLEAN_TRIANGLES);
             this.groupBoxNozzleCleanFeature.Controls.Add(this.marlinUpDnNOZZLE_CLEAN_STROKES);
-            this.groupBoxNozzleCleanFeature.Location = new System.Drawing.Point(237, 71);
+            this.groupBoxNozzleCleanFeature.Location = new System.Drawing.Point(219, 80);
             this.groupBoxNozzleCleanFeature.Name = "groupBoxNozzleCleanFeature";
             this.groupBoxNozzleCleanFeature.Size = new System.Drawing.Size(449, 327);
             this.groupBoxNozzleCleanFeature.TabIndex = 5;
@@ -4892,40 +4868,6 @@
             this.marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE.Size = new System.Drawing.Size(437, 26);
             this.marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE.SpliterDistance = 140;
             this.marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE.TabIndex = 9;
-            // 
-            // marlinUpDn2
-            // 
-            this.marlinUpDn2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDn2.ControlText = "Nozzle Clean Cirkle Fragments";
-            this.marlinUpDn2.currentFirmwareHelper = null;
-            this.marlinUpDn2.Feature = "NOZZLE_CLEAN_CIRCLE_FN";
-            this.marlinUpDn2.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
-            this.marlinUpDn2.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDn2.Location = new System.Drawing.Point(195, 218);
-            this.marlinUpDn2.Max = 20;
-            this.marlinUpDn2.Min = 5;
-            this.marlinUpDn2.Name = "marlinUpDn2";
-            this.marlinUpDn2.NewFirmwareHelper = null;
-            this.marlinUpDn2.Size = new System.Drawing.Size(248, 26);
-            this.marlinUpDn2.SpliterDistance = 150;
-            this.marlinUpDn2.TabIndex = 8;
-            // 
-            // marlinUpDn1
-            // 
-            this.marlinUpDn1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinUpDn1.ControlText = "Nozzle Clean Cirkle Radius";
-            this.marlinUpDn1.currentFirmwareHelper = null;
-            this.marlinUpDn1.Feature = "NOZZLE_CLEAN_CIRCLE_RADIUS";
-            this.marlinUpDn1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
-            this.marlinUpDn1.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDn1.Location = new System.Drawing.Point(195, 186);
-            this.marlinUpDn1.Max = 20;
-            this.marlinUpDn1.Min = 4;
-            this.marlinUpDn1.Name = "marlinUpDn1";
-            this.marlinUpDn1.NewFirmwareHelper = null;
-            this.marlinUpDn1.Size = new System.Drawing.Size(248, 26);
-            this.marlinUpDn1.SpliterDistance = 150;
-            this.marlinUpDn1.TabIndex = 7;
             // 
             // marlinValueNOZZLE_CLEAN_END_POINT
             // 
@@ -5007,12 +4949,13 @@
             // 
             // marlinValue1
             // 
+            this.marlinValue1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.marlinValue1.ControlText = "Nozzle park point";
             this.marlinValue1.currentFirmwareHelper = null;
             this.marlinValue1.Feature = "NOZZLE_PARK_POINT";
             this.marlinValue1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
             this.marlinValue1.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValue1.Location = new System.Drawing.Point(247, 39);
+            this.marlinValue1.Location = new System.Drawing.Point(229, 48);
             this.marlinValue1.Name = "marlinValue1";
             this.marlinValue1.NewFirmwareHelper = null;
             this.marlinValue1.Size = new System.Drawing.Size(433, 26);
@@ -5021,12 +4964,13 @@
             // 
             // marlinCheckBoxNOZZLE_PARK_FEATURE
             // 
+            this.marlinCheckBoxNOZZLE_PARK_FEATURE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.ControlText = "Enable Noxxle Park";
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.currentFirmwareHelper = null;
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.Feature = "NOZZLE_PARK_FEATURE";
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxNOZZLE_PARK_FEATURE.Location = new System.Drawing.Point(348, 12);
+            this.marlinCheckBoxNOZZLE_PARK_FEATURE.Location = new System.Drawing.Point(330, 21);
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.Name = "marlinCheckBoxNOZZLE_PARK_FEATURE";
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.NewFirmwareHelper = null;
             this.marlinCheckBoxNOZZLE_PARK_FEATURE.Size = new System.Drawing.Size(332, 21);
@@ -5036,9 +4980,9 @@
             // 
             this.tabPageJob.Controls.Add(this.marlinCheckBoxPRINTCOUNTER);
             this.tabPageJob.Controls.Add(this.marlinCheckBoxPRINTJOB_TIMER_AUTOSTART);
-            this.tabPageJob.Location = new System.Drawing.Point(4, 76);
+            this.tabPageJob.Location = new System.Drawing.Point(4, 58);
             this.tabPageJob.Name = "tabPageJob";
-            this.tabPageJob.Size = new System.Drawing.Size(622, 585);
+            this.tabPageJob.Size = new System.Drawing.Size(736, 603);
             this.tabPageJob.TabIndex = 24;
             this.tabPageJob.Text = "Job";
             this.tabPageJob.UseVisualStyleBackColor = true;
@@ -5076,9 +5020,9 @@
             this.tabPageLCD.Controls.Add(this.groupBoxLcdType);
             this.tabPageLCD.Controls.Add(this.marlinComboBoxDISPLAY_CHARSET_HD44780);
             this.tabPageLCD.Controls.Add(this.marlinComboBoxLCD_LANGUAGE);
-            this.tabPageLCD.Location = new System.Drawing.Point(4, 76);
+            this.tabPageLCD.Location = new System.Drawing.Point(4, 58);
             this.tabPageLCD.Name = "tabPageLCD";
-            this.tabPageLCD.Size = new System.Drawing.Size(622, 585);
+            this.tabPageLCD.Size = new System.Drawing.Size(736, 603);
             this.tabPageLCD.TabIndex = 25;
             this.tabPageLCD.Text = "LCD";
             this.tabPageLCD.UseVisualStyleBackColor = true;
@@ -5713,9 +5657,9 @@
             // 
             this.tabPageSD.Controls.Add(this.marlinCheckBoxSD_CHECK_AND_RETRY);
             this.tabPageSD.Controls.Add(this.marlinCheckBoxSDSUPPORT);
-            this.tabPageSD.Location = new System.Drawing.Point(4, 76);
+            this.tabPageSD.Location = new System.Drawing.Point(4, 58);
             this.tabPageSD.Name = "tabPageSD";
-            this.tabPageSD.Size = new System.Drawing.Size(622, 585);
+            this.tabPageSD.Size = new System.Drawing.Size(736, 603);
             this.tabPageSD.TabIndex = 26;
             this.tabPageSD.Text = "SD";
             this.tabPageSD.UseVisualStyleBackColor = true;
@@ -5728,7 +5672,7 @@
             this.marlinCheckBoxSD_CHECK_AND_RETRY.Feature = "SD_CHECK_AND_RETRY";
             this.marlinCheckBoxSD_CHECK_AND_RETRY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#sd-card";
             this.marlinCheckBoxSD_CHECK_AND_RETRY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSD_CHECK_AND_RETRY.Location = new System.Drawing.Point(438, 46);
+            this.marlinCheckBoxSD_CHECK_AND_RETRY.Location = new System.Drawing.Point(494, 46);
             this.marlinCheckBoxSD_CHECK_AND_RETRY.Name = "marlinCheckBoxSD_CHECK_AND_RETRY";
             this.marlinCheckBoxSD_CHECK_AND_RETRY.NewFirmwareHelper = null;
             this.marlinCheckBoxSD_CHECK_AND_RETRY.Size = new System.Drawing.Size(169, 21);
@@ -5742,7 +5686,7 @@
             this.marlinCheckBoxSDSUPPORT.Feature = "SDSUPPORT";
             this.marlinCheckBoxSDSUPPORT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#sd-card";
             this.marlinCheckBoxSDSUPPORT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSDSUPPORT.Location = new System.Drawing.Point(438, 19);
+            this.marlinCheckBoxSDSUPPORT.Location = new System.Drawing.Point(494, 19);
             this.marlinCheckBoxSDSUPPORT.Name = "marlinCheckBoxSDSUPPORT";
             this.marlinCheckBoxSDSUPPORT.NewFirmwareHelper = null;
             this.marlinCheckBoxSDSUPPORT.Size = new System.Drawing.Size(169, 21);
@@ -5759,9 +5703,9 @@
             this.tabPageExtra.Controls.Add(this.marlinCheckBoxSOFT_PWM_DITHER);
             this.tabPageExtra.Controls.Add(this.marlinUpDnSOFT_PWM_SCALE);
             this.tabPageExtra.Controls.Add(this.marlinCheckBoxFAST_PWM_FAN);
-            this.tabPageExtra.Location = new System.Drawing.Point(4, 76);
+            this.tabPageExtra.Location = new System.Drawing.Point(4, 58);
             this.tabPageExtra.Name = "tabPageExtra";
-            this.tabPageExtra.Size = new System.Drawing.Size(622, 585);
+            this.tabPageExtra.Size = new System.Drawing.Size(736, 603);
             this.tabPageExtra.TabIndex = 27;
             this.tabPageExtra.Text = "Extra";
             this.tabPageExtra.UseVisualStyleBackColor = true;
@@ -5776,7 +5720,7 @@
             this.groupBoxRGB_Led.Controls.Add(this.marlinUpDnRGB_LED_R_PIN);
             this.groupBoxRGB_Led.Controls.Add(this.marlinCheckBoxRGB_LED);
             this.groupBoxRGB_Led.Controls.Add(this.marlinCheckBoxRGBW_LED);
-            this.groupBoxRGB_Led.Location = new System.Drawing.Point(416, 289);
+            this.groupBoxRGB_Led.Location = new System.Drawing.Point(472, 289);
             this.groupBoxRGB_Led.Name = "groupBoxRGB_Led";
             this.groupBoxRGB_Led.Size = new System.Drawing.Size(200, 232);
             this.groupBoxRGB_Led.TabIndex = 11;
@@ -5900,7 +5844,7 @@
             this.marlinCheckBoxBLINKM.Feature = "BLINKM";
             this.marlinCheckBoxBLINKM.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#indicator-leds";
             this.marlinCheckBoxBLINKM.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxBLINKM.Location = new System.Drawing.Point(263, 260);
+            this.marlinCheckBoxBLINKM.Location = new System.Drawing.Point(319, 260);
             this.marlinCheckBoxBLINKM.Name = "marlinCheckBoxBLINKM";
             this.marlinCheckBoxBLINKM.NewFirmwareHelper = null;
             this.marlinCheckBoxBLINKM.Size = new System.Drawing.Size(347, 21);
@@ -5914,7 +5858,7 @@
             this.marlinCheckBoxBARICUDA.Feature = "BARICUDA";
             this.marlinCheckBoxBARICUDA.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#paste-extruder";
             this.marlinCheckBoxBARICUDA.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxBARICUDA.Location = new System.Drawing.Point(263, 226);
+            this.marlinCheckBoxBARICUDA.Location = new System.Drawing.Point(319, 226);
             this.marlinCheckBoxBARICUDA.Name = "marlinCheckBoxBARICUDA";
             this.marlinCheckBoxBARICUDA.NewFirmwareHelper = null;
             this.marlinCheckBoxBARICUDA.Size = new System.Drawing.Size(347, 21);
@@ -5928,7 +5872,7 @@
             this.marlinCheckBoxSF_ARC_FIX.Feature = "SF_ARC_FIX";
             this.marlinCheckBoxSF_ARC_FIX.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#skeinforge-arc-fix";
             this.marlinCheckBoxSF_ARC_FIX.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSF_ARC_FIX.Location = new System.Drawing.Point(263, 192);
+            this.marlinCheckBoxSF_ARC_FIX.Location = new System.Drawing.Point(319, 192);
             this.marlinCheckBoxSF_ARC_FIX.Name = "marlinCheckBoxSF_ARC_FIX";
             this.marlinCheckBoxSF_ARC_FIX.NewFirmwareHelper = null;
             this.marlinCheckBoxSF_ARC_FIX.Size = new System.Drawing.Size(347, 21);
@@ -5942,7 +5886,7 @@
             this.marlinEnableValuePHOTOGRAPH_PIN.Feature = "PHOTOGRAPH_PIN";
             this.marlinEnableValuePHOTOGRAPH_PIN.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#photo-pin";
             this.marlinEnableValuePHOTOGRAPH_PIN.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValuePHOTOGRAPH_PIN.Location = new System.Drawing.Point(263, 153);
+            this.marlinEnableValuePHOTOGRAPH_PIN.Location = new System.Drawing.Point(319, 153);
             this.marlinEnableValuePHOTOGRAPH_PIN.Name = "marlinEnableValuePHOTOGRAPH_PIN";
             this.marlinEnableValuePHOTOGRAPH_PIN.NewFirmwareHelper = null;
             this.marlinEnableValuePHOTOGRAPH_PIN.Size = new System.Drawing.Size(347, 26);
@@ -5958,7 +5902,7 @@
             this.marlinCheckBoxTEMP_STAT_LEDS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-status-leds" +
     "";
             this.marlinCheckBoxTEMP_STAT_LEDS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxTEMP_STAT_LEDS.Location = new System.Drawing.Point(263, 119);
+            this.marlinCheckBoxTEMP_STAT_LEDS.Location = new System.Drawing.Point(319, 119);
             this.marlinCheckBoxTEMP_STAT_LEDS.Name = "marlinCheckBoxTEMP_STAT_LEDS";
             this.marlinCheckBoxTEMP_STAT_LEDS.NewFirmwareHelper = null;
             this.marlinCheckBoxTEMP_STAT_LEDS.Size = new System.Drawing.Size(347, 21);
@@ -5972,7 +5916,7 @@
             this.marlinCheckBoxSOFT_PWM_DITHER.Feature = "SOFT_PWM_DITHER";
             this.marlinCheckBoxSOFT_PWM_DITHER.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#fan-pwm";
             this.marlinCheckBoxSOFT_PWM_DITHER.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxSOFT_PWM_DITHER.Location = new System.Drawing.Point(263, 85);
+            this.marlinCheckBoxSOFT_PWM_DITHER.Location = new System.Drawing.Point(319, 85);
             this.marlinCheckBoxSOFT_PWM_DITHER.Name = "marlinCheckBoxSOFT_PWM_DITHER";
             this.marlinCheckBoxSOFT_PWM_DITHER.NewFirmwareHelper = null;
             this.marlinCheckBoxSOFT_PWM_DITHER.Size = new System.Drawing.Size(347, 21);
@@ -5986,7 +5930,7 @@
             this.marlinUpDnSOFT_PWM_SCALE.Feature = "SOFT_PWM_SCALE";
             this.marlinUpDnSOFT_PWM_SCALE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#fan-pwm";
             this.marlinUpDnSOFT_PWM_SCALE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnSOFT_PWM_SCALE.Location = new System.Drawing.Point(263, 46);
+            this.marlinUpDnSOFT_PWM_SCALE.Location = new System.Drawing.Point(319, 46);
             this.marlinUpDnSOFT_PWM_SCALE.Max = 128;
             this.marlinUpDnSOFT_PWM_SCALE.Min = 0;
             this.marlinUpDnSOFT_PWM_SCALE.Name = "marlinUpDnSOFT_PWM_SCALE";
@@ -6003,7 +5947,7 @@
             this.marlinCheckBoxFAST_PWM_FAN.Feature = "FAST_PWM_FAN";
             this.marlinCheckBoxFAST_PWM_FAN.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#fan-pwm";
             this.marlinCheckBoxFAST_PWM_FAN.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxFAST_PWM_FAN.Location = new System.Drawing.Point(263, 12);
+            this.marlinCheckBoxFAST_PWM_FAN.Location = new System.Drawing.Point(319, 12);
             this.marlinCheckBoxFAST_PWM_FAN.Name = "marlinCheckBoxFAST_PWM_FAN";
             this.marlinCheckBoxFAST_PWM_FAN.NewFirmwareHelper = null;
             this.marlinCheckBoxFAST_PWM_FAN.Size = new System.Drawing.Size(347, 21);
@@ -6014,9 +5958,9 @@
             this.tabPageServo.Controls.Add(this.marlinEnableValueNUM_SERVOS);
             this.tabPageServo.Controls.Add(this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE);
             this.tabPageServo.Controls.Add(this.marlinUpDnSERVO_DELAY);
-            this.tabPageServo.Location = new System.Drawing.Point(4, 76);
+            this.tabPageServo.Location = new System.Drawing.Point(4, 58);
             this.tabPageServo.Name = "tabPageServo";
-            this.tabPageServo.Size = new System.Drawing.Size(622, 585);
+            this.tabPageServo.Size = new System.Drawing.Size(736, 603);
             this.tabPageServo.TabIndex = 28;
             this.tabPageServo.Text = "Servo";
             this.tabPageServo.UseVisualStyleBackColor = true;
@@ -6029,7 +5973,7 @@
             this.marlinEnableValueNUM_SERVOS.Feature = "NUM_SERVOS";
             this.marlinEnableValueNUM_SERVOS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#servos";
             this.marlinEnableValueNUM_SERVOS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinEnableValueNUM_SERVOS.Location = new System.Drawing.Point(319, 12);
+            this.marlinEnableValueNUM_SERVOS.Location = new System.Drawing.Point(375, 12);
             this.marlinEnableValueNUM_SERVOS.Name = "marlinEnableValueNUM_SERVOS";
             this.marlinEnableValueNUM_SERVOS.NewFirmwareHelper = null;
             this.marlinEnableValueNUM_SERVOS.Size = new System.Drawing.Size(291, 26);
@@ -6044,7 +5988,7 @@
             this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.Feature = "DEACTIVATE_SERVOS_AFTER_MOVE";
             this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#servos";
             this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.Location = new System.Drawing.Point(319, 76);
+            this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.Location = new System.Drawing.Point(375, 76);
             this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.Name = "marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE";
             this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.NewFirmwareHelper = null;
             this.marlinCheckBoxDEACTIVATE_SERVOS_AFTER_MOVE.Size = new System.Drawing.Size(291, 21);
@@ -6058,7 +6002,7 @@
             this.marlinUpDnSERVO_DELAY.Feature = "SERVO_DELAY";
             this.marlinUpDnSERVO_DELAY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#servos";
             this.marlinUpDnSERVO_DELAY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnSERVO_DELAY.Location = new System.Drawing.Point(319, 46);
+            this.marlinUpDnSERVO_DELAY.Location = new System.Drawing.Point(375, 46);
             this.marlinUpDnSERVO_DELAY.Max = 2000;
             this.marlinUpDnSERVO_DELAY.Min = 0;
             this.marlinUpDnSERVO_DELAY.Name = "marlinUpDnSERVO_DELAY";
@@ -6077,9 +6021,9 @@
             this.tabPageFilamentWidthSensor.Controls.Add(this.marlinUpDn3);
             this.tabPageFilamentWidthSensor.Controls.Add(this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM);
             this.tabPageFilamentWidthSensor.Controls.Add(this.marlinCheckBox1);
-            this.tabPageFilamentWidthSensor.Location = new System.Drawing.Point(4, 76);
+            this.tabPageFilamentWidthSensor.Location = new System.Drawing.Point(4, 58);
             this.tabPageFilamentWidthSensor.Name = "tabPageFilamentWidthSensor";
-            this.tabPageFilamentWidthSensor.Size = new System.Drawing.Size(622, 585);
+            this.tabPageFilamentWidthSensor.Size = new System.Drawing.Size(736, 603);
             this.tabPageFilamentWidthSensor.TabIndex = 29;
             this.tabPageFilamentWidthSensor.Text = "Filament Width Sensor1";
             this.tabPageFilamentWidthSensor.UseVisualStyleBackColor = true;
@@ -6092,7 +6036,7 @@
             this.marlinCheckBoxFILAMENT_LCD_DISPLAY.Feature = "FILAMENT_LCD_DISPLAY";
             this.marlinCheckBoxFILAMENT_LCD_DISPLAY.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinCheckBoxFILAMENT_LCD_DISPLAY.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBoxFILAMENT_LCD_DISPLAY.Location = new System.Drawing.Point(206, 247);
+            this.marlinCheckBoxFILAMENT_LCD_DISPLAY.Location = new System.Drawing.Point(262, 247);
             this.marlinCheckBoxFILAMENT_LCD_DISPLAY.Name = "marlinCheckBoxFILAMENT_LCD_DISPLAY";
             this.marlinCheckBoxFILAMENT_LCD_DISPLAY.NewFirmwareHelper = null;
             this.marlinCheckBoxFILAMENT_LCD_DISPLAY.Size = new System.Drawing.Size(404, 21);
@@ -6106,7 +6050,7 @@
             this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.Feature = "DEFAULT_MEASURED_FILAMENT_DIA";
             this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.Location = new System.Drawing.Point(206, 213);
+            this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.Location = new System.Drawing.Point(262, 213);
             this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.Name = "marlinValueDEFAULT_MEASURED_FILAMENT_DIA";
             this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.NewFirmwareHelper = null;
             this.marlinValueDEFAULT_MEASURED_FILAMENT_DIA.Size = new System.Drawing.Size(404, 26);
@@ -6121,7 +6065,7 @@
             this.marlinUpDn4.Feature = "MAX_MEASUREMENT_DELAY";
             this.marlinUpDn4.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinUpDn4.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDn4.Location = new System.Drawing.Point(206, 179);
+            this.marlinUpDn4.Location = new System.Drawing.Point(262, 179);
             this.marlinUpDn4.Max = 60;
             this.marlinUpDn4.Min = 0;
             this.marlinUpDn4.Name = "marlinUpDn4";
@@ -6138,7 +6082,7 @@
             this.marlinValueMEASURED_LOWER_LIMIT.Feature = "MEASURED_LOWER_LIMIT";
             this.marlinValueMEASURED_LOWER_LIMIT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinValueMEASURED_LOWER_LIMIT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueMEASURED_LOWER_LIMIT.Location = new System.Drawing.Point(206, 145);
+            this.marlinValueMEASURED_LOWER_LIMIT.Location = new System.Drawing.Point(262, 145);
             this.marlinValueMEASURED_LOWER_LIMIT.Name = "marlinValueMEASURED_LOWER_LIMIT";
             this.marlinValueMEASURED_LOWER_LIMIT.NewFirmwareHelper = null;
             this.marlinValueMEASURED_LOWER_LIMIT.Size = new System.Drawing.Size(404, 26);
@@ -6153,7 +6097,7 @@
             this.marlinValueMEASURED_UPPER_LIMIT.Feature = "MEASURED_UPPER_LIMIT";
             this.marlinValueMEASURED_UPPER_LIMIT.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinValueMEASURED_UPPER_LIMIT.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueMEASURED_UPPER_LIMIT.Location = new System.Drawing.Point(206, 111);
+            this.marlinValueMEASURED_UPPER_LIMIT.Location = new System.Drawing.Point(262, 111);
             this.marlinValueMEASURED_UPPER_LIMIT.Name = "marlinValueMEASURED_UPPER_LIMIT";
             this.marlinValueMEASURED_UPPER_LIMIT.NewFirmwareHelper = null;
             this.marlinValueMEASURED_UPPER_LIMIT.Size = new System.Drawing.Size(404, 26);
@@ -6168,7 +6112,7 @@
             this.marlinUpDn3.Feature = "MEASUREMENT_DELAY_CM";
             this.marlinUpDn3.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinUpDn3.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDn3.Location = new System.Drawing.Point(206, 77);
+            this.marlinUpDn3.Location = new System.Drawing.Point(262, 77);
             this.marlinUpDn3.Max = 200;
             this.marlinUpDn3.Min = 1;
             this.marlinUpDn3.Name = "marlinUpDn3";
@@ -6185,7 +6129,7 @@
             this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.Feature = "FILAMENT_SENSOR_EXTRUDER_NUM";
             this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.Location = new System.Drawing.Point(206, 43);
+            this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.Location = new System.Drawing.Point(262, 43);
             this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.Max = 3;
             this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.Min = 0;
             this.marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM.Name = "marlinUpDnFILAMENT_SENSOR_EXTRUDER_NUM";
@@ -6202,7 +6146,7 @@
             this.marlinCheckBox1.Feature = "FILAMENT_WIDTH_SENSOR";
             this.marlinCheckBox1.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#filament-width-sensor";
             this.marlinCheckBox1.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinCheckBox1.Location = new System.Drawing.Point(206, 14);
+            this.marlinCheckBox1.Location = new System.Drawing.Point(262, 14);
             this.marlinCheckBox1.Name = "marlinCheckBox1";
             this.marlinCheckBox1.NewFirmwareHelper = null;
             this.marlinCheckBox1.Size = new System.Drawing.Size(404, 21);
@@ -6213,6 +6157,7 @@
             this.toolStripConfiguration.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripConfiguration.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonDownload,
+            this.toolStripButtonMigrate,
             this.toolStripButtonPrevious,
             this.toolStripButtonNext,
             this.toolStripButtonArduinoIDE,
@@ -6221,7 +6166,7 @@
             this.toolStripButtonPayPal});
             this.toolStripConfiguration.Location = new System.Drawing.Point(0, 0);
             this.toolStripConfiguration.Name = "toolStripConfiguration";
-            this.toolStripConfiguration.Size = new System.Drawing.Size(630, 39);
+            this.toolStripConfiguration.Size = new System.Drawing.Size(744, 39);
             this.toolStripConfiguration.TabIndex = 4;
             this.toolStripConfiguration.Text = "toolStrip1";
             // 
@@ -6233,6 +6178,15 @@
             this.toolStripButtonDownload.Size = new System.Drawing.Size(97, 36);
             this.toolStripButtonDownload.Text = "Download";
             this.toolStripButtonDownload.Click += new System.EventHandler(this.ToolStripButton1_Click);
+            // 
+            // toolStripButtonMigrate
+            // 
+            this.toolStripButtonMigrate.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonMigrate.Image")));
+            this.toolStripButtonMigrate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonMigrate.Name = "toolStripButtonMigrate";
+            this.toolStripButtonMigrate.Size = new System.Drawing.Size(84, 36);
+            this.toolStripButtonMigrate.Text = "Migrate";
+            this.toolStripButtonMigrate.Click += new System.EventHandler(this.toolStripButtonMigrate_Click);
             // 
             // toolStripButtonPrevious
             // 
@@ -6261,6 +6215,7 @@
             this.toolStripButtonArduinoIDE.Name = "toolStripButtonArduinoIDE";
             this.toolStripButtonArduinoIDE.Size = new System.Drawing.Size(106, 36);
             this.toolStripButtonArduinoIDE.Text = "Arduino IDE";
+            this.toolStripButtonArduinoIDE.Click += new System.EventHandler(this.toolStripButtonArduinoIDE_Click);
             // 
             // toolStripButtonSetup
             // 
@@ -6302,16 +6257,45 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowserMarlinHelp);
-            this.splitContainer1.Size = new System.Drawing.Size(1184, 661);
-            this.splitContainer1.SplitterDistance = 630;
+            this.splitContainer1.Size = new System.Drawing.Size(1351, 661);
+            this.splitContainer1.SplitterDistance = 744;
             this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS
+            // 
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.ControlText = "Nozzle Clean Cirkle Radius";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.currentFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Feature = "NOZZLE_CLEAN_CIRCLE_RADIUS";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Location = new System.Drawing.Point(96, 186);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Name = "marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.NewFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Size = new System.Drawing.Size(347, 26);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.SpliterDistance = 150;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.TabIndex = 11;
+            // 
+            // marlinValueNOZZLE_CLEAN_CIRCLE_FN
+            // 
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.ControlText = "Nozzle Clean Cirkle Fragments";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.currentFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Feature = "NOZZLE_CLEAN_CIRCLE_FN";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.HelpUrl = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.HelpWebBrowser = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Location = new System.Drawing.Point(96, 218);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Name = "marlinValueNOZZLE_CLEAN_CIRCLE_FN";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.NewFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Size = new System.Drawing.Size(347, 26);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.SpliterDistance = 150;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.TabIndex = 6;
             // 
             // FrmConfigurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 661);
+            this.ClientSize = new System.Drawing.Size(1351, 661);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1000, 700);
@@ -6466,7 +6450,7 @@
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxMIXING_EXTRUDER;
         private Marlin3DprinterToolUserControls.MarlinEnableValue marlinEnableValueHOTEND_OFFSET_Z;
         private Marlin3DprinterToolUserControls.MarlinValue marlinValueSWITCHING_EXTRUDER_SERVO_ANGLES;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnSWITCHING_EXTRUDER_SERVO;
+        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnSWITCHING_EXTRUDER_SERVO_NR;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxSWITCHING_EXTRUDER;
         private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnPOWER_SUPPLY;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxPS_DEFAULT_OFF;
@@ -6505,7 +6489,6 @@
         private Marlin3DprinterToolUserControls.MarlinValue marlinValueK1;
         private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnPID_FUNCTIONAL_RANGE;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxPID_PARAMS_PER_HOTEND;
-        private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxSLOW_PWM_HEATERS;
         private Marlin3DprinterToolUserControls.MarlinEnableValue marlinEnableValuePID_OPENLOOP;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxPID_DEBUG;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxPID_AUTOTUNE_MENU;
@@ -6669,11 +6652,6 @@
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxAUTO_BED_LEVELING_BILINEAR;
         private System.Windows.Forms.GroupBox grpBxProbeGrid;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxPROBE_Y_FIRST;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnMIN_PROBE_EDGE;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnBACK_PROBE_BED_POSITION;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnFRONT_PROBE_BED_POSITION;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnRIGHT_PROBE_BED_POSITION;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnLEFT_PROBE_BED_POSITION;
         private System.Windows.Forms.GroupBox grpBxEnableFadeHeight;
         private System.Windows.Forms.Label lblFadeHeight;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxENABLE_LEVELING_FADE_HEIGHT;
@@ -6709,8 +6687,6 @@
         private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDnPREHEAT_1_TEMP_BED;
         private System.Windows.Forms.GroupBox groupBoxNozzleCleanFeature;
         private Marlin3DprinterToolUserControls.MarlinValue marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDn2;
-        private Marlin3DprinterToolUserControls.MarlinUpDn marlinUpDn1;
         private Marlin3DprinterToolUserControls.MarlinValue marlinValueNOZZLE_CLEAN_END_POINT;
         private Marlin3DprinterToolUserControls.MarlinValue marlinValueNOZZLE_CLEAN_START_POINT;
         private Marlin3DprinterToolUserControls.MarlinCheckBox marlinCheckBoxNOZZLE_CLEAN_FEATURE;
@@ -6801,6 +6777,14 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonSetup;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonPayPal;
+        private System.Windows.Forms.ToolStripButton toolStripButtonMigrate;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueMIN_PROBE_EDGE;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueBACK_PROBE_BED_POSITION;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueFRONT_PROBE_BED_POSITION;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueRIGHT_PROBE_BED_POSITION;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueLEFT_PROBE_BED_POSITION;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueNOZZLE_CLEAN_CIRCLE_FN;
+        private Marlin3DprinterToolUserControls.MarlinValue marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS;
     }
 }
 

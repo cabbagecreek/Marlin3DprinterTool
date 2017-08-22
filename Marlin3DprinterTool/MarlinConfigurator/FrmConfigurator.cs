@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Windows.Forms;
+using ArduinoIDE;
 using Marlin3DprinterToolConfiguration;
 using Marlin3DprinterToolUserControls;
 
@@ -20,11 +21,15 @@ namespace MarlinConfigurator
 
         private void TxtBxcurrentFirmware_TextChanged(object sender, EventArgs e)
         {
+            
+
             UpdateGui();
         }
 
         private void TxtBxNewFirmware_TextChanged(object sender, EventArgs e)
         {
+            
+
             UpdateGui();
 
         }
@@ -39,24 +44,32 @@ namespace MarlinConfigurator
             
             if(firmware.ShowDialog() != DialogResult.OK) return;
             
+            //TODO: Check that directory contains Marlin.ino
             txtBxcurrentFirmware.Text = firmware.SelectedPath;
+            Configuration configuration = new Configuration();
+            configuration.CurrentFirmware = firmware.SelectedPath;
 
         }
 
         private void BtnBrowseNewFirmware_Click(object sender, EventArgs e)
         {
             string text = BrowseNewFirmwareDirectory(txtBxNewFirmware.Text);
-            if (text != null) txtBxNewFirmware.Text = text;
+            if (text != null)
+            {
+                Configuration configuration = new Configuration();
+                txtBxNewFirmware.Text = text;
+                configuration.NewFirmware = text;
+            }
         }
 
         private string BrowseNewFirmwareDirectory(string startFolder)
         {
             FolderBrowserDialog firmware = new FolderBrowserDialog
             {
-                Description = @"Directory thet contains New Marlin Firmware",
+                Description = @"Directory that contains New Marlin Firmware",
                 SelectedPath = startFolder
             };
-            
+            //TODO: Check that directory contains Marlin.ino
             return firmware.ShowDialog() != DialogResult.OK ? null : firmware.SelectedPath;
         }
 
@@ -65,6 +78,10 @@ namespace MarlinConfigurator
             Configuration configuration = new Configuration();
             txtBxcurrentFirmware.Text = configuration.CurrentFirmware;
             txtBxNewFirmware.Text = configuration.NewFirmware;
+
+
+            
+
             UpdateGui();
         }
 
@@ -72,9 +89,11 @@ namespace MarlinConfigurator
 
         private void UpdateGui()
         {
-            webBrowserMarlinHelp.Visible = false;
+
+            DelegateVisible(webBrowserMarlinHelp,false);
+
             FirmwareHelper firmware = new FirmwareHelper {FileName = Path.Combine(txtBxNewFirmware.Text, "configuration.h")};
-            webBrowserMarlinHelp.Visible = true;
+            DelegateVisible(webBrowserMarlinHelp, true);
             webBrowserMarlinHelp.Url = new Uri("http://marlinfw.org/docs/configuration/configuration.html#configuring-marlin-1.1");
             // Load comboBoxes
             marlinComboBoxMOTHERBOARD.Clear();
@@ -263,5 +282,91 @@ namespace MarlinConfigurator
                                 @"Do the donation manually by paste it (ctrl+V) in your webbrowser address field", @"Manual PayPal donation", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void toolStripButtonArduinoIDE_Click(object sender, EventArgs e)
+        {
+            Configuration configuration = new Configuration();
+            FrmArduinoIde frmArduinoIde = new FrmArduinoIde();
+            frmArduinoIde.FirmwareDirectory = configuration.NewFirmware;
+            frmArduinoIde.ArduinoIdeDirectory = configuration.ArduinoIde;
+
+
+            frmArduinoIde.ShowDialog();
+        }
+
+        private void toolStripButtonMigrate_Click(object sender, EventArgs e)
+        {
+
+
+            Migrate(this);
+
+
+        }
+
+
+        private void Migrate(Control parentCtrl)
+        {
+            
+            foreach (Control control in parentCtrl.Controls)
+            {
+
+                
+                //do the migration 
+                if (control.GetType() == typeof(MarlinCheckBox) )
+                {
+                    MarlinCheckBox checkBox = (MarlinCheckBox) control;
+                    checkBox.Migrate();
+                }
+                
+                
+                if (control.GetType() == typeof(MarlinComboBox))
+                {
+                    MarlinComboBox comboBox = (MarlinComboBox)control;
+                    comboBox.Migrate();
+                }
+                
+                if (control.GetType() == typeof(MarlinEnableValue))
+                {
+                    MarlinEnableValue comboBox = (MarlinEnableValue)control;
+                    comboBox.Migrate();
+                }
+                
+                if (control.GetType() == typeof(MarlinUpDn))
+                {
+                    MarlinUpDn comboBox = (MarlinUpDn)control;
+                    comboBox.Migrate();
+                }
+                
+                if (control.GetType() == typeof(MarlinValue))
+                {
+                    MarlinValue comboBox = (MarlinValue)control;
+                    comboBox.Migrate();
+                }
+                
+
+
+                Migrate(control);
+            }
+        }
+
+        private delegate void DelegateVisibleCallback(Control control, bool visible);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="visible"></param>
+        public void DelegateVisible(Control control, bool visible)
+        {
+            if (control.InvokeRequired)
+            {
+                DelegateVisibleCallback d = DelegateVisible;
+                Invoke(d, control, visible);
+            }
+            else
+            {
+                control.Visible = visible;
+            }
+        }
+
     }
 }

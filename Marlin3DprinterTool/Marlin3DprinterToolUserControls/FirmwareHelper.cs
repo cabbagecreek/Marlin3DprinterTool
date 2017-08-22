@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -38,59 +40,33 @@ namespace Marlin3DprinterToolUserControls
         {
             // Get the last occurance for the feature in new firmware
             int row = GetFirmwareFeatureRow(feature);
-            if (row == 0) return null;
+            if (row == -1) return null;
             string currentRow = _fctbFirmware.GetLineText(row);
 
 
-            return !currentRow.StartsWith(@"//") ? "true" : "false";
+            
+            Regex rgx = new Regex(@"^[ ,\t]*//", RegexOptions.IgnoreCase);
+            MatchCollection matches = rgx.Matches(currentRow);
+            return matches.Count > 0 ? false.ToString() : true.ToString();
 
 
-
+               
 
         }
 
-        public void SetEnabledFeature(string feature, bool enabled)
-        {
-            // Get the last occurance for the feature in new firmware
-            int row = GetFirmwareFeatureRow(feature);
-            string currentRow = _fctbFirmware.GetLineText(row);
-
-            if (String.IsNullOrEmpty(currentRow)) return;
-
-            _fctbFirmware.Navigate(row);
-            List<int> removeRow = new List<int> { row };
-
-            _fctbFirmware.RemoveLines(removeRow);
-            _fctbFirmware.Navigate(row);
-
-            currentRow = currentRow.TrimStart('/').Trim();
-            if (enabled)
-            {
-                _fctbFirmware.InsertText(currentRow + Environment.NewLine);
-            }
-            else
-            {
-                _fctbFirmware.InsertText("// " + currentRow + Environment.NewLine);
-
-            }
-            
-            
-            Save();
-            
-
-
-        }
-
+        
 
         public string GetFeatureValue(string feature)
         {
             // Get the last occurance for the feature in new firmware
             int row = GetFirmwareFeatureRow(feature);
-            if (row == 0) return null;
+            if (row == -1) return null;
 
+
+            Debug.WriteLine("---- GetFeatureValue ---------------------------------------");
             string currentRow = _fctbFirmware.GetLineText(row);
 
-            
+            Debug.WriteLine(currentRow);
 
             var featurevalue = currentRow.Substring(currentRow.IndexOf(feature, StringComparison.Ordinal));
             featurevalue = featurevalue.Replace(feature, "");
@@ -99,7 +75,7 @@ namespace Marlin3DprinterToolUserControls
 
 
             if (featurevalue.Contains(@"//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf(@"//", StringComparison.Ordinal)).Trim();
-
+            Debug.WriteLine(featurevalue.Trim());
 
 
             return featurevalue.Trim();
@@ -112,20 +88,32 @@ namespace Marlin3DprinterToolUserControls
 
         }
 
-        public void SetFeatureValue(string feature, string newValue)
+        
+
+        public void SetFeatureValue(string feature, string newValue, bool enabled)
         {
             // Get the last occurance for the feature in new firmware
             int row = GetFirmwareFeatureRow(feature);
             string currentRow = _fctbFirmware.GetLineText(row);
             string currentValue = GetFeatureValue(feature);
+            string comment = GetComment(feature);
+            string whitespace = GetWhitespace(feature);
 
             _fctbFirmware.Navigate(row);
             List<int> removeRow = new List<int> { row };
 
+            Debug.WriteLine("---- SetFeatureValue ---------------------------------------");
+            Debug.WriteLine($"    Row: {currentRow} Value: {currentValue}");
             _fctbFirmware.RemoveLines(removeRow);
             _fctbFirmware.Navigate(row);
-            _fctbFirmware.InsertText(currentRow.ReplaceFirst(currentValue, newValue) + Environment.NewLine);
 
+            String enabledStr = enabled ? "" : "// ";
+            string newFeatureValue = $"{whitespace}{enabledStr}#define {feature} {newValue} {comment}";
+
+
+            _fctbFirmware.InsertText(newFeatureValue + Environment.NewLine);
+            Debug.WriteLine($"New row: {newFeatureValue}");
+            Debug.WriteLine("");
 
             Save();
 
@@ -133,68 +121,65 @@ namespace Marlin3DprinterToolUserControls
 
         }
 
-        public EnabledValue GetEnableValue(string feature)
+        private string GetWhitespace(string feature)
         {
-            EnabledValue returnEnabledValue = new EnabledValue();
-
             // Get the last occurance for the feature in new firmware
             int row = GetFirmwareFeatureRow(feature);
-            if (row == 0)
-            {
-                returnEnabledValue.Enabled = false;
-                returnEnabledValue.Value = null;
-                return returnEnabledValue;
-
-            }
-
             string currentRow = _fctbFirmware.GetLineText(row);
 
-            if (currentRow.Trim().StartsWith(@"//"))
+
+            string whitespace = "";
+
+
+            for (int i = 0; i < currentRow.Length; i++)
             {
-                returnEnabledValue.Enabled = false;
+                if (string.IsNullOrWhiteSpace(currentRow.Substring(i, 1)))
+                {
+                    whitespace += currentRow.Substring(i, 1);
+                }
+                else break;
             }
-            else
-            {
-                returnEnabledValue.Enabled = true;
-            }
 
-            var featurevalue = currentRow.Substring(currentRow.IndexOf(feature, StringComparison.Ordinal));
-            featurevalue = featurevalue.Replace(feature, "");
-            if (featurevalue.Contains(@"//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf(@"//", StringComparison.Ordinal)).Trim();
-
-            returnEnabledValue.Value = featurevalue.Trim();
-
-            return returnEnabledValue;
-
+            return whitespace;
 
         }
 
-        public void SetEnableValue(string feature, bool enabled, string newValue)
+        public void SetFeatureValue(string feature, string newValue)
         {
-          
+            SetFeatureValue(feature, newValue, true);
+        }
+
+        public void SetFeatureValue(string feature, bool enabled)
+        {
+            SetFeatureValue(feature, "", enabled);        
+        }
+
+
+        public string GetComment(string feature)
+        {
             // Get the last occurance for the feature in new firmware
             int row = GetFirmwareFeatureRow(feature);
+            string enabled = this.GetEnabledFeature(feature);
             string currentRow = _fctbFirmware.GetLineText(row);
             string currentValue = GetFeatureValue(feature);
             
-            currentRow = currentRow.TrimStart('/').Trim();
-            if (!enabled)
+            string comment = currentRow.Trim();
+            comment = comment.TrimStart('/',' ', '\t');
+            comment = comment.Replace("#define", "");
+            if (!string.IsNullOrEmpty(currentValue))
             {
-                currentRow = "// " + currentRow;
+                comment = comment.Replace(currentValue,"");
             }
-
-            _fctbFirmware.Navigate(row);
-            List<int> removeRow = new List<int> { row };
-
-            _fctbFirmware.RemoveLines(removeRow);
-            _fctbFirmware.Navigate(row);
-            _fctbFirmware.InsertText(currentRow.ReplaceFirst(currentValue, newValue) + Environment.NewLine);
+            comment = comment.Replace(feature, "");
+            comment = comment.Trim();
 
 
-            Save();
-
+            return comment;
         }
 
+        
+
+        
 
 
 
@@ -220,20 +205,38 @@ namespace Marlin3DprinterToolUserControls
         public int GetFirmwareFeatureRow( string feature)
         {
 
-            if (string.IsNullOrEmpty(feature)) return 0;
+            if (string.IsNullOrEmpty(feature)) return -1;
 
             List<int> rows = new List<int>();
-            rows = _fctbFirmware.FindLines(@"\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
+            //rows = _fctbFirmware.FindLines( @"\#define\s*\b" + feature + @"\b", RegexOptions.Singleline);
+            string pattern = $@"^(\s*//\s*|\s*)\#define\s*\b{feature}\b";
+            rows = _fctbFirmware.FindLines(pattern, RegexOptions.Singleline);
 
             // return last occurance of feature
+            Debug.WriteLine("---- GetFirmwareFeatureRow ---------------------------------------------");
             foreach (int index in rows)
             {
-                var row = _fctbFirmware.GetLineText(index).Trim();
-                if (row.StartsWith("#define")) return index;
+                var row = _fctbFirmware.GetLineText(index);
+                //if (row.StartsWith("#define")) return index;
+
+                Regex rgx = new Regex(@"\s*\#define", RegexOptions.IgnoreCase);
+                MatchCollection matches = rgx.Matches(row);
+                if (matches.Count > 0)
+                {
+                    Debug.WriteLine($"Found row: {index} {row}");
+                    return index;
+                }
+
             }
 
-            if (rows.Count == 0) return 0;
+            if (rows.Count == 0)
+            {
+                Debug.WriteLine("No row found. Return -1");
+                return -1;
+            }
 
+            var lastrow = _fctbFirmware.GetLineText(rows[rows.Count - 1]);
+            Debug.WriteLine($"No enabled {feature} found. Last disabled row choosen: {lastrow}");
             return rows[rows.Count - 1];
 
 
@@ -526,6 +529,15 @@ namespace Marlin3DprinterToolUserControls
         }
 
 
+        public bool IsFeatureValueNumbers(string value)
+        {
+            return  Regex.IsMatch(value, @"^[\d,.,\,,\+,\-]+$");
+
+
+        }
+
+        
+
     }
 
     public class ComboboxItem
@@ -539,11 +551,6 @@ namespace Marlin3DprinterToolUserControls
         }
     }
 
-    public class EnabledValue
-    {
-        public bool Enabled { get; set; }
-        public string Value { get; set; }
-    }
     
 
     public static class StringExtension
@@ -574,6 +581,11 @@ namespace Marlin3DprinterToolUserControls
             
         }
     }
+
+    
+
+
+
 
 
 }

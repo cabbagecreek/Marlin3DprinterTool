@@ -7,7 +7,7 @@ namespace AutoUpdater
 {
     public class Updater
     {
-        private string XmlUrl = "http://www.Marlin3DprinterTool.se/LatestVersion/LatestVersion.xml";
+        private string XmlUrl = "http://www.marlin3DprinterTool.se/LatestVersion/LatestVersion.xml";
 
         public Version CurrentVersion { get; set; }
 

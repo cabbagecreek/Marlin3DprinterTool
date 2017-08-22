@@ -422,7 +422,7 @@ namespace MarlinEditor
                         if (item.title.Contains("#define"))
                         {
 
-
+                            //TODO: Fix Startwith
                             if (item.title.StartsWith(@"#define"))
                             {
                                 item.title = item.title.Replace(@"#define", "").Trim();
@@ -434,6 +434,8 @@ namespace MarlinEditor
                                 }
                                 item.type = ExplorerItemType.Property;
                             }
+
+                            //TODO: Fix Startwith
                             if (item.title.StartsWith(@"//"))
                             {
                                 item.title = item.title.TrimStart('/').Trim();

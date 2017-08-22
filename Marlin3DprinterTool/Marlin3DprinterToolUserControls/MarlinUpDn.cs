@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Marlin3DprinterToolUserControls
@@ -97,11 +98,14 @@ namespace Marlin3DprinterToolUserControls
                     ledBulbEqualcurrentFirmware.Color = Color.Yellow;
 
                 }
+                else if (NewFirmwareHelper.GetFeatureValue(Feature) == null)
+                {
+                    ledBulbEqualcurrentFirmware.Color = Color.Blue;
+                    this.Enabled = false;
+                }
 
                 else
                 {
-
-
                     ledBulbEqualcurrentFirmware.Color = currentFirmwareHelper.GetFeatureValue(Feature) ==
                                                     NewFirmwareHelper.GetFeatureValue(Feature)
                         ? Color.Green
@@ -130,36 +134,59 @@ namespace Marlin3DprinterToolUserControls
                 return;
             }
 
+            if (NewFirmwareHelper.GetFeatureValue(Feature) == null)
+            {
+                MessageBox.Show(@"The feature " + Feature + @" is not available in the new Marlin Firmware." +
+                                Environment.NewLine +
+                                @"This might be a obsolite feature." + Environment.NewLine +
+                                @"Read the documentation and set this value manually.", @"Obsolite feature in new Firmware",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
             var result = MessageBox.Show(@"Do you want to transfer value from Current Firmware to the New Firmware?",
                 @"Transfer value", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
+           
+
             if (result == DialogResult.Yes)
             {
-                NewFirmwareHelper.SetFeatureValue(Feature, currentFirmwareHelper.GetFeatureValue(Feature));
-
+                Migrate();
                 
+            }
+        }
+
+        public void Migrate()
+        {
+            
+
+
+            
+            
+            if (ledBulbEqualcurrentFirmware.Color == Color.Red || ledBulbEqualcurrentFirmware.Color == Color.Green)
+            {
                 int resultValue;
-                if (int.TryParse(NewFirmwareHelper.GetFeatureValue(Feature), out resultValue))
+                if (int.TryParse(currentFirmwareHelper.GetFeatureValue(Feature), out resultValue))
                 {
-                    numUpDnControl.Value = resultValue;
+                    NewFirmwareHelper.SetFeatureValue(Feature, resultValue.ToString().Replace(",","."));
                 }
                 UpdateStatus();
             }
+            
+            
         }
 
         public  void DataChanged()
         {
-            if (NewFirmwareHelper != null)
-            {
-                NewFirmwareHelper.SetFeatureValue(Feature,numUpDnControl.Value.ToString()); //TODO: Kan det bli decimaltalcomma??
-            }
+            NewFirmwareHelper?.SetFeatureValue(Feature,numUpDnControl.Value.ToString(CultureInfo.InvariantCulture)); //TODO: Kan det bli decimaltalcomma??
             UpdateStatus();
             ToolTip();
         }
 
         private void ToolTip()
         {
-            toolTipControl.SetToolTip(numUpDnControl, "Coose number for Marlin FW feature " + Feature);
+            toolTipControl.SetToolTip(numUpDnControl, "Choose number for Marlin FW feature " + Feature);
             switch (ledBulbEqualcurrentFirmware.Color.ToKnownColor().ToString())
             {
                 case @"Red":
@@ -172,7 +199,9 @@ namespace Marlin3DprinterToolUserControls
                 case @"Yellow":
                     toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} is not available in Old Marlin Firmware.");
                     break;
-
+                case @"Blue":
+                    toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} might be obsolite in new Marlin Firmware.");
+                    break;
 
             }
 

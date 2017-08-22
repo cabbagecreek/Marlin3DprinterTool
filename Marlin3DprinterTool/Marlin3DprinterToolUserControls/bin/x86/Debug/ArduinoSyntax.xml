@@ -12,8 +12,8 @@
   <style name="CommentedDefine" color="Crimson" fontStyle="Strikeout" />
   <rule style="CommentedDefine" option="Singleline">\s*//[ |\t]*\#define\s*\w*</rule>
   <!-- <rule style="CommentedDefine" options="Singleline" >//\s*\#define\s*\w*</rule> -->
-
-
+  
+  
 
   <!-- Feature name (word after #define) -->
   <style name="Feature" color="Maroon" fontStyle="Bold,Italic" />

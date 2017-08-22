@@ -164,7 +164,7 @@ namespace AutoUpdater
 
                 XmlNode downlaodUrl = xml.SelectSingleNode("/Marlin3DprinterTool/DownloadUrl");
 
-                link = downlaodUrl != null ? downlaodUrl.InnerText : "www.Marlin3DprinterTool.se/LatestVersion/Marlin3DprinterTool.msi";
+                link = downlaodUrl != null ? downlaodUrl.InnerText : "www.marlin3DprinterTool.se/LatestVersion/Marlin3DprinterTool.msi";
 
                 Clipboard.SetText(link);
 

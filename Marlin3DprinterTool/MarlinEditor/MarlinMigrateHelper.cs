@@ -85,19 +85,24 @@ namespace MarlinEditor
 
                 featurevalue = row.Substring(row.IndexOf(feauture, StringComparison.Ordinal));
                 featurevalue = featurevalue.Replace(feauture, "");
+
+                //TODO: Fix Startwith
                 if (featurevalue.StartsWith("\""))
                 {
                     featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("\"", 1, StringComparison.Ordinal) + 1);
                 }
 
+                //TODO: Fix Startwith
                 if (row.StartsWith("#define")) break;
             }
 
 
+            //TODO: Byt mot regex
             if (featurevalue.Contains("//")) featurevalue = featurevalue.Substring(0, featurevalue.IndexOf("//", StringComparison.Ordinal)).Trim();
 
             if (string.IsNullOrEmpty(featurevalue))
             {
+                //TODO: Fix Startwith
                 if (row.StartsWith(@"//")) featurevalue = "// Deactivated feature";
                 else featurevalue = "// Activated feature";
             }
@@ -157,6 +162,8 @@ namespace MarlinEditor
             foreach (int index in rows)
             {
                 row = fctb.GetLineText(index).Trim();
+
+                //TODO: Fix Startwith
                 if (row.StartsWith("#define")) return index;
             }
 
@@ -215,7 +222,7 @@ namespace MarlinEditor
             string newLine = fctbNewFirmware.GetLineText(newrow).Trim();
 
 
-
+            //TODO: Fix Startwith
             if (currentLine.StartsWith("//"))
             {
                 if (!newLine.StartsWith("//"))
@@ -225,6 +232,8 @@ namespace MarlinEditor
 
                 }
             }
+
+            //TODO: Fix Startwith
             if (!currentLine.StartsWith("//"))
             {
                 if (newLine.StartsWith("//"))
@@ -234,6 +243,7 @@ namespace MarlinEditor
                 }
             }
 
+            //TODO: Fix Startwith
             if (!currentValue.StartsWith("//"))
             {
                 string originalLine = fctbNewFirmware.GetLineText(newrow);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCurrentOrNewFirmware));
             this.btnCurrentFirmware = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.grpBxCurrentFirmware = new System.Windows.Forms.GroupBox();
@@ -75,6 +76,7 @@
             this.marlinFirmwareCurrent.Firmware = null;
             this.marlinFirmwareCurrent.FirmwareDirectory = null;
             this.marlinFirmwareCurrent.Location = new System.Drawing.Point(6, 20);
+            this.marlinFirmwareCurrent.MinimumSize = new System.Drawing.Size(500, 130);
             this.marlinFirmwareCurrent.Name = "marlinFirmwareCurrent";
             this.marlinFirmwareCurrent.Size = new System.Drawing.Size(620, 130);
             this.marlinFirmwareCurrent.TabIndex = 1;
@@ -95,6 +97,7 @@
             this.marlinFirmwareNew.Firmware = null;
             this.marlinFirmwareNew.FirmwareDirectory = null;
             this.marlinFirmwareNew.Location = new System.Drawing.Point(6, 20);
+            this.marlinFirmwareNew.MinimumSize = new System.Drawing.Size(500, 130);
             this.marlinFirmwareNew.Name = "marlinFirmwareNew";
             this.marlinFirmwareNew.Size = new System.Drawing.Size(620, 130);
             this.marlinFirmwareNew.TabIndex = 1;
@@ -118,6 +121,7 @@
             this.Controls.Add(this.grpBxNewFirmware);
             this.Controls.Add(this.grpBxCurrentFirmware);
             this.Controls.Add(this.btnCancel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmCurrentOrNewFirmware";
             this.Text = "Current Marlin Firmware or New Marlin Firmware";
             this.Load += new System.EventHandler(this.FrmCurrentOrNewFirmware_Load);

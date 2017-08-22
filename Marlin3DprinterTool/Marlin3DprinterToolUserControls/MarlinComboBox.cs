@@ -108,6 +108,11 @@ namespace Marlin3DprinterToolUserControls
                     ledBulbEqualcurrentFirmware.Color = Color.Yellow;
 
                 }
+                else if (NewFirmwareHelper.GetFeatureValue(Feature) == null)
+                {
+                    ledBulbEqualcurrentFirmware.Color = Color.Blue;
+                    this.Enabled = false;
+                }
                 else
                 {
                     ledBulbEqualcurrentFirmware.Color = currentFirmwareHelper.GetFeatureValue(Feature) ==
@@ -154,6 +159,16 @@ namespace Marlin3DprinterToolUserControls
 
             if (result == DialogResult.Yes)
             {
+                Migrate();
+                
+            }
+        }
+
+
+        public void Migrate()
+        {
+            if (ledBulbEqualcurrentFirmware.Color == Color.Red || ledBulbEqualcurrentFirmware.Color == Color.Green)
+            {
                 NewFirmwareHelper.SetFeatureValue(Feature, currentFirmwareHelper.GetFeatureValue(Feature));
                 cmbBxControl.Text = NewFirmwareHelper.GetFeatureValue(Feature);
                 UpdateStatus();
@@ -184,7 +199,9 @@ namespace Marlin3DprinterToolUserControls
                 case @"Yellow":
                     toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} is not available in Old Marlin Firmware.");
                     break;
-
+                case @"Blue":
+                    toolTipControl.SetToolTip(ledBulbEqualcurrentFirmware, $"Feature {Feature} might be obsolite in new Marlin Firmware.");
+                    break;
 
             }
 

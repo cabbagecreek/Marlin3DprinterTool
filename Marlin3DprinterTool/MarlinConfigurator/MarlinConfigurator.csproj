@@ -111,6 +111,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArduinoIDE\ArduinoIDE.csproj">
+      <Project>{869fcfad-fdf5-43ae-93af-9906b8bd98da}</Project>
+      <Name>ArduinoIDE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
       <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
       <Name>Marlin3DprinterToolConfiguration</Name>

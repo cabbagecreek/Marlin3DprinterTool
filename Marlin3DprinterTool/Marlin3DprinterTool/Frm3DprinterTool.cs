@@ -2216,115 +2216,7 @@ namespace Marlin3DprinterTool
         }
 
 
-        //TODO: Tabort
-        //private void btnAssociateStlViewer_Click(object sender, EventArgs e)
-        //{
-
-
-        //    string stlViewerExe = Path.GetDirectoryName(Application.ExecutablePath);
-
-        //    if (stlViewerExe != null)
-        //    {
-        //        stlViewerExe = Path.Combine(stlViewerExe, "Marlin3DprinterStlViewer.exe");
-
-        //        FileAssociation.Associate(".stl", "Marlin3DprinterToolSTLviewer", "MarlinSTLviewer",
-        //            "Marlin3DprinterTool.ico", stlViewerExe);
-        //        MessageBox.Show(@"STL viewer is now the prefered stl-application", @"Assign STL Viewer",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        //    }
-        //}
-
-
-
-
-        //TODO: Tabort
-        //private void btnInstallStlServer_Click(object sender, EventArgs e)
-        //{
-        //    bool osIs32Bit = chkBx32BitOS.Checked;
-        //    string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-        //        "Marlin3DprinterToolStlThumbnail.dll");
-        //    SharpShellServerManagerClass.InstallServer(stlViewerThumbnail, osIs32Bit);
-        //    UpdateServerStatus();
-        //}
-
-
-
-        //TODO: Tabort
-        //private void btnUnRegisterStlServer_Click(object sender, EventArgs e)
-        //{
-        //    string stlViewerThumbnail = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),
-        //        "Marlin3DprinterToolStlThumbnail.dll");
-        //    bool osIs32Bit = chkBx32BitOS.Checked;
-        //    SharpShellServerManagerClass.Unregister(stlViewerThumbnail, osIs32Bit);
-        //    UpdateServerStatus();
-        //}
-
-        //private void btnRestartWindowsFileExplorer_Click(object sender, EventArgs e)
-        //{
-        //    DialogResult result =
-        //        MessageBox.Show(
-        //            @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
-        //            @"Explorer will be forced to restart"
-        //            , @"Restarting Explorer", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-        //            MessageBoxDefaultButton.Button2);
-        //    if (result == DialogResult.Cancel) return;
-
-        //    SharpShellServerManagerClass.RestartExplorer();
-
-        //    MessageBox.Show(@"Restart of Explorer DONE!", @"Restart of Explorer", MessageBoxButtons.OK,
-        //        MessageBoxIcon.Information);
-
-        //}
-
-
-
-
-        //private void btnTroubleShootStl_Click_1(object sender, EventArgs e)
-        //{
-
-        //    FrmRTFdocumentation stlTroubleshoot = new FrmRTFdocumentation {Filename = "STL thumbnail debug.rtf"};
-        //    stlTroubleshoot.ShowDialog();
-        //}
-
-        //private void btnResetAndCleanExistingThumbnails_Click(object sender, EventArgs e)
-        //{
-        //    DialogResult result =
-        //        MessageBox.Show(
-        //            @"Be sure that all important work is SAVED!" + Environment.NewLine + Environment.NewLine +
-        //            @"This is a more BRUTAL method of reseting the File Explorer Thumbnails"
-        //            , @"Forced Delete of Thumbnail cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Information,
-        //            MessageBoxDefaultButton.Button2);
-        //    if (result == DialogResult.Cancel) return;
-
-
-        //    SharpShellServerManagerClass.ResetAndCleanExistingThumbnails();
-        //    MessageBox.Show(@"Forced Delete of Thumbnail Cache and Restart of Explorer is DONE!", @"Restart of Explorer",
-        //        MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //}
-
-        //private void btnColorStl_Click(object sender, EventArgs e)
-        //{
-        //    ColorConverter exitingColor = new ColorConverter();
-        //    exitingColor.ConvertFrom(_configuration.STLcolor);
-        //    ColorDialog colorDialog = new ColorDialog();
-        //    colorDialog.Color = (Color) exitingColor.ConvertFrom(_configuration.STLcolor);
-        //    colorDialog.AllowFullOpen = false;
-        //    colorDialog.AnyColor = false;
-        //    colorDialog.ShowHelp = true;
-        //    colorDialog.FullOpen = false;
-        //    colorDialog.ShowDialog();
-        //    _configuration.STLcolor = colorDialog.Color.IsNamedColor
-        //        ? colorDialog.Color.Name
-        //        : $"#{colorDialog.Color.Name}";
-
-        //    Registry.SetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", _configuration.STLcolor);
-        //    //string color = (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool","Color","Brown");
-        //    //MessageBox.Show(color);
-        //}
-
-       
-
+        
 
         private void ParseInit()
         {
@@ -2672,6 +2564,8 @@ namespace Marlin3DprinterTool
 
         private void btnProbeDown_Click(object sender, EventArgs e)
         {
+
+
             List<string> commands = new List<string>();
             commands.Add("G91");
             commands.Add("G0 Z-0.05 F500");
@@ -2709,23 +2603,29 @@ namespace Marlin3DprinterTool
         private void btnNozzleIsTouchingBed_Click(object sender, EventArgs e)
         {
 
+            
 
 
             decimal zhome = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
-            //decimal ztouch = _numberConversion.ConvertStringToDecimal(1txtBxZprobePosition.Text);
+            Debug.WriteLine($"Zhome {zhome}");
+
+            
             decimal ztouch = _currectPosition.Z;
+            Debug.WriteLine($"Ztouch {ztouch}");
 
             decimal zProbeOffset = zhome - ztouch;
+            Debug.WriteLine($"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})");
 
-            if (zProbeOffset >= 0)
-            { zProbeOffset =_numberConversion.ConvertStringToDecimal("-" + _numberConversion.ConvertDecimalToString(zProbeOffset));}
+            //if (zProbeOffset >= 0)
+            //{ zProbeOffset =_numberConversion.ConvertStringToDecimal("-" + _numberConversion.ConvertDecimalToString(zProbeOffset));}
 
 
          
 
             DialogResult result = MessageBox.Show
-                ($@"The probe is detecting the bed at {txtBxDockZprobe.Text}" + Environment.NewLine +
-                 $@"and the nozzle is touching the bed at {_currectPosition.Zstring}." + Environment.NewLine + Environment.NewLine +
+                ($@"The probe is detecting the bed at {zhome}" + Environment.NewLine +
+                 $@"and the nozzle is touching the bed at {ztouch}." + Environment.NewLine + Environment.NewLine +
+                 $@"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})" + Environment.NewLine +
                  $@"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
                  @"Do you want to update EEPROM with this value?", @"Z Probe offset", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1
 
