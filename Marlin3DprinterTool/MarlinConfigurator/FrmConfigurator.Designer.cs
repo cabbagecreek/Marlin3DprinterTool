@@ -318,6 +318,8 @@
             this.marlinUpDnPREHEAT_1_TEMP_BED = new Marlin3DprinterToolUserControls.MarlinUpDn();
             this.tabPageNozzlePark = new System.Windows.Forms.TabPage();
             this.groupBoxNozzleCleanFeature = new System.Windows.Forms.GroupBox();
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN = new Marlin3DprinterToolUserControls.MarlinValue();
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS = new Marlin3DprinterToolUserControls.MarlinValue();
             this.marlinCheckBoxNOZZLE_CLEAN_GOBACK = new Marlin3DprinterToolUserControls.MarlinCheckBox();
             this.marlinValueNOZZLE_CLEAN_CIRCLE_MIDDLE = new Marlin3DprinterToolUserControls.MarlinValue();
             this.marlinValueNOZZLE_CLEAN_END_POINT = new Marlin3DprinterToolUserControls.MarlinValue();
@@ -416,8 +418,6 @@
             this.toolStripButtonPayPal = new System.Windows.Forms.ToolStripButton();
             this.toolTipConfiguration = new System.Windows.Forms.ToolTip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS = new Marlin3DprinterToolUserControls.MarlinValue();
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN = new Marlin3DprinterToolUserControls.MarlinValue();
             this.tabControlConfiguration.SuspendLayout();
             this.tabPageDownload.SuspendLayout();
             this.grpBxNewFirmware.SuspendLayout();
@@ -556,6 +556,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // grpBxNewFirmware
@@ -4841,6 +4842,35 @@
             this.groupBoxNozzleCleanFeature.TabStop = false;
             this.groupBoxNozzleCleanFeature.Text = "Nozzle Clean Feature";
             // 
+            // marlinValueNOZZLE_CLEAN_CIRCLE_FN
+            // 
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.ControlText = "Nozzle Clean Cirkle Fragments";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.currentFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Feature = "NOZZLE_CLEAN_CIRCLE_FN";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.HelpUrl = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.HelpWebBrowser = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Location = new System.Drawing.Point(96, 218);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Name = "marlinValueNOZZLE_CLEAN_CIRCLE_FN";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.NewFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Size = new System.Drawing.Size(347, 26);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.SpliterDistance = 150;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.TabIndex = 6;
+            // 
+            // marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS
+            // 
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.ControlText = "Nozzle Clean Cirkle Radius";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.currentFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Feature = "NOZZLE_CLEAN_CIRCLE_RADIUS";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.HelpWebBrowser = this.webBrowserMarlinHelp;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Location = new System.Drawing.Point(96, 186);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Name = "marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS";
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.NewFirmwareHelper = null;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Size = new System.Drawing.Size(347, 26);
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.SpliterDistance = 150;
+            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.TabIndex = 11;
+            // 
             // marlinCheckBoxNOZZLE_CLEAN_GOBACK
             // 
             this.marlinCheckBoxNOZZLE_CLEAN_GOBACK.ControlText = "Nozzle Clean GoBack";
@@ -6261,35 +6291,6 @@
             this.splitContainer1.SplitterDistance = 744;
             this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS
-            // 
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.ControlText = "Nozzle Clean Cirkle Radius";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.currentFirmwareHelper = null;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Feature = "NOZZLE_CLEAN_CIRCLE_RADIUS";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#nozzle-clean";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.HelpWebBrowser = this.webBrowserMarlinHelp;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Location = new System.Drawing.Point(96, 186);
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Name = "marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.NewFirmwareHelper = null;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.Size = new System.Drawing.Size(347, 26);
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.SpliterDistance = 150;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_RADIUS.TabIndex = 11;
-            // 
-            // marlinValueNOZZLE_CLEAN_CIRCLE_FN
-            // 
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.ControlText = "Nozzle Clean Cirkle Fragments";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.currentFirmwareHelper = null;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Feature = "NOZZLE_CLEAN_CIRCLE_FN";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.HelpUrl = null;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.HelpWebBrowser = null;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Location = new System.Drawing.Point(96, 218);
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Name = "marlinValueNOZZLE_CLEAN_CIRCLE_FN";
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.NewFirmwareHelper = null;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.Size = new System.Drawing.Size(347, 26);
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.SpliterDistance = 150;
-            this.marlinValueNOZZLE_CLEAN_CIRCLE_FN.TabIndex = 6;
             // 
             // FrmConfigurator
             // 

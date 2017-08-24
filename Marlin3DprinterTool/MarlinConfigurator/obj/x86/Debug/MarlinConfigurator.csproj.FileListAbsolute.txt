@@ -26,6 +26,3 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.csproj.GenerateResource.Cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\Marlin3DprinterToolConfiguration.xml
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\ArduinoSyntax.xml
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\MarlinCommunication.xml
