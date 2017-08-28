@@ -1267,7 +1267,7 @@
             this.marlinComboBoxTEMP_SENSOR_BED.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.marlinComboBoxTEMP_SENSOR_BED.ControlText = "Bed Sensor:";
             this.marlinComboBoxTEMP_SENSOR_BED.currentFirmwareHelper = null;
-            this.marlinComboBoxTEMP_SENSOR_BED.Feature = "TEMP_SENSOR_BED ";
+            this.marlinComboBoxTEMP_SENSOR_BED.Feature = "TEMP_SENSOR_BED";
             this.marlinComboBoxTEMP_SENSOR_BED.HelpUrl = "http://marlinfw.org/docs/configuration/configuration.html#temperature-sensors";
             this.marlinComboBoxTEMP_SENSOR_BED.HelpWebBrowser = this.webBrowserMarlinHelp;
             this.marlinComboBoxTEMP_SENSOR_BED.IsTrueFalse = false;

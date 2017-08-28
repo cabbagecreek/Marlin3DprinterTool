@@ -171,8 +171,8 @@ namespace Marlin3DprinterTool
             this.label2 = new System.Windows.Forms.Label();
             this.btnCalculateBedPid = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.numUpDownPidBedCykles = new System.Windows.Forms.NumericUpDown();
-            this.trkBarPidBedCykles = new System.Windows.Forms.TrackBar();
+            this.numUpDownPidBedCycles = new System.Windows.Forms.NumericUpDown();
+            this.trkBarPidBedCycles = new System.Windows.Forms.TrackBar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.trkBarPidBedTemp = new System.Windows.Forms.TrackBar();
             this.numUpDownPidBedTemp = new System.Windows.Forms.NumericUpDown();
@@ -189,9 +189,9 @@ namespace Marlin3DprinterTool
             this.grpBxPidExtruderTemp = new System.Windows.Forms.GroupBox();
             this.trkBarPidExtruderTemp = new System.Windows.Forms.TrackBar();
             this.numUpDownPidExtruderTemp = new System.Windows.Forms.NumericUpDown();
-            this.grpBxPidExtruderCykles = new System.Windows.Forms.GroupBox();
-            this.numUpDownPidExtruderCykles = new System.Windows.Forms.NumericUpDown();
-            this.trkBarPidExtruderCykles = new System.Windows.Forms.TrackBar();
+            this.grpBxPidExtruderCycles = new System.Windows.Forms.GroupBox();
+            this.numUpDownPidExtruderCycles = new System.Windows.Forms.NumericUpDown();
+            this.trkBarPidExtruderCycles = new System.Windows.Forms.TrackBar();
             this.btnCalculateExtruderPid = new System.Windows.Forms.Button();
             this.tabPageExtruderCalibration = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -409,8 +409,8 @@ namespace Marlin3DprinterTool
             this.grpBxHeatbedPID.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidBedCykles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidBedCykles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidBedCycles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidBedCycles)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkBarPidBedTemp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidBedTemp)).BeginInit();
@@ -419,9 +419,9 @@ namespace Marlin3DprinterTool
             this.grpBxPidExtruderTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkBarPidExtruderTemp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidExtruderTemp)).BeginInit();
-            this.grpBxPidExtruderCykles.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidExtruderCykles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidExtruderCykles)).BeginInit();
+            this.grpBxPidExtruderCycles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidExtruderCycles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidExtruderCycles)).BeginInit();
             this.tabPageExtruderCalibration.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDnCalibrateExtruderTemp)).BeginInit();
@@ -2169,50 +2169,50 @@ namespace Marlin3DprinterTool
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.numUpDownPidBedCykles);
-            this.groupBox8.Controls.Add(this.trkBarPidBedCykles);
+            this.groupBox8.Controls.Add(this.numUpDownPidBedCycles);
+            this.groupBox8.Controls.Add(this.trkBarPidBedCycles);
             this.groupBox8.Location = new System.Drawing.Point(3, 150);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(306, 98);
             this.groupBox8.TabIndex = 10;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Number of cykles";
+            this.groupBox8.Text = "Number of Cycles";
             // 
-            // numUpDownPidBedCykles
+            // numUpDownPidBedCycles
             // 
-            this.numUpDownPidBedCykles.Location = new System.Drawing.Point(6, 70);
-            this.numUpDownPidBedCykles.Maximum = new decimal(new int[] {
+            this.numUpDownPidBedCycles.Location = new System.Drawing.Point(6, 70);
+            this.numUpDownPidBedCycles.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.numUpDownPidBedCykles.Minimum = new decimal(new int[] {
+            this.numUpDownPidBedCycles.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numUpDownPidBedCykles.Name = "numUpDownPidBedCykles";
-            this.numUpDownPidBedCykles.Size = new System.Drawing.Size(294, 20);
-            this.numUpDownPidBedCykles.TabIndex = 8;
-            this.numUpDownPidBedCykles.Value = new decimal(new int[] {
+            this.numUpDownPidBedCycles.Name = "numUpDownPidBedCycles";
+            this.numUpDownPidBedCycles.Size = new System.Drawing.Size(294, 20);
+            this.numUpDownPidBedCycles.TabIndex = 8;
+            this.numUpDownPidBedCycles.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownPidBedCykles.ValueChanged += new System.EventHandler(this.numUpDownPidBedCykles_ValueChanged);
+            this.numUpDownPidBedCycles.ValueChanged += new System.EventHandler(this.numUpDownPidBedCycles_ValueChanged);
             // 
-            // trkBarPidBedCykles
+            // trkBarPidBedCycles
             // 
-            this.trkBarPidBedCykles.LargeChange = 10;
-            this.trkBarPidBedCykles.Location = new System.Drawing.Point(6, 18);
-            this.trkBarPidBedCykles.Maximum = 20;
-            this.trkBarPidBedCykles.Minimum = 2;
-            this.trkBarPidBedCykles.Name = "trkBarPidBedCykles";
-            this.trkBarPidBedCykles.Size = new System.Drawing.Size(294, 45);
-            this.trkBarPidBedCykles.SmallChange = 5;
-            this.trkBarPidBedCykles.TabIndex = 7;
-            this.trkBarPidBedCykles.Value = 5;
-            this.trkBarPidBedCykles.Scroll += new System.EventHandler(this.trkBarPidBedCykles_Scroll);
+            this.trkBarPidBedCycles.LargeChange = 10;
+            this.trkBarPidBedCycles.Location = new System.Drawing.Point(6, 18);
+            this.trkBarPidBedCycles.Maximum = 20;
+            this.trkBarPidBedCycles.Minimum = 2;
+            this.trkBarPidBedCycles.Name = "trkBarPidBedCycles";
+            this.trkBarPidBedCycles.Size = new System.Drawing.Size(294, 45);
+            this.trkBarPidBedCycles.SmallChange = 5;
+            this.trkBarPidBedCycles.TabIndex = 7;
+            this.trkBarPidBedCycles.Value = 5;
+            this.trkBarPidBedCycles.Scroll += new System.EventHandler(this.trkBarPidBedCycles_Scroll);
             // 
             // groupBox7
             // 
@@ -2267,7 +2267,7 @@ namespace Marlin3DprinterTool
             this.grpBxExtruderPID.Controls.Add(this.cmbBxPidExtruder);
             this.grpBxExtruderPID.Controls.Add(this.grpBxPidExtruder);
             this.grpBxExtruderPID.Controls.Add(this.grpBxPidExtruderTemp);
-            this.grpBxExtruderPID.Controls.Add(this.grpBxPidExtruderCykles);
+            this.grpBxExtruderPID.Controls.Add(this.grpBxPidExtruderCycles);
             this.grpBxExtruderPID.Controls.Add(this.btnCalculateExtruderPid);
             this.grpBxExtruderPID.Location = new System.Drawing.Point(3, 3);
             this.grpBxExtruderPID.Name = "grpBxExtruderPID";
@@ -2407,52 +2407,52 @@ namespace Marlin3DprinterTool
             0});
             this.numUpDownPidExtruderTemp.ValueChanged += new System.EventHandler(this.numUpDownPidExtruderTemp_ValueChanged);
             // 
-            // grpBxPidExtruderCykles
+            // grpBxPidExtruderCycles
             // 
-            this.grpBxPidExtruderCykles.Controls.Add(this.numUpDownPidExtruderCykles);
-            this.grpBxPidExtruderCykles.Controls.Add(this.trkBarPidExtruderCykles);
-            this.grpBxPidExtruderCykles.Location = new System.Drawing.Point(6, 153);
-            this.grpBxPidExtruderCykles.Name = "grpBxPidExtruderCykles";
-            this.grpBxPidExtruderCykles.Size = new System.Drawing.Size(311, 98);
-            this.grpBxPidExtruderCykles.TabIndex = 6;
-            this.grpBxPidExtruderCykles.TabStop = false;
-            this.grpBxPidExtruderCykles.Text = "Number of cykles";
+            this.grpBxPidExtruderCycles.Controls.Add(this.numUpDownPidExtruderCycles);
+            this.grpBxPidExtruderCycles.Controls.Add(this.trkBarPidExtruderCycles);
+            this.grpBxPidExtruderCycles.Location = new System.Drawing.Point(6, 153);
+            this.grpBxPidExtruderCycles.Name = "grpBxPidExtruderCycles";
+            this.grpBxPidExtruderCycles.Size = new System.Drawing.Size(311, 98);
+            this.grpBxPidExtruderCycles.TabIndex = 6;
+            this.grpBxPidExtruderCycles.TabStop = false;
+            this.grpBxPidExtruderCycles.Text = "Number of Cycles";
             // 
-            // numUpDownPidExtruderCykles
+            // numUpDownPidExtruderCycles
             // 
-            this.numUpDownPidExtruderCykles.Location = new System.Drawing.Point(6, 70);
-            this.numUpDownPidExtruderCykles.Maximum = new decimal(new int[] {
+            this.numUpDownPidExtruderCycles.Location = new System.Drawing.Point(6, 70);
+            this.numUpDownPidExtruderCycles.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.numUpDownPidExtruderCykles.Minimum = new decimal(new int[] {
+            this.numUpDownPidExtruderCycles.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numUpDownPidExtruderCykles.Name = "numUpDownPidExtruderCykles";
-            this.numUpDownPidExtruderCykles.Size = new System.Drawing.Size(299, 20);
-            this.numUpDownPidExtruderCykles.TabIndex = 8;
-            this.numUpDownPidExtruderCykles.Value = new decimal(new int[] {
+            this.numUpDownPidExtruderCycles.Name = "numUpDownPidExtruderCycles";
+            this.numUpDownPidExtruderCycles.Size = new System.Drawing.Size(299, 20);
+            this.numUpDownPidExtruderCycles.TabIndex = 8;
+            this.numUpDownPidExtruderCycles.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownPidExtruderCykles.ValueChanged += new System.EventHandler(this.numUpDownPidExtruderCykles_ValueChanged);
+            this.numUpDownPidExtruderCycles.ValueChanged += new System.EventHandler(this.numUpDownPidExtruderCycles_ValueChanged);
             // 
-            // trkBarPidExtruderCykles
+            // trkBarPidExtruderCycles
             // 
-            this.trkBarPidExtruderCykles.LargeChange = 10;
-            this.trkBarPidExtruderCykles.Location = new System.Drawing.Point(6, 18);
-            this.trkBarPidExtruderCykles.Maximum = 20;
-            this.trkBarPidExtruderCykles.Minimum = 2;
-            this.trkBarPidExtruderCykles.Name = "trkBarPidExtruderCykles";
-            this.trkBarPidExtruderCykles.Size = new System.Drawing.Size(299, 45);
-            this.trkBarPidExtruderCykles.SmallChange = 5;
-            this.trkBarPidExtruderCykles.TabIndex = 7;
-            this.trkBarPidExtruderCykles.Value = 5;
-            this.trkBarPidExtruderCykles.Scroll += new System.EventHandler(this.trkBarPidExtruderCykles_Scroll);
+            this.trkBarPidExtruderCycles.LargeChange = 10;
+            this.trkBarPidExtruderCycles.Location = new System.Drawing.Point(6, 18);
+            this.trkBarPidExtruderCycles.Maximum = 20;
+            this.trkBarPidExtruderCycles.Minimum = 2;
+            this.trkBarPidExtruderCycles.Name = "trkBarPidExtruderCycles";
+            this.trkBarPidExtruderCycles.Size = new System.Drawing.Size(299, 45);
+            this.trkBarPidExtruderCycles.SmallChange = 5;
+            this.trkBarPidExtruderCycles.TabIndex = 7;
+            this.trkBarPidExtruderCycles.Value = 5;
+            this.trkBarPidExtruderCycles.Scroll += new System.EventHandler(this.trkBarPidExtruderCycles_Scroll);
             // 
             // btnCalculateExtruderPid
             // 
@@ -4756,8 +4756,8 @@ namespace Marlin3DprinterTool
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidBedCykles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidBedCykles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidBedCycles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidBedCycles)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkBarPidBedTemp)).EndInit();
@@ -4769,10 +4769,10 @@ namespace Marlin3DprinterTool
             this.grpBxPidExtruderTemp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkBarPidExtruderTemp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidExtruderTemp)).EndInit();
-            this.grpBxPidExtruderCykles.ResumeLayout(false);
-            this.grpBxPidExtruderCykles.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidExtruderCykles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidExtruderCykles)).EndInit();
+            this.grpBxPidExtruderCycles.ResumeLayout(false);
+            this.grpBxPidExtruderCycles.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownPidExtruderCycles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkBarPidExtruderCycles)).EndInit();
             this.tabPageExtruderCalibration.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -4945,13 +4945,13 @@ namespace Marlin3DprinterTool
         private NumericUpDown numUpDownPidExtruderTemp;
         private TrackBar trkBarPidExtruderTemp;
         private GroupBox grpBxPidExtruderTemp;
-        private GroupBox grpBxPidExtruderCykles;
-        private NumericUpDown numUpDownPidExtruderCykles;
-        private TrackBar trkBarPidExtruderCykles;
+        private GroupBox grpBxPidExtruderCycles;
+        private NumericUpDown numUpDownPidExtruderCycles;
+        private TrackBar trkBarPidExtruderCycles;
         private Button btnCalculateBedPid;
         private GroupBox groupBox8;
-        private NumericUpDown numUpDownPidBedCykles;
-        private TrackBar trkBarPidBedCykles;
+        private NumericUpDown numUpDownPidBedCycles;
+        private TrackBar trkBarPidBedCycles;
         private GroupBox groupBox7;
         private TrackBar trkBarPidBedTemp;
         private NumericUpDown numUpDownPidBedTemp;
