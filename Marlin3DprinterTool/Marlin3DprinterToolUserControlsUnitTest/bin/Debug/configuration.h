@@ -152,9 +152,9 @@
 #if ENABLED(MK2_MULTIPLEXER)
 // Override the default DIO selector pins here, if needed.
 // Some pins files may provide defaults for these pins.
-//  #define E_MUX0_PIN  40        // Always Required
- //  #define E_MUX1_PIN         42 // Needed for 3 to 8 steppers
-        //#define E_MUX2_PIN    44  // Needed for 5 to 8 steppers
+//	#define E_MUX0_PIN  40		  // Always Required
+ //  #define E_MUX1_PIN			42 // Needed for 3 to 8 steppers
+		//#define E_MUX2_PIN	44	// Needed for 5 to 8 steppers
 #endif
 
 // A dual extruder that uses a single stepper motor
@@ -546,9 +546,9 @@
 * When changing speed and direction, if the difference is less than the
 * value set here, it may happen instantaneously.
 */
-     #define DEFAULT_XJERK       20.0
+	 #define DEFAULT_XJERK		 20.0
  #define DEFAULT_YJERK 20.1
-    #define DEFAULT_ZJERK   0.4
+	#define DEFAULT_ZJERK	0.4
   #define DEFAULT_EJERK 5.0
 
 
@@ -827,10 +827,10 @@
 *   With an LCD controller the process is guided step-by-step.
 */
 // #define AUTO_BED_LEVELING_3POINT
-//  #define AUTO_BED_LEVELING_LINEAR
-     #define    AUTO_BED_LEVELING_BILINEAR
-//#define   AUTO_BED_LEVELING_UBL
-//      #define  MESH_BED_LEVELING
+//	#define AUTO_BED_LEVELING_LINEAR
+	 #define	AUTO_BED_LEVELING_BILINEAR
+//#define	AUTO_BED_LEVELING_UBL
+//		#define  MESH_BED_LEVELING
 
 /**
 * Enable detailed logging of G28, G29, M48, etc.
@@ -923,7 +923,7 @@
 #define GRID_MAX_POINTS_X 3    // Don't use more than 7 points per axis, implementation limited.
 #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-        //      #define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
+		//		#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
 
 #endif // BED_LEVELING
 
@@ -968,8 +968,8 @@
 //#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-    #define             Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)// X point for Z homing when homing all axis (G28).
- #define   Z_SAFE_HOMING_Y_POINT    ((Y_MIN_POS + Y_MAX_POS) / 2)         // Y point for Z homing when homing all axis (G28).
+	#define				Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)// X point for Z homing when homing all axis (G28).
+ #define   Z_SAFE_HOMING_Y_POINT	((Y_MIN_POS + Y_MAX_POS) / 2)		  // Y point for Z homing when homing all axis (G28).
 #endif
 
 // Homing speeds (mm/m)
@@ -1092,7 +1092,7 @@
 #define NOZZLE_CLEAN_STROKES  12
 
 // Default number of triangles
-#define NOZZLE_CLEAN_TRIANGLES 3 
+#define NOZZLE_CLEAN_TRIANGLES  3
 
 // Specify positions as { X, Y, Z }
 #define NOZZLE_CLEAN_START_POINT { 30, 30, (Z_MIN_POS + 1)}

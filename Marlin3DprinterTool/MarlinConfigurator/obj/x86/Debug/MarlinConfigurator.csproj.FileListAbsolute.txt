@@ -26,3 +26,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.csproj.GenerateResource.Cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.csproj.CoreCompileInputs.cache

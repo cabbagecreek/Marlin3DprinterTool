@@ -929,7 +929,7 @@ namespace Marlin3DprinterTool
                 _com.ClearCommunication();
             
             
-                _com.SendCommand($"M303 E{(int) comboboxItemTextValue.ToValue()} S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCykles.Value}");
+                _com.SendCommand($"M303 E{(int) comboboxItemTextValue.ToValue()} S{numUpDownPidExtruderTemp.Value} C{numUpDownPidExtruderCycles.Value}");
             }
         }
 
@@ -955,14 +955,14 @@ namespace Marlin3DprinterTool
             trkBarPidExtruderTemp.Value = (int) numUpDownPidExtruderTemp.Value;
         }
 
-        private void numUpDownPidExtruderCykles_ValueChanged(object sender, EventArgs e)
+        private void numUpDownPidExtruderCycles_ValueChanged(object sender, EventArgs e)
         {
-            trkBarPidExtruderCykles.Value = (int) numUpDownPidExtruderCykles.Value;
+            trkBarPidExtruderCycles.Value = (int) numUpDownPidExtruderCycles.Value;
         }
 
-        private void trkBarPidExtruderCykles_Scroll(object sender, EventArgs e)
+        private void trkBarPidExtruderCycles_Scroll(object sender, EventArgs e)
         {
-            numUpDownPidExtruderCykles.Value = trkBarPidExtruderCykles.Value;
+            numUpDownPidExtruderCycles.Value = trkBarPidExtruderCycles.Value;
         }
 
         private void trkBarPidBedTemp_Scroll(object sender, EventArgs e)
@@ -993,21 +993,21 @@ namespace Marlin3DprinterTool
             fctbPidResponce.Text = "";
 
             //SENT: M303 E-1 S95 C5
-            commands.Add($"M303 E-1 S{Convert.ToDouble(numUpDownPidBedTemp.Value)} C{numUpDownPidBedCykles.Value}");
+            commands.Add($"M303 E-1 S{Convert.ToDouble(numUpDownPidBedTemp.Value)} C{numUpDownPidBedCycles.Value}");
 
             _com.SendCommand(commands);
 
             
         }
 
-        private void numUpDownPidBedCykles_ValueChanged(object sender, EventArgs e)
+        private void numUpDownPidBedCycles_ValueChanged(object sender, EventArgs e)
         {
-            trkBarPidBedCykles.Value = (int) numUpDownPidBedCykles.Value;
+            trkBarPidBedCycles.Value = (int) numUpDownPidBedCycles.Value;
         }
 
-        private void trkBarPidBedCykles_Scroll(object sender, EventArgs e)
+        private void trkBarPidBedCycles_Scroll(object sender, EventArgs e)
         {
-            numUpDownPidBedCykles.Value = trkBarPidBedCykles.Value;
+            numUpDownPidBedCycles.Value = trkBarPidBedCycles.Value;
         }
 
         private void numUpDownPidBedTemp_ValueChanged(object sender, EventArgs e)

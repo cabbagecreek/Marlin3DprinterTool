@@ -24,3 +24,4 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolUserControlsUnitTest\obj\Debug\Marlin3DprinterToolUserControlsUnitTest.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolUserControlsUnitTest\obj\Debug\Marlin3DprinterToolUserControlsUnitTest.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolUserControlsUnitTest\bin\Debug\configuration.h
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolUserControlsUnitTest\obj\Debug\Marlin3DprinterToolUserControlsUnitTest.csproj.CoreCompileInputs.cache
