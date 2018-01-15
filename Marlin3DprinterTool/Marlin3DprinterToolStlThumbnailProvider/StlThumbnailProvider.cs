@@ -15,6 +15,7 @@ using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using Image = System.Drawing.Image;
 using Size = System.Windows.Size;
+// using System.Diagnostics;
 
 /*
 The following steps are only necessary if adding a new shell extension to an existing 
@@ -84,54 +85,145 @@ namespace Marlin3DprinterToolStlThumbnailProvider
         [STAThread]
         protected Bitmap GetThumbnailImage(int width) // Implemented abstract function in the base class
         {
+            bool everythingisOk = true;
+            //Trace.Listeners.Add(new TextWriterTraceListener(@"c:\temp\stlthumbnail.log"));
+            //Trace.AutoFlush = true;
+            //Trace.Indent();
+            
             MemoryStream memStream = new MemoryStream();
+            //Trace.WriteLine("1. MemoryStream");
 
             Thread thread = new Thread(() =>
             {
-                string colorString = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color", "Blue");
+                object convertFromString = null;
+                Color color = new Color();
+                ModelVisual3D root = new ModelVisual3D();
+                Model3DGroup model = new Model3DGroup();
+                PerspectiveCamera camera = new PerspectiveCamera();
+                BitmapExporter exporter = new BitmapExporter();
 
-                var convertFromString =  ColorConverter.ConvertFromString(colorString);
-                if (convertFromString != null)
+                if (everythingisOk)
                 {
-                    Color color = (Color)convertFromString;
-
-                    StLReader stlReader = new StLReader();
-                    stlReader.DefaultMaterial = new DiffuseMaterial(new SolidColorBrush(color));
-
-                    Model3DGroup model = stlReader.Read(TargetFile);
-                    Viewport3D viewport = new Viewport3D();
-
-                    viewport.Measure(new Size(width, width));
-                    viewport.Arrange(new Rect(0, 0, width, width));
-
-                    ModelVisual3D root = new ModelVisual3D();
-                    viewport.Children.Add(root);
-
-                    var camera = new PerspectiveCamera();
-                    camera.Position = new Point3D(2, 16, 20);
-                    camera.LookDirection = new Vector3D(-2, -16, -20);
-                    camera.UpDirection = new Vector3D(0, 0, 1);
-                    camera.FieldOfView = 45;
-                    camera.NearPlaneDistance = 0.1;
-                    camera.FarPlaneDistance = double.PositiveInfinity;
-                    viewport.Camera = camera;
-
-                    root.Children.Add(new DefaultLights());
-
-                    root.Content = model;
-
-                    camera.ZoomExtents(viewport);
-
-                    Brush background = new SolidColorBrush(Colors.Transparent);
-
-                    BitmapExporter exporter = new BitmapExporter
+                    try
                     {
-                        OversamplingMultiplier = 2,
-                        Background = background
-                    };
+                        string colorString =
+                            (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color",
+                                "Blue");
+
+                        convertFromString = ColorConverter.ConvertFromString(colorString);
+                        //Trace.WriteLine($"2. Color: {convertFromString}");
+                        if (convertFromString != null) color = (Color) convertFromString;
+                    }
+                    catch (Exception )
+                    {
+                        //Trace.WriteLine($"det gick åt helvete i Color {e.Message}");
+                        everythingisOk = false;
+                    }
+                }
+
+                if (everythingisOk)
+                {
+                    if (convertFromString != null)
+                    {
+                        Viewport3D viewport = new Viewport3D();
+
+                        if (everythingisOk)
+                        {
+                            try
+                            {
+                                //Trace.WriteLine($"3. STLreader");
+                                StLReader stlReader = new StLReader();
+                                stlReader.DefaultMaterial = new DiffuseMaterial(new SolidColorBrush(color));
+
+                                //Trace.WriteLine($"4. Read the Targetfile {TargetFile}");
+                                model = stlReader.Read(TargetFile);
+                                //Trace.WriteLine($"5. Model read. New Viewport");
 
 
-                    exporter.Export(viewport, memStream);
+                            }
+                            catch (Exception )
+                            {
+                                //Trace.WriteLine($"det gick åt helvete i STLreader {e.Message}");
+                                everythingisOk = false;
+                            }
+                        }
+
+
+
+                        if (everythingisOk)
+                        {
+                            try
+                            {
+                                //Trace.WriteLine($"6. Arrange with / height {width}/{width}");
+                                viewport.Measure(new Size(width, width));
+                                viewport.Arrange(new Rect(0, 0, width, width));
+
+                                //Trace.WriteLine($"7. Create root");
+
+                                viewport.Children.Add(root);
+
+
+                                //Trace.WriteLine($"8. Create camera");
+
+                                camera.Position = new Point3D(2, 16, 20);
+                                camera.LookDirection = new Vector3D(-2, -16, -20);
+                                camera.UpDirection = new Vector3D(0, 0, 1);
+                                camera.FieldOfView = 45;
+                                camera.NearPlaneDistance = 0.1;
+                                camera.FarPlaneDistance = double.PositiveInfinity;
+                                viewport.Camera = camera;
+
+                            }
+                            catch (Exception )
+                            {
+                                //Trace.WriteLine($"det gick åt helvete i STLarrange {e.Message}");
+                                everythingisOk = false;
+
+                            }
+                        }
+
+                        if (everythingisOk)
+                        {
+                            try
+                            {
+                                root.Children.Add(new DefaultLights());
+
+                                root.Content = model;
+
+                                camera.ZoomExtents(viewport);
+                                //Trace.WriteLine($"9. Create Background");
+                                Brush background = new SolidColorBrush(Colors.Transparent);
+
+                                //Trace.WriteLine($"10. Create Exporter");
+
+                                exporter.Background = background;
+                                exporter.OversamplingMultiplier = 2;
+                            }
+                            catch (Exception )
+                            {
+
+                                //Trace.WriteLine($"det gick åt helvete i Background/Light {e.Message}");
+                                everythingisOk = false;
+                            }
+                        }
+
+                        if (everythingisOk)
+                        {
+                            try
+                            {
+                                //Trace.WriteLine($"11. Export to memorystream");
+                                exporter.Export(viewport, memStream);
+
+                            }
+                            catch (Exception )
+                            {
+                                //Trace.WriteLine($"det gick åt helvete i Export to memory Stream {e.Message}");
+                                everythingisOk = false;
+                            }
+                        }
+
+
+                    }
                 }
             });
 
@@ -139,12 +231,27 @@ namespace Marlin3DprinterToolStlThumbnailProvider
             thread.Start();
             thread.Join();
 
+            if (everythingisOk)
+            {
+                try
+                {
+                    //Trace.WriteLine($"12. Create Bitmap from memorystream");
+                    Bitmap thumbnailBitmap = (Bitmap) Image.FromStream(memStream);
+                    //Trace.WriteLine($"13. Return Bitmap from memorystream");
+                    return thumbnailBitmap;
+                }
+                catch (Exception )
+                {
+                    //Trace.WriteLine($"det gick åt helvete i skapande av Bitmap från messageStream {e.Message}");
+                    return null;
+                }
+            }
+
+            return null;
 
 
-            Bitmap thumbnailBitmap = (Bitmap)Image.FromStream(memStream);
 
 
-            return thumbnailBitmap;
         }
 
 
