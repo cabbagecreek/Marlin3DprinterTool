@@ -27,3 +27,10 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\obj\x86\Debug\MarlinConfigurator.csproj.CoreCompileInputs.cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\Marlin3DprinterToolConfiguration.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\ArduinoSyntax.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\MarlinCommunication.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\MarlinEditorConfiguration.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\HtmlAgilityPack.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\HtmlAgilityPack.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinConfigurator\bin\x86\Debug\HtmlAgilityPack.xml
