@@ -21,6 +21,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.FrmShowCommunication.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.Properties.Resources.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.csproj.GenerateResource.Cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.csproj.CoreCompileInputs.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.csproj.CoreCompileInputs.cache

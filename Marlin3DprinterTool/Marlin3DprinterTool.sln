@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinComunicationHelper", "MarlinComunicationHelper\MarlinComunicationHelper.csproj", "{64426822-468D-48C2-A748-A19780CDBC8D}"
 EndProject
@@ -208,5 +208,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {077E6EA4-999B-4A80-8B84-A51C4E123BDF}
 	EndGlobalSection
 EndGlobal

@@ -31,6 +31,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.FrmStlViewer.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.Properties.Resources.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.csproj.GenerateResource.Cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.csproj.CoreCompileInputs.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Debug\Marlin3DprinterStlViewer.csproj.CoreCompileInputs.cache
