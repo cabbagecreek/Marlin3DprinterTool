@@ -15,7 +15,7 @@ using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using Image = System.Drawing.Image;
 using Size = System.Windows.Size;
-// using System.Diagnostics;
+using System.Diagnostics;
 
 /*
 The following steps are only necessary if adding a new shell extension to an existing 
@@ -86,37 +86,54 @@ namespace Marlin3DprinterToolStlThumbnailProvider
         protected Bitmap GetThumbnailImage(int width) // Implemented abstract function in the base class
         {
             bool everythingisOk = true;
-            //Trace.Listeners.Add(new TextWriterTraceListener(@"c:\temp\stlthumbnail.log"));
-            //Trace.AutoFlush = true;
-            //Trace.Indent();
+
+
+            
+
             
             MemoryStream memStream = new MemoryStream();
-            //Trace.WriteLine("1. MemoryStream");
+            
+
+
 
             Thread thread = new Thread(() =>
             {
+
+
+                //string tracefile = @"C:\temp\stlviewer.stl_log";
+                string tracefile = TargetFile.Replace(".stl", ".stl_log");
+
+                
+                Logg("_______________________________________________________________________________");
+                FileInfo fileInfo = new FileInfo(TargetFile);
+                Logg($"Name: {fileInfo.Name}");
+                Logg($"Dir.: {fileInfo.Directory}");
+
+                Logg($"Size: {fileInfo.Length}");
+                Logg("1. Tread started");
+
+
                 object convertFromString = null;
                 Color color = new Color();
                 ModelVisual3D root = new ModelVisual3D();
                 Model3DGroup model = new Model3DGroup();
                 PerspectiveCamera camera = new PerspectiveCamera();
                 BitmapExporter exporter = new BitmapExporter();
+                
 
                 if (everythingisOk)
                 {
                     try
                     {
-                        string colorString =
-                            (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color",
-                                "Blue");
+                        string colorString = (string) Registry.GetValue(@"HKEY_CURRENT_USER\Software\Marlin3DprinterTool", "Color","Blue");
 
                         convertFromString = ColorConverter.ConvertFromString(colorString);
-                        //Trace.WriteLine($"2. Color: {convertFromString}");
+                        Logg($"2. Color: {convertFromString}");
                         if (convertFromString != null) color = (Color) convertFromString;
                     }
-                    catch (Exception )
+                    catch (Exception e)
                     {
-                        //Trace.WriteLine($"det gick åt helvete i Color {e.Message}");
+                        Logg($"Something goes wrong in Color {e.Message}");
                         everythingisOk = false;
                     }
                 }
@@ -131,19 +148,19 @@ namespace Marlin3DprinterToolStlThumbnailProvider
                         {
                             try
                             {
-                                //Trace.WriteLine($"3. STLreader");
+                                Logg($"3. STLreader");
                                 StLReader stlReader = new StLReader();
                                 stlReader.DefaultMaterial = new DiffuseMaterial(new SolidColorBrush(color));
 
-                                //Trace.WriteLine($"4. Read the Targetfile {TargetFile}");
+                                Logg($"4. Read the Targetfile {TargetFile}");
                                 model = stlReader.Read(TargetFile);
-                                //Trace.WriteLine($"5. Model read. New Viewport");
+                                Logg($"5. Model read. New Viewport");
 
-
+                               
                             }
-                            catch (Exception )
+                            catch (Exception e)
                             {
-                                //Trace.WriteLine($"det gick åt helvete i STLreader {e.Message}");
+                                Logg($"Something goes wrong in STLreader {e.Message}");
                                 everythingisOk = false;
                             }
                         }
@@ -154,16 +171,16 @@ namespace Marlin3DprinterToolStlThumbnailProvider
                         {
                             try
                             {
-                                //Trace.WriteLine($"6. Arrange with / height {width}/{width}");
+                                Logg($"6. Arrange with / height {width}/{width}");
                                 viewport.Measure(new Size(width, width));
                                 viewport.Arrange(new Rect(0, 0, width, width));
 
-                                //Trace.WriteLine($"7. Create root");
+                                Logg($"7. Create root");
 
                                 viewport.Children.Add(root);
 
 
-                                //Trace.WriteLine($"8. Create camera");
+                                Logg($"8. Create camera");
 
                                 camera.Position = new Point3D(2, 16, 20);
                                 camera.LookDirection = new Vector3D(-2, -16, -20);
@@ -174,9 +191,9 @@ namespace Marlin3DprinterToolStlThumbnailProvider
                                 viewport.Camera = camera;
 
                             }
-                            catch (Exception )
+                            catch (Exception e)
                             {
-                                //Trace.WriteLine($"det gick åt helvete i STLarrange {e.Message}");
+                                Logg($"Something goes wrong in STLarrange {e.Message}");
                                 everythingisOk = false;
 
                             }
@@ -186,23 +203,26 @@ namespace Marlin3DprinterToolStlThumbnailProvider
                         {
                             try
                             {
-                                root.Children.Add(new DefaultLights());
 
+                                Logg($"8.1. Create light");
+                                root.Children.Add(new DefaultLights());
+                                Logg($"8.2 Load model");
                                 root.Content = model;
+                                
 
                                 camera.ZoomExtents(viewport);
-                                //Trace.WriteLine($"9. Create Background");
+                                Logg($"9. Create Background");
                                 Brush background = new SolidColorBrush(Colors.Transparent);
 
-                                //Trace.WriteLine($"10. Create Exporter");
+                                Logg($"10. Create Exporter");
 
                                 exporter.Background = background;
-                                exporter.OversamplingMultiplier = 2;
+                                exporter.OversamplingMultiplier = 1;
                             }
-                            catch (Exception )
+                            catch (Exception e)
                             {
 
-                                //Trace.WriteLine($"det gick åt helvete i Background/Light {e.Message}");
+                                Logg($"Something goes wrong in Background/Light {e.Message}");
                                 everythingisOk = false;
                             }
                         }
@@ -211,13 +231,18 @@ namespace Marlin3DprinterToolStlThumbnailProvider
                         {
                             try
                             {
-                                //Trace.WriteLine($"11. Export to memorystream");
+                                Logg($"11. Export to memorystream");
                                 exporter.Export(viewport, memStream);
+                                //Logg($"11. Export to {tempBitmap}");
+                                //FileStream fs = new FileStream(tempBitmap, FileMode.Create, FileAccess.ReadWrite);
+                                //exporter.Export(viewport, fs);
+                                //fs.Flush();
+                                //fs.Close();
 
                             }
-                            catch (Exception )
+                            catch (Exception e)
                             {
-                                //Trace.WriteLine($"det gick åt helvete i Export to memory Stream {e.Message}");
+                                Logg($"Something goes wrong in Export to memory Stream {e.Message}");
                                 everythingisOk = false;
                             }
                         }
@@ -225,33 +250,52 @@ namespace Marlin3DprinterToolStlThumbnailProvider
 
                     }
                 }
+
             });
 
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
 
+            
+
+            
+
             if (everythingisOk)
             {
                 try
                 {
-                    //Trace.WriteLine($"12. Create Bitmap from memorystream");
+                    Logg($"12. Create Bitmap from memorystream");
                     Bitmap thumbnailBitmap = (Bitmap) Image.FromStream(memStream);
-                    //Trace.WriteLine($"13. Return Bitmap from memorystream");
+                    
                     return thumbnailBitmap;
+
                 }
-                catch (Exception )
+                catch (Exception e)
                 {
-                    //Trace.WriteLine($"det gick åt helvete i skapande av Bitmap från messageStream {e.Message}");
+                    Logg($"Something goes wrong in Bitmap from messageStream {e.Message}");
+                    Logg("_______________________________________________________________________________");
+
                     return null;
+
                 }
             }
+            Logg("_______________________________________________________________________________");
 
             return null;
+            
 
 
+        }
 
+        [ConditionalAttribute("DEBUG")]
+        private void Logg(string text)
+        {
+            using (StreamWriter sw = File.AppendText(@"C:\temp\stl.log"))
+            {
+                sw.WriteLine(text);
 
+            }
         }
 
 
