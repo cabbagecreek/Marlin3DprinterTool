@@ -9,6 +9,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using AutoUpdater;
 using Marlin3DprinterTool.Properties;
 using Marlin3DprinterToolConfiguration;
+using Marlin3DprinterToolUserControls;
 using MarlinComunicationHelper;
 using MarlinEditor;
 using Nevron;
@@ -156,6 +157,8 @@ namespace Marlin3DprinterTool
                     chkListBxAdjustment.SetItemChecked(i, true);
                 }
             }
+
+            chkBxReverseLogic.Checked = _configuration.ReverseLogic;
 
             chkBxBlTouch.Checked = _configuration.BLTouch;
             btnBlTouchSave.Visible = chkBxBlTouch.Checked;
@@ -561,23 +564,15 @@ namespace Marlin3DprinterTool
         }
 
 
-        //TOFO: Tabort
-        //private void btnSaveAdjustment_Click(object sender, EventArgs e)
-        //{
-        //    foreach (var item in chkListBxAdjustment.CheckedItems)
-        //    {
-        //        _configuration.Adjuster = (string) item;
-        //        break;
-        //    }
-
-
-        //}
+        
 
         private void chkListBxAdjustment_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (e.NewValue == CheckState.Checked)
                 for (var ix = 0; ix < chkListBxAdjustment.Items.Count; ++ix)
+                {
                     if (e.Index != ix) chkListBxAdjustment.SetItemChecked(ix, false);
+                }
         }
 
         private void btnZmaxTravel_Click(object sender, EventArgs e)
@@ -2005,11 +2000,39 @@ namespace Marlin3DprinterTool
 
         private void chkListBxAdjustment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            AdjusterThreadType thread = AdjusterThreadType.M3;
+
             foreach (var item in chkListBxAdjustment.CheckedItems)
             {
                 _configuration.Adjuster = (string) item;
+                switch (item)
+                {
+                    case "M3":
+                        thread = AdjusterThreadType.M3;
+                        break;
+                    case "M4":
+                        thread = AdjusterThreadType.M4;
+                        break;
+                    case "M5":
+                        thread = AdjusterThreadType.M4;
+                        break;
+
+
+                }
                 break;
             }
+
+
+
+
+            bedAdjusterBackLeft.AdjusterThread = thread;
+            bedAdjusterBackRight.AdjusterThread = thread;
+            bedAdjusterFrontLeft.AdjusterThread = thread;
+            bedAdjusterFrontSingle.AdjusterThread = thread;
+            bedAdjusterLeftSingle.AdjusterThread = thread;
+            bedAdjusterRightSingle.AdjusterThread = thread;
+
+
         }
 
 
@@ -2804,8 +2827,17 @@ namespace Marlin3DprinterTool
             _com.SendCommand(commands);
         }
 
-        
+        private void chkBxReverseLogic_CheckedChanged(object sender, EventArgs e)
+        {
+            _configuration.ReverseLogic = chkBxReverseLogic.Checked;
+            bedAdjusterBackLeft.ReverseLogic = chkBxReverseLogic.Checked; 
+            bedAdjusterBackRight.ReverseLogic = chkBxReverseLogic.Checked;
+            bedAdjusterFrontLeft.ReverseLogic = chkBxReverseLogic.Checked;
+            bedAdjusterFrontSingle.ReverseLogic = chkBxReverseLogic.Checked;
+            bedAdjusterLeftSingle.ReverseLogic = chkBxReverseLogic.Checked;
+            bedAdjusterRightSingle.ReverseLogic = chkBxReverseLogic.Checked;
 
+        }
     }
 
 
