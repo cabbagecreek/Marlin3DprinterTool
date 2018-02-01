@@ -110,6 +110,9 @@ namespace Marlin3DprinterTool
             this.panelConfigurationBedTab = new System.Windows.Forms.Panel();
             this.btnProbeTheBed = new System.Windows.Forms.Button();
             this.panelBed = new System.Windows.Forms.Panel();
+            this.grpBxAdjustmentTreads = new System.Windows.Forms.GroupBox();
+            this.chkBxReverseLogic = new System.Windows.Forms.CheckBox();
+            this.chkListBxAdjustment = new System.Windows.Forms.CheckedListBox();
             this.bedCornerControlFrontRight = new Marlin3DprinterToolUserControls.BedCorner();
             this.bedCornerControlFrontLeft = new Marlin3DprinterToolUserControls.BedCorner();
             this.bedAdjusterLeftSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
@@ -124,7 +127,6 @@ namespace Marlin3DprinterTool
             this.bedAdjusterBackLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
             this.grpBxAdjusters = new System.Windows.Forms.GroupBox();
             this.rdoBn3pointFront = new System.Windows.Forms.RadioButton();
-            this.chkListBxAdjustment = new System.Windows.Forms.CheckedListBox();
             this.rdoBn3pointRight = new System.Windows.Forms.RadioButton();
             this.rdoBn3pointLeft = new System.Windows.Forms.RadioButton();
             this.rdoBn4point = new System.Windows.Forms.RadioButton();
@@ -392,6 +394,7 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurationBed.SuspendLayout();
             this.panelConfigurationBedTab.SuspendLayout();
             this.panelBed.SuspendLayout();
+            this.grpBxAdjustmentTreads.SuspendLayout();
             this.grpBxAdjusters.SuspendLayout();
             this.tabPageConfigurationZprobe.SuspendLayout();
             this.grpBxBlTouch.SuspendLayout();
@@ -755,7 +758,6 @@ namespace Marlin3DprinterTool
             this.fctbM48Test.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbM48Test.DescriptionFile = "";
             this.fctbM48Test.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fctbM48Test.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbM48Test.IsReplaceMode = false;
             this.fctbM48Test.Location = new System.Drawing.Point(11, 125);
             this.fctbM48Test.Name = "fctbM48Test";
@@ -1120,6 +1122,7 @@ namespace Marlin3DprinterTool
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBed.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBed.Controls.Add(this.grpBxAdjustmentTreads);
             this.panelBed.Controls.Add(this.bedCornerControlFrontRight);
             this.panelBed.Controls.Add(this.bedCornerControlFrontLeft);
             this.panelBed.Controls.Add(this.bedAdjusterLeftSingle);
@@ -1136,6 +1139,44 @@ namespace Marlin3DprinterTool
             this.panelBed.Name = "panelBed";
             this.panelBed.Size = new System.Drawing.Size(633, 510);
             this.panelBed.TabIndex = 30;
+            // 
+            // grpBxAdjustmentTreads
+            // 
+            this.grpBxAdjustmentTreads.Controls.Add(this.chkBxReverseLogic);
+            this.grpBxAdjustmentTreads.Controls.Add(this.chkListBxAdjustment);
+            this.grpBxAdjustmentTreads.Location = new System.Drawing.Point(245, 275);
+            this.grpBxAdjustmentTreads.Name = "grpBxAdjustmentTreads";
+            this.grpBxAdjustmentTreads.Size = new System.Drawing.Size(145, 100);
+            this.grpBxAdjustmentTreads.TabIndex = 37;
+            this.grpBxAdjustmentTreads.TabStop = false;
+            this.grpBxAdjustmentTreads.Text = "Adjustment Threads";
+            // 
+            // chkBxReverseLogic
+            // 
+            this.chkBxReverseLogic.AutoSize = true;
+            this.chkBxReverseLogic.Location = new System.Drawing.Point(6, 74);
+            this.chkBxReverseLogic.Name = "chkBxReverseLogic";
+            this.chkBxReverseLogic.Size = new System.Drawing.Size(91, 17);
+            this.chkBxReverseLogic.TabIndex = 19;
+            this.chkBxReverseLogic.Text = "Reverse logic";
+            this.toolTip3DprinterTool.SetToolTip(this.chkBxReverseLogic, "Change the logic for clockwise/counter clockwise");
+            this.chkBxReverseLogic.UseVisualStyleBackColor = true;
+            this.chkBxReverseLogic.CheckedChanged += new System.EventHandler(this.chkBxReverseLogic_CheckedChanged);
+            // 
+            // chkListBxAdjustment
+            // 
+            this.chkListBxAdjustment.FormattingEnabled = true;
+            this.chkListBxAdjustment.Items.AddRange(new object[] {
+            "M3",
+            "M4",
+            "M5"});
+            this.chkListBxAdjustment.Location = new System.Drawing.Point(6, 19);
+            this.chkListBxAdjustment.Name = "chkListBxAdjustment";
+            this.chkListBxAdjustment.Size = new System.Drawing.Size(88, 49);
+            this.chkListBxAdjustment.TabIndex = 18;
+            this.toolTip3DprinterTool.SetToolTip(this.chkListBxAdjustment, "Assign the type of bed adjusters");
+            this.chkListBxAdjustment.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListBxAdjustment_ItemCheck);
+            this.chkListBxAdjustment.SelectedIndexChanged += new System.EventHandler(this.chkListBxAdjustment_SelectedIndexChanged);
             // 
             // bedCornerControlFrontRight
             // 
@@ -1554,7 +1595,6 @@ namespace Marlin3DprinterTool
             // 
             this.grpBxAdjusters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointFront);
-            this.grpBxAdjusters.Controls.Add(this.chkListBxAdjustment);
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointRight);
             this.grpBxAdjusters.Controls.Add(this.rdoBn3pointLeft);
             this.grpBxAdjusters.Controls.Add(this.rdoBn4point);
@@ -1576,21 +1616,6 @@ namespace Marlin3DprinterTool
             this.rdoBn3pointFront.Text = "3 point Front";
             this.rdoBn3pointFront.UseVisualStyleBackColor = true;
             this.rdoBn3pointFront.CheckedChanged += new System.EventHandler(this.rdoBn3pointFront_CheckedChanged);
-            // 
-            // chkListBxAdjustment
-            // 
-            this.chkListBxAdjustment.FormattingEnabled = true;
-            this.chkListBxAdjustment.Items.AddRange(new object[] {
-            "M3",
-            "M4",
-            "M5"});
-            this.chkListBxAdjustment.Location = new System.Drawing.Point(6, 31);
-            this.chkListBxAdjustment.Name = "chkListBxAdjustment";
-            this.chkListBxAdjustment.Size = new System.Drawing.Size(88, 49);
-            this.chkListBxAdjustment.TabIndex = 18;
-            this.toolTip3DprinterTool.SetToolTip(this.chkListBxAdjustment, "Assign the type of bed adjusters");
-            this.chkListBxAdjustment.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListBxAdjustment_ItemCheck);
-            this.chkListBxAdjustment.SelectedIndexChanged += new System.EventHandler(this.chkListBxAdjustment_SelectedIndexChanged);
             // 
             // rdoBn3pointRight
             // 
@@ -1766,7 +1791,6 @@ namespace Marlin3DprinterTool
             this.fctbAutoBedLevelResponce.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbAutoBedLevelResponce.DescriptionFile = "";
             this.fctbAutoBedLevelResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fctbAutoBedLevelResponce.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbAutoBedLevelResponce.IsReplaceMode = false;
             this.fctbAutoBedLevelResponce.Location = new System.Drawing.Point(6, 19);
             this.fctbAutoBedLevelResponce.Name = "fctbAutoBedLevelResponce";
@@ -2057,7 +2081,6 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.CharWidth = 8;
             this.fctbPidResponce.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbPidResponce.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fctbPidResponce.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbPidResponce.IsReplaceMode = false;
             this.fctbPidResponce.Location = new System.Drawing.Point(7, 376);
             this.fctbPidResponce.Name = "fctbPidResponce";
@@ -3137,7 +3160,6 @@ namespace Marlin3DprinterTool
             this.fastColoredTextBoxExtruderStepsPerMM.CharWidth = 8;
             this.fastColoredTextBoxExtruderStepsPerMM.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBoxExtruderStepsPerMM.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBoxExtruderStepsPerMM.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBoxExtruderStepsPerMM.IsReplaceMode = false;
             this.fastColoredTextBoxExtruderStepsPerMM.Location = new System.Drawing.Point(9, 168);
             this.fastColoredTextBoxExtruderStepsPerMM.Multiline = false;
@@ -3248,7 +3270,6 @@ namespace Marlin3DprinterTool
             this.fastColoredTextBoxBeltStepsPerMM.CharWidth = 8;
             this.fastColoredTextBoxBeltStepsPerMM.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBoxBeltStepsPerMM.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBoxBeltStepsPerMM.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBoxBeltStepsPerMM.IsReplaceMode = false;
             this.fastColoredTextBoxBeltStepsPerMM.Location = new System.Drawing.Point(6, 344);
             this.fastColoredTextBoxBeltStepsPerMM.Multiline = false;
@@ -3442,7 +3463,6 @@ namespace Marlin3DprinterTool
             this.fastColoredTextBoxLeadScrewStepsPerMM.CharWidth = 8;
             this.fastColoredTextBoxLeadScrewStepsPerMM.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBoxLeadScrewStepsPerMM.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBoxLeadScrewStepsPerMM.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBoxLeadScrewStepsPerMM.IsReplaceMode = false;
             this.fastColoredTextBoxLeadScrewStepsPerMM.Location = new System.Drawing.Point(6, 344);
             this.fastColoredTextBoxLeadScrewStepsPerMM.Multiline = false;
@@ -4279,7 +4299,6 @@ namespace Marlin3DprinterTool
             this.fctbInit.CharWidth = 8;
             this.fctbInit.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fctbInit.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fctbInit.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fctbInit.IsReplaceMode = false;
             this.fctbInit.Location = new System.Drawing.Point(3, 3);
             this.fctbInit.Name = "fctbInit";
@@ -4615,7 +4634,7 @@ namespace Marlin3DprinterTool
             this.grpBxTemperature.Controls.Add(this.chartTemperature);
             this.grpBxTemperature.Location = new System.Drawing.Point(3, 331);
             this.grpBxTemperature.Name = "grpBxTemperature";
-            this.grpBxTemperature.Size = new System.Drawing.Size(310, 292);
+            this.grpBxTemperature.Size = new System.Drawing.Size(292, 292);
             this.grpBxTemperature.TabIndex = 22;
             this.grpBxTemperature.TabStop = false;
             this.grpBxTemperature.Text = "Extruder 1          Extruder 2           Bed";
@@ -4625,7 +4644,7 @@ namespace Marlin3DprinterTool
             this.btnGetTemp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGetTemp.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.nozzle_temperature;
             this.btnGetTemp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGetTemp.Location = new System.Drawing.Point(241, 11);
+            this.btnGetTemp.Location = new System.Drawing.Point(223, 11);
             this.btnGetTemp.Name = "btnGetTemp";
             this.btnGetTemp.Size = new System.Drawing.Size(62, 34);
             this.btnGetTemp.TabIndex = 7;
@@ -4646,7 +4665,7 @@ namespace Marlin3DprinterTool
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Name = "Series1";
             this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Size = new System.Drawing.Size(304, 243);
+            this.chartTemperature.Size = new System.Drawing.Size(286, 243);
             this.chartTemperature.TabIndex = 0;
             this.chartTemperature.Text = "chart1";
             // 
@@ -4732,6 +4751,8 @@ namespace Marlin3DprinterTool
             this.tabPageConfigurationBed.ResumeLayout(false);
             this.panelConfigurationBedTab.ResumeLayout(false);
             this.panelBed.ResumeLayout(false);
+            this.grpBxAdjustmentTreads.ResumeLayout(false);
+            this.grpBxAdjustmentTreads.PerformLayout();
             this.grpBxAdjusters.ResumeLayout(false);
             this.grpBxAdjusters.PerformLayout();
             this.tabPageConfigurationZprobe.ResumeLayout(false);
@@ -5170,5 +5191,7 @@ namespace Marlin3DprinterTool
         private BindingControl bindingControl;
         private AGauge aGaugeProbe;
         private PictureBox picBxApprovedByBLTouch;
+        private GroupBox grpBxAdjustmentTreads;
+        private CheckBox chkBxReverseLogic;
     }
 }

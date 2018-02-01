@@ -168,12 +168,19 @@ namespace AutoUpdater
             {
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location") ?? (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
-                xmlNode?.SetAttribute("City", value.City);
-                xmlNode?.SetAttribute("CountryName", value.CountryName);
-                xmlNode?.SetAttribute("Latitude", value.Latitude);
-                xmlNode?.SetAttribute("Latitude", value.Latitude);
-                xmlNode?.SetAttribute("IsDonator", value.IsDonator.ToString().ToLower());
+                XmlElement xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location") ?? (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
+                if (xmlNode == null)
+                {
+                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");
+                }
+                if (value != null)
+                {
+                    if (string.IsNullOrEmpty(value.City)) xmlNode?.SetAttribute("City", value.City);
+                    if (string.IsNullOrEmpty(value.CountryName))xmlNode?.SetAttribute("CountryName", value.CountryName);
+                    if (string.IsNullOrEmpty(value.Latitude)) xmlNode?.SetAttribute("Latitude", value.Latitude);
+                    if (string.IsNullOrEmpty(value.Latitude)) xmlNode?.SetAttribute("Latitude", value.Latitude);
+                    xmlNode?.SetAttribute("IsDonator", value.IsDonator.ToString().ToLower());
+                }
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
         }
