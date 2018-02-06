@@ -743,6 +743,10 @@ namespace MarlinEditor
 
         private void toolStripArduinoIDE_Click(object sender, EventArgs e)
         {
+
+
+
+
             Configuration configuration = new Configuration();
 
             string workingDirectory = Path.GetDirectoryName(tsFiles.SelectedItem.Tag.ToString());
@@ -758,21 +762,41 @@ namespace MarlinEditor
             if (result == DialogResult.Cancel) return;
 
 
+            try
+            {
+                var compileAndUpload = new Process();
+                compileAndUpload.StartInfo.UseShellExecute = false;
+                compileAndUpload.StartInfo.RedirectStandardOutput = true;
+                compileAndUpload.StartInfo.WorkingDirectory = configuration.CurrentFirmware;
+                compileAndUpload.StartInfo.FileName = Path.Combine(configuration.ArduinoIde, "arduino.exe");
+                compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(configuration.CurrentFirmware, "marlin.ino") + "\" --upload ";
+                compileAndUpload.Start();
+                // Do not wait for the child process to exit before
+                // reading to the end of its redirected stream.
+                // p.WaitForExit();
+                // Read the output stream first and then wait.
+                // string output = compileAndUpload.StandardOutput.ReadToEnd();
+                compileAndUpload.WaitForExit();
 
+            }
+            catch (Exception exception)
+            {
+                DialogResult configResult = MessageBox.Show(@"Message: " + exception.Message + Environment.NewLine + Environment.NewLine +
+
+                                @"It looks some problem with finding the ArduinoIDE at " + Environment.NewLine +
+
+                                Path.Combine(configuration.ArduinoIde, "arduino.exe") + @"." + Environment.NewLine +
+                                Environment.NewLine +
+                                @"Do you want to configure where to find Arduino IDE?", @"Error when calling Arduini IDE",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                if (configResult == DialogResult.Yes)
+                {
+                    Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
+                    setup.ShowDialog();
+                }
+            }
             
-            var compileAndUpload = new Process();
-            compileAndUpload.StartInfo.UseShellExecute = false;
-            compileAndUpload.StartInfo.RedirectStandardOutput = true;
-            compileAndUpload.StartInfo.WorkingDirectory = configuration.CurrentFirmware;
-            compileAndUpload.StartInfo.FileName = Path.Combine(configuration.ArduinoIde, "arduino.exe");
-            compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(configuration.CurrentFirmware, "marlin.ino") + "\" --upload ";
-            compileAndUpload.Start();
-            // Do not wait for the child process to exit before
-            // reading to the end of its redirected stream.
-            // p.WaitForExit();
-            // Read the output stream first and then wait.
-            // string output = compileAndUpload.StandardOutput.ReadToEnd();
-            compileAndUpload.WaitForExit();
+            
         }
 
         private void toolStripMigration_Click(object sender, EventArgs e)
