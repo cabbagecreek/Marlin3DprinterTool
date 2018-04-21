@@ -1,10 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
 using Marlin3DprinterToolConfiguration;
+
 
 namespace Marlin3DprinterStlViewer
 {
@@ -13,8 +16,7 @@ namespace Marlin3DprinterStlViewer
     /// </summary>
     public partial class StlViewerWPF : UserControl
     {
-
-        Configuration configuration = new Configuration();
+        
         private string modellColor = "Blue";
         /// <summary>
         /// Get and Set current visible 3D models filename
@@ -30,7 +32,9 @@ namespace Marlin3DprinterStlViewer
             get { return modellColor;}
             set
             {
+
                 modellColor = value;
+                Configuration.GetInstance.StlColor = modellColor;
             }
         }
 
@@ -48,17 +52,20 @@ namespace Marlin3DprinterStlViewer
             myViewPort3D.Drop += MyViewPort3D_Drop;
         }
 
-        private void MyViewPort3D_Drop(object sender, System.Windows.DragEventArgs e)
+        private void MyViewPort3D_Drop(object sender, DragEventArgs e)
         {
             string[] files = (string[]) e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files)
+            if (files != null)
             {
-                ViewNewStl(file);
-                break; // Only the first file. Skip the other
+                foreach (string file in files)
+                {
+                    ViewNewStl(file);
+                    break; // Only the first file. Skip the other
+                }
             }
         }
 
-        private void MyViewPort3D_DragEnter(object sender, System.Windows.DragEventArgs e)
+        private void MyViewPort3D_DragEnter(object sender, DragEventArgs e)
         {
             e.Effects = (DragDropEffects) System.Windows.Forms.DragDropEffects.Copy;
         }
@@ -77,27 +84,35 @@ namespace Marlin3DprinterStlViewer
             FileInfo fileInfo = new FileInfo(filename);
             if (fileInfo.Extension.ToLower() != ".stl") return;
 
-            ModelColor = configuration.STLcolor;
+            ModelColor = Configuration.GetInstance.StlColor;
 
             Filename = filename;
 
             // Create a model of the STL file
 
+            try
+            {
+                ModelImporter modellImporter = new ModelImporter
+                {
+                    DefaultMaterial = new DiffuseMaterial(new SolidColorBrush((Color) ColorConverter.ConvertFromString(modellColor)))
+                };
+                Model3DGroup model3DGroup = modellImporter.Load(filename);
 
 
-            ModelImporter modellImporter = new ModelImporter();
-            modellImporter.DefaultMaterial =
-                new DiffuseMaterial(
-                    new SolidColorBrush((Color)ColorConverter.ConvertFromString(modellColor)));
-            Model3DGroup model3DGroup = modellImporter.Load(filename);
+
+                StlModel.Content = model3DGroup;
 
 
+                myViewPort3D.CameraController.ResetCamera();
+                myViewPort3D.CameraController.ZoomExtents(0);
 
-            StlModel.Content = model3DGroup;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"modelimporter crash {e.Message}");
+            }
 
-
-            myViewPort3D.CameraController.ResetCamera();
-            myViewPort3D.CameraController.ZoomExtents(0);
+            
 
 
         }

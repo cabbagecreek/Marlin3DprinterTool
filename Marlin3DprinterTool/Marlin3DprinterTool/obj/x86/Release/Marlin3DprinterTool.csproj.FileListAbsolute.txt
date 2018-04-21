@@ -48,7 +48,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinEditorConfiguration.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterTool.ico
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Licence.rtf
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\STL thumbnail debug.rtf
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterTool.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterTool.XML
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterTool.exe
@@ -58,7 +57,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterToolConfiguration.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterToolUserControls.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinComunicationHelper.dll
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinDocumentation.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinEditor.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\ZylSerialPort.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\TabStrip.dll
@@ -66,8 +64,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterToolConfiguration.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Marlin3DprinterToolUserControls.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinComunicationHelper.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinDocumentation.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinDocumentation.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinEditor.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\MarlinEditor.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\FastColoredTextBox.xml
@@ -85,3 +81,5 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Nevron.Presentation.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Nevron.System.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Release\Marlin3DprinterTool.csproj.CoreCompileInputs.cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Newtonsoft.Json.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Release\Newtonsoft.Json.xml

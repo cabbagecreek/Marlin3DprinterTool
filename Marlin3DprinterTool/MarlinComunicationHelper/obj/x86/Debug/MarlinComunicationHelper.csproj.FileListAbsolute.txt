@@ -9,6 +9,7 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\Marlin3DprinterToolConfiguration.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\ZylSerialPort.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\AutoUpdater.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\Newtonsoft.Json.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\Marlin3DprinterToolConfiguration.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\FastColoredTextBox.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\HelixToolkit.pdb
@@ -17,6 +18,7 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\HelixToolkit.Wpf.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\ZylSerialPort.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\AutoUpdater.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Debug\Newtonsoft.Json.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.FrmShowCommunication.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Debug\MarlinComunicationHelper.Properties.Resources.resources

@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using Newtonsoft.Json;
 
 namespace AutoUpdater
 {
@@ -195,29 +196,19 @@ namespace AutoUpdater
 
 
 
-        public void InsertNewMarker(MarkerPoint markerPoint, XmlDocument xml, bool isDonator)
+        public void InsertNewMarker(MarkerPoint markerPoint)
         {
             try
             {
-                string category = isDonator ? "2" : "1";
-                                
-                                          
-                string sql = "INSERT INTO xvom_wpgmza(map_id,address,description,pic,link,icon,lat,lng,anim,title,infoopen,category,approved,retina,type,did,other_data) " +
-                             $"VALUES(1,'{markerPoint.City}','','','','','{markerPoint.Latitude}','{markerPoint.Longitude}',0,'',0,{category},1,0,'','','')";
+               
 
 
-
-
-
-                string url = @"http://www.marlin3DprinterTool.se/MapInfo/InsertNewMarker.php";
-
-                WebClient client = new WebClient {Encoding = Encoding.UTF8};
-                client.UploadString(url, sql);
-
-
-
-
-
+                var dataString = JsonConvert.SerializeObject(markerPoint);
+                WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                Uri uri = new Uri(@"http://www.marlin3DprinterTool.se/MapInfo/MarkerJSON.php");
+                client.UploadString(uri, "POST", dataString);
+            
             }
             catch (Exception e)
             {
@@ -234,7 +225,6 @@ namespace AutoUpdater
         public string Longitude { get; set; }
         public string City { get; set; }
         public string CountryName { get; set; }
-
         public bool IsDonator { get; set; }
     }
 }

@@ -10,7 +10,6 @@ namespace Marlin3DprinterToolUserControls
     public partial class BedAdjuster : UserControl
     {
         NumberConversion _numberConversion = new NumberConversion();
-        private Configuration configuration = new Configuration();
         private AdjusterType _adjuster;
         private Position _position;
         private decimal _z;

@@ -46,8 +46,7 @@ namespace MarlinConfigurator
             
             //TODO: Check that directory contains Marlin.ino
             txtBxcurrentFirmware.Text = firmware.SelectedPath;
-            Configuration configuration = new Configuration();
-            configuration.CurrentFirmware = firmware.SelectedPath;
+            Configuration.GetInstance.CurrentFirmware = firmware.SelectedPath;
 
         }
 
@@ -56,9 +55,9 @@ namespace MarlinConfigurator
             string text = BrowseNewFirmwareDirectory(txtBxNewFirmware.Text);
             if (text != null)
             {
-                Configuration configuration = new Configuration();
+                
                 txtBxNewFirmware.Text = text;
-                configuration.NewFirmware = text;
+                Configuration.GetInstance.NewFirmware = text;
             }
         }
 
@@ -75,9 +74,9 @@ namespace MarlinConfigurator
 
         private void FrmConfigurator_Load(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
-            txtBxcurrentFirmware.Text = configuration.CurrentFirmware;
-            txtBxNewFirmware.Text = configuration.NewFirmware;
+           
+            txtBxcurrentFirmware.Text = Configuration.GetInstance.CurrentFirmware;
+            txtBxNewFirmware.Text = Configuration.GetInstance.NewFirmware;
 
 
             
@@ -285,10 +284,10 @@ namespace MarlinConfigurator
 
         private void toolStripButtonArduinoIDE_Click(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
+            
             FrmArduinoIde frmArduinoIde = new FrmArduinoIde();
-            frmArduinoIde.FirmwareDirectory = configuration.NewFirmware;
-            frmArduinoIde.ArduinoIdeDirectory = configuration.ArduinoIde;
+            frmArduinoIde.FirmwareDirectory = Configuration.GetInstance.NewFirmware;
+            frmArduinoIde.ArduinoIdeDirectory = Configuration.GetInstance.ArduinoIde;
 
 
             frmArduinoIde.ShowDialog();

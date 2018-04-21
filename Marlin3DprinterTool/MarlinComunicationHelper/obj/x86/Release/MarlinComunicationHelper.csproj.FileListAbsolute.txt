@@ -49,3 +49,5 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Release\MarlinComunicationHelper.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Release\MarlinComunicationHelper.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\obj\x86\Release\MarlinComunicationHelper.csproj.CoreCompileInputs.cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Release\Newtonsoft.Json.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinComunicationHelper\bin\x86\Release\Newtonsoft.Json.xml

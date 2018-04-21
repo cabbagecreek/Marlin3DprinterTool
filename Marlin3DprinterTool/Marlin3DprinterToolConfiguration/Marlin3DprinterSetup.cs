@@ -11,7 +11,7 @@ namespace Marlin3DprinterToolConfiguration
 {
     public partial class Marlin3DprinterSetup : Form
     {
-        private readonly Configuration _configuration = new Configuration();
+       
         private Version _currentVersion;
 
         public Version CurrentVersion
@@ -33,7 +33,7 @@ namespace Marlin3DprinterToolConfiguration
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            _configuration.LicenseKey = txtBxUnlockKey.Text;
+            Configuration.GetInstance.LicenseKey = txtBxUnlockKey.Text;
             Close();
         }
 
@@ -102,10 +102,10 @@ namespace Marlin3DprinterToolConfiguration
 
         private void btnDirectoryCurrentFirmware_Click(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
+            
             FolderBrowserDialog currentFirmwareBrowserDialog = new FolderBrowserDialog
             {
-                SelectedPath = configuration.CurrentFirmware,
+                SelectedPath = Configuration.GetInstance.CurrentFirmware,
                 Description = @"Directory to current Firmware"
             };
             DialogResult result = currentFirmwareBrowserDialog.ShowDialog();
@@ -114,10 +114,9 @@ namespace Marlin3DprinterToolConfiguration
 
         private void btnDirectoryNewFirmware_Click(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
             FolderBrowserDialog newFirmwareBrowserDialog = new FolderBrowserDialog
             {
-                SelectedPath = configuration.NewFirmware,
+                SelectedPath = Configuration.GetInstance.NewFirmware,
                 Description = @"Directory to new Firmware"
             };
             DialogResult result = newFirmwareBrowserDialog.ShowDialog();
@@ -126,10 +125,9 @@ namespace Marlin3DprinterToolConfiguration
 
         private void btnArduinoIDE_Click(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
             FolderBrowserDialog arduinoIdeBrowserDialog = new FolderBrowserDialog
             {
-                SelectedPath = configuration.ArduinoIde,
+                SelectedPath = Configuration.GetInstance.ArduinoIde,
                 Description = @"Directory to Arduino IDE"
             };
             DialogResult result = arduinoIdeBrowserDialog.ShowDialog();
@@ -138,10 +136,10 @@ namespace Marlin3DprinterToolConfiguration
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            _configuration.CurrentFirmware = txtBxDirectoryCurrentFirmware.Text;
-            _configuration.NewFirmware = txtBxDirectoryNewFirmware.Text;
-            _configuration.ArduinoIde = txtBxArduinoIDE.Text;
+
+            Configuration.GetInstance.CurrentFirmware = txtBxDirectoryCurrentFirmware.Text;
+            Configuration.GetInstance.NewFirmware = txtBxDirectoryNewFirmware.Text;
+            Configuration.GetInstance.ArduinoIde = txtBxArduinoIDE.Text;
             Close();
         }
 
@@ -159,12 +157,11 @@ namespace Marlin3DprinterToolConfiguration
 
         private void Marlin3DprinterSetup_Load(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
-            txtBxDirectoryCurrentFirmware.Text = configuration.CurrentFirmware;
-            txtBxDirectoryNewFirmware.Text = configuration.NewFirmware;
-            txtBxArduinoIDE.Text = configuration.ArduinoIde;
+            txtBxDirectoryCurrentFirmware.Text = Configuration.GetInstance.CurrentFirmware;
+            txtBxDirectoryNewFirmware.Text = Configuration.GetInstance.NewFirmware;
+            txtBxArduinoIDE.Text = Configuration.GetInstance.ArduinoIde;
 
-            txtBxUnlockKey.Text = configuration.LicenseKey;
+            txtBxUnlockKey.Text = Configuration.GetInstance.LicenseKey;
             ShowLicense();
 
         }
@@ -187,20 +184,20 @@ namespace Marlin3DprinterToolConfiguration
         /// 
         /// </summary>
         /// <param name="extension"></param>
-        /// <param name="progID"></param>
+        /// <param name="progId"></param>
         /// <param name="description"></param>
         /// <param name="icon"></param>
         /// <param name="application"></param>
         // Associate file extension with progID, description, icon and application
         public static void Associate(string extension,
-            string progID, string description, string icon, string application)
+            string progId, string description, string icon, string application)
         {
             RegistryKey registryKey = Registry.ClassesRoot.CreateSubKey(extension);
-            registryKey?.SetValue("", progID);
+            registryKey?.SetValue("", progId);
 
 
-            if (string.IsNullOrEmpty(progID)) return;
-            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progID))
+            if (string.IsNullOrEmpty(progId)) return;
+            using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(progId))
             {
                 if (description != null)
                 {

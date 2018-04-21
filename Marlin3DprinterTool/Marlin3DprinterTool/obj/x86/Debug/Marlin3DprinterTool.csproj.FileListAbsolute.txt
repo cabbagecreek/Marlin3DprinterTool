@@ -4,7 +4,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinEditorConfiguration.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterTool.ico
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Licence.rtf
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\STL thumbnail debug.rtf
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterTool.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterTool.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterTool.pdb
@@ -14,7 +13,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterToolConfiguration.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterToolUserControls.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinComunicationHelper.dll
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinDocumentation.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinEditor.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Nevron.Chart.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Nevron.Chart.WinForm.dll
@@ -27,8 +25,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterToolConfiguration.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Marlin3DprinterToolUserControls.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinComunicationHelper.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinDocumentation.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinDocumentation.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinEditor.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\MarlinEditor.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\FastColoredTextBox.xml
@@ -41,3 +37,5 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.csproj.CoreCompileInputs.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\obj\x86\Debug\Marlin3DprinterTool.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\Newtonsoft.Json.xml

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Marlin3DprinterToolConfiguration;
 using ZylSoft.Serial;
 
@@ -619,9 +616,9 @@ namespace MarlinComunicationHelper
                     ProbeResponceList = new List<Position>();
 
                     // Activate a true licence
-                    var config = new Configuration();
+                    
 
-                    if (!string.IsNullOrEmpty(Configuration.Decrypt(config.LicenseKey)))
+                    if (!string.IsNullOrEmpty(Configuration.Decrypt(Configuration.GetInstance.LicenseKey)))
                     {
                         _serialPort.UnlockKey = "FA3450FEA2344897EFC34325BA391072";
                     }

@@ -1,3 +1,4 @@
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\bin\x86\Debug\\ArduinoIDE.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\ArduinoSyntax.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\AutoUpdater.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\FastColoredTextBox.dll
@@ -23,6 +24,7 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\Nevron.GraphicsGL.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\Nevron.Presentation.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\Nevron.System.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\AutoUpdater\bin\x86\Debug\\Newtonsoft.Json.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlConfiguration\bin\x86\Debug\\RegisterExtensionDotNet40.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolStlConfiguration\bin\x86\Debug\\RestartExplorer.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterTool\bin\x86\Debug\\TabStrip.dll

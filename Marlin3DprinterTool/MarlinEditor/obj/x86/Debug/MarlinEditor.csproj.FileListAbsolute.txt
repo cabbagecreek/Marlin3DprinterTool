@@ -19,3 +19,5 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinEditor\obj\x86\Debug\MarlinEditor.csproj.CoreCompileInputs.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinEditor\obj\x86\Debug\MarlinEditor.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinEditor\obj\x86\Debug\MarlinEditor.pdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinEditor\bin\x86\Debug\Newtonsoft.Json.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\MarlinEditor\bin\x86\Debug\Newtonsoft.Json.xml

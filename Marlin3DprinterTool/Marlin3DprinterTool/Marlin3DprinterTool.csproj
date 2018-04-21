@@ -104,10 +104,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Nevron\Nevron.Chart.WinForm.dll</HintPath>
     </Reference>
-    <Reference Include="Nevron.GraphicsGL">
-      <Private>True</Private>
-      <HintPath>..\packages\Nevron\Nevron.GraphicsGL.dll</HintPath>
-    </Reference>
     <Reference Include="Nevron.Presentation">
       <Private>True</Private>
       <HintPath>..\packages\Nevron\Nevron.Presentation.dll</HintPath>
@@ -118,12 +114,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="ZylSerialPort, Version=1.66.6164.31970, Culture=neutral, PublicKeyToken=d4d50b3b89b2e3d2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ZylSerialPort.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DelegateAndInvoke.cs" />
@@ -163,9 +160,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="STL thumbnail debug.rtf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -233,10 +227,6 @@
     <ProjectReference Include="..\MarlinComunicationHelper\MarlinComunicationHelper.csproj">
       <Project>{64426822-468d-48c2-a748-a19780cdbc8d}</Project>
       <Name>MarlinComunicationHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MarlinDocumentation\MarlinDocumentation.csproj">
-      <Project>{0909412d-4c12-49f6-9225-b60349c29d02}</Project>
-      <Name>MarlinDocumentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\MarlinEditor\MarlinEditor.csproj">
       <Project>{413041bb-8c4c-4905-9ac4-0b85119deeb7}</Project>

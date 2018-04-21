@@ -12,8 +12,7 @@ namespace MarlinEditor
 {
     public partial class FrmMigrationCompare : Form
     {
-        readonly Configuration _configuration = new Configuration();
-
+       
 
         public FrmMigrationCompare()
         {
@@ -69,7 +68,7 @@ namespace MarlinEditor
             // Load all files in current firmware
 
             DelegateListBoxItemsClear(lstBxFileNames);
-            string[] currentFirmwareFiles = Directory.GetFiles(_configuration.CurrentFirmware, "*.h");
+            string[] currentFirmwareFiles = Directory.GetFiles(Configuration.GetInstance.CurrentFirmware, "*.h");
 
 
             for (int index = 0; index < currentFirmwareFiles.Length; index++)
@@ -121,22 +120,22 @@ namespace MarlinEditor
 
 
 
-            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(_configuration.CurrentFirmware, filename));
-            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(_configuration.NewFirmware, filename));
+            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(Configuration.GetInstance.CurrentFirmware, filename));
+            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(Configuration.GetInstance.NewFirmware, filename));
 
 
 
-            if (File.Exists(Path.Combine(_configuration.CurrentFirmware, filename)))
+            if (File.Exists(Path.Combine(Configuration.GetInstance.CurrentFirmware, filename)))
             {
-                DelegateFctbOpenFile(fctbCurrentFirmware,Path.Combine(_configuration.CurrentFirmware, filename), Encoding.UTF8);
+                DelegateFctbOpenFile(fctbCurrentFirmware,Path.Combine(Configuration.GetInstance.CurrentFirmware, filename), Encoding.UTF8);
             }
-            fctbCurrentFirmware.Tag =  new FileInfo( Path.Combine(_configuration.CurrentFirmware, filename));
+            fctbCurrentFirmware.Tag =  new FileInfo( Path.Combine(Configuration.GetInstance.CurrentFirmware, filename));
 
-            if (File.Exists(Path.Combine(_configuration.NewFirmware, filename)))
+            if (File.Exists(Path.Combine(Configuration.GetInstance.NewFirmware, filename)))
             {
-                DelegateFctbOpenFile(fctbNewFirmware , Path.Combine(_configuration.NewFirmware, filename), Encoding.UTF8);
+                DelegateFctbOpenFile(fctbNewFirmware , Path.Combine(Configuration.GetInstance.NewFirmware, filename), Encoding.UTF8);
             }
-            fctbNewFirmware.Tag = new FileInfo( Path.Combine(_configuration.NewFirmware, filename));
+            fctbNewFirmware.Tag = new FileInfo( Path.Combine(Configuration.GetInstance.NewFirmware, filename));
 
 
             
@@ -226,7 +225,7 @@ namespace MarlinEditor
             lblCurrentWorkingOnFile.Visible = false;
             btnStopCompare.Visible = false;
             btnCompare.Visible = true;
-            MessageBox.Show("All files scanned for changes");
+            MessageBox.Show(@"All files scanned for changes");
         }
 
         private void btnStopCompare_Click(object sender, EventArgs e)

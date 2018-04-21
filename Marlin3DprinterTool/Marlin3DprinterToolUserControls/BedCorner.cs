@@ -12,7 +12,6 @@ namespace Marlin3DprinterToolUserControls
     public partial class BedCorner : UserControl
     {
         private CornerType _corner;
-        private readonly Configuration _configuration = new Configuration();
         private MarlinCommunication _communication;
 
         public MarlinCommunication Communication
@@ -68,24 +67,24 @@ namespace Marlin3DprinterToolUserControls
                 switch (Corner)
                 {
                     case CornerType.FrontLeftCorner:
-                        maskedTxtBxX.Text = _configuration.FrontLeftCorner.Xstring;
-                        maskedTxtBxY.Text = _configuration.FrontLeftCorner.Ystring;
+                        maskedTxtBxX.Text = Configuration.GetInstance.FrontLeftCorner.Xstring;
+                        maskedTxtBxY.Text = Configuration.GetInstance.FrontLeftCorner.Ystring;
                         break;
                     case CornerType.FrontRightCorner:
-                        maskedTxtBxX.Text = _configuration.FrontRightCorner.Xstring;
-                        maskedTxtBxY.Text = _configuration.FrontRightCorner.Ystring;
+                        maskedTxtBxX.Text = Configuration.GetInstance.FrontRightCorner.Xstring;
+                        maskedTxtBxY.Text = Configuration.GetInstance.FrontRightCorner.Ystring;
                         break;
                     case CornerType.BackLeftCorner:
-                        maskedTxtBxX.Text = _configuration.BackLeftCorner.Xstring;
-                        maskedTxtBxY.Text = _configuration.BackLeftCorner.Ystring;
+                        maskedTxtBxX.Text = Configuration.GetInstance.BackLeftCorner.Xstring;
+                        maskedTxtBxY.Text = Configuration.GetInstance.BackLeftCorner.Ystring;
                         break;
                     case CornerType.BackRightCorner:
-                        maskedTxtBxX.Text = _configuration.BackRightCorner.Xstring;
-                        maskedTxtBxY.Text = _configuration.BackRightCorner.Ystring;
+                        maskedTxtBxX.Text = Configuration.GetInstance.BackRightCorner.Xstring;
+                        maskedTxtBxY.Text = Configuration.GetInstance.BackRightCorner.Ystring;
                         break;
                     case CornerType.SafeHome:
-                        maskedTxtBxX.Text = _configuration.SafeHome.Xstring;
-                        maskedTxtBxY.Text = _configuration.SafeHome.Ystring;
+                        maskedTxtBxX.Text = Configuration.GetInstance.SafeHome.Xstring;
+                        maskedTxtBxY.Text = Configuration.GetInstance.SafeHome.Ystring;
                         break;
 
                 }
@@ -125,19 +124,19 @@ namespace Marlin3DprinterToolUserControls
             switch (Corner)
             {
                 case CornerType.FrontLeftCorner:
-                    _configuration.FrontLeftCorner = position;
+                    Configuration.GetInstance.FrontLeftCorner = position;
                     break;
                 case CornerType.FrontRightCorner:
-                    _configuration.FrontRightCorner = position;
+                    Configuration.GetInstance.FrontRightCorner = position;
                     break;
                 case CornerType.BackLeftCorner:
-                    _configuration.BackLeftCorner = position;
+                    Configuration.GetInstance.BackLeftCorner = position;
                     break;
                 case CornerType.BackRightCorner:
-                    _configuration.BackRightCorner = position;
+                    Configuration.GetInstance.BackRightCorner = position;
                     break;
                 case CornerType.SafeHome:
-                    _configuration.SafeHome = position;
+                    Configuration.GetInstance.SafeHome = position;
                     break;
 
 

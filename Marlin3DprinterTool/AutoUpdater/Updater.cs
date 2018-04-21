@@ -36,29 +36,18 @@ namespace AutoUpdater
         private void MapInfo()
         {
             MapInfo mapInfo = new MapInfo();
-            MarkerPoint myLocation = mapInfo.GetMyLocation();
-            var xmlMarkers = mapInfo.GetAllExistingMarkers();
-            mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
-            Location = myLocation;
+            MarkerPoint myLocation = new MarkerPoint();
+            myLocation = mapInfo.GetMyLocation();
+            if (myLocation != null)
+            {
+                myLocation.IsDonator = IsDonator();
+                mapInfo.InsertNewMarker(myLocation);
+                Location = myLocation;
+            }
 
 
 
-            //if (Location != null
-            //    &&
-            //    String.Equals(IsDonator().ToString(), true.ToString(), StringComparison.CurrentCultureIgnoreCase)
-            //)
-            //{
-            //    // The user has allready set a maker and donation status is not changed from that point    
-            //}
-            //else
-            //{
-            //    MapInfo mapInfo = new MapInfo();
-            //    MarkerPoint myLocation = mapInfo.GetMyLocation();
-            //    var xmlMarkers = mapInfo.GetAllExistingMarkers();
-            //    mapInfo.InsertNewMarker(myLocation, xmlMarkers, IsDonator());
-            //    Location = myLocation;
-            //}
-            
+
         }
 
         public DialogResult SearchForUpdate()

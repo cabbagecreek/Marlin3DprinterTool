@@ -97,20 +97,20 @@ namespace MarlinEditor
 
         private void ResizedFrame()
         {
-            Configuration configuration = new Configuration();
+            
             int numberOfCharacters = grpBxcurrentFirmware.Width / 7;
-            var lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
-            grpBxcurrentFirmware.Text = $"Current Firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
-            lastchar = Path.Combine(configuration.NewFirmware, ConfigurationFilename);
-            grpBxNewFirmware.Text = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
+            var lastchar = Path.Combine(Configuration.GetInstance.CurrentFirmware, ConfigurationFilename);
+            grpBxcurrentFirmware.Text = $@"Current Firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
+            lastchar = Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename);
+            grpBxNewFirmware.Text = $@"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - numberOfCharacters))} )";
 
-            Text = $"Marlin Firmware migration ({ ConfigurationFilename })";
+            Text = $@"Marlin Firmware migration ({ ConfigurationFilename })";
         }
 
 
         private void LoadFiles()
         {
-            Configuration configuration = new Configuration();
+            
 
             CheckIfNewFirmwareIsChanged();
 
@@ -128,16 +128,16 @@ namespace MarlinEditor
 
 
 
-            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename));
-            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(configuration.NewFirmware, ConfigurationFilename));
+            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(Configuration.GetInstance.CurrentFirmware, ConfigurationFilename));
+            MarlinMigrateHelper.FixCrLfProblems(Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename));
 
 
 
-            if (File.Exists(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename))) fctbCurrentFirmware.OpenFile(Path.Combine(configuration.CurrentFirmware, ConfigurationFilename), Encoding.UTF8);
-            fctbCurrentFirmware.Tag = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
+            if (File.Exists(Path.Combine(Configuration.GetInstance.CurrentFirmware, ConfigurationFilename))) fctbCurrentFirmware.OpenFile(Path.Combine(Configuration.GetInstance.CurrentFirmware, ConfigurationFilename), Encoding.UTF8);
+            fctbCurrentFirmware.Tag = Path.Combine(Configuration.GetInstance.CurrentFirmware, ConfigurationFilename);
 
-            if (File.Exists(Path.Combine(configuration.NewFirmware, ConfigurationFilename))) fctbNewFirmware.OpenFile(Path.Combine(configuration.NewFirmware, ConfigurationFilename), Encoding.UTF8);
-            fctbNewFirmware.Tag = Path.Combine(configuration.NewFirmware, ConfigurationFilename);
+            if (File.Exists(Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename))) fctbNewFirmware.OpenFile(Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename), Encoding.UTF8);
+            fctbNewFirmware.Tag = Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename);
 
 
             HighlightInvisibleChars(fctbCurrentFirmware.Range);
@@ -352,13 +352,13 @@ namespace MarlinEditor
         {
             try
             {
-                Configuration configuration = new Configuration();
-                if (File.Exists(Path.Combine(configuration.NewFirmware, ConfigurationFilename)))
+               
+                if (File.Exists(Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename)))
                 {
-                    var lastchar = Path.Combine(configuration.CurrentFirmware, ConfigurationFilename);
+                    var lastchar = Path.Combine(Configuration.GetInstance.CurrentFirmware, ConfigurationFilename);
                     lastchar = $"New firmware (...{lastchar.Substring(Math.Max(0, lastchar.Length - 40))} )";
 
-                    fctbNewFirmware.SaveToFile(Path.Combine(configuration.NewFirmware, ConfigurationFilename), Encoding.UTF8);
+                    fctbNewFirmware.SaveToFile(Path.Combine(Configuration.GetInstance.NewFirmware, ConfigurationFilename), Encoding.UTF8);
                     MessageBox.Show(@"File saved!", lastchar);
                 }
 
@@ -376,11 +376,10 @@ namespace MarlinEditor
 
         private void btnOpenArduinoIde_Click(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
             var arduino = new ArduinoIDE
             {
-                FirmwareDirectory = configuration.NewFirmware,
-                ArduinoDirectory =  configuration.ArduinoIde
+                FirmwareDirectory = Configuration.GetInstance.NewFirmware,
+                ArduinoDirectory = Configuration.GetInstance.ArduinoIde
             };
             arduino.OpenArduinoWithMarlin();
         }
@@ -461,10 +460,10 @@ namespace MarlinEditor
 
         private void chooseAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Configuration configuration = new Configuration();
+            
             FileDialog fileDialog = new OpenFileDialog();
             fileDialog.DefaultExt = "*.h";
-            fileDialog.InitialDirectory = configuration.CurrentFirmware;
+            fileDialog.InitialDirectory = Configuration.GetInstance.CurrentFirmware;
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {

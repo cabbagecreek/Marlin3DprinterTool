@@ -1,42 +1,6 @@
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterToolConfiguration.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\ArduinoSyntax.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\MarlinCommunication.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\STL thumbnail debug.rtf
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterStlViewer.exe.config
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterStlViewer.exe
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterStlViewer.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.Wpf.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterToolConfiguration.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\MarlinComunicationHelper.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\AutoUpdater.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\FastColoredTextBox.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\ZylSerialPort.dll
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterToolConfiguration.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\MarlinComunicationHelper.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.Wpf.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.Wpf.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\AutoUpdater.pdb
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\FastColoredTextBox.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\ZylSerialPort.xml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.csprojResolveAssemblyReference.cache
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\STLviewerWPF.g.cs
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer_Content.g.cs
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer_MarkupCompile.cache
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer_MarkupCompile.lref
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\STLviewerWPF.baml
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.g.resources
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.FrmStlViewer.resources
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.Properties.Resources.resources
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.csproj.GenerateResource.Cache
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.exe
-C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterToolConfiguration.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\ArduinoSyntax.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\MarlinCommunication.xml
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\STL thumbnail debug.rtf
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterStlViewer.exe.config
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterStlViewer.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterStlViewer.pdb
@@ -47,6 +11,7 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\AutoUpdater.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\FastColoredTextBox.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\ZylSerialPort.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Newtonsoft.Json.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Marlin3DprinterToolConfiguration.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\MarlinComunicationHelper.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\HelixToolkit.pdb
@@ -56,6 +21,7 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\AutoUpdater.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\FastColoredTextBox.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\ZylSerialPort.xml
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\bin\x86\Release\Newtonsoft.Json.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\STLviewerWPF.g.cs
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer_Content.g.cs
@@ -66,6 +32,6 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.FrmStlViewer.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.Properties.Resources.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.csproj.GenerateResource.Cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.csproj.CoreCompileInputs.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.pdb
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterStlViewer\obj\x86\Release\Marlin3DprinterStlViewer.csproj.CoreCompileInputs.cache

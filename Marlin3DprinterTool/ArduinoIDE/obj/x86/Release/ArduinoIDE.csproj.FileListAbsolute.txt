@@ -60,3 +60,5 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Ardu
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\obj\x86\Release\ArduinoIDE.exe
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\obj\x86\Release\ArduinoIDE.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\obj\x86\Release\ArduinoIDE.csproj.CoreCompileInputs.cache
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\bin\x86\Release\Newtonsoft.Json.dll
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\ArduinoIDE\bin\x86\Release\Newtonsoft.Json.xml

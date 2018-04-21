@@ -92,7 +92,6 @@ namespace Marlin3DprinterTool
             this.btnNozzleIsTouchingBed = new System.Windows.Forms.Button();
             this.txtBxZprobePosition = new System.Windows.Forms.TextBox();
             this.btnProbeDown = new System.Windows.Forms.Button();
-            this.txtBxDockZprobe = new System.Windows.Forms.TextBox();
             this.btnProbeUp = new System.Windows.Forms.Button();
             this.btnDockZprobe = new System.Windows.Forms.Button();
             this.aGaugeProbe = new System.Windows.Forms.AGauge();
@@ -111,6 +110,12 @@ namespace Marlin3DprinterTool
             this.btnProbeTheBed = new System.Windows.Forms.Button();
             this.panelBed = new System.Windows.Forms.Panel();
             this.bedCornerControlFrontRight = new Marlin3DprinterToolUserControls.BedCorner();
+            this.grpBxAdjusters = new System.Windows.Forms.GroupBox();
+            this.rdoBn3pointFront = new System.Windows.Forms.RadioButton();
+            this.chkListBxAdjustment = new System.Windows.Forms.CheckedListBox();
+            this.rdoBn3pointRight = new System.Windows.Forms.RadioButton();
+            this.rdoBn3pointLeft = new System.Windows.Forms.RadioButton();
+            this.rdoBn4point = new System.Windows.Forms.RadioButton();
             this.bedCornerControlFrontLeft = new Marlin3DprinterToolUserControls.BedCorner();
             this.bedAdjusterLeftSingle = new Marlin3DprinterToolUserControls.BedAdjuster();
             this.bedCornerControlBackRight = new Marlin3DprinterToolUserControls.BedCorner();
@@ -122,12 +127,6 @@ namespace Marlin3DprinterTool
             this.bedAdjusterFrontLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
             this.bedCornerControlSafeHome = new Marlin3DprinterToolUserControls.BedCorner();
             this.bedAdjusterBackLeft = new Marlin3DprinterToolUserControls.BedAdjuster();
-            this.grpBxAdjusters = new System.Windows.Forms.GroupBox();
-            this.rdoBn3pointFront = new System.Windows.Forms.RadioButton();
-            this.chkListBxAdjustment = new System.Windows.Forms.CheckedListBox();
-            this.rdoBn3pointRight = new System.Windows.Forms.RadioButton();
-            this.rdoBn3pointLeft = new System.Windows.Forms.RadioButton();
-            this.rdoBn4point = new System.Windows.Forms.RadioButton();
             this.tabPageConfigurationZprobe = new System.Windows.Forms.TabPage();
             this.grpBxBlTouch = new System.Windows.Forms.GroupBox();
             this.picBxApprovedByBLTouch = new System.Windows.Forms.PictureBox();
@@ -814,7 +813,6 @@ namespace Marlin3DprinterTool
             this.grpBxMeassureUsingProbe.Controls.Add(this.btnNozzleIsTouchingBed);
             this.grpBxMeassureUsingProbe.Controls.Add(this.txtBxZprobePosition);
             this.grpBxMeassureUsingProbe.Controls.Add(this.btnProbeDown);
-            this.grpBxMeassureUsingProbe.Controls.Add(this.txtBxDockZprobe);
             this.grpBxMeassureUsingProbe.Controls.Add(this.btnProbeUp);
             this.grpBxMeassureUsingProbe.Controls.Add(this.btnDockZprobe);
             this.grpBxMeassureUsingProbe.Controls.Add(this.aGaugeProbe);
@@ -873,9 +871,9 @@ namespace Marlin3DprinterTool
             // 
             // btnNozzleIsTouchingBed
             // 
-            this.btnNozzleIsTouchingBed.Location = new System.Drawing.Point(270, 42);
+            this.btnNozzleIsTouchingBed.Location = new System.Drawing.Point(270, 16);
             this.btnNozzleIsTouchingBed.Name = "btnNozzleIsTouchingBed";
-            this.btnNozzleIsTouchingBed.Size = new System.Drawing.Size(97, 49);
+            this.btnNozzleIsTouchingBed.Size = new System.Drawing.Size(97, 72);
             this.btnNozzleIsTouchingBed.TabIndex = 26;
             this.btnNozzleIsTouchingBed.Text = "Nozzle is touching Bed";
             this.btnNozzleIsTouchingBed.UseVisualStyleBackColor = true;
@@ -897,15 +895,6 @@ namespace Marlin3DprinterTool
             this.btnProbeDown.Text = "Probe Down";
             this.btnProbeDown.UseVisualStyleBackColor = true;
             this.btnProbeDown.Click += new System.EventHandler(this.btnProbeDown_Click);
-            // 
-            // txtBxDockZprobe
-            // 
-            this.txtBxDockZprobe.Location = new System.Drawing.Point(270, 16);
-            this.txtBxDockZprobe.Name = "txtBxDockZprobe";
-            this.txtBxDockZprobe.ReadOnly = true;
-            this.txtBxDockZprobe.Size = new System.Drawing.Size(97, 20);
-            this.txtBxDockZprobe.TabIndex = 7;
-            this.txtBxDockZprobe.TextChanged += new System.EventHandler(this.txtBxDockZprobe_TextChanged);
             // 
             // btnProbeUp
             // 
@@ -1083,7 +1072,6 @@ namespace Marlin3DprinterTool
             // tabPageConfigurationBed
             // 
             this.tabPageConfigurationBed.Controls.Add(this.panelConfigurationBedTab);
-            this.tabPageConfigurationBed.Controls.Add(this.grpBxAdjusters);
             this.tabPageConfigurationBed.Location = new System.Drawing.Point(4, 40);
             this.tabPageConfigurationBed.Name = "tabPageConfigurationBed";
             this.tabPageConfigurationBed.Size = new System.Drawing.Size(652, 576);
@@ -1121,6 +1109,7 @@ namespace Marlin3DprinterTool
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBed.BackColor = System.Drawing.SystemColors.Control;
             this.panelBed.Controls.Add(this.bedCornerControlFrontRight);
+            this.panelBed.Controls.Add(this.grpBxAdjusters);
             this.panelBed.Controls.Add(this.bedCornerControlFrontLeft);
             this.panelBed.Controls.Add(this.bedAdjusterLeftSingle);
             this.panelBed.Controls.Add(this.bedCornerControlBackRight);
@@ -1148,6 +1137,86 @@ namespace Marlin3DprinterTool
             this.bedCornerControlFrontRight.Name = "bedCornerControlFrontRight";
             this.bedCornerControlFrontRight.Size = new System.Drawing.Size(195, 65);
             this.bedCornerControlFrontRight.TabIndex = 28;
+            // 
+            // grpBxAdjusters
+            // 
+            this.grpBxAdjusters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.grpBxAdjusters.Controls.Add(this.rdoBn3pointFront);
+            this.grpBxAdjusters.Controls.Add(this.chkListBxAdjustment);
+            this.grpBxAdjusters.Controls.Add(this.rdoBn3pointRight);
+            this.grpBxAdjusters.Controls.Add(this.rdoBn3pointLeft);
+            this.grpBxAdjusters.Controls.Add(this.rdoBn4point);
+            this.grpBxAdjusters.Location = new System.Drawing.Point(207, 275);
+            this.grpBxAdjusters.Name = "grpBxAdjusters";
+            this.grpBxAdjusters.Size = new System.Drawing.Size(253, 100);
+            this.grpBxAdjusters.TabIndex = 20;
+            this.grpBxAdjusters.TabStop = false;
+            this.grpBxAdjusters.Text = "Type of Adjusters";
+            this.toolTip3DprinterTool.SetToolTip(this.grpBxAdjusters, "Assign the type of bed adjusters");
+            // 
+            // rdoBn3pointFront
+            // 
+            this.rdoBn3pointFront.AutoSize = true;
+            this.rdoBn3pointFront.Location = new System.Drawing.Point(131, 77);
+            this.rdoBn3pointFront.Name = "rdoBn3pointFront";
+            this.rdoBn3pointFront.Size = new System.Drawing.Size(84, 17);
+            this.rdoBn3pointFront.TabIndex = 33;
+            this.rdoBn3pointFront.Text = "3 point Front";
+            this.rdoBn3pointFront.UseVisualStyleBackColor = true;
+            this.rdoBn3pointFront.Visible = false;
+            this.rdoBn3pointFront.CheckedChanged += new System.EventHandler(this.rdoBn3pointFront_CheckedChanged);
+            // 
+            // chkListBxAdjustment
+            // 
+            this.chkListBxAdjustment.FormattingEnabled = true;
+            this.chkListBxAdjustment.Items.AddRange(new object[] {
+            "M3",
+            "M4",
+            "M5"});
+            this.chkListBxAdjustment.Location = new System.Drawing.Point(6, 31);
+            this.chkListBxAdjustment.Name = "chkListBxAdjustment";
+            this.chkListBxAdjustment.Size = new System.Drawing.Size(88, 49);
+            this.chkListBxAdjustment.TabIndex = 18;
+            this.toolTip3DprinterTool.SetToolTip(this.chkListBxAdjustment, "Assign the type of bed adjusters");
+            this.chkListBxAdjustment.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListBxAdjustment_ItemCheck);
+            this.chkListBxAdjustment.SelectedIndexChanged += new System.EventHandler(this.chkListBxAdjustment_SelectedIndexChanged);
+            // 
+            // rdoBn3pointRight
+            // 
+            this.rdoBn3pointRight.AutoSize = true;
+            this.rdoBn3pointRight.Location = new System.Drawing.Point(131, 54);
+            this.rdoBn3pointRight.Name = "rdoBn3pointRight";
+            this.rdoBn3pointRight.Size = new System.Drawing.Size(85, 17);
+            this.rdoBn3pointRight.TabIndex = 32;
+            this.rdoBn3pointRight.Text = "3 point Right";
+            this.rdoBn3pointRight.UseVisualStyleBackColor = true;
+            this.rdoBn3pointRight.Visible = false;
+            this.rdoBn3pointRight.CheckedChanged += new System.EventHandler(this.rdoBn3pointRight_CheckedChanged);
+            // 
+            // rdoBn3pointLeft
+            // 
+            this.rdoBn3pointLeft.AutoSize = true;
+            this.rdoBn3pointLeft.Location = new System.Drawing.Point(131, 31);
+            this.rdoBn3pointLeft.Name = "rdoBn3pointLeft";
+            this.rdoBn3pointLeft.Size = new System.Drawing.Size(78, 17);
+            this.rdoBn3pointLeft.TabIndex = 31;
+            this.rdoBn3pointLeft.Text = "3 point Left";
+            this.rdoBn3pointLeft.UseVisualStyleBackColor = true;
+            this.rdoBn3pointLeft.Visible = false;
+            this.rdoBn3pointLeft.CheckedChanged += new System.EventHandler(this.rdoBn3pointLeft_CheckedChanged);
+            // 
+            // rdoBn4point
+            // 
+            this.rdoBn4point.AutoSize = true;
+            this.rdoBn4point.Checked = true;
+            this.rdoBn4point.Location = new System.Drawing.Point(131, 8);
+            this.rdoBn4point.Name = "rdoBn4point";
+            this.rdoBn4point.Size = new System.Drawing.Size(102, 17);
+            this.rdoBn4point.TabIndex = 21;
+            this.rdoBn4point.TabStop = true;
+            this.rdoBn4point.Text = "4 point adjusters";
+            this.rdoBn4point.UseVisualStyleBackColor = true;
+            this.rdoBn4point.CheckedChanged += new System.EventHandler(this.rdoBn4point_CheckedChanged);
             // 
             // bedCornerControlFrontLeft
             // 
@@ -1550,83 +1619,6 @@ namespace Marlin3DprinterTool
             0,
             0});
             // 
-            // grpBxAdjusters
-            // 
-            this.grpBxAdjusters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpBxAdjusters.Controls.Add(this.rdoBn3pointFront);
-            this.grpBxAdjusters.Controls.Add(this.chkListBxAdjustment);
-            this.grpBxAdjusters.Controls.Add(this.rdoBn3pointRight);
-            this.grpBxAdjusters.Controls.Add(this.rdoBn3pointLeft);
-            this.grpBxAdjusters.Controls.Add(this.rdoBn4point);
-            this.grpBxAdjusters.Location = new System.Drawing.Point(373, 1068);
-            this.grpBxAdjusters.Name = "grpBxAdjusters";
-            this.grpBxAdjusters.Size = new System.Drawing.Size(253, 100);
-            this.grpBxAdjusters.TabIndex = 20;
-            this.grpBxAdjusters.TabStop = false;
-            this.grpBxAdjusters.Text = "Type of Adjusters";
-            this.toolTip3DprinterTool.SetToolTip(this.grpBxAdjusters, "Assign the type of bed adjusters");
-            // 
-            // rdoBn3pointFront
-            // 
-            this.rdoBn3pointFront.AutoSize = true;
-            this.rdoBn3pointFront.Location = new System.Drawing.Point(131, 77);
-            this.rdoBn3pointFront.Name = "rdoBn3pointFront";
-            this.rdoBn3pointFront.Size = new System.Drawing.Size(84, 17);
-            this.rdoBn3pointFront.TabIndex = 33;
-            this.rdoBn3pointFront.Text = "3 point Front";
-            this.rdoBn3pointFront.UseVisualStyleBackColor = true;
-            this.rdoBn3pointFront.CheckedChanged += new System.EventHandler(this.rdoBn3pointFront_CheckedChanged);
-            // 
-            // chkListBxAdjustment
-            // 
-            this.chkListBxAdjustment.FormattingEnabled = true;
-            this.chkListBxAdjustment.Items.AddRange(new object[] {
-            "M3",
-            "M4",
-            "M5"});
-            this.chkListBxAdjustment.Location = new System.Drawing.Point(6, 31);
-            this.chkListBxAdjustment.Name = "chkListBxAdjustment";
-            this.chkListBxAdjustment.Size = new System.Drawing.Size(88, 49);
-            this.chkListBxAdjustment.TabIndex = 18;
-            this.toolTip3DprinterTool.SetToolTip(this.chkListBxAdjustment, "Assign the type of bed adjusters");
-            this.chkListBxAdjustment.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListBxAdjustment_ItemCheck);
-            this.chkListBxAdjustment.SelectedIndexChanged += new System.EventHandler(this.chkListBxAdjustment_SelectedIndexChanged);
-            // 
-            // rdoBn3pointRight
-            // 
-            this.rdoBn3pointRight.AutoSize = true;
-            this.rdoBn3pointRight.Location = new System.Drawing.Point(131, 54);
-            this.rdoBn3pointRight.Name = "rdoBn3pointRight";
-            this.rdoBn3pointRight.Size = new System.Drawing.Size(85, 17);
-            this.rdoBn3pointRight.TabIndex = 32;
-            this.rdoBn3pointRight.Text = "3 point Right";
-            this.rdoBn3pointRight.UseVisualStyleBackColor = true;
-            this.rdoBn3pointRight.CheckedChanged += new System.EventHandler(this.rdoBn3pointRight_CheckedChanged);
-            // 
-            // rdoBn3pointLeft
-            // 
-            this.rdoBn3pointLeft.AutoSize = true;
-            this.rdoBn3pointLeft.Location = new System.Drawing.Point(131, 31);
-            this.rdoBn3pointLeft.Name = "rdoBn3pointLeft";
-            this.rdoBn3pointLeft.Size = new System.Drawing.Size(78, 17);
-            this.rdoBn3pointLeft.TabIndex = 31;
-            this.rdoBn3pointLeft.Text = "3 point Left";
-            this.rdoBn3pointLeft.UseVisualStyleBackColor = true;
-            this.rdoBn3pointLeft.CheckedChanged += new System.EventHandler(this.rdoBn3pointLeft_CheckedChanged);
-            // 
-            // rdoBn4point
-            // 
-            this.rdoBn4point.AutoSize = true;
-            this.rdoBn4point.Checked = true;
-            this.rdoBn4point.Location = new System.Drawing.Point(131, 8);
-            this.rdoBn4point.Name = "rdoBn4point";
-            this.rdoBn4point.Size = new System.Drawing.Size(102, 17);
-            this.rdoBn4point.TabIndex = 21;
-            this.rdoBn4point.TabStop = true;
-            this.rdoBn4point.Text = "4 point adjusters";
-            this.rdoBn4point.UseVisualStyleBackColor = true;
-            this.rdoBn4point.CheckedChanged += new System.EventHandler(this.rdoBn4point_CheckedChanged);
-            // 
             // tabPageConfigurationZprobe
             // 
             this.tabPageConfigurationZprobe.Controls.Add(this.grpBxBlTouch);
@@ -1775,7 +1767,7 @@ namespace Marlin3DprinterTool
             this.fctbAutoBedLevelResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbAutoBedLevelResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbAutoBedLevelResponce.ServiceColors")));
             this.fctbAutoBedLevelResponce.ShowLineNumbers = false;
-            this.fctbAutoBedLevelResponce.Size = new System.Drawing.Size(552, 236);
+            this.fctbAutoBedLevelResponce.Size = new System.Drawing.Size(552, 226);
             this.fctbAutoBedLevelResponce.TabIndex = 17;
             this.fctbAutoBedLevelResponce.Zoom = 100;
             // 
@@ -2066,7 +2058,7 @@ namespace Marlin3DprinterTool
             this.fctbPidResponce.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fctbPidResponce.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fctbPidResponce.ServiceColors")));
             this.fctbPidResponce.ShowLineNumbers = false;
-            this.fctbPidResponce.Size = new System.Drawing.Size(640, 334);
+            this.fctbPidResponce.Size = new System.Drawing.Size(640, 187);
             this.fctbPidResponce.TabIndex = 16;
             this.fctbPidResponce.Zoom = 100;
             // 
@@ -4392,7 +4384,7 @@ namespace Marlin3DprinterTool
             this.verticalJogZprobeHeight.MinimumSize = new System.Drawing.Size(50, 250);
             this.verticalJogZprobeHeight.Name = "verticalJogZprobeHeight";
             this.verticalJogZprobeHeight.NegativeButtonsFirst = false;
-            this.verticalJogZprobeHeight.SendCurrentPosition = false;
+            this.verticalJogZprobeHeight.SendCurrentPosition = true;
             this.verticalJogZprobeHeight.Size = new System.Drawing.Size(50, 250);
             this.verticalJogZprobeHeight.StepperMotor = "Z";
             this.verticalJogZprobeHeight.TabIndex = 27;
@@ -4402,7 +4394,7 @@ namespace Marlin3DprinterTool
             this.verticalJogZprobeHeight.Visible100Movement = true;
             this.verticalJogZprobeHeight.Visible10Movement = true;
             this.verticalJogZprobeHeight.VisibleZero = true;
-            this.verticalJogZprobeHeight.ZeroPositionAfterEachMove = true;
+            this.verticalJogZprobeHeight.ZeroPositionAfterEachMove = false;
             // 
             // btnOpenMarlin
             // 
@@ -4615,7 +4607,7 @@ namespace Marlin3DprinterTool
             this.grpBxTemperature.Controls.Add(this.chartTemperature);
             this.grpBxTemperature.Location = new System.Drawing.Point(3, 331);
             this.grpBxTemperature.Name = "grpBxTemperature";
-            this.grpBxTemperature.Size = new System.Drawing.Size(310, 292);
+            this.grpBxTemperature.Size = new System.Drawing.Size(314, 292);
             this.grpBxTemperature.TabIndex = 22;
             this.grpBxTemperature.TabStop = false;
             this.grpBxTemperature.Text = "Extruder 1          Extruder 2           Bed";
@@ -4625,7 +4617,7 @@ namespace Marlin3DprinterTool
             this.btnGetTemp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGetTemp.BackgroundImage = global::Marlin3DprinterTool.Properties.Resources.nozzle_temperature;
             this.btnGetTemp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGetTemp.Location = new System.Drawing.Point(241, 11);
+            this.btnGetTemp.Location = new System.Drawing.Point(245, 11);
             this.btnGetTemp.Name = "btnGetTemp";
             this.btnGetTemp.Size = new System.Drawing.Size(62, 34);
             this.btnGetTemp.TabIndex = 7;
@@ -4646,7 +4638,7 @@ namespace Marlin3DprinterTool
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Name = "Series1";
             this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Size = new System.Drawing.Size(304, 243);
+            this.chartTemperature.Size = new System.Drawing.Size(308, 243);
             this.chartTemperature.TabIndex = 0;
             this.chartTemperature.Text = "chart1";
             // 
@@ -5114,7 +5106,6 @@ namespace Marlin3DprinterTool
         private Button btnDockZprobe;
         private Button btnProbeDown;
         private Button btnProbeUp;
-        private TextBox txtBxDockZprobe;
         private GroupBox grpBxMeassureUsingProbe;
         private Button btnNozzleIsTouchingBed;
         private PictureBox pictureWorkInProgressZprobe;

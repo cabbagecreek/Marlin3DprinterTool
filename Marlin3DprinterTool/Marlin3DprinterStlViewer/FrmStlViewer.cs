@@ -9,8 +9,8 @@ namespace Marlin3DprinterStlViewer
     /// </summary>
     public partial class FrmStlViewer : Form
     {
-        Configuration configuration = new Configuration();
-
+       
+        
 
         /// <summary>
         /// Constructor
@@ -45,6 +45,7 @@ namespace Marlin3DprinterStlViewer
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files)
             {
+                stLviewerWPF1.ModelColor = Configuration.GetInstance.StlColor;
                 stLviewerWPF1.ViewNewStl(file);
                 break; // Only the first file. Skip the other
             }
@@ -60,7 +61,7 @@ namespace Marlin3DprinterStlViewer
         {
             if (File.Exists(Filename))
             {
-                stLviewerWPF1.ModelColor = configuration.STLcolor;
+                stLviewerWPF1.ModelColor = Configuration.GetInstance.StlColor;
                 stLviewerWPF1.ViewNewStl(Filename);
             }
         }

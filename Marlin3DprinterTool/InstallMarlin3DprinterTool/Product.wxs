@@ -41,12 +41,26 @@
 
 
 
-    <Feature Id="ProductFeature" Title="Marlin3DprinterTool" Level="1">
+    <Feature Id="ProductFeature1" Title="Marlin3DprinterTool" Level="1">
 
-      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="Common" />
+      <ComponentGroupRef Id="ProductComponentsMarlin3DprinterTool" />
       <ComponentGroupRef Id="ProductDLL"/>
-      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutM3DpT" />
       <ComponentRef Id="ApplicationShortcutDesktop" />
+      <ComponentGroupRef Id="ProgramDataPermission"/>
+
+
+
+
+    </Feature>
+    
+    <Feature Id="ProductFeature2" Title="FileExplorer STL Thumbnail Extension" Level="1">
+
+      <ComponentGroupRef Id="Common" />
+      <ComponentGroupRef Id="ProductComponentsSTLthumbnail" />
+      <ComponentGroupRef Id="ProductDLL"/>
+      <ComponentRef Id="ApplicationShortcutStl" />
       <ComponentGroupRef Id="ProgramDataPermission"/>
 
 
@@ -56,7 +70,7 @@
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <UI>
-      <UIRef Id="WixUI_Minimal" />
+      <UIRef Id="WixUI_FeatureTree" />
       <Publish Dialog="ExitDialog" 
                Control="Finish" 
                Event="DoAction" 
@@ -108,7 +122,7 @@
 
   <Fragment>
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcut" Guid="{04BCF613-9A80-4979-AEF3-F4E8576CCFBD}">
+      <Component Id="ApplicationShortcutM3DpT" Guid="{04BCF613-9A80-4979-AEF3-F4E8576CCFBD}">
         <Shortcut Id="ApplicationStartMenuShortcutMarlin3DprinterTool"
                   Name="Marlin3DprinterTool"
                   Description="Tool to configure a Marlin-based 3D printer"
@@ -116,33 +130,44 @@
                   WorkingDirectory="INSTALLFOLDER"
                   Icon ="Marlin3DprinterTool.ico"  />
         <Shortcut Id="ApplicationStartMenuShortcutMarlinEditor"
-                  Name="MarlinEditor"
+                  Name="Marlin Editor"
                   Description="Editor for Marlin-based 3D printer"
                   Target="[INSTALLFOLDER]MarlinEditor.exe"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon ="Marlin3DprinterTool.ico"  />
-        <Shortcut Id="ApplicationStartMenuShortcutMarlinStlViewer"
-                  Name="Marlin3DprinterStl"
-                  Description="STL viewer"
-                  Target="[INSTALLFOLDER]Marlin3DprinterStlViewer.exe"
-                  WorkingDirectory="INSTALLFOLDER"
-                  Icon ="Marlin3DprinterTool.ico"  />
-        <Shortcut Id="ApplicationStartMenuShortcutMarlinStlViewerConfiguration"
-                  Name="Marlin3DprinterToolStlConfiguration"
-                  Description="STL configuration"
-                  Target="[INSTALLFOLDER]Marlin3DprinterToolStlConfiguration.exe"
-                  WorkingDirectory="INSTALLFOLDER"
-                  Icon ="Marlin3DprinterTool.ico"  />
+       
+       
         <Shortcut Id="ApplicationStartMenuShortcutMarlinConfiguration"
-                  Name="MarlinConfigurator"
-                  Description="Marlin Configuration"
+                  Name="Marlin Configurator"
+                  Description="Marlin Migration and Configuration"
                   Target="[INSTALLFOLDER]MarlinConfigurator.exe"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon ="Marlin3DprinterTool.ico"  />
         
         
         
-        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolderM3DpT" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Marlin3DprinterTool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+      <Component Id="ApplicationShortcutStl" Guid="{C0AF961A-D6C3-4CAC-8027-1E949432D72C}">
+       
+        <Shortcut Id="ApplicationStartMenuShortcutMarlinStlViewer"
+                  Name="Stl Viewer"
+                  Description="STL viewer"
+                  Target="[INSTALLFOLDER]Marlin3DprinterStlViewer.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon ="Marlin3DprinterTool.ico"  />
+        <Shortcut Id="ApplicationStartMenuShortcutMarlinStlViewerConfiguration"
+                  Name="Stl Configuration"
+                  Description="STL configuration"
+                  Target="[INSTALLFOLDER]Marlin3DprinterToolStlConfiguration.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon ="Marlin3DprinterTool.ico"  />
+        
+
+
+
+        <RemoveFolder Id="RemoveApplicationProgramsFolderStl" Directory="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Marlin3DprinterTool" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </DirectoryRef>
@@ -216,6 +241,11 @@
       <Component Id="Marlin3DprinterToolUserControls.dll" Guid="{4864D9FB-2DF2-481B-B266-4B26E6957EC3}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterToolUserControls.dll" />
       </Component>
+      
+      <!-- Newtonsoft.Json.dll -->
+      <Component Id="Newtonsoft.Json.dll" Guid="{688DFFCA-B527-46A7-9C3C-488DD51FE518}">
+        <File Source="$(var.AutoUpdater.TargetDir)\Newtonsoft.Json.dll" />
+      </Component>
 
       <!-- ZylSerialPort.dll -->
       <Component Id="ZylSerialPort.dll" Guid="{72BDBCEC-F730-4D80-8061-02AB5871536C}">
@@ -286,6 +316,12 @@
         <File Source="$(var.MarlinConfigurator.TargetDir)\MarlinConfigurator.exe" />
       </Component>
 
+      <Component Id="ArduinoIDE.exe" Guid="{9F59B320-ACDE-4F49-92E3-130FC846D5E1}">
+        <File Source="$(var.ArduinoIDE.TargetDir)\ArduinoIDE.exe" />
+      </Component>
+      
+
+
     </ComponentGroup>
 
   </Fragment>
@@ -301,45 +337,10 @@
   
   
   <Fragment>
+    <ComponentGroup Id="Common" Directory="INSTALLFOLDER">
 
 
-
-    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-
-
-      <!-- Marlin3DprinterTool.exe -->
-      <Component Id="Marlin3DprinterTool.exe" Guid="{8F12C463-FAEE-4AAA-93EB-9D8F1439A19A}">
-        <File Source="$(var.Marlin3DprinterTool.TargetPath)" KeyPath="yes" Checksum="yes" />
-      </Component>
-
-
-      <!-- MarlinEditor.exe -->
-      <Component Id="MarlinEditor.exe" Guid="{188B6FAA-4934-4179-A6E3-A6D4839D955E}">
-        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditor.exe" />
-      </Component>
-
-
-      <!-- Marlin3DprinterStlViewer.exe -->
-      <Component Id="Marlin3DprinterStlViewer.exe" Guid="{73837F95-9A75-4B4F-B4C0-D64DE447A422}">
-        <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\Marlin3DprinterStlViewer.exe" />
-      </Component>
-
-      <!-- Marlin3DprinterToolStlConfiguration.exe -->
-      <Component Id="Marlin3DprinterToolStlConfiguration.exe" Guid="{9BB9435E-B50F-48F7-BCF1-73E8D34D083D}">
-        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\Marlin3DprinterToolStlConfiguration.exe" />
-      </Component>
-      
-      <!-- RestartExplorer.exe -->
-      <Component Id="RestartExplorer.exe" Guid="{149EFA5C-AD7B-4058-8F30-A2C8DC0924DB}">
-        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\RestartExplorer.exe" />
-      </Component>
-      
-      <!-- RegisterExtensionDotNet40.exe -->
-      <Component Id="RegisterExtensionDotNet40.exe" Guid="{996974BA-D0AF-4499-AD38-ACCF7E61226A}">
-        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\RegisterExtensionDotNet40.exe" />
-      </Component>
-      
-
+     
       <!-- Marlin3DprinterTool.exe.config -->
       <Component Id="Marlin3DprinterTool.exe.config" NeverOverwrite="yes" Guid="{E6A63DE8-8CBF-4DD5-A639-AD8320A1D465}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.exe.config" />
@@ -356,18 +357,10 @@
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinCommunication.xml" />
       </Component>
 
-
-
-
-
-
       <!-- Marlin3DprinterTool.ico -->
       <Component Id="Marlin3DprinterTool.ico" Guid="{A4F635B3-9EB0-41C5-A7D9-BCB84B66782E}">
         <File Source="$(var.Marlin3DprinterTool.TargetDir)\Marlin3DprinterTool.ico" />
       </Component>
-
-
-
 
       <!--Licence.rtf -->
       <Component Id="Licence.rtf" Guid="{17C56FA8-5222-47E6-8C71-23997E59755C}">
@@ -375,12 +368,61 @@
       </Component>
 
 
-      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-      <!-- <Component Id="ProductComponent"> -->
-      <!-- TODO: Insert files, registry keys, and other resources here. -->
-      <!-- </Component> -->
+     
+
+    </ComponentGroup>
+
+
+    <ComponentGroup Id="ProductComponentsMarlin3DprinterTool" Directory="INSTALLFOLDER">
+
+
+      <!-- Marlin3DprinterTool.exe -->
+      <Component Id="Marlin3DprinterTool.exe" Guid="{8F12C463-FAEE-4AAA-93EB-9D8F1439A19A}">
+        <File Source="$(var.Marlin3DprinterTool.TargetPath)" KeyPath="yes" Checksum="yes" />
+      </Component>
+
+
+      <!-- MarlinEditor.exe -->
+      <Component Id="MarlinEditor.exe" Guid="{188B6FAA-4934-4179-A6E3-A6D4839D955E}">
+        <File Source="$(var.Marlin3DprinterTool.TargetDir)\MarlinEditor.exe" />
+      </Component>
+
+
+      
+  
 
 
     </ComponentGroup>
+
+    <ComponentGroup Id="ProductComponentsSTLthumbnail" Directory="INSTALLFOLDER">
+
+
+      
+
+      <!-- Marlin3DprinterStlViewer.exe -->
+      <Component Id="Marlin3DprinterStlViewer.exe" Guid="{73837F95-9A75-4B4F-B4C0-D64DE447A422}">
+        <File Source="$(var.Marlin3DprinterStlViewer.TargetDir)\Marlin3DprinterStlViewer.exe" />
+      </Component>
+
+      <!-- Marlin3DprinterToolStlConfiguration.exe -->
+      <Component Id="Marlin3DprinterToolStlConfiguration.exe" Guid="{9BB9435E-B50F-48F7-BCF1-73E8D34D083D}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\Marlin3DprinterToolStlConfiguration.exe" />
+      </Component>
+
+      <!-- RestartExplorer.exe -->
+      <Component Id="RestartExplorer.exe" Guid="{149EFA5C-AD7B-4058-8F30-A2C8DC0924DB}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\RestartExplorer.exe" />
+      </Component>
+
+      <!-- RegisterExtensionDotNet40.exe -->
+      <Component Id="RegisterExtensionDotNet40.exe" Guid="{996974BA-D0AF-4499-AD38-ACCF7E61226A}">
+        <File Source="$(var.Marlin3DprinterToolStlConfiguration.TargetDir)\RegisterExtensionDotNet40.exe" />
+      </Component>
+
+
+     
+    </ComponentGroup>
+    
+
   </Fragment>
 </Wix>

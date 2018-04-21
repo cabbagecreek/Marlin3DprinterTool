@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStlConfiguration));
             this.grpBxInstallingStlThumbnailServer = new System.Windows.Forms.GroupBox();
             this.btnAssociateStlViewer = new System.Windows.Forms.Button();
             this.btnColorStl = new System.Windows.Forms.Button();
@@ -108,6 +109,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(428, 247);
             this.Controls.Add(this.grpBxInstallingStlThumbnailServer);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStlConfiguration";
             this.Text = "Configuration for STL thumbnails in Windows Explorer";
             this.grpBxInstallingStlThumbnailServer.ResumeLayout(false);

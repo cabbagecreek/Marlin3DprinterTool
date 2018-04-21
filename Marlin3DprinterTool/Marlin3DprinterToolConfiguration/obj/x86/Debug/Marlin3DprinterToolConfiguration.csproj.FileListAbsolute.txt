@@ -2,9 +2,11 @@ C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marl
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\Marlin3DprinterToolConfiguration.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\AutoUpdater.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\MarlinDocumentation.exe
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\Newtonsoft.Json.dll
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\AutoUpdater.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\MarlinDocumentation.pdb
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\MarlinDocumentation.exe.config
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\bin\x86\Debug\Newtonsoft.Json.xml
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\obj\x86\Debug\Marlin3DprinterToolConfiguration.csprojResolveAssemblyReference.cache
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\obj\x86\Debug\Marlin3DprinterToolConfiguration.Marlin3DprinterSetup.resources
 C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\Marlin3DprinterToolConfiguration\obj\x86\Debug\Marlin3DprinterToolConfiguration.Properties.Resources.resources

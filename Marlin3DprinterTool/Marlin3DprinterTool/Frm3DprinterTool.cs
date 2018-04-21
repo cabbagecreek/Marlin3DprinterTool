@@ -14,6 +14,7 @@ using MarlinEditor;
 using Nevron;
 using Nevron.Chart;
 using Nevron.Chart.Windows;
+using ZylSoft.Serial;
 using Configuration = Marlin3DprinterToolConfiguration.Configuration;
 using NumberConversion = Marlin3DprinterToolConfiguration.NumberConversion;
 using Position = Marlin3DprinterToolConfiguration.Position;
@@ -27,7 +28,7 @@ namespace Marlin3DprinterTool
     {
 
         private Version _currentVersion;
-        private readonly Configuration _configuration = new Configuration();
+        
 
         private readonly Position _currectPosition = new Position();
 
@@ -129,35 +130,35 @@ namespace Marlin3DprinterTool
 
         private void PopulateConfig()
         {
-            rdoBn4point.Checked = _configuration.BedType == BedTypeEnum.FourPoint;
-            rdoBn3pointLeft.Checked = _configuration.BedType == BedTypeEnum.ThreePointLeftSingle;
-            rdoBn3pointFront.Checked = _configuration.BedType == BedTypeEnum.ThreePointFrontSingle;
-            rdoBn3pointRight.Checked = _configuration.BedType == BedTypeEnum.ThreePointRightSingle;
+            rdoBn4point.Checked = Configuration.GetInstance.BedType == BedTypeEnum.FourPoint;
+            rdoBn3pointLeft.Checked = Configuration.GetInstance.BedType == BedTypeEnum.ThreePointLeftSingle;
+            rdoBn3pointFront.Checked = Configuration.GetInstance.BedType == BedTypeEnum.ThreePointFrontSingle;
+            rdoBn3pointRight.Checked = Configuration.GetInstance.BedType == BedTypeEnum.ThreePointRightSingle;
 
 
 
             RedesignBedAdjusters();
-            txtBxGcodeAssistZprobeEngage.Lines = _configuration.GcodeAssistZprobeEngage.ToArray();
-            txtBxGcodeAssistZprobeRelease.Lines = _configuration.GcodeAssistZprobeRelease.ToArray();
-            txtBxArduinoIDE.Text = _configuration.ArduinoIde;
-            trkBrZmaxTravel.Value = _configuration.ZmaxTravel;
-            numUpDnZmaxTravel.Value = _configuration.ZmaxTravel;
-            txtBxZextraDistance.Text = _configuration.ZextraDistance;
-            cmbBxZprobeXoffset.Text = _configuration.ZprobeXoffset;
-            txtBxZprobeXoffset.Text = _configuration.ZprobeXoffsetValue;
-            cmbBxZprobeYoffset.Text = _configuration.ZprobeYoffset;
-            txtBxZprobeYoffset.Text = _configuration.ZprobeYoffsetValue;
+            txtBxGcodeAssistZprobeEngage.Lines = Configuration.GetInstance.GcodeAssistZprobeEngage.ToArray();
+            txtBxGcodeAssistZprobeRelease.Lines = Configuration.GetInstance.GcodeAssistZprobeRelease.ToArray();
+            txtBxArduinoIDE.Text = Configuration.GetInstance.ArduinoIde;
+            trkBrZmaxTravel.Value = Configuration.GetInstance.ZmaxTravel;
+            numUpDnZmaxTravel.Value = Configuration.GetInstance.ZmaxTravel;
+            txtBxZextraDistance.Text = Configuration.GetInstance.ZextraDistance;
+            cmbBxZprobeXoffset.Text = Configuration.GetInstance.ZprobeXoffset;
+            txtBxZprobeXoffset.Text = Configuration.GetInstance.ZprobeXoffsetValue;
+            cmbBxZprobeYoffset.Text = Configuration.GetInstance.ZprobeYoffset;
+            txtBxZprobeYoffset.Text = Configuration.GetInstance.ZprobeYoffsetValue;
 
 
             for (var i = 0; i < chkListBxAdjustment.Items.Count; i++)
             {
-                if ((string) chkListBxAdjustment.Items[i] == _configuration.Adjuster)
+                if ((string) chkListBxAdjustment.Items[i] == Configuration.GetInstance.Adjuster)
                 {
                     chkListBxAdjustment.SetItemChecked(i, true);
                 }
             }
 
-            chkBxBlTouch.Checked = _configuration.BLTouch;
+            chkBxBlTouch.Checked = Configuration.GetInstance.BLTouch;
             btnBlTouchSave.Visible = chkBxBlTouch.Checked;
             btnBlTouchResetAlarm.Visible = chkBxBlTouch.Checked;
             btnBlTouchSelftest.Visible = chkBxBlTouch.Checked;
@@ -310,7 +311,7 @@ namespace Marlin3DprinterTool
 
 
             List<Position> probePointsList = new List<Position>();
-            if (_configuration.BedType == BedTypeEnum.FourPoint)
+            if (Configuration.GetInstance.BedType == BedTypeEnum.FourPoint)
             {
                 probePointsList.Add(bedAdjusterFrontLeft.Position);
                 probePointsList.Add(bedAdjusterFrontRight.Position);
@@ -318,14 +319,14 @@ namespace Marlin3DprinterTool
                 probePointsList.Add(bedAdjusterBackLeft.Position);
             }
             else
-            if (_configuration.BedType == BedTypeEnum.ThreePointLeftSingle)
+            if (Configuration.GetInstance.BedType == BedTypeEnum.ThreePointLeftSingle)
             {
                 probePointsList.Add(bedAdjusterLeftSingle.Position);
                 probePointsList.Add(bedAdjusterFrontRight.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
             }
             else
-            if (_configuration.BedType == BedTypeEnum.ThreePointFrontSingle)
+            if (Configuration.GetInstance.BedType == BedTypeEnum.ThreePointFrontSingle)
             {
                 probePointsList.Add(bedAdjusterFrontSingle.Position);
                 probePointsList.Add(bedAdjusterBackRight.Position);
@@ -333,7 +334,7 @@ namespace Marlin3DprinterTool
             }
 
             else
-            if (_configuration.BedType == BedTypeEnum.ThreePointRightSingle)
+            if (Configuration.GetInstance.BedType == BedTypeEnum.ThreePointRightSingle)
             {
                 probePointsList.Add(bedAdjusterRightSingle.Position);
                 probePointsList.Add(bedAdjusterFrontLeft.Position);
@@ -362,7 +363,7 @@ namespace Marlin3DprinterTool
                 // move to X&Y
                 
                 
-                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+                commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{Configuration.GetInstance.ZextraDistance} {gcodeSpeed}");
                 //commands.Add("G1 Z40");
 
                 for (var i = 0; i < numberOfRepetitions; i++)
@@ -371,12 +372,12 @@ namespace Marlin3DprinterTool
                     // probe the point
                     commands.Add("G30 S-1" );
                     
-                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{Configuration.GetInstance.ZextraDistance} {gcodeSpeed}");
                 }
             }
 
            
-            commands.Add($"G1 X{_configuration.SafeHome.X}.0 Y{_configuration.SafeHome.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+            commands.Add($"G1 X{Configuration.GetInstance.SafeHome.X}.0 Y{Configuration.GetInstance.SafeHome.Y}.0 Z{Configuration.GetInstance.ZextraDistance} {gcodeSpeed}");
             
 
             _com.SendCommand(commands);
@@ -388,12 +389,12 @@ namespace Marlin3DprinterTool
 
             List<Position> probePointsList = new List<Position>();
 
-            var xMin = (int) Convert.ToDecimal(_configuration.FrontLeftCorner.X);
-            var xMax = (int) Convert.ToDecimal(_configuration.FrontRightCorner.X);
+            var xMin = (int) Convert.ToDecimal(Configuration.GetInstance.FrontLeftCorner.X);
+            var xMax = (int) Convert.ToDecimal(Configuration.GetInstance.FrontRightCorner.X);
             var xStep = (xMax - xMin)/(numberOfXpoint - 1);
 
-            var yMin = (int) Convert.ToDecimal(_configuration.FrontLeftCorner.Y);
-            var yMax = (int) Convert.ToDecimal(_configuration.BackLeftCorner.Y);
+            var yMin = (int) Convert.ToDecimal(Configuration.GetInstance.FrontLeftCorner.Y);
+            var yMax = (int) Convert.ToDecimal(Configuration.GetInstance.BackLeftCorner.Y);
             var yStep = (yMax - yMin)/(numberOfYpoints - 1);
 
 
@@ -507,7 +508,7 @@ namespace Marlin3DprinterTool
                     // move to X&Y
 
 
-                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{Configuration.GetInstance.ZextraDistance} {gcodeSpeed}");
                     //commands.Add("G1 Z40");
 
                    
@@ -515,7 +516,7 @@ namespace Marlin3DprinterTool
                     // probe the point
                     commands.Add("G30 S-1");
 
-                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{_configuration.ZextraDistance} {gcodeSpeed}");
+                    commands.Add($"G1 X{probePoint.X}.0 Y{probePoint.Y}.0 Z{Configuration.GetInstance.ZextraDistance} {gcodeSpeed}");
                    
                 }
 
@@ -541,12 +542,12 @@ namespace Marlin3DprinterTool
 
         private void btnTestZprobeEngageSave_Click(object sender, EventArgs e)
         {
-            _configuration.GcodeAssistZprobeEngage = new List<string>(txtBxGcodeAssistZprobeEngage.Lines);
+            Configuration.GetInstance.GcodeAssistZprobeEngage = new List<string>(txtBxGcodeAssistZprobeEngage.Lines);
         }
 
         private void btnTestZprobeReleaseSave_Click(object sender, EventArgs e)
         {
-            _configuration.GcodeAssistZprobeRelease = new List<string>(txtBxGcodeAssistZprobeRelease.Lines);
+            Configuration.GetInstance.GcodeAssistZprobeRelease = new List<string>(txtBxGcodeAssistZprobeRelease.Lines);
         }
 
         private void btnTestZprobeRelease_Click(object sender, EventArgs e)
@@ -557,7 +558,7 @@ namespace Marlin3DprinterTool
 
         private void btnSaveArduinoIDE_Click(object sender, EventArgs e)
         {
-            _configuration.ArduinoIde = txtBxArduinoIDE.Text;
+            Configuration.GetInstance.ArduinoIde = txtBxArduinoIDE.Text;
         }
 
 
@@ -566,7 +567,7 @@ namespace Marlin3DprinterTool
         //{
         //    foreach (var item in chkListBxAdjustment.CheckedItems)
         //    {
-        //        _configuration.Adjuster = (string) item;
+        //        Configuration.GetInstance.Adjuster = (string) item;
         //        break;
         //    }
 
@@ -582,7 +583,7 @@ namespace Marlin3DprinterTool
 
         private void btnZmaxTravel_Click(object sender, EventArgs e)
         {
-            _configuration.ZmaxTravel = (int) numUpDnZmaxTravel.Value;
+            Configuration.GetInstance.ZmaxTravel = (int) numUpDnZmaxTravel.Value;
         }
 
 
@@ -741,19 +742,34 @@ namespace Marlin3DprinterTool
             try
             {
                 //var serialPorts = _com.GetExistingSerialPorts();
-                var serialPorts = _com.GetExistingSerialPorts();
-                cmbBxComPort.Items.Clear();
-                if (serialPorts.Length == 1) cmbBxComPort.Text = serialPorts[0];
-                foreach (var serialPort in serialPorts)
+                SerialCommPort[] serialPorts = SerialPort.GetExistingCommPorts();
+
+                if (serialPorts != null)
                 {
-                    cmbBxComPort.Items.Add(serialPort);
+                    cmbBxComPort.Items.Clear();
+                    foreach (var serialPort in serialPorts)
+                    {
+                        cmbBxComPort.Items.Add(serialPort);
+                    }
+
+                    cmbBxComPort.Text = string.IsNullOrEmpty(Configuration.GetInstance.ComPort)
+                        ? @"Choose COM-port"
+                        : Configuration.GetInstance.ComPort;
+
+
+                    cmbBxBaud.Text = Configuration.GetInstance.Baudrate;
                 }
-                cmbBxComPort.Text = _configuration.ComPort;
-                cmbBxBaud.Text = _configuration.Baudrate;
+                else
+                {
+                    cmbBxComPort.Text = @"No Comport found!";
+                    cmbBxBaud.Text = @"250000";
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine($"Comport error: {e.Message}");
                 cmbBxComPort.Text = @"No Comport found!";
+                cmbBxBaud.Text = @"250000";
             }
 
 
@@ -793,8 +809,8 @@ namespace Marlin3DprinterTool
 
         private void btnEngageZprobeScanSurface_Click(object sender, EventArgs e)
         {
-            var conf = new Configuration();
-            _com.SendCommand(conf.GcodeAssistZprobeEngage);
+            
+            _com.SendCommand(Configuration.GetInstance.GcodeAssistZprobeEngage);
         }
 
         private void btnScanSurface_Click(object sender, EventArgs e)
@@ -941,8 +957,8 @@ namespace Marlin3DprinterTool
 
         private void btnRetractZprobe_Click(object sender, EventArgs e)
         {
-            var conf = new Configuration();
-            _com.SendCommand(conf.GcodeAssistZprobeRelease);
+           
+            _com.SendCommand(Configuration.GetInstance.GcodeAssistZprobeRelease);
         }
 
         private void trkBarPidExtruderTemp_Scroll(object sender, EventArgs e)
@@ -1193,7 +1209,7 @@ namespace Marlin3DprinterTool
 
                             decimal fixedPoint;
 
-                            switch (_configuration.BedType)
+                            switch (Configuration.GetInstance.BedType)
                             {
                                 case BedTypeEnum.FourPoint:
                                     fixedPoint = bedAdjusterBackRight.Z;
@@ -1621,7 +1637,7 @@ namespace Marlin3DprinterTool
                         bedAdjusterRightSingle.Z = probeResponce.Z;
                     }
 
-                    DelegateAndInvoke.DelegateText(txtBxDockZprobe, probeResponce.Zstring);
+                   
 
                 }
             }
@@ -1765,8 +1781,8 @@ namespace Marlin3DprinterTool
         private void _com_Connected(object sender, EventArgs e)
         {
             btnConnect.Text = @"DisConnect";
-            _configuration.ComPort = _com.Port;
-            _configuration.Baudrate = _com.BaudRate;
+            Configuration.GetInstance.ComPort = _com.Port;
+            Configuration.GetInstance.Baudrate = _com.BaudRate;
 
             bedCornerControlBackLeft.Communication = _com;
             bedCornerControlBackRight.Communication = _com;
@@ -1886,31 +1902,31 @@ namespace Marlin3DprinterTool
             int x;
             int y;
 
-            bedAdjusterBackLeft.X = _configuration.BackLeftCorner.X;
-            bedAdjusterBackLeft.Y = _configuration.BackLeftCorner.Y;
+            bedAdjusterBackLeft.X = Configuration.GetInstance.BackLeftCorner.X;
+            bedAdjusterBackLeft.Y = Configuration.GetInstance.BackLeftCorner.Y;
 
-            bedAdjusterBackRight.X = _configuration.BackRightCorner.X;
-            bedAdjusterBackRight.Y = _configuration.BackRightCorner.Y;
+            bedAdjusterBackRight.X = Configuration.GetInstance.BackRightCorner.X;
+            bedAdjusterBackRight.Y = Configuration.GetInstance.BackRightCorner.Y;
 
-            bedAdjusterFrontLeft.X = _configuration.FrontLeftCorner.X;
-            bedAdjusterFrontLeft.Y = _configuration.FrontLeftCorner.Y;
+            bedAdjusterFrontLeft.X = Configuration.GetInstance.FrontLeftCorner.X;
+            bedAdjusterFrontLeft.Y = Configuration.GetInstance.FrontLeftCorner.Y;
 
-            bedAdjusterFrontRight.X = _configuration.FrontRightCorner.X;
-            bedAdjusterFrontRight.Y = _configuration.FrontRightCorner.Y;
+            bedAdjusterFrontRight.X = Configuration.GetInstance.FrontRightCorner.X;
+            bedAdjusterFrontRight.Y = Configuration.GetInstance.FrontRightCorner.Y;
 
-            x = (int)_configuration.FrontLeftCorner.X;
-            y = (int)(_configuration.FrontLeftCorner.Y + ((int)_configuration.BackLeftCorner.Y - (int)_configuration.FrontLeftCorner.Y));
+            x = (int)Configuration.GetInstance.FrontLeftCorner.X;
+            y = (int)(Configuration.GetInstance.FrontLeftCorner.Y + ((int)Configuration.GetInstance.BackLeftCorner.Y - (int)Configuration.GetInstance.FrontLeftCorner.Y));
             bedAdjusterLeftSingle.X = x;
             bedAdjusterLeftSingle.Y = y;
 
 
-            x = (int)(_configuration.FrontLeftCorner.X + ((int)_configuration.FrontRightCorner.X - (int)_configuration.FrontLeftCorner.X));
-            y = (int)_configuration.FrontLeftCorner.Y;
+            x = (int)(Configuration.GetInstance.FrontLeftCorner.X + ((int)Configuration.GetInstance.FrontRightCorner.X - (int)Configuration.GetInstance.FrontLeftCorner.X));
+            y = (int)Configuration.GetInstance.FrontLeftCorner.Y;
             bedAdjusterFrontSingle.X = x;
             bedAdjusterFrontSingle.Y = y;
 
-            x = (int)_configuration.FrontRightCorner.X;
-            y = (int)(_configuration.FrontRightCorner.Y + ((int)_configuration.BackRightCorner.Y - (int)_configuration.FrontRightCorner.Y));
+            x = (int)Configuration.GetInstance.FrontRightCorner.X;
+            y = (int)(Configuration.GetInstance.FrontRightCorner.Y + ((int)Configuration.GetInstance.BackRightCorner.Y - (int)Configuration.GetInstance.FrontRightCorner.Y));
             bedAdjusterRightSingle.X = x;
             bedAdjusterRightSingle.Y = y;
 
@@ -1925,7 +1941,7 @@ namespace Marlin3DprinterTool
 
             //TODO: Utrota probePoints
             List<Position> probePointsList = new List<Position>();
-            if (_configuration.BedType ==  BedTypeEnum.FourPoint)
+            if (Configuration.GetInstance.BedType ==  BedTypeEnum.FourPoint)
             {
                 //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterFrontLeft.Position);
@@ -1941,7 +1957,7 @@ namespace Marlin3DprinterTool
                 bedAdjusterRightSingle.Visible = false;
             }
             else
-            if (_configuration.BedType == BedTypeEnum.ThreePointLeftSingle)
+            if (Configuration.GetInstance.BedType == BedTypeEnum.ThreePointLeftSingle)
             {
                 //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterLeftSingle.Position);
@@ -1957,7 +1973,7 @@ namespace Marlin3DprinterTool
 
             }
             else
-            if (_configuration.BedType ==  BedTypeEnum.ThreePointFrontSingle)
+            if (Configuration.GetInstance.BedType ==  BedTypeEnum.ThreePointFrontSingle)
             {
                 //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterFrontSingle.Position);
@@ -1973,7 +1989,7 @@ namespace Marlin3DprinterTool
             }
 
             else
-            if (_configuration.BedType ==   BedTypeEnum.ThreePointRightSingle)
+            if (Configuration.GetInstance.BedType ==   BedTypeEnum.ThreePointRightSingle)
             {
                 //TODO: Utrota probePoints
                 probePointsList.Add(bedAdjusterRightSingle.Position);
@@ -2007,7 +2023,7 @@ namespace Marlin3DprinterTool
         {
             foreach (var item in chkListBxAdjustment.CheckedItems)
             {
-                _configuration.Adjuster = (string) item;
+                Configuration.GetInstance.Adjuster = (string) item;
                 break;
             }
         }
@@ -2473,7 +2489,7 @@ namespace Marlin3DprinterTool
 
         private void txtBxZextraDistance_TextChanged(object sender, EventArgs e)
         {
-            _configuration.ZextraDistance = txtBxZextraDistance.Text;
+            Configuration.GetInstance.ZextraDistance = txtBxZextraDistance.Text;
         }
 
         
@@ -2482,7 +2498,7 @@ namespace Marlin3DprinterTool
 
         private void UpdateZprobeOffset(string zprobeZoffset)
         {
-            _configuration.ZprobeZoffsetValue = zprobeZoffset;
+            Configuration.GetInstance.ZprobeZoffsetValue = zprobeZoffset;
 
         }
 
@@ -2526,20 +2542,26 @@ namespace Marlin3DprinterTool
             _com.Status = MarlinCommunication.Feature.Done;
 
             List<String> commands = new List<string>();
-            if (_configuration.GcodeAssistZprobeEngage.Count >= 1)
+            if (Configuration.GetInstance.GcodeAssistZprobeEngage.Count >= 1)
             {
-                foreach (string line in _configuration.GcodeAssistZprobeRelease)
+                foreach (string line in Configuration.GetInstance.GcodeAssistZprobeRelease)
                 {
                     commands.Add(line);
                 }
 
             }
 
+            
+
             _com.Clear();
             //commands.Add("G28 Y");
             //commands.Add("G28 X");
             //commands.Add(@"G28 Z");
+            
             commands.Add(@"G28");
+            commands.Add($"G1 Z{Configuration.GetInstance.ZextraDistance}");
+            commands.Add($"G1 X{Configuration.GetInstance.SafeHome.X} Y{Configuration.GetInstance.SafeHome.Y} ");
+            commands.Add(@"G28 Z");
             commands.Add("G30 S-1 ");
             
 
@@ -2578,22 +2600,7 @@ namespace Marlin3DprinterTool
             
         }
 
-        private void txtBxDockZprobe_TextChanged(object sender, EventArgs e)
-        {
-            //if (!string.IsNullOrEmpty(txtBxDockZprobe.Text))
-            //{
-            //    decimal dockedProbeHigh = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
-            //    decimal dockedProbeLow =  dockedProbeHigh - 1;
-            //    AGaugeRange probeRange = new AGaugeRange(Color.Green, (float) dockedProbeLow, (float) dockedProbeHigh, 5, 80)
-            //    {
-            //        Name = "Probe"
-            //    };
-
-            //    aGaugeProbe.GaugeRanges.Add(probeRange);
-                
-
-            //}
-        }
+       
 
 
 
@@ -2606,38 +2613,68 @@ namespace Marlin3DprinterTool
             
 
 
-            decimal zhome = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
-            Debug.WriteLine($"Zhome {zhome}");
+            //decimal zhome = _numberConversion.ConvertStringToDecimal(txtBxDockZprobe.Text);
+            //Debug.WriteLine($"Zhome {zhome}");
 
             
-            decimal ztouch = _currectPosition.Z;
-            Debug.WriteLine($"Ztouch {ztouch}");
+            //decimal ztouch = _currectPosition.Z;
+            //Debug.WriteLine($"Ztouch {ztouch}");
 
-            decimal zProbeOffset = zhome - ztouch;
-            Debug.WriteLine($"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})");
+            //decimal zProbeOffset = zhome - ztouch;
+            //Debug.WriteLine($"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})");
 
-            //if (zProbeOffset >= 0)
-            //{ zProbeOffset =_numberConversion.ConvertStringToDecimal("-" + _numberConversion.ConvertDecimalToString(zProbeOffset));}
+            ////if (zProbeOffset >= 0)
+            ////{ zProbeOffset =_numberConversion.ConvertStringToDecimal("-" + _numberConversion.ConvertDecimalToString(zProbeOffset));}
 
 
          
 
+            //DialogResult result = MessageBox.Show
+            //    ($@"The probe is detecting the bed at {zhome}" + Environment.NewLine +
+            //     $@"and the nozzle is touching the bed at {ztouch}." + Environment.NewLine + Environment.NewLine +
+            //     $@"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})" + Environment.NewLine +
+            //     $@"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
+            //     @"Do you want to update EEPROM with this value?", @"Z Probe offset", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1
+
+
+            //    );
+            //if (result == DialogResult.Cancel) return;
+            //if (result == DialogResult.Yes)
+            //{
+            //    _com.Status = MarlinCommunication.Feature.Done;
+            //    UpdateZprobeOffset(_numberConversion.ConvertDecimalToString(zProbeOffset));
+            //    UpdateEpromZprobeOffset(_numberConversion.ConvertDecimalToString(zProbeOffset));
+            //}
+
+            // New calculation based on M851 value
+            decimal zhome = _numberConversion.ConvertStringToDecimal(txtBxM851.Text);
+            Debug.WriteLine($"Zhome {zhome}");
+
+            decimal ztouch = _currectPosition.Z;
+            Debug.WriteLine($"Ztouch {ztouch}");
+
+            decimal zProbeOffset = zhome + ztouch;
+            Debug.WriteLine($"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})");
+
+
             DialogResult result = MessageBox.Show
-                ($@"The probe is detecting the bed at {zhome}" + Environment.NewLine +
-                 $@"and the nozzle is touching the bed at {ztouch}." + Environment.NewLine + Environment.NewLine +
-                 $@"zhome - zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})" + Environment.NewLine +
-                 $@"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
-                 @"Do you want to update EEPROM with this value?", @"Z Probe offset", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1
+            ($@"The M851 value is set to {zhome}" + Environment.NewLine +
+             $@"and the nozzle is touching the bed at {ztouch}." + Environment.NewLine + Environment.NewLine +
+             $@"M851 + zprobe = zProbeOffset ({zhome} - {ztouch} = {zProbeOffset})" + Environment.NewLine +
+             $@"The Z_PROBE_OFFSET is {zProbeOffset}." + Environment.NewLine + Environment.NewLine +
+             @"Do you want to update EEPROM with this value?", @"Z Probe offset", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1
 
 
-                );
+            );
             if (result == DialogResult.Cancel) return;
             if (result == DialogResult.Yes)
             {
-                _com.Status = MarlinCommunication.Feature.Done;
+
                 UpdateZprobeOffset(_numberConversion.ConvertDecimalToString(zProbeOffset));
                 UpdateEpromZprobeOffset(_numberConversion.ConvertDecimalToString(zProbeOffset));
             }
+
+
         }
 
         private void UpdateEpromZprobeOffset(string zProbeOffset)
@@ -2768,7 +2805,7 @@ namespace Marlin3DprinterTool
             btnBlTouchEngage.Visible = chkBxBlTouch.Checked;
             btnBlTouchRelease.Visible = chkBxBlTouch.Checked;
 
-            _configuration.BLTouch = (chkBxBlTouch.Checked);
+            Configuration.GetInstance.BLTouch = (chkBxBlTouch.Checked);
         }
 
         private void btnBlTouchResetAlarm_Click(object sender, EventArgs e)
@@ -2793,8 +2830,8 @@ namespace Marlin3DprinterTool
 
         private void btnBlTouchSave_Click(object sender, EventArgs e)
         {
-            _configuration.GcodeAssistZprobeEngage = new List<string>(txtBxGcodeAssistZprobeEngage.Lines);
-            _configuration.GcodeAssistZprobeRelease = new List<string>(txtBxGcodeAssistZprobeRelease.Lines);
+            Configuration.GetInstance.GcodeAssistZprobeEngage = new List<string>(txtBxGcodeAssistZprobeEngage.Lines);
+            Configuration.GetInstance.GcodeAssistZprobeRelease = new List<string>(txtBxGcodeAssistZprobeRelease.Lines);
         }
 
         private void timerEndstop_Tick(object sender, EventArgs e)

@@ -2,22 +2,23 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Ports;
 using System.Windows.Forms;
 using FastColoredTextBoxNS;
 using Marlin3DprinterToolConfiguration;
-using MarlinComunicationHelper;
+using ZylSoft.Serial;
 
 namespace ArduinoIDE
 {
     public partial class FrmArduinoIde : Form
     {
         
+        
 
         public string FirmwareDirectory { set; get; }
 
         public string ArduinoIdeDirectory { set; get; }
-
-        public MarlinCommunication Communication { set; get; }
+        //public MarlinCommunication Communication { set; get; }
         
 
         public FrmArduinoIde()
@@ -68,6 +69,19 @@ namespace ArduinoIDE
         private void btnProgram_Click(object sender, EventArgs e)
         {
             
+
+            if ( !File.Exists( Path.Combine( Configuration.GetInstance.ArduinoIde,"arduino.exe")))
+            {
+                DialogResult result = MessageBox.Show(@"Path to Arduino.exe is missing!" + Environment.NewLine + "Do you want to configure Arduino IDE path?","Missing path to Arduino IDE",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1);
+                if (result == DialogResult.Yes)
+                {
+                    Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
+                    setup.ShowDialog();
+
+                }
+                return;
+            }
+
 
             string arguments = " ";
             if (chkBxShowArduinoResponce.Checked) { arguments += @"-v ";}
@@ -237,13 +251,14 @@ namespace ArduinoIDE
             cmbBxArduinoComport.Items.Add(new ComboboxItemTextParameter { Text = @"Use Arduino IDE", Parameter = " " });
             try
             {
-                //var serialPorts = _com.GetExistingSerialPorts();
-                var serialPorts =   Communication.GetExistingSerialPorts();
-                if (serialPorts.Length == 1) cmbBxArduinoComport.Text = Communication.Port;
-                Configuration configuration = new Configuration();
-                cmbBxArduinoComport.Text = configuration.ComPort;
+                
+                var serialPorts = ZylSoft.Serial.SerialPort.GetExistingCommPortNames();
 
-                cmbBxArduinoComport.Items.Add(new ComboboxItemTextParameter { Text = configuration.ComPort, Parameter = configuration.ComPort });
+
+                if (serialPorts.Length == 1) cmbBxArduinoComport.Text = serialPorts[0];
+                cmbBxArduinoComport.Text = Configuration.GetInstance.ComPort;
+
+                cmbBxArduinoComport.Items.Add(new ComboboxItemTextParameter { Text = Configuration.GetInstance.ComPort, Parameter = Configuration.GetInstance.ComPort });
                 foreach (var serialPort in serialPorts)
                 {
                     cmbBxArduinoComport.Items.Add(new ComboboxItemTextParameter { Text = serialPort, Parameter = serialPort }); 
