@@ -648,33 +648,7 @@ namespace Marlin3DprinterToolConfiguration
                 xmlNode?.SetAttribute("BLTouch", value.ToString());
                 xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
             }
-        }
-
-        public bool ReverseLogic
-        {
-            get
-            {
-                var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/ReverseLogic");
-                if (xmlNode == null) return false;  // Default is false
-
-                return xmlNode.GetAttribute("BLTouch") == true.ToString();
-            }
-
-            set
-            {
-                var xml = new XmlDocument();
-                xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-                var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/ReverseLogic");
-                if (xmlNode == null)
-                {
-                    xmlNode = (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "ReverseLogic");
-                }
-                xmlNode?.SetAttribute("BLTouch", value.ToString());
-                xml.Save(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
-            }
-        }
+        } 
 
 
         /// <summary>

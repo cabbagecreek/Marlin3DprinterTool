@@ -42,9 +42,33 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\Marlin3DprinterStlViewer\Marlin3DprinterStlViewer.csproj">
+      <Name>Marlin3DprinterStlViewer</Name>
+      <Project>{cb7cdea2-d23a-4761-b7e8-e42e31cbf686}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj">
       <Name>Marlin3DprinterToolConfiguration</Name>
       <Project>{a8fe0e27-f9c1-466b-a404-28993e7f75cd}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Marlin3DprinterToolStlConfiguration\Marlin3DprinterToolStlConfiguration.csproj">
+      <Name>Marlin3DprinterToolStlConfiguration</Name>
+      <Project>{24a6d419-294c-4a8b-bcd2-233e2c9d55db}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Marlin3DprinterToolStlThumbnailProvider\Marlin3DprinterToolStlThumbnailProvider.csproj">
+      <Name>Marlin3DprinterToolStlThumbnailProvider</Name>
+      <Project>{7168404a-2b71-45e9-9bc7-c4e2277ae4b7}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

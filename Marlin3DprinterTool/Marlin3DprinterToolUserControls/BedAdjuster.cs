@@ -9,7 +9,7 @@ namespace Marlin3DprinterToolUserControls
 {
     public partial class BedAdjuster : UserControl
     {
-        readonly NumberConversion _numberConversion = new NumberConversion();
+        NumberConversion _numberConversion = new NumberConversion();
         private AdjusterType _adjuster;
         private Position _position;
         private decimal _z;
@@ -166,12 +166,12 @@ namespace Marlin3DprinterToolUserControls
 
         private void AdjusterPictureToTheLeft()
         {
-            picBxLeft.BackgroundImage = Resources.adjuster;
+            picBxLeft.BackgroundImage = Properties.Resources.adjuster;
         }
 
         private void AdjusterPictureToTheRight()
         {
-            picBxRight.BackgroundImage = Resources.adjuster;
+            picBxRight.BackgroundImage = Properties.Resources.adjuster;
         }
 
 
@@ -187,7 +187,8 @@ namespace Marlin3DprinterToolUserControls
 
 
         public decimal Fix { get; set; }
-        public bool ReverseLogic { get; set; }
+
+
 
 
         public void Calculate()
@@ -196,18 +197,8 @@ namespace Marlin3DprinterToolUserControls
 
             DelegateText(txtBxZ, _numberConversion.ConvertDecimalToString(Z));
             decimal adjust;
-            decimal diff;
-            if (ReverseLogic == false)
-            {
-                diff = Fix - Z;
-            }
-            else
-            {
-                diff = Z - Fix;
-            }
-
-
-
+            decimal diff = (Fix - Z);
+            
             if (Math.Abs(diff) < (decimal) 0.001)
             {
                 adjust = 0;
@@ -281,7 +272,7 @@ namespace Marlin3DprinterToolUserControls
             if (control.InvokeRequired)
             {
                 DelegateBackgroundImageCallback d = DelegateBackgroundImage;
-                Invoke(d, control, image);
+                this.Invoke(d, control, image);
             }
             else
             {
@@ -300,7 +291,7 @@ namespace Marlin3DprinterToolUserControls
             if (control.InvokeRequired)
             {
                 DelegateVisibleCallback d = DelegateVisible;
-                Invoke(d, control, visible);
+                this.Invoke(d, control, visible);
             }
             else
             {
@@ -317,7 +308,7 @@ namespace Marlin3DprinterToolUserControls
             if (control.InvokeRequired)
             {
                 DelegateTextCallback d = DelegateText;
-                Invoke(d, control, text);
+                this.Invoke(d, control, text);
             }
             else
             {

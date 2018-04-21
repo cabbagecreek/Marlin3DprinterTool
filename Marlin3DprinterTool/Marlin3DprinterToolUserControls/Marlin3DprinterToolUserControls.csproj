@@ -113,12 +113,6 @@
     <Compile Include="MarlinEnableValue.Designer.cs">
       <DependentUpon>MarlinEnableValue.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarlinPrecision.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MarlinPrecision.Designer.cs">
-      <DependentUpon>MarlinPrecision.cs</DependentUpon>
-    </Compile>
     <Compile Include="MarlinUpDn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,9 +157,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MarlinEnableValue.resx">
       <DependentUpon>MarlinEnableValue.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MarlinPrecision.resx">
-      <DependentUpon>MarlinPrecision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MarlinUpDn.resx">
       <DependentUpon>MarlinUpDn.cs</DependentUpon>

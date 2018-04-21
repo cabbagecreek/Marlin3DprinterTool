@@ -23,7 +23,7 @@ namespace MarlinEditor
 
 
 
-        private readonly Configuration _configuration = new Configuration();
+        
 
         private readonly string[] _keywords = { "#define","abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "Deligate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
         private readonly string[] _methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
@@ -91,7 +91,7 @@ namespace MarlinEditor
         {
             if (string.IsNullOrEmpty(FirmwareDirectory))
             {
-                FirmwareDirectory = _configuration.CurrentFirmware;
+                FirmwareDirectory = Configuration.GetInstance.CurrentFirmware;
             }
 
 
@@ -112,7 +112,7 @@ namespace MarlinEditor
         {
             if (string.IsNullOrEmpty(FirmwareDirectory))
             {
-                FirmwareDirectory = _configuration.CurrentFirmware;
+                FirmwareDirectory = Configuration.GetInstance.CurrentFirmware;
             }
 
             if (File.Exists(Path.Combine(FirmwareDirectory, @"configuration.h")))
@@ -726,7 +726,7 @@ namespace MarlinEditor
 
             if (string.IsNullOrEmpty(FirmwareDirectory))
             {
-                FirmwareDirectory = _configuration.CurrentFirmware;
+                FirmwareDirectory = Configuration.GetInstance.CurrentFirmware;
             }
 
             if (File.Exists(Path.Combine(FirmwareDirectory, @"configuration.h")))
@@ -743,18 +743,14 @@ namespace MarlinEditor
 
         private void toolStripArduinoIDE_Click(object sender, EventArgs e)
         {
-
-
-
-
-            Configuration configuration = new Configuration();
+            
 
             string workingDirectory = Path.GetDirectoryName(tsFiles.SelectedItem.Tag.ToString());
 
             DialogResult result =
             MessageBox.Show(@"Starting Arduino IDE with Marlin.ino" + Environment.NewLine + Environment.NewLine +
                             @"* Working directory: " + workingDirectory + Environment.NewLine +
-                            @"* Arduino directory: " + configuration.ArduinoIde + Environment.NewLine +
+                            @"* Arduino directory: " + Configuration.GetInstance.ArduinoIde + Environment.NewLine +
                             Environment.NewLine +
                             @"Is CallConvThiscall what you want?", @"Starting Arduino IDE with Marlin.ino",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -762,41 +758,21 @@ namespace MarlinEditor
             if (result == DialogResult.Cancel) return;
 
 
-            try
-            {
-                var compileAndUpload = new Process();
-                compileAndUpload.StartInfo.UseShellExecute = false;
-                compileAndUpload.StartInfo.RedirectStandardOutput = true;
-                compileAndUpload.StartInfo.WorkingDirectory = configuration.CurrentFirmware;
-                compileAndUpload.StartInfo.FileName = Path.Combine(configuration.ArduinoIde, "arduino.exe");
-                compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(configuration.CurrentFirmware, "marlin.ino") + "\" --upload ";
-                compileAndUpload.Start();
-                // Do not wait for the child process to exit before
-                // reading to the end of its redirected stream.
-                // p.WaitForExit();
-                // Read the output stream first and then wait.
-                // string output = compileAndUpload.StandardOutput.ReadToEnd();
-                compileAndUpload.WaitForExit();
 
-            }
-            catch (Exception exception)
-            {
-                DialogResult configResult = MessageBox.Show(@"Message: " + exception.Message + Environment.NewLine + Environment.NewLine +
-
-                                @"It looks some problem with finding the ArduinoIDE at " + Environment.NewLine +
-
-                                Path.Combine(configuration.ArduinoIde, "arduino.exe") + @"." + Environment.NewLine +
-                                Environment.NewLine +
-                                @"Do you want to configure where to find Arduino IDE?", @"Error when calling Arduini IDE",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-                if (configResult == DialogResult.Yes)
-                {
-                    Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
-                    setup.ShowDialog();
-                }
-            }
             
-            
+            var compileAndUpload = new Process();
+            compileAndUpload.StartInfo.UseShellExecute = false;
+            compileAndUpload.StartInfo.RedirectStandardOutput = true;
+            compileAndUpload.StartInfo.WorkingDirectory = Configuration.GetInstance.CurrentFirmware;
+            compileAndUpload.StartInfo.FileName = Path.Combine(Configuration.GetInstance.ArduinoIde, "arduino.exe");
+            compileAndUpload.StartInfo.Arguments = " \"" + Path.Combine(Configuration.GetInstance.CurrentFirmware, "marlin.ino") + "\" --upload ";
+            compileAndUpload.Start();
+            // Do not wait for the child process to exit before
+            // reading to the end of its redirected stream.
+            // p.WaitForExit();
+            // Read the output stream first and then wait.
+            // string output = compileAndUpload.StandardOutput.ReadToEnd();
+            compileAndUpload.WaitForExit();
         }
 
         private void toolStripMigration_Click(object sender, EventArgs e)
@@ -811,7 +787,7 @@ namespace MarlinEditor
             
             Marlin3DprinterSetup setup = new Marlin3DprinterSetup();
             setup.ShowDialog();
-            string fileName = Path.Combine(_configuration.CurrentFirmware, "configuration.h");
+            string fileName = Path.Combine(Configuration.GetInstance.CurrentFirmware, "configuration.h");
             if (File.Exists(fileName))
             {
                 CreateTab(fileName);
