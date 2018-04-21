@@ -9,17 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterTool", "Marl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinEditor", "MarlinEditor\MarlinEditor.csproj", "{413041BB-8C4C-4905-9AC4-0B85119DEEB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterStlViewer", "Marlin3DprinterStlViewer\Marlin3DprinterStlViewer.csproj", "{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinDocumentation", "MarlinDocumentation\MarlinDocumentation.csproj", "{0909412D-4C12-49F6-9225-B60349C29D02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolUserControls", "Marlin3DprinterToolUserControls\Marlin3DprinterToolUserControls.csproj", "{D2627DFC-7450-4F41-8C80-A261BFD52D34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolConfiguration", "Marlin3DprinterToolConfiguration\Marlin3DprinterToolConfiguration.csproj", "{A8FE0E27-F9C1-466B-A404-28993E7F75CD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolStlThumbnailProvider", "Marlin3DprinterToolStlThumbnailProvider\Marlin3DprinterToolStlThumbnailProvider.csproj", "{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marlin3DprinterToolStlConfiguration", "Marlin3DprinterToolStlConfiguration\Marlin3DprinterToolStlConfiguration.csproj", "{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoIDE", "ArduinoIDE\ArduinoIDE.csproj", "{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}"
 EndProject
@@ -77,18 +71,6 @@ Global
 		{413041BB-8C4C-4905-9AC4-0B85119DEEB7}.Release|x64.Build.0 = Release|x86
 		{413041BB-8C4C-4905-9AC4-0B85119DEEB7}.Release|x86.ActiveCfg = Release|x86
 		{413041BB-8C4C-4905-9AC4-0B85119DEEB7}.Release|x86.Build.0 = Release|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Debug|Any CPU.Build.0 = Debug|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Debug|x64.ActiveCfg = Debug|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Debug|x64.Build.0 = Debug|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Debug|x86.ActiveCfg = Debug|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Debug|x86.Build.0 = Debug|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Release|Any CPU.ActiveCfg = Release|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Release|Any CPU.Build.0 = Release|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Release|x64.ActiveCfg = Release|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Release|x64.Build.0 = Release|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Release|x86.ActiveCfg = Release|x86
-		{CB7CDEA2-D23A-4761-B7E8-E42E31CBF686}.Release|x86.Build.0 = Release|x86
 		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|Any CPU.Build.0 = Debug|x86
 		{0909412D-4C12-49F6-9225-B60349C29D02}.Debug|x64.ActiveCfg = Debug|x86
@@ -125,30 +107,6 @@ Global
 		{A8FE0E27-F9C1-466B-A404-28993E7F75CD}.Release|x64.Build.0 = Release|x86
 		{A8FE0E27-F9C1-466B-A404-28993E7F75CD}.Release|x86.ActiveCfg = Release|x86
 		{A8FE0E27-F9C1-466B-A404-28993E7F75CD}.Release|x86.Build.0 = Release|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Debug|Any CPU.Build.0 = Debug|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Debug|x64.ActiveCfg = Debug|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Debug|x64.Build.0 = Debug|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Debug|x86.ActiveCfg = Debug|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Debug|x86.Build.0 = Debug|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Release|Any CPU.ActiveCfg = Release|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Release|Any CPU.Build.0 = Release|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Release|x64.ActiveCfg = Release|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Release|x64.Build.0 = Release|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Release|x86.ActiveCfg = Release|x86
-		{7168404A-2B71-45E9-9BC7-C4E2277AE4B7}.Release|x86.Build.0 = Release|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Debug|Any CPU.Build.0 = Debug|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Debug|x64.ActiveCfg = Debug|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Debug|x64.Build.0 = Debug|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Debug|x86.ActiveCfg = Debug|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Debug|x86.Build.0 = Debug|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Release|Any CPU.ActiveCfg = Release|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Release|Any CPU.Build.0 = Release|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Release|x64.ActiveCfg = Release|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Release|x64.Build.0 = Release|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Release|x86.ActiveCfg = Release|x86
-		{24A6D419-294C-4A8B-BCD2-233E2C9D55DB}.Release|x86.Build.0 = Release|x86
 		{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}.Debug|Any CPU.Build.0 = Debug|x86
 		{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}.Debug|x64.ActiveCfg = Debug|x86
