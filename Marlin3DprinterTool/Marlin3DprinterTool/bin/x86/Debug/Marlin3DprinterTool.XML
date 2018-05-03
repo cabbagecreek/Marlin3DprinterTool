@@ -137,6 +137,13 @@
             <param name="kompass"></param>
             <param name="communication"></param>
         </member>
+        <member name="M:Marlin3DprinterTool.DelegateAndInvoke.Kompass(Marlin3DprinterToolUserControls.Kompass,MarlinComunicationHelper.CurrentPosition)">
+            <summary>
+            
+            </summary>
+            <param name="kompass"></param>
+            <param name="position"></param>
+        </member>
         <member name="M:Marlin3DprinterTool.DelegateAndInvoke.BindingControl(Marlin3DprinterToolUserControls.BindingControl,System.String,System.Decimal)">
             <summary>
             Adds data to the Chart for BindingControl

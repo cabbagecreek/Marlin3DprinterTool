@@ -618,7 +618,7 @@ namespace MarlinComunicationHelper
                     // Activate a true licence
                     
 
-                    if (!string.IsNullOrEmpty(Configuration.Decrypt(Configuration.GetInstance.LicenseKey)))
+                    if (!string.IsNullOrEmpty(Configuration.GetInstance.Decrypt(Configuration.GetInstance.LicenseKey)))
                     {
                         _serialPort.UnlockKey = "FA3450FEA2344897EFC34325BA391072";
                     }

@@ -656,7 +656,7 @@ namespace Marlin3DprinterToolConfiguration
         /// </summary>
         /// <param name="cryptoText"></param>
         /// <returns>Decrypted sting or null if nota able to Decrypt</returns>
-        public static string Decrypt(string cryptoText)
+        public string Decrypt(string cryptoText)
         {
             try
             {
@@ -701,7 +701,7 @@ namespace Marlin3DprinterToolConfiguration
             }
             catch (Exception e)
             {
-                MessageBox.Show($@"Decryptation errpr: {e.Message}");
+                //MessageBox.Show($@"Decryptation errpr: {e.Message}");
 
             }
 

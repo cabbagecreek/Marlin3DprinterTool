@@ -113,6 +113,7 @@
             this.progressBarDownload.Size = new System.Drawing.Size(237, 23);
             this.progressBarDownload.TabIndex = 7;
             this.progressBarDownload.Visible = false;
+            this.progressBarDownload.Click += new System.EventHandler(this.progressBarDownload_Click);
             // 
             // lblUpdate
             // 

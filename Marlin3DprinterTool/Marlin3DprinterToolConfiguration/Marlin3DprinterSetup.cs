@@ -42,7 +42,15 @@ namespace Marlin3DprinterToolConfiguration
         {
             if (String.IsNullOrEmpty(txtBxUnlockKey.Text)) return;
 
-            txtBxShowLicence.Text = Configuration.Decrypt(txtBxUnlockKey.Text).Replace(";", Environment.NewLine);
+            try
+            {
+                txtBxShowLicence.Text = Configuration.GetInstance.Decrypt(txtBxUnlockKey.Text).Replace(";", Environment.NewLine);
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show($"Decryptation Error: {e.Message}");
+            }
+            
         }
 
         private void txtBxUnlockKey_TextChanged(object sender, EventArgs e)
@@ -171,6 +179,11 @@ namespace Marlin3DprinterToolConfiguration
             Updater autoUpdater = new Updater();
             autoUpdater.CurrentVersion = CurrentVersion;
             autoUpdater.ForceUpdate();
+        }
+
+        private void btnClearLicense_Click(object sender, EventArgs e)
+        {
+            txtBxUnlockKey.Text = "";
         }
     }
 

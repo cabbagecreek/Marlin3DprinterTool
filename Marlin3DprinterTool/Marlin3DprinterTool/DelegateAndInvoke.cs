@@ -459,6 +459,24 @@ namespace Marlin3DprinterTool
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kompass"></param>
+        /// <param name="position"></param>
+        public static void Kompass(Kompass kompass, CurrentPosition position)
+        {
+            if (kompass.InvokeRequired)
+            {
+                KompassPositionCallback d = Kompass;
+                _frm3DprinterTool.Invoke(d, kompass, position);
+            }
+            else
+            {
+                kompass.CurrentPosition = position;
+            }
+        }
+
 
         /// <summary>
         /// Adds data to the Chart for BindingControl
@@ -544,6 +562,8 @@ namespace Marlin3DprinterTool
         private delegate void VerticalJogCallback(VerticalJog verticalJog, MarlinCommunication communication);
 
         private delegate void KompassCallback(Kompass kompass, MarlinCommunication communication);
+
+        private delegate void KompassPositionCallback(Kompass kompass, CurrentPosition position);
 
         private delegate void BindingControlCallback(BindingControl chartBinding, string corner, decimal zDecimal);
 

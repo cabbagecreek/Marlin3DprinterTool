@@ -155,6 +155,7 @@ namespace AutoUpdater
             }
             set
             {
+                
                 var xml = new XmlDocument();
                 xml.Load(GetConfigurationFile("Marlin3DprinterToolConfiguration.xml"));
                 var xmlNode = (XmlElement)xml.SelectSingleNode("/configuration/Location") ?? (XmlElement)CreateMissingXmlNode(xml, xml.DocumentElement, "Location");

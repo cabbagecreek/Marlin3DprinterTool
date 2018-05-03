@@ -180,17 +180,11 @@ namespace AutoUpdater
                 Close();
             }
 
+        }
 
+        private void progressBarDownload_Click(object sender, EventArgs e)
+        {
 
-
-
-
-
-
-
-
-            
-           
         }
     }
 }

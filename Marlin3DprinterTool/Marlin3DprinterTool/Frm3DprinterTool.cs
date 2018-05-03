@@ -262,6 +262,8 @@ namespace Marlin3DprinterTool
             // allways with decimalpoints
             DelegateAndInvoke.DelegateText(txtBxZprobePosition, _currectPosition.Zstring);
             DelegateAndInvoke.Gauge(aGaugeProbe, _currectPosition.Z);
+            DelegateAndInvoke.Kompass(kompass,currentPosition);
+
         }
 
 
@@ -1768,7 +1770,7 @@ namespace Marlin3DprinterTool
 
             
             DelegateAndInvoke.VerticalJog(verticalJogZprobeHeight, null);
-            DelegateAndInvoke.Kompass(kompass, null);
+            DelegateAndInvoke.Kompass(kompass,new CurrentPosition("0","0","0"));
 
             // Show temperature Chart
             DelegateAndInvoke.DelegateVisible(chartTemperature, true);

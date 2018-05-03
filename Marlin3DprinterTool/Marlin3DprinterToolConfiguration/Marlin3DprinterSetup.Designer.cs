@@ -59,6 +59,7 @@ namespace Marlin3DprinterToolConfiguration
             this.lblDirectoryCurrentFirmware = new System.Windows.Forms.Label();
             this.tabPageForceUpdate = new System.Windows.Forms.TabPage();
             this.btnForceUpdate = new System.Windows.Forms.Button();
+            this.btnClearLicense = new System.Windows.Forms.Button();
             this.tabControlSetup.SuspendLayout();
             this.tabPageLicense.SuspendLayout();
             this.grpBxLicensedTo.SuspendLayout();
@@ -94,6 +95,7 @@ namespace Marlin3DprinterToolConfiguration
             // 
             // grpBxLicensedTo
             // 
+            this.grpBxLicensedTo.Controls.Add(this.btnClearLicense);
             this.grpBxLicensedTo.Controls.Add(this.btnPayPal);
             this.grpBxLicensedTo.Controls.Add(this.btnSave);
             this.grpBxLicensedTo.Controls.Add(this.txtBxShowLicence);
@@ -162,7 +164,7 @@ namespace Marlin3DprinterToolConfiguration
             this.txtBxUnlockKey.Location = new System.Drawing.Point(6, 19);
             this.txtBxUnlockKey.Multiline = true;
             this.txtBxUnlockKey.Name = "txtBxUnlockKey";
-            this.txtBxUnlockKey.Size = new System.Drawing.Size(758, 192);
+            this.txtBxUnlockKey.Size = new System.Drawing.Size(699, 192);
             this.txtBxUnlockKey.TabIndex = 1;
             this.txtBxUnlockKey.TextChanged += new System.EventHandler(this.txtBxUnlockKey_TextChanged);
             // 
@@ -353,6 +355,16 @@ namespace Marlin3DprinterToolConfiguration
             this.btnForceUpdate.UseVisualStyleBackColor = true;
             this.btnForceUpdate.Click += new System.EventHandler(this.btnForceUpdate_Click);
             // 
+            // btnClearLicense
+            // 
+            this.btnClearLicense.Location = new System.Drawing.Point(711, 17);
+            this.btnClearLicense.Name = "btnClearLicense";
+            this.btnClearLicense.Size = new System.Drawing.Size(53, 194);
+            this.btnClearLicense.TabIndex = 19;
+            this.btnClearLicense.Text = "Clear    License";
+            this.btnClearLicense.UseVisualStyleBackColor = true;
+            this.btnClearLicense.Click += new System.EventHandler(this.btnClearLicense_Click);
+            // 
             // Marlin3DprinterSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -407,5 +419,6 @@ namespace Marlin3DprinterToolConfiguration
         private Label lblDirectoryCurrentFirmware;
         private TabPage tabPageForceUpdate;
         private Button btnForceUpdate;
+        private Button btnClearLicense;
     }
 }

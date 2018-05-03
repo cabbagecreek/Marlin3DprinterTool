@@ -8,6 +8,7 @@ namespace Marlin3DprinterToolUserControls
     public partial class Kompass : UserControl
     {
         private MarlinCommunication _marlinCommunication;
+        private CurrentPosition _currentPosition;
 
         /// <summary>
         /// Construktor
@@ -31,6 +32,18 @@ namespace Marlin3DprinterToolUserControls
                 {
                     _marlinCommunication.M114GetCurrentPosition += _marlinCommunication_M114GetCurrentPosition;
                 }
+            }
+        }
+
+        public CurrentPosition CurrentPosition
+        {
+            get => _currentPosition;
+            set
+            {
+                _currentPosition = value;
+                txtBxX.Text = _currentPosition.Xdecimal.ToString().Replace(",", ".");
+                txtBxY.Text = _currentPosition.Ydecimal.ToString().Replace(",", ".");
+                txtBxZ.Text = _currentPosition.Zdecimal.ToString().Replace(",", ".");
             }
         }
 

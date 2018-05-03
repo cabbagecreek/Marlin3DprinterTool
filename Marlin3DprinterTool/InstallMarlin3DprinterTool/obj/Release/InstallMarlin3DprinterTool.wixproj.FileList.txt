@@ -1,8 +1,8 @@
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.msi
 C:\Users\JOHLIN\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.wixpdb
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.msi
+C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.wixpdb
 obj\Release\Product.wixobj
 obj\Release\InstallMarlin3DprinterTool.wixproj.BindContentsFileListnull.txt
 obj\Release\InstallMarlin3DprinterTool.wixproj.BindOutputsFileListnull.txt
 obj\Release\InstallMarlin3DprinterTool.wixproj.BindBuiltOutputsFileListnull.txt
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.msi
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Release\Marlin3DprinterTool.wixpdb

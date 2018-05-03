@@ -101,8 +101,8 @@ namespace Marlin3DprinterToolUserControls
 
         private void btnPin_Click(object sender, EventArgs e)
         {
-            maskedTxtBxX.Text = Communication.CurrentPosition.Xstring;
-            maskedTxtBxY.Text = Communication.CurrentPosition.Ystring;
+            maskedTxtBxX.Text = Convert.ToInt16( Communication.CurrentPosition.X).ToString();
+            maskedTxtBxY.Text = Convert.ToInt16( Communication.CurrentPosition.Y).ToString();
         }
 
 
@@ -112,7 +112,9 @@ namespace Marlin3DprinterToolUserControls
             // Lift
 
             commands.Add($"G1 X{maskedTxtBxX.Text} Y{maskedTxtBxY.Text} F6000" );
+            commands.Add("M114");
             Communication.SendCommand(commands);
+            
 
         }
 
