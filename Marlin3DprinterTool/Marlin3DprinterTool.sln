@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinComunicationHelper", "MarlinComunicationHelper\MarlinComunicationHelper.csproj", "{64426822-468D-48C2-A748-A19780CDBC8D}"
 EndProject
@@ -24,8 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoIDE", "ArduinoIDE\ArduinoIDE.csproj", "{869FCFAD-FDF5-43AE-93AF-9906B8BD98DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater", "AutoUpdater\AutoUpdater.csproj", "{91DF7112-9B3C-4315-9D8A-B55B056D8D1F}"
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "InstallMarlin3DprinterTool", "InstallMarlin3DprinterTool\InstallMarlin3DprinterTool.wixproj", "{E1AFA47A-61A0-4C47-8794-7497241A8300}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinConfigurator", "MarlinConfigurator\MarlinConfigurator.csproj", "{7D808E0C-A421-42AF-ACFF-849BDB2ABAFA}"
 EndProject
@@ -173,14 +171,6 @@ Global
 		{91DF7112-9B3C-4315-9D8A-B55B056D8D1F}.Release|x64.Build.0 = Release|x86
 		{91DF7112-9B3C-4315-9D8A-B55B056D8D1F}.Release|x86.ActiveCfg = Release|x86
 		{91DF7112-9B3C-4315-9D8A-B55B056D8D1F}.Release|x86.Build.0 = Release|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Debug|x64.ActiveCfg = Debug|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Debug|x86.ActiveCfg = Debug|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Debug|x86.Build.0 = Debug|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|Any CPU.ActiveCfg = Release|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|x64.ActiveCfg = Release|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|x86.ActiveCfg = Release|x86
-		{E1AFA47A-61A0-4C47-8794-7497241A8300}.Release|x86.Build.0 = Release|x86
 		{7D808E0C-A421-42AF-ACFF-849BDB2ABAFA}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{7D808E0C-A421-42AF-ACFF-849BDB2ABAFA}.Debug|Any CPU.Build.0 = Debug|x86
 		{7D808E0C-A421-42AF-ACFF-849BDB2ABAFA}.Debug|x64.ActiveCfg = Debug|x86

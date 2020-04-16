@@ -92,25 +92,23 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
-      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FastColoredTextBox, Version=2.16.24.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FCTB.2.16.24\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="Nevron.Chart">
-      <Private>True</Private>
-      <HintPath>..\packages\Nevron\Nevron.Chart.dll</HintPath>
+      <HintPath>..\packages\Nevron.Chart.dll</HintPath>
     </Reference>
     <Reference Include="Nevron.Chart.WinForm">
-      <Private>True</Private>
-      <HintPath>..\packages\Nevron\Nevron.Chart.WinForm.dll</HintPath>
+      <HintPath>..\packages\Nevron.Chart.WinForm.dll</HintPath>
+    </Reference>
+    <Reference Include="Nevron.GraphicsGL">
+      <HintPath>..\packages\Nevron.GraphicsGL.dll</HintPath>
     </Reference>
     <Reference Include="Nevron.Presentation">
-      <Private>True</Private>
-      <HintPath>..\packages\Nevron\Nevron.Presentation.dll</HintPath>
+      <HintPath>..\packages\Nevron.Presentation.dll</HintPath>
     </Reference>
     <Reference Include="Nevron.System">
-      <Private>True</Private>
-      <HintPath>..\packages\Nevron\Nevron.System.dll</HintPath>
+      <HintPath>..\packages\Nevron.System.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

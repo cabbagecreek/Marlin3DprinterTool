@@ -1,6 +1,0 @@
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Debug\Marlin3DprinterTool.msi
-C:\Users\Johnnyboy\Documents\GitHub\Marlin3DprinterTool\Marlin3DprinterTool\InstallMarlin3DprinterTool\bin\Debug\Marlin3DprinterTool.wixpdb
-obj\Debug\Product.wixobj
-obj\Debug\InstallMarlin3DprinterTool.wixproj.BindContentsFileListnull.txt
-obj\Debug\InstallMarlin3DprinterTool.wixproj.BindOutputsFileListnull.txt
-obj\Debug\InstallMarlin3DprinterTool.wixproj.BindBuiltOutputsFileListnull.txt
